@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dict>
+	<key>sparInfo</key>
+	<string>Need spar to build fighters.You can get spar by killing enemies or restore.</string>
+	<key>gemInfo</key>
+	<string>You can use gems to upgrade fighters or buy special weapons.You may get gems by killing enemies.Bigger enemies are likely to drop more.</string>
+	
+	<key>fighter1</key>
+	<string>Light Fighter is good choice in the beginning.</string>
+	<key>fighter2</key>
+	<string>Alloy Fighter has good defence but little attack.</string>
+	<key>fighter3</key>
+	<string>Light Fighter</string>
+	<key>fighter4</key>
+	<string>Light Fighter</string>
+	<key>fighter5</key>
+	<string>Light Fighter</string>
+	<key>fighter6</key>
+	<string>Light Fighter</string>
+	
+	<key>fighterLocked</key>
+	<string>Fighter Locked</string>
+	
+	<key>weapon1</key>
+	<string>Interstellar bomb.</string>
+	<key>weapon2</key>
+	<string>Laser emitter.</string>
+	<key>weapon3</key>
+	<string>Black hold.</string>
+	
+	<key>weaponLocked</key>
+	<string>Weapon locked.</string>
+	
+</dict>

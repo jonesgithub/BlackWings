@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>frames</key>
+	<dict>
+		<key>m_4_p_1.png</key>
+		<dict>
+			<key>frame</key>
+			<string>{{2,2},{410,313}}</string>
+			<key>offset</key>
+			<string>{0,0}</string>
+			<key>rotated</key>
+			<false/>
+			<key>sourceColorRect</key>
+			<string>{{0,0},{410,313}}</string>
+			<key>sourceSize</key>
+			<string>{410,313}</string>
+		</dict>
+		<key>m_4_p_2.png</key>
+		<dict>
+			<key>frame</key>
+			<string>{{2,317},{406,406}}</string>
+			<key>offset</key>
+			<string>{0,0}</string>
+			<key>rotated</key>
+			<false/>
+			<key>sourceColorRect</key>
+			<string>{{0,0},{406,406}}</string>
+			<key>sourceSize</key>
+			<string>{406,406}</string>
+		</dict>
+	</dict>
+	<key>metadata</key>
+	<dict>
+		<key>format</key>
+		<integer>2</integer>
+		<key>realTextureFileName</key>
+		<string>map_4.png</string>
+		<key>size</key>
+		<string>{414,725}</string>
+		<key>smartupdate</key>
+		<string>$TexturePacker:SmartUpdate:bf5cefbdad2495a47a3172a03aa496e8$</string>
+		<key>textureFileName</key>
+		<string>map_4.png</string>
+	</dict>
+</dict>
+</plist>

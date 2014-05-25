@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dict>
+  <!-- 主菜单 -->
+	<key>mainMenuStart</key>
+	<string>PLAY</string>
+	<key>mainMenuHelp</key>
+	<string>HELP</string>
+	<key>mainMenuSettings</key>
+	<string>OPTIONS</string>
+	<key>mainMenuAbout</key>
+	<string>ABOUT</string>
+	
+	<!-- 主菜单-设置 -->
+	<key>settingMusic</key>
+	<string>MUSIC</string>
+	<key>settingSFX</key>
+	<string>SFX</string>
+	<key>settingSelLanguage</key>
+	<string>选择语言</string>
+	<key>settingLanguage</key>
+	<string>ENGLISH</string>
+	<key>settingReset</key>
+	<string>RESET GAME</string>
+	<key>settingRedeemCode</key>
+	<string>兑换码</string>
+	<key>settingRedeem</key>
+	<string>兑换</string>
+	<key>settingRedeemHintText</key>
+	<string>输入兑换码</string>
+	<key>settingResetTipTitle</key>
+	<string>Tlip:</string>
+	<key>settingResetTipContent</key>
+	<string>All game data and gems will be cleared!Are you sure?</string>
+	<key>settingResetConfirm</key>
+	<string>OK</string>
+	<key>settingResetCancel</key>
+	<string>CANCEL</string>
+	<key>settingResetNotification</key>
+	<string>All data cleared!Now you can start new adventure!</string>
+	<key>settingResume</key>
+	<string>RESUME</string>
+	<key>settingRetry</key>
+	<string>RETRY</string>
+	<key>settingBackToBase</key>
+	<string>BACK TO BASE</string>
+	
+	<key>helpTitle</key>
+	<string>•HELP•</string>
+	
+	<!-- 主菜单-关于 -->
+	<key>aboutVersions</key>
+	<string>BlackWings V1.0</string>
+	<key>aboutMicroblog</key>
+	<string>SINA MICROBLOG</string>
+	<key>aboutEmail</key>
+	<string>E-MAIL</string>
+	<key>aboutRate</key>
+	<string>★★★★★</string>
+	<key>aboutRateAppreciation</key>
+	<string>Please rate this game,Thank you! :)</string>
+	
+</dict>

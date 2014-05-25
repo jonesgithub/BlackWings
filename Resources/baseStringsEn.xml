@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dict>
+  <!-- 基地 -->
+	<key>topBarMedal</key>
+	<string>MEDAL</string>
+	<key>topBarBattle</key>
+	<string>BETTLE</string>
+	<key>topBarMainMenu</key>
+	<string>MAIN MENU</string>
+	
+	<!-- 基地-升级 -->
+	<key>upgrade</key>
+	<string>UPGRADE</string>
+	<key>upgradeLevel</key>
+	<string>LEVEL:</string>
+	<key>upgradeAtt</key>
+	<string>ATT:</string>
+	<key>upgradeDef</key>
+	<string>DEF:</string>
+	<key>upgradeLife</key>
+	<string>LIFE:</string>
+	<key>upgradeSpd</key>
+	<string>SPD:</string>
+	<key>upgradeRange</key>
+	<string>RANGE:</string>
+	
+	<!-- 基地-武器 -->
+	<key>weaponQuantity</key>
+	<string>QTY:</string>
+</dict>

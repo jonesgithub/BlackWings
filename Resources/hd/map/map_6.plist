@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>frames</key>
+	<dict>
+		<key>m_6_p_1.png</key>
+		<dict>
+			<key>frame</key>
+			<string>{{2,2},{288,226}}</string>
+			<key>offset</key>
+			<string>{0,0}</string>
+			<key>rotated</key>
+			<false/>
+			<key>sourceColorRect</key>
+			<string>{{0,0},{288,226}}</string>
+			<key>sourceSize</key>
+			<string>{288,226}</string>
+		</dict>
+		<key>m_6_p_2.png</key>
+		<dict>
+			<key>frame</key>
+			<string>{{2,230},{400,393}}</string>
+			<key>offset</key>
+			<string>{0,0}</string>
+			<key>rotated</key>
+			<false/>
+			<key>sourceColorRect</key>
+			<string>{{0,0},{400,393}}</string>
+			<key>sourceSize</key>
+			<string>{400,393}</string>
+		</dict>
+	</dict>
+	<key>metadata</key>
+	<dict>
+		<key>format</key>
+		<integer>2</integer>
+		<key>realTextureFileName</key>
+		<string>map_6.png</string>
+		<key>size</key>
+		<string>{404,625}</string>
+		<key>smartupdate</key>
+		<string>$TexturePacker:SmartUpdate:414297c6088b436fa3aef093ee8ddbbc$</string>
+		<key>textureFileName</key>
+		<string>map_6.png</string>
+	</dict>
+</dict>
+</plist>

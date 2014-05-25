@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dict>
+	<key>sparInfo</key>
+	<string>在战斗中消耗晶石建造你的战机，晶石会随着时间慢慢增长，也可以通过杀死敌人获得。</string>
+	<key>gemInfo</key>
+	<string>宝石可以升级你的战机或购买特殊武器，在战斗中杀死敌人有可能获得。
+		ps:那些大型敌人会掉落更多的宝石。</string>
+	
+	<key>fighter1</key>
+	<string>•轻型战机•各方面性能都比较普通，但建造它并不需要太多晶石，可以用来在作战前期把握先机。</string>
+	<key>fighter2</key>
+	<string>•合金甲战机•拥有强大的生命力，坚固的外壳让它能抵御更多敌人的攻击。
+		“但我的炮管却小得可怜…”，一位合金战机的驾驶员这样抱怨。</string>
+	<key>fighter3</key>
+	<string>•导弹战机•</string>
+	<key>fighter4</key>
+	<string>•光束战机•</string>
+	<key>fighter5</key>
+	<string>•磁力战机•</string>
+	<key>fighter6</key>
+	<string>•黑色之翼•</string>
+	
+	<key>fighterLocked</key>
+	<string>Fighter Locked</string>
+	
+	<key>weapon1</key>
+	<string>星际炸弹</string>
+	<key>weapon2</key>
+	<string>激光发射器</string>
+	<key>weapon3</key>
+	<string>黑洞</string>
+	
+	<key>weaponLocked</key>
+	<string>Weapon locked.</string>
+	
+</dict>

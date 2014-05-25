@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>frames</key>
+	<dict>
+		<key>upgrade_box.png</key>
+		<dict>
+			<key>frame</key>
+			<string>{{2,2},{251,181}}</string>
+			<key>offset</key>
+			<string>{0,0}</string>
+			<key>rotated</key>
+			<false/>
+			<key>sourceColorRect</key>
+			<string>{{0,0},{251,181}}</string>
+			<key>sourceSize</key>
+			<string>{251,181}</string>
+		</dict>
+		<key>upgrade_box_bg.png</key>
+		<dict>
+			<key>frame</key>
+			<string>{{103,185},{51,35}}</string>
+			<key>offset</key>
+			<string>{0,0}</string>
+			<key>rotated</key>
+			<false/>
+			<key>sourceColorRect</key>
+			<string>{{0,0},{51,35}}</string>
+			<key>sourceSize</key>
+			<string>{51,35}</string>
+		</dict>
+		<key>upgrade_box_mini.png</key>
+		<dict>
+			<key>frame</key>
+			<string>{{2,185},{99,137}}</string>
+			<key>offset</key>
+			<string>{0,0}</string>
+			<key>rotated</key>
+			<false/>
+			<key>sourceColorRect</key>
+			<string>{{0,0},{99,137}}</string>
+			<key>sourceSize</key>
+			<string>{99,137}</string>
+		</dict>
+	</dict>
+	<key>metadata</key>
+	<dict>
+		<key>format</key>
+		<integer>2</integer>
+		<key>realTextureFileName</key>
+		<string>upgrade.png</string>
+		<key>size</key>
+		<string>{255,324}</string>
+		<key>smartupdate</key>
+		<string>$TexturePacker:SmartUpdate:1b09f1f56f63ce012bab69f86d7ba9d1$</string>
+		<key>textureFileName</key>
+		<string>upgrade.png</string>
+	</dict>
+</dict>
+</plist>

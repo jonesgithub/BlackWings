@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dict>
+	<key>topBarMedal</key>
+	<string>勋章</string>
+	<key>topBarBattle</key>
+	<string>关卡</string>
+	<key>topBarMainMenu</key>
+	<string>主界面</string>
+
+	<key>upgrade</key>
+	<string>提升等级</string>
+	<key>upgradeLevel</key>
+	<string>等级：</string>
+	<key>upgradeAtt</key>
+	<string>攻击：</string>
+	<key>upgradeDef</key>
+	<string>防御：</string>
+	<key>upgradeLife</key>
+	<string>生命：</string>
+	<key>upgradeSpd</key>
+	<string>速度：</string>
+	<key>upgradeRange</key>
+	<string>射程：</string>
+
+	<key>weaponQuantity</key>
+	<string>数量：</string>
+</dict>

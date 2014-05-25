@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dict>
+  <!-- 主菜单 -->
+	<key>mainMenuStart</key>
+	<string>开始</string>
+	<key>mainMenuHelp</key>
+	<string>帮助</string>
+	<key>mainMenuSettings</key>
+	<string>设置</string>
+	<key>mainMenuAbout</key>
+	<string>关于</string>
+	
+	<!-- 主菜单-设置 -->
+	<key>settingMusic</key>
+	<string>背景音乐</string>
+	<key>settingSFX</key>
+	<string>效果音</string>
+	<key>settingSelLanguage</key>
+	<string>LANGUAGE</string>
+	<key>settingLanguage</key>
+	<string>简体中文</string>
+	<key>settingReset</key>
+	<string>清除游戏存档</string>
+	<key>settingRedeemCode</key>
+	<string>兑换码</string>
+	<key>settingRedeem</key>
+	<string>兑换</string>
+	<key>settingRedeemHintText</key>
+	<string>输入兑换码</string>
+	<key>settingResetTipTitle</key>
+	<string>提示：</string>
+	<key>settingResetTipContent</key>
+	<string>清除游戏存档将会删除所有游戏数据和所有宝石！确定要这样做吗？</string>
+	<key>settingResetConfirm</key>
+	<string>确定</string>
+	<key>settingResetCancel</key>
+	<string>取消</string>
+	<key>settingResetNotification</key>
+	<string>存档数据已清空！现在可以开始新的冒险了！</string>
+	<key>settingResume</key>
+	<string>继续游戏</string>
+	<key>settingRetry</key>
+	<string>重新挑战</string>
+	<key>settingBackToBase</key>
+	<string>返回空间站</string>
+	
+	<key>helpTitle</key>
+	<string>•帮助•</string>
+	
+	<!-- 主菜单-关于 -->
+	<key>aboutVersions</key>
+	<string>BlackWings V1.0</string>
+	<key>aboutMicroblog</key>
+	<string>新浪微博</string>
+	<key>aboutEmail</key>
+	<string>E-MAIL</string>
+	<key>aboutRate</key>
+	<string>★★★★★</string>
+	<key>aboutRateAppreciation</key>
+	<string>给我一个评分吧，谢谢！:)</string>
+	
+</dict>
