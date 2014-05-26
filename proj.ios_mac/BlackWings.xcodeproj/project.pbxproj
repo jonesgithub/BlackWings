@@ -36,8 +36,6 @@
 		266A3D1C1932375B00752AFB /* helpInfoEn.xml in Resources */ = {isa = PBXBuildFile; fileRef = 266A3D0C1932375B00752AFB /* helpInfoEn.xml */; };
 		266A3D1D1932375B00752AFB /* particleTexture.png in Resources */ = {isa = PBXBuildFile; fileRef = 266A3D0D1932375B00752AFB /* particleTexture.png */; };
 		266A3D1E1932375B00752AFB /* particleTexture.png in Resources */ = {isa = PBXBuildFile; fileRef = 266A3D0D1932375B00752AFB /* particleTexture.png */; };
-		266A3D1F1932375B00752AFB /* sd in Resources */ = {isa = PBXBuildFile; fileRef = 266A3D0E1932375B00752AFB /* sd */; };
-		266A3D201932375B00752AFB /* sd in Resources */ = {isa = PBXBuildFile; fileRef = 266A3D0E1932375B00752AFB /* sd */; };
 		266A3D211932375B00752AFB /* stringsCh.xml in Resources */ = {isa = PBXBuildFile; fileRef = 266A3D0F1932375B00752AFB /* stringsCh.xml */; };
 		266A3D221932375B00752AFB /* stringsCh.xml in Resources */ = {isa = PBXBuildFile; fileRef = 266A3D0F1932375B00752AFB /* stringsCh.xml */; };
 		266A3D231932375B00752AFB /* stringsEn.xml in Resources */ = {isa = PBXBuildFile; fileRef = 266A3D101932375B00752AFB /* stringsEn.xml */; };
@@ -290,7 +288,6 @@
 		266A3D0B1932375B00752AFB /* helpInfoCh.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = helpInfoCh.xml; sourceTree = "<group>"; };
 		266A3D0C1932375B00752AFB /* helpInfoEn.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = helpInfoEn.xml; sourceTree = "<group>"; };
 		266A3D0D1932375B00752AFB /* particleTexture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = particleTexture.png; sourceTree = "<group>"; };
-		266A3D0E1932375B00752AFB /* sd */ = {isa = PBXFileReference; lastKnownFileType = folder; path = sd; sourceTree = "<group>"; };
 		266A3D0F1932375B00752AFB /* stringsCh.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = stringsCh.xml; sourceTree = "<group>"; };
 		266A3D101932375B00752AFB /* stringsEn.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = stringsEn.xml; sourceTree = "<group>"; };
 		266ACAC419323E2A004DF401 /* AppDelegate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AppDelegate.cpp; path = ../Classes/AppDelegate.cpp; sourceTree = "<group>"; };
@@ -650,7 +647,6 @@
 				266A3D0B1932375B00752AFB /* helpInfoCh.xml */,
 				266A3D0C1932375B00752AFB /* helpInfoEn.xml */,
 				266A3D0D1932375B00752AFB /* particleTexture.png */,
-				266A3D0E1932375B00752AFB /* sd */,
 				266A3D0F1932375B00752AFB /* stringsCh.xml */,
 				266A3D101932375B00752AFB /* stringsEn.xml */,
 				1AFAF8B916D35E4900DB1158 /* CloseNormal.png */,
@@ -832,7 +828,6 @@
 				5087E77F17EB970100C73F5D /* Default@2x.png in Resources */,
 				50EF629917ECD46A001EB2F8 /* Icon-100.png in Resources */,
 				1AFAF8BC16D35E4900DB1158 /* CloseNormal.png in Resources */,
-				266A3D1F1932375B00752AFB /* sd in Resources */,
 				5087E78317EB970100C73F5D /* Icon-152.png in Resources */,
 				266A3D131932375B00752AFB /* baseStringsEn.xml in Resources */,
 				266A3D1D1932375B00752AFB /* particleTexture.png in Resources */,
@@ -862,7 +857,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				266A3D121932375B00752AFB /* baseStringsCh.xml in Resources */,
-				266A3D201932375B00752AFB /* sd in Resources */,
 				266A3D1A1932375B00752AFB /* helpInfoCh.xml in Resources */,
 				266A3D241932375B00752AFB /* stringsEn.xml in Resources */,
 				5087E75317EB910900C73F5D /* CloseNormal.png in Resources */,

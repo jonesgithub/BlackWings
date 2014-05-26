@@ -18,8 +18,9 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
     int width = frameSize.width;
 
-    glview->setDesignResolutionSize(640, 960, ResolutionPolicy::NO_BORDER);
+    glview->setDesignResolutionSize(640, 960, ResolutionPolicy::SHOW_ALL);
 
+    /*
     if (width > 320)
     {
         FileUtils::getInstance()->addSearchPath("hd");
@@ -29,7 +30,8 @@ bool AppDelegate::applicationDidFinishLaunching() {
         director->setContentScaleFactor(0.5f);
         FileUtils::getInstance()->addSearchPath("sd");
     }
-
+     */
+    FileUtils::getInstance()->addSearchPath("hd");
     s_gameConfig.lazyInit();
 
     director->runWithScene(MainMenu::create());
