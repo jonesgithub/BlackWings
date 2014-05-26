@@ -27,6 +27,7 @@ public:
 
     void battleLoop(float dt);
     void dispatchEnemys(float dt);
+    void showPotInRadar(float dt);
 
     bool onTouchBegan(Touch* touch, Event* event);
     void onTouchMoved(Touch* touch, Event* event);
@@ -67,6 +68,7 @@ private:
     int _stage;
     
     Sprite* radarScreen;
+    Sprite* radarChart;
 };
 
 #endif
