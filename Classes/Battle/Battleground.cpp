@@ -14,6 +14,7 @@ Battleground* s_battleground = nullptr;
 
 Battleground::Battleground()
 {
+    _stage = 0;
     s_battleground = this;
     s_players.clear();
     s_enemys.clear();
@@ -54,6 +55,7 @@ bool Battleground::init(int stage)
     {
         auto loadLayer = LoadResourceLayer::create(CC_CALLBACK_1(Battleground::createBattleground, this));
         loadLayer->addImage("battle/createBombTip_box.png");
+        loadLayer->addPlist("map/map_clouds.plist","map/map_clouds.png");
         loadLayer->addPlist("battle/bases.plist","battle/bases.png");
         loadLayer->addPlist("battle/battle.plist","battle/battle.png");        
         loadLayer->addPlist("battle/e_bullets.plist","battle/e_bullets.png");
@@ -65,6 +67,8 @@ bool Battleground::init(int stage)
         loadLayer->addPlist("battle/enemys.plist","battle/enemys.png");
         this->addChild(loadLayer);
         loadLayer->startLoad();
+        
+        _stage = stage;
 
         return true;
     }
@@ -74,7 +78,7 @@ bool Battleground::init(int stage)
 
 void Battleground::eventCallbackPlayerSelect(EventCustom* event)
 {
-    int index = (int)event->getUserData();
+    int index = (uintptr_t)event->getUserData();
 
     if (index < 6)
     {
@@ -85,12 +89,14 @@ void Battleground::eventCallbackPlayerSelect(EventCustom* event)
         player->setPosition(Point(s_visibleRect.visibleOriginX + 100 + rand()%440,
             s_visibleRect.visibleOriginY + 100 + rand()% 50));
         _battleParallaxNode->addChild(player);
+        
+        this->addChild(player->potInRadar, 100);
 
         s_players.push_back(player);
     }
     else
     {
-        //使用特殊武器
+
     }
 }
 
@@ -101,7 +107,6 @@ void Battleground::battleLoop(float dt)
 
     enemyFindTarget();
 
-    //todo:防卫塔搜索最近我方战机
 }
 
 void Battleground::plainFindTarget()
@@ -110,7 +115,6 @@ void Battleground::plainFindTarget()
     Point plainTargetPos;
     float nearestDistance,distance;
 
-    //我方战机搜索最近目标并向目标前进
     for (auto player : s_players)
     {
         Player* attTarget = nullptr;
@@ -121,7 +125,6 @@ void Battleground::plainFindTarget()
             nearestDistance = bossPos.getDistance(playerPos);
             plainTargetPos = bossPos;
 
-            //搜索最近敌机目标
             for (auto enemy : s_enemys)
             {
                 distance = enemy->getPosition().getDistance(playerPos);
@@ -132,7 +135,6 @@ void Battleground::plainFindTarget()
                     attTarget = enemy;
                 }
             }
-            //todo:搜索最近防卫塔目标
 
             if (player->state == FighterState::IDLE)
             {
@@ -148,7 +150,6 @@ void Battleground::plainFindTarget()
 
 void Battleground::enemyFindTarget()
 {
-    ////敌方战机搜索最近目标并向目标前进
     Point basePos(s_visibleRect.visibleWidth /2, s_visibleRect.visibleOriginY + 280);
     Point enemyTargetPos;
     float nearestDistance,distance;
@@ -187,7 +188,6 @@ void Battleground::enemyFindTarget()
 
 void Battleground::dispatchEnemys(float dt)
 {
-    //todo:敌机配置
     int dispatchNum = 1;//rand()%5 + 1;
     for (int index = 0; index < dispatchNum; ++index)
     {
@@ -199,6 +199,9 @@ void Battleground::dispatchEnemys(float dt)
         enemy->setPosition(Point(s_visibleRect.visibleOriginX + 100 + rand()%440,
             s_visibleRect.visibleOriginY + _battlegroundHeight));
         _battleParallaxNode->addChild(enemy);
+        
+        enemy->potInRadar->setPosition(Point(-100,-100));
+        this->addChild(enemy->potInRadar,100);
 
         s_enemys.push_back(enemy);
     }
@@ -211,12 +214,16 @@ void Battleground::createBattleground(Ref *sender)
     _battlegroundHeight = s_visibleRect.visibleHeight * 3;
     _battleParallaxNode = Node::create();
     this->addChild(_battleParallaxNode);
+    
+    auto map = Sprite::createWithSpriteFrameName("startLayer.png");
+    map->setPosition(s_visibleRect.center);
+    map->setScale(2.0f, 5.0f);
+    _battleParallaxNode->addChild(map);
 
-    //战机基地
     createFighterBase();
-    //雷达图
+
     createRadarChart();
-    //敌我生命值
+
     createHealthBar();
 
     auto playerBag = PlayerBar::create();
@@ -225,6 +232,8 @@ void Battleground::createBattleground(Ref *sender)
     this->schedule(schedule_selector(Battleground::battleLoop),0.1f);
 
     this->schedule(schedule_selector(Battleground::dispatchEnemys),5.0f);
+    
+    this->schedule(schedule_selector(Battleground::showPotInRadar), 0.1f);
 
     auto listener = EventListenerTouchOneByOne::create();
     listener->setSwallowTouches(true);
@@ -331,6 +340,15 @@ void Battleground::createHealthBar()
     auto menu = Menu::createWithItem(itemPause);
     menu->setPosition(Point::ZERO);
     addChild(menu);
+    
+    auto player_icon = Sprite::createWithSpriteFrameName("icon_plain.png");
+    player_icon->setPosition(Point(35,27));
+    bar->addChild(player_icon);
+    
+    auto enemy_icon = Sprite::createWithSpriteFrameName("icon_enemy.png");
+    enemy_icon->setPosition(Point(595,27));
+    bar->addChild(enemy_icon);
+    
     //_battleParallaxNode->addChild(bar,1,Point(1,1),Point(s_visibleRect.center.x,s_visibleRect.visibleHeight * 3));
 }
 
@@ -342,16 +360,32 @@ void Battleground::menuCallbackPause(Ref *sender)
 
 void Battleground::createRadarChart()
 {
-    auto radarChart = Sprite::createWithSpriteFrameName("map_box.png");
+    //radar
+    radarChart = Sprite::createWithSpriteFrameName("map_box.png");
     radarChart->setAnchorPoint(Point::ANCHOR_TOP_LEFT);
     radarChart->setPosition(Point(s_visibleRect.visibleOriginX + 15,s_visibleRect.top.y - 60));
     this->addChild(radarChart);
+    
+    radarScreen = Sprite::createWithSpriteFrameName("map_screen.png");
+    radarScreen->setAnchorPoint(Point::ANCHOR_TOP_LEFT);
+    radarScreen->setPosition(Point(0, 95));//down:95; up:310
+    radarChart->addChild(radarScreen);
+    
+    
 
+    //text
     auto stageTextBox = Sprite::createWithSpriteFrameName("stageName_box.png");
     stageTextBox->setAnchorPoint(Point::ANCHOR_TOP_LEFT);
     stageTextBox->setPosition(Point(s_visibleRect.visibleOriginX + 15,
         s_visibleRect.top.y - 50 - radarChart->getContentSize().height));
     this->addChild(stageTextBox);
+    
+    std::string str = "STAGE" + Value(_stage).asString();
+    auto stageText = Label::createWithTTF(str,"fonts/arial.ttf",12);
+    stageText->setAnchorPoint(Point::ANCHOR_MIDDLE);
+    stageText->setPosition(Point(stageTextBox->getContentSize().width/2,stageTextBox->getContentSize().height/2));
+    stageTextBox->addChild(stageText);
+
  }
 
 bool Battleground::onTouchBegan(Touch* touch, Event* event)
@@ -371,6 +405,11 @@ void Battleground::onTouchMoved(Touch* touch, Event* event)
     {
         op.y = 0;
     }
+    
+    auto ratio  = - (op.y/(s_visibleRect.visibleHeight*2));
+    auto radarscreenposY = RADARSCREEN_DOWN + (RADARSCREEN_UP - RADARSCREEN_DOWN) * ratio;
+    radarScreen->setPositionY(radarscreenposY);
+    
     _battleParallaxNode->setPosition(op);
 }
 
@@ -417,5 +456,33 @@ void Battleground::callbackPlayerDestroy(EventCustom* event)
         explode->runAction(action);
         explode->setPosition(player->getPosition());
         _battleParallaxNode->addChild(explode); 
+    }
+}
+
+void Battleground::showPotInRadar(float dt)
+{
+    for (auto player : s_players)
+    {
+        auto ratioX = player->getPositionX()/s_visibleRect.visibleWidth;
+        auto ratioY = player->getPositionY()/(s_visibleRect.visibleHeight*3);
+        
+        auto actualX = 15 + radarChart->getContentSize().width * ratioX;
+        auto actualY = 590 + radarChart->getContentSize().height * ratioY;
+        
+        player->potInRadar->setPosition(Point(actualX,actualY));
+
+        log("player: x===>%f,y===>%f",player->potInRadar->getPositionX(),player->potInRadar->getPositionY());
+    }
+    
+    for (auto enemy : s_enemys)
+    {
+        auto ratioX = enemy->getPositionX()/s_visibleRect.visibleWidth;
+        auto ratioY = enemy->getPositionY()/(s_visibleRect.visibleHeight*3);
+        
+        auto actualX = 15 + radarChart->getContentSize().width * ratioX;
+        auto actualY = 590 + radarChart->getContentSize().height * ratioY;
+        
+        enemy->potInRadar->setPosition(Point(actualX,actualY));
+        log("enmey: x===>%f,y===>%f",enemy->potInRadar->getPositionX(),enemy->potInRadar->getPositionY());
     }
 }

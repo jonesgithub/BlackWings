@@ -28,7 +28,7 @@ bool StageSelect::init()
         _cellSize.width = panelSize.width;
         _cellSize.height = 100;
 
-        _panel = Scale9Sprite::create("windowBox.png");
+        _panel = Scale9Sprite::create("mission.png");
         _panel->setAnchorPoint(Point::ANCHOR_MIDDLE_TOP);
         _panel->setPosition(Point(s_visibleRect.center.x,s_visibleRect.top.y + panelSize.height));
         _panel->setContentSize(panelSize);

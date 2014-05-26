@@ -33,6 +33,7 @@ Fighter* Fighter::createEnemy(int type,int level)
 Fighter::Fighter()
 : state(FighterState::IDLE)
 , _attTarget(nullptr)
+,potInRadar(nullptr)
 {
 }
 
@@ -51,11 +52,15 @@ bool Fighter::initFighter(Attacker attacker,int type,int level /* = 0 */)
     case Attacker::ENEMY:
         sprintf(fileName,"enemy_%d_lv_%d.png",type + 1,level + 1);
         enemyConfig = s_enemyConfigs[type][level];
+        potInRadar = Sprite::createWithSpriteFrameName("map_plain.png");
+        potInRadar->retain();
         break;
     case Attacker::PLAIN:
         level = s_gameConfig.fightersLevle[type];
         sprintf(fileName,"plain_%d_lv_%d.png",type + 1,level + 1);
         plainConfig = s_plainConfigs[type][level];
+        potInRadar = Sprite::createWithSpriteFrameName("map_enemy.png");
+        potInRadar->retain();
         break;
     case Attacker::WEAPON:
         break;
@@ -176,6 +181,8 @@ void Fighter::hurt(int ATK)
     if (life <= 0)
     {
         state = FighterState::DESTROY;
+        potInRadar->removeFromParent();
+        CC_SAFE_RELEASE(potInRadar);
         this->unschedule(schedule_selector(Fighter::fire));
         _eventDispatcher->dispatchCustomEvent(GameConfig::eventPlayerDestroy,this);
         this->removeFromParentAndCleanup(true);

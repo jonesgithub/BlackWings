@@ -8,6 +8,9 @@ USING_NS_CC;
 class Fighter;
 class Bullet;
 
+const int RADARSCREEN_DOWN = 95;
+const int RADARSCREEN_UP = 310;
+
 class Battleground : public cocos2d::Scene
 {
 public:
@@ -24,6 +27,7 @@ public:
 
     void battleLoop(float dt);
     void dispatchEnemys(float dt);
+    void showPotInRadar(float dt);
 
     bool onTouchBegan(Touch* touch, Event* event);
     void onTouchMoved(Touch* touch, Event* event);
@@ -60,6 +64,11 @@ private:
     Animation* explode_C;
 
     friend class Bullet;
+    
+    int _stage;
+    
+    Sprite* radarScreen;
+    Sprite* radarChart;
 };
 
 #endif

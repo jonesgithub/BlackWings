@@ -33,6 +33,8 @@ public:
     EnemyConfig enemyConfig;
 
     Attacker _attacker;
+    
+    Sprite* potInRadar;
 
 private:
     Fighter();
