@@ -202,6 +202,7 @@ void Base::createFighterInfo(Node* panel)
         
         auto listener = EventListenerCustom::create(PlayerBar::eventPlayerSelect, [=](EventCustom* event)
         {
+            /*
             _flight_level_label ->setString(<#const std::string &text#>);
             _flight_life_label ->setString(<#const std::string &text#>);
             _flight_attack_label ->setString(<#const std::string &text#>);
@@ -209,6 +210,7 @@ void Base::createFighterInfo(Node* panel)
             _flight_defend_label ->setString(<#const std::string &text#>);
             _flight_range_label ->setString(<#const std::string &text#>);
             _flight_upgrade_need_money_label ->setString(<#const std::string &text#>);
+             */
         });
         _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
     }
