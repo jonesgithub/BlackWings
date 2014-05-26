@@ -14,6 +14,7 @@ Battleground* s_battleground = nullptr;
 
 Battleground::Battleground()
 {
+    _stage = 0;
     s_battleground = this;
     s_players.clear();
     s_enemys.clear();
@@ -54,6 +55,7 @@ bool Battleground::init(int stage)
     {
         auto loadLayer = LoadResourceLayer::create(CC_CALLBACK_1(Battleground::createBattleground, this));
         loadLayer->addImage("battle/createBombTip_box.png");
+        loadLayer->addPlist("map/map_clouds.plist","map/map_clouds.png");
         loadLayer->addPlist("battle/bases.plist","battle/bases.png");
         loadLayer->addPlist("battle/battle.plist","battle/battle.png");        
         loadLayer->addPlist("battle/e_bullets.plist","battle/e_bullets.png");
@@ -65,6 +67,8 @@ bool Battleground::init(int stage)
         loadLayer->addPlist("battle/enemys.plist","battle/enemys.png");
         this->addChild(loadLayer);
         loadLayer->startLoad();
+        
+        _stage = stage;
 
         return true;
     }
@@ -74,7 +78,7 @@ bool Battleground::init(int stage)
 
 void Battleground::eventCallbackPlayerSelect(EventCustom* event)
 {
-    int index = (int)event->getUserData();
+    int index = (uintptr_t)event->getUserData();
 
     if (index < 6)
     {
@@ -90,7 +94,7 @@ void Battleground::eventCallbackPlayerSelect(EventCustom* event)
     }
     else
     {
-        //使用特殊武器
+
     }
 }
 
@@ -101,7 +105,6 @@ void Battleground::battleLoop(float dt)
 
     enemyFindTarget();
 
-    //todo:防卫塔搜索最近我方战机
 }
 
 void Battleground::plainFindTarget()
@@ -110,7 +113,6 @@ void Battleground::plainFindTarget()
     Point plainTargetPos;
     float nearestDistance,distance;
 
-    //我方战机搜索最近目标并向目标前进
     for (auto player : s_players)
     {
         Player* attTarget = nullptr;
@@ -121,7 +123,6 @@ void Battleground::plainFindTarget()
             nearestDistance = bossPos.getDistance(playerPos);
             plainTargetPos = bossPos;
 
-            //搜索最近敌机目标
             for (auto enemy : s_enemys)
             {
                 distance = enemy->getPosition().getDistance(playerPos);
@@ -132,7 +133,6 @@ void Battleground::plainFindTarget()
                     attTarget = enemy;
                 }
             }
-            //todo:搜索最近防卫塔目标
 
             if (player->state == FighterState::IDLE)
             {
@@ -148,7 +148,6 @@ void Battleground::plainFindTarget()
 
 void Battleground::enemyFindTarget()
 {
-    ////敌方战机搜索最近目标并向目标前进
     Point basePos(s_visibleRect.visibleWidth /2, s_visibleRect.visibleOriginY + 280);
     Point enemyTargetPos;
     float nearestDistance,distance;
@@ -187,7 +186,6 @@ void Battleground::enemyFindTarget()
 
 void Battleground::dispatchEnemys(float dt)
 {
-    //todo:敌机配置
     int dispatchNum = 1;//rand()%5 + 1;
     for (int index = 0; index < dispatchNum; ++index)
     {
@@ -211,12 +209,16 @@ void Battleground::createBattleground(Ref *sender)
     _battlegroundHeight = s_visibleRect.visibleHeight * 3;
     _battleParallaxNode = Node::create();
     this->addChild(_battleParallaxNode);
+    
+    auto map = Sprite::createWithSpriteFrameName("startLayer.png");
+    map->setPosition(s_visibleRect.center);
+    map->setScale(2.0f, 5.0f);
+    _battleParallaxNode->addChild(map);
 
-    //战机基地
     createFighterBase();
-    //雷达图
+
     createRadarChart();
-    //敌我生命值
+
     createHealthBar();
 
     auto playerBag = PlayerBar::create();
@@ -342,16 +344,32 @@ void Battleground::menuCallbackPause(Ref *sender)
 
 void Battleground::createRadarChart()
 {
+    //radar
     auto radarChart = Sprite::createWithSpriteFrameName("map_box.png");
     radarChart->setAnchorPoint(Point::ANCHOR_TOP_LEFT);
     radarChart->setPosition(Point(s_visibleRect.visibleOriginX + 15,s_visibleRect.top.y - 60));
     this->addChild(radarChart);
+    
+    radarScreen = Sprite::createWithSpriteFrameName("map_screen.png");
+    radarScreen->setAnchorPoint(Point::ANCHOR_TOP_LEFT);
+    radarScreen->setPosition(Point(0, 95));//down:95; up:310
+    radarChart->addChild(radarScreen);
+    
+    
 
+    //text
     auto stageTextBox = Sprite::createWithSpriteFrameName("stageName_box.png");
     stageTextBox->setAnchorPoint(Point::ANCHOR_TOP_LEFT);
     stageTextBox->setPosition(Point(s_visibleRect.visibleOriginX + 15,
         s_visibleRect.top.y - 50 - radarChart->getContentSize().height));
     this->addChild(stageTextBox);
+    
+    std::string str = "STAGE" + Value(_stage).asString();
+    auto stageText = Label::createWithTTF(str,"fonts/arial.ttf",12);
+    stageText->setAnchorPoint(Point::ANCHOR_MIDDLE);
+    stageText->setPosition(Point(stageTextBox->getContentSize().width/2,stageTextBox->getContentSize().height/2));
+    stageTextBox->addChild(stageText);
+
  }
 
 bool Battleground::onTouchBegan(Touch* touch, Event* event)
@@ -371,6 +389,11 @@ void Battleground::onTouchMoved(Touch* touch, Event* event)
     {
         op.y = 0;
     }
+    
+    auto ratio  = - (op.y/(s_visibleRect.visibleHeight*2));
+    auto radarscreenposY = RADARSCREEN_DOWN + (RADARSCREEN_UP - RADARSCREEN_DOWN) * ratio;
+    radarScreen->setPositionY(radarscreenposY);
+    
     _battleParallaxNode->setPosition(op);
 }
 

@@ -8,6 +8,9 @@ USING_NS_CC;
 class Fighter;
 class Bullet;
 
+const int RADARSCREEN_DOWN = 95;
+const int RADARSCREEN_UP = 310;
+
 class Battleground : public cocos2d::Scene
 {
 public:
@@ -60,6 +63,10 @@ private:
     Animation* explode_C;
 
     friend class Bullet;
+    
+    int _stage;
+    
+    Sprite* radarScreen;
 };
 
 #endif
