@@ -31,6 +31,10 @@ bool Base::init()
 
 void Base::createBase(Ref *sender)
 {
+    auto bg = Sprite::create("mainBackground.png");
+    bg->setPosition(s_visibleRect.center);
+    addChild(bg);
+    
     this->removeChild((LoadResourceLayer*)sender,true);
 
     GSBaseInit((GameLanguage)s_gameConfig.language);
@@ -148,50 +152,65 @@ void Base::createFighterInfo(Node* panel)
         panel->addChild(rangeText);
     }
     
+    
+    
     {
         pos.x = 290;
         pos.y = panelSize.height * 0.85f;
-        auto level = Label::createWithTTF("0",fontFile,fontSize);
-        level->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
-        level->setPosition(pos);
-        level->setTextColor(infoColor);
-        panel->addChild(level);
+        _flight_level_label = Label::createWithTTF("0",fontFile,fontSize);
+        _flight_level_label->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
+        _flight_level_label->setPosition(pos);
+        _flight_level_label->setTextColor(infoColor);
+        panel->addChild(_flight_level_label);
 
         pos.y = panelSize.height * 0.6f;
-        auto att = Label::createWithTTF("0",fontFile,fontSize);
-        att->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
-        att->setPosition(pos);
-        att->setTextColor(infoColor);
-        panel->addChild(att);
+        _flight_attack_label = Label::createWithTTF("0",fontFile,fontSize);
+        _flight_attack_label->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
+        _flight_attack_label->setPosition(pos);
+        _flight_attack_label->setTextColor(infoColor);
+        panel->addChild(_flight_attack_label);
 
         pos.y = panelSize.height * 0.35f;
-        auto def = Label::createWithTTF("0",fontFile,fontSize);
-        def->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
-        def->setPosition(pos);
-        def->setTextColor(infoColor);
-        panel->addChild(def);
-
+        _flight_defend_label = Label::createWithTTF("0",fontFile,fontSize);
+        _flight_defend_label->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
+        _flight_defend_label->setPosition(pos);
+        _flight_defend_label->setTextColor(infoColor);
+        panel->addChild(_flight_defend_label);
+    
         pos.x = 490;
         pos.y = panelSize.height * 0.85f;
-        auto life = Label::createWithTTF("0",fontFile,fontSize);
-        life->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
-        life->setPosition(pos);
-        life->setTextColor(infoColor);
-        panel->addChild(life);
+        _flight_life_label = Label::createWithTTF("0",fontFile,fontSize);
+        _flight_life_label->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
+        _flight_life_label->setPosition(pos);
+        _flight_life_label->setTextColor(infoColor);
+        panel->addChild(_flight_life_label);
 
         pos.y = panelSize.height * 0.6f;
-        auto spd = Label::createWithTTF("0",fontFile,fontSize);
-        spd->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
-        spd->setPosition(pos);
-        spd->setTextColor(infoColor);
-        panel->addChild(spd);
+        _flight_speed_label = Label::createWithTTF("0",fontFile,fontSize);
+        _flight_speed_label->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
+        _flight_speed_label->setPosition(pos);
+        _flight_speed_label->setTextColor(infoColor);
+        panel->addChild(_flight_speed_label);
 
         pos.y = panelSize.height * 0.35f;
-        auto range = Label::createWithTTF("0",fontFile,fontSize);
-        range->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
-        range->setPosition(pos);
-        range->setTextColor(infoColor);
-        panel->addChild(range);
+        _flight_range_label = Label::createWithTTF("0",fontFile,fontSize);
+        _flight_range_label->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
+        _flight_range_label->setPosition(pos);
+        _flight_range_label->setTextColor(infoColor);
+        panel->addChild(_flight_range_label);
+        
+        
+        auto listener = EventListenerCustom::create(PlayerBar::eventPlayerSelect, [=](EventCustom* event)
+        {
+            _flight_level_label ->setString(<#const std::string &text#>);
+            _flight_life_label ->setString(<#const std::string &text#>);
+            _flight_attack_label ->setString(<#const std::string &text#>);
+            _flight_speed_label ->setString(<#const std::string &text#>);
+            _flight_defend_label ->setString(<#const std::string &text#>);
+            _flight_range_label ->setString(<#const std::string &text#>);
+            _flight_upgrade_need_money_label ->setString(<#const std::string &text#>);
+        });
+        _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
     }
 }
 
