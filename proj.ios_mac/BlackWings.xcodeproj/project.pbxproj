@@ -63,6 +63,8 @@
 		266ACB1E19323E2A004DF401 /* ResetGameLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 266ACAF119323E2A004DF401 /* ResetGameLayer.cpp */; };
 		266ACB1F19323E2A004DF401 /* VisibleRect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 266ACAF319323E2A004DF401 /* VisibleRect.cpp */; };
 		266ACB2019323E2A004DF401 /* VisibleRect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 266ACAF319323E2A004DF401 /* VisibleRect.cpp */; };
+		266ACBAA19336AD5004DF401 /* xxtea.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 266ACBA819336AD5004DF401 /* xxtea.cpp */; };
+		266ACBAB19336AD5004DF401 /* xxtea.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 266ACBA819336AD5004DF401 /* xxtea.cpp */; };
 		288765A50DF7441C002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765A40DF7441C002DB57D /* CoreGraphics.framework */; };
 		503AE0F817EB97AB00D1A890 /* Icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 503AE0F617EB97AB00D1A890 /* Icon.icns */; };
 		503AE10017EB989F00D1A890 /* AppController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 503AE0FB17EB989F00D1A890 /* AppController.mm */; };
@@ -457,6 +459,8 @@
 		266ACAF219323E2A004DF401 /* ResetGameLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResetGameLayer.h; sourceTree = "<group>"; };
 		266ACAF319323E2A004DF401 /* VisibleRect.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = VisibleRect.cpp; path = ../Classes/VisibleRect.cpp; sourceTree = "<group>"; };
 		266ACAF419323E2A004DF401 /* VisibleRect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VisibleRect.h; path = ../Classes/VisibleRect.h; sourceTree = "<group>"; };
+		266ACBA819336AD5004DF401 /* xxtea.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = xxtea.cpp; path = ../Classes/xxtea.cpp; sourceTree = "<group>"; };
+		266ACBA919336AD5004DF401 /* xxtea.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = xxtea.h; path = ../Classes/xxtea.h; sourceTree = "<group>"; };
 		288765A40DF7441C002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		503AE0F617EB97AB00D1A890 /* Icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Icon.icns; sourceTree = "<group>"; };
 		503AE0F717EB97AB00D1A890 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -645,6 +649,8 @@
 		15AA9C4015B7EC450033D6C2 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				266ACBA819336AD5004DF401 /* xxtea.cpp */,
+				266ACBA919336AD5004DF401 /* xxtea.h */,
 				266ACAC419323E2A004DF401 /* AppDelegate.cpp */,
 				266ACAC519323E2A004DF401 /* AppDelegate.h */,
 				266ACAC619323E2A004DF401 /* AppMacros.h */,
@@ -1349,6 +1355,7 @@
 				503AE10217EB989F00D1A890 /* RootViewController.mm in Sources */,
 				503AE10117EB989F00D1A890 /* main.m in Sources */,
 				266ACB1F19323E2A004DF401 /* VisibleRect.cpp in Sources */,
+				266ACBAA19336AD5004DF401 /* xxtea.cpp in Sources */,
 				266ACB1319323E2A004DF401 /* AboutLayer.cpp in Sources */,
 				266ACB1919323E2A004DF401 /* MenuSettings.cpp in Sources */,
 				266ACB1D19323E2A004DF401 /* ResetGameLayer.cpp in Sources */,
@@ -1381,6 +1388,7 @@
 				266ACB0419323E2A004DF401 /* Fighter.cpp in Sources */,
 				266ACB1819323E2A004DF401 /* MainMenu.cpp in Sources */,
 				266ACAF619323E2A004DF401 /* AppDelegate.cpp in Sources */,
+				266ACBAB19336AD5004DF401 /* xxtea.cpp in Sources */,
 				266ACB1E19323E2A004DF401 /* ResetGameLayer.cpp in Sources */,
 				503AE10517EB98FF00D1A890 /* main.cpp in Sources */,
 				266ACB1A19323E2A004DF401 /* MenuSettings.cpp in Sources */,
