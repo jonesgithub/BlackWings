@@ -188,6 +188,11 @@ void GSBaseInit(GameLanguage language)
         s_gameStrings.base->upgradeRange = dict["upgradeRange"].asString();
 
         s_gameStrings.base->weaponQuantity = dict["weaponQuantity"].asString();
+        
+        s_gameStrings.base->sparCapacity = dict["sparCapacity"].asString();
+        s_gameStrings.base->sparRecoverRate = dict["sparRecoverRate"].asString();
+        s_gameStrings.base->second = dict["second"].asString();
+        
     }
 }
 
@@ -241,5 +246,8 @@ void GSMedalInfo(GameLanguage language)
             sprintf(str, "medal_%d_dscr",i+1);
             s_gameStrings.medalInfo->medaldscr[i] = dict[str].asString();
         }
+        
+        s_gameStrings.medalInfo->medalrewardstip = dict["medal_rewards_tip"].asString();
+        s_gameStrings.medalInfo->medalrewardok = dict["medal_rewards_comfirm"].asString();
     }
 }

@@ -101,4 +101,10 @@
     <string>勋章名25</string>
     <key>medal_25_dscr</key>
     <string>勋章描述25</string>
+    
+    <!--领奖-->
+    <key>medal_rewards_tip</key>
+    <string>gongxi!huodexunzhangjiangli:</string>
+    <key>medal_rewards_comfirm</key>
+    <string>OK</string>
 </dict>

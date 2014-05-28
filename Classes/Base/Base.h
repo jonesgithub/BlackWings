@@ -21,12 +21,14 @@ private:
     void createUpgrade();
     void createTopPanel();
 
-    void createFighterInfo(Node* panel);
-
+    void createFighterBottomInfo(Node* panel);
+    void createFighterMiddleInfo(Node* panel);
+    void createFighterTopInfo(Node* panel);
+    
     Node* _playerBag;
     Node* _upgradePanel;
     Node* _topPanel;
-
+/*
 public:
     cocos2d::Label * _gen_level_label;
     cocos2d::Label * _gen_return_time_label;
@@ -43,5 +45,5 @@ public:
     cocos2d::Label * _flight_defend_label;
     cocos2d::Label * _flight_range_label;
     cocos2d::Label * _flight_upgrade_need_money_label;
-    
+    */
 };

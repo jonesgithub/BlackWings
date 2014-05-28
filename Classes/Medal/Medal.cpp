@@ -11,6 +11,7 @@
 #include "TextSprite.h"
 #include "MenuItemImageLabel.h"
 #include "GameStrings.h"
+#include "MedalRewardsLayer.h"
 
 USING_NS_CC;
 
@@ -23,9 +24,7 @@ bool Medal::init()
     }
     
     GSMedalInfo((GameLanguage)s_gameConfig.language);
-    
-    readINI();
-    
+        
     auto listener = EventListenerTouchOneByOne::create();
     listener->setSwallowTouches(true);
     listener->onTouchBegan = [](Touch* touch, Event* event){
@@ -62,6 +61,16 @@ bool Medal::init()
     auto menu = Menu::create( itemClosed, nullptr);
     menu->setPosition(Point::ZERO);
     _panel->addChild(menu,3);
+    
+    
+    //test
+    for (int i=0; i<MEDAL_MAX; ++i) {
+        s_gameConfig.medal_lock[i] = false;
+        s_gameConfig.medal_get[i] = true;
+    }
+    s_gameConfig.medal_lock[0]=false;
+    s_gameConfig.medal_get[0]=true;
+    
     return true;
 }
 
@@ -82,9 +91,18 @@ cocos2d::extension::TableViewCell* Medal::tableCellAtIndex(cocos2d::extension::T
     }
     else
     {
+        auto item_bk = (Sprite*)cell->getChildByTag(10)->getChildByTag(20);
+        if (item_bk) {
+            if (s_gameConfig.medal_lock[idx]) {
+                item_bk->setSpriteFrame("medal_minibox_0.png");
+            }
+            else{
+                item_bk->setSpriteFrame("medal_minibox_0.png");
+            }
+        }
         auto icon_bk = (Sprite*)cell->getChildByTag(10)->getChildByTag(30);
         if (icon_bk) {
-            if (medal_lock[idx]) {
+            if (s_gameConfig.medal_lock[idx]) {
                 icon_bk->setSpriteFrame("icon_medal_box_1.png");
             }
             else{
@@ -117,7 +135,19 @@ cocos2d::extension::TableViewCell* Medal::tableCellAtIndex(cocos2d::extension::T
 
 void Medal::tableCellTouched(extension::TableView* table, extension::TableViewCell* cell)
 {
-    log("%d",cell->getIdx());
+    if (s_gameConfig.medal_get[cell->getIdx()]) {
+        //s_gameConfig.medal_reward_callbacks[cell->getIdx()]();
+        s_gameConfig.treasure.money+=s_medalRewards[cell->getIdx()][0];
+        s_gameConfig.treasure.starboom+=s_medalRewards[cell->getIdx()][1];
+        s_gameConfig.treasure.laser+=s_medalRewards[cell->getIdx()][2];
+        s_gameConfig.treasure.blackhole+=s_medalRewards[cell->getIdx()][3];
+        s_gameConfig.medal_get[cell->getIdx()] = false;
+        auto layer = MedalRewardsLayer::create(s_medalRewards[cell->getIdx()][0],
+                                               s_medalRewards[cell->getIdx()][1],
+                                               s_medalRewards[cell->getIdx()][2],
+                                               s_medalRewards[cell->getIdx()][3]);
+        this->addChild(layer,4);
+    }
     
 }
 
@@ -153,7 +183,7 @@ Node* Medal::getItemNode(int i)
 	item->addChild(item_bk,0,20);
     
     Sprite* item_image_bk = nullptr;
-    if (medal_lock[i]) {
+    if (s_gameConfig.medal_lock[i]) {
         item_image_bk = Sprite::createWithSpriteFrameName("icon_medal_box_1.png");
     }
     else{
@@ -183,14 +213,4 @@ Node* Medal::getItemNode(int i)
     item->addChild(infoSprite_2,0,60);
     
 	return item;
-}
-
-void Medal::readINI()
-{
-    for (int i=0; i<25; ++i) {
-        medal_lock[i] = true;
-        medal_get[i] = false;
-    }
-    
-    medal_lock[10] = false;
 }

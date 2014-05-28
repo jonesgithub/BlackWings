@@ -36,11 +36,6 @@ public:
     Node* getItemNode(int i);
     
 private:
-    
-    void readINI();
-    
-    bool medal_lock[25];
-    bool medal_get[25];
     Node* _panel;
     Size _cellSize;
 };

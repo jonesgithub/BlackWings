@@ -102,6 +102,12 @@
 		852781301934FAA700A0DEA5 /* medalStringsCh.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8527812D1934FAA700A0DEA5 /* medalStringsCh.xml */; };
 		852781311934FAA700A0DEA5 /* medalStringsEn.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8527812E1934FAA700A0DEA5 /* medalStringsEn.xml */; };
 		852781321934FAA700A0DEA5 /* medalStringsEn.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8527812E1934FAA700A0DEA5 /* medalStringsEn.xml */; };
+		8528F15019362B8C00EF967E /* MedalChecker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8528F14E19362B8C00EF967E /* MedalChecker.cpp */; };
+		8528F15119362B8C00EF967E /* MedalChecker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8528F14E19362B8C00EF967E /* MedalChecker.cpp */; };
+		8528F15419363F5200EF967E /* MedalRewardsLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8528F15219363F5200EF967E /* MedalRewardsLayer.cpp */; };
+		8528F15519363F5200EF967E /* MedalRewardsLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8528F15219363F5200EF967E /* MedalRewardsLayer.cpp */; };
+		8528F15A19364CB300EF967E /* medal_icons.png in Resources */ = {isa = PBXBuildFile; fileRef = 8528F15919364CB300EF967E /* medal_icons.png */; };
+		8528F15B19364CB300EF967E /* medal_icons.png in Resources */ = {isa = PBXBuildFile; fileRef = 8528F15919364CB300EF967E /* medal_icons.png */; };
 		855E133A1934D0EB00683F21 /* battle_life_enemy.png in Resources */ = {isa = PBXBuildFile; fileRef = 855E13381934D0EB00683F21 /* battle_life_enemy.png */; };
 		855E133B1934D0EB00683F21 /* battle_life_enemy.png in Resources */ = {isa = PBXBuildFile; fileRef = 855E13381934D0EB00683F21 /* battle_life_enemy.png */; };
 		855E133C1934D0EB00683F21 /* battle_life_plain.png in Resources */ = {isa = PBXBuildFile; fileRef = 855E13391934D0EB00683F21 /* battle_life_plain.png */; };
@@ -226,8 +232,6 @@
 		8598E7F01933804500E72CDE /* medal-hd.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8598E7661933804500E72CDE /* medal-hd.plist */; };
 		8598E7F11933804500E72CDE /* medal_icons.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8598E7671933804500E72CDE /* medal_icons.plist */; };
 		8598E7F21933804500E72CDE /* medal_icons.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8598E7671933804500E72CDE /* medal_icons.plist */; };
-		8598E7F31933804500E72CDE /* medal_icons.png in Resources */ = {isa = PBXBuildFile; fileRef = 8598E7681933804500E72CDE /* medal_icons.png */; };
-		8598E7F41933804500E72CDE /* medal_icons.png in Resources */ = {isa = PBXBuildFile; fileRef = 8598E7681933804500E72CDE /* medal_icons.png */; };
 		8598E7F51933804500E72CDE /* newMedalTip_box.png in Resources */ = {isa = PBXBuildFile; fileRef = 8598E7691933804500E72CDE /* newMedalTip_box.png */; };
 		8598E7F61933804500E72CDE /* newMedalTip_box.png in Resources */ = {isa = PBXBuildFile; fileRef = 8598E7691933804500E72CDE /* newMedalTip_box.png */; };
 		8598E7F71933804500E72CDE /* plains.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8598E76A1933804500E72CDE /* plains.plist */; };
@@ -506,6 +510,11 @@
 		50EF62A117ECD613001EB2F8 /* Icon-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-50.png"; sourceTree = "<group>"; };
 		8527812D1934FAA700A0DEA5 /* medalStringsCh.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = medalStringsCh.xml; path = ../medalStringsCh.xml; sourceTree = "<group>"; };
 		8527812E1934FAA700A0DEA5 /* medalStringsEn.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = medalStringsEn.xml; path = ../medalStringsEn.xml; sourceTree = "<group>"; };
+		8528F14E19362B8C00EF967E /* MedalChecker.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MedalChecker.cpp; sourceTree = "<group>"; };
+		8528F14F19362B8C00EF967E /* MedalChecker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MedalChecker.h; sourceTree = "<group>"; };
+		8528F15219363F5200EF967E /* MedalRewardsLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MedalRewardsLayer.cpp; sourceTree = "<group>"; };
+		8528F15319363F5200EF967E /* MedalRewardsLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MedalRewardsLayer.h; sourceTree = "<group>"; };
+		8528F15919364CB300EF967E /* medal_icons.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = medal_icons.png; sourceTree = "<group>"; };
 		855E13381934D0EB00683F21 /* battle_life_enemy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = battle_life_enemy.png; sourceTree = "<group>"; };
 		855E13391934D0EB00683F21 /* battle_life_plain.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = battle_life_plain.png; sourceTree = "<group>"; };
 		855E13431934D8D000683F21 /* Medal.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Medal.cpp; sourceTree = "<group>"; };
@@ -569,7 +578,6 @@
 		8598E7641933804500E72CDE /* map_clouds.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = map_clouds.png; sourceTree = "<group>"; };
 		8598E7661933804500E72CDE /* medal-hd.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "medal-hd.plist"; sourceTree = "<group>"; };
 		8598E7671933804500E72CDE /* medal_icons.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = medal_icons.plist; sourceTree = "<group>"; };
-		8598E7681933804500E72CDE /* medal_icons.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = medal_icons.png; sourceTree = "<group>"; };
 		8598E7691933804500E72CDE /* newMedalTip_box.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = newMedalTip_box.png; sourceTree = "<group>"; };
 		8598E76A1933804500E72CDE /* plains.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = plains.plist; sourceTree = "<group>"; };
 		8598E76B1933804500E72CDE /* plains.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plains.png; sourceTree = "<group>"; };
@@ -884,8 +892,12 @@
 		855E13421934D8D000683F21 /* Medal */ = {
 			isa = PBXGroup;
 			children = (
+				8528F14E19362B8C00EF967E /* MedalChecker.cpp */,
+				8528F14F19362B8C00EF967E /* MedalChecker.h */,
 				855E13431934D8D000683F21 /* Medal.cpp */,
 				855E13441934D8D000683F21 /* Medal.h */,
+				8528F15219363F5200EF967E /* MedalRewardsLayer.cpp */,
+				8528F15319363F5200EF967E /* MedalRewardsLayer.h */,
 			);
 			name = Medal;
 			path = ../Classes/Medal;
@@ -990,9 +1002,9 @@
 		8598E7651933804500E72CDE /* medal */ = {
 			isa = PBXGroup;
 			children = (
+				8528F15919364CB300EF967E /* medal_icons.png */,
 				8598E7661933804500E72CDE /* medal-hd.plist */,
 				8598E7671933804500E72CDE /* medal_icons.plist */,
-				8598E7681933804500E72CDE /* medal_icons.png */,
 				8598E7691933804500E72CDE /* newMedalTip_box.png */,
 			);
 			path = medal;
@@ -1212,7 +1224,6 @@
 				8598E7B91933804500E72CDE /* DL.png in Resources */,
 				8598E7911933804500E72CDE /* bases.png in Resources */,
 				8598E7F71933804500E72CDE /* plains.plist in Resources */,
-				8598E7F31933804500E72CDE /* medal_icons.png in Resources */,
 				8598E7891933804500E72CDE /* allBt.plist in Resources */,
 				8598E7FB1933804500E72CDE /* playerBag.plist in Resources */,
 				8598E7A51933804500E72CDE /* explode_B.plist in Resources */,
@@ -1248,6 +1259,7 @@
 				5087E78417EB970100C73F5D /* Icon-57.png in Resources */,
 				5087E77E17EB970100C73F5D /* Default.png in Resources */,
 				50EF629717ECD46A001EB2F8 /* Icon-58.png in Resources */,
+				8528F15A19364CB300EF967E /* medal_icons.png in Resources */,
 				8598E7DF1933804500E72CDE /* map_4.plist in Resources */,
 				8598E7DD1933804500E72CDE /* map_3.png in Resources */,
 				8598E7FD1933804500E72CDE /* playerBag.png in Resources */,
@@ -1291,7 +1303,6 @@
 				8598E7FC1933804500E72CDE /* playerBag.plist in Resources */,
 				8598E81A1933804500E72CDE /* stringsEn.xml in Resources */,
 				8598E8161933804500E72CDE /* particleTexture.png in Resources */,
-				8598E7F41933804500E72CDE /* medal_icons.png in Resources */,
 				8598E7E21933804500E72CDE /* map_4.png in Resources */,
 				8598E8081933804500E72CDE /* mission_icons.png in Resources */,
 				8598E7CC1933804500E72CDE /* logo.png in Resources */,
@@ -1309,6 +1320,7 @@
 				8598E7BA1933804500E72CDE /* DL.png in Resources */,
 				8598E7F61933804500E72CDE /* newMedalTip_box.png in Resources */,
 				8598E7AE1933804500E72CDE /* p_bullets.plist in Resources */,
+				8528F15B19364CB300EF967E /* medal_icons.png in Resources */,
 				8598E7EE1933804500E72CDE /* map_clouds.png in Resources */,
 				8598E7D21933804500E72CDE /* mainBackground_bg.png in Resources */,
 				8598E7BC1933804500E72CDE /* helpCellBG.png in Resources */,
@@ -1379,6 +1391,7 @@
 				266ACB0919323E2A004DF401 /* MenuItemImageLabel.cpp in Sources */,
 				266ACAFB19323E2A004DF401 /* PlayerMenuItem.cpp in Sources */,
 				266ACAF519323E2A004DF401 /* AppDelegate.cpp in Sources */,
+				8528F15019362B8C00EF967E /* MedalChecker.cpp in Sources */,
 				266ACB0B19323E2A004DF401 /* NotificationLayer.cpp in Sources */,
 				266ACB0719323E2A004DF401 /* LoadResourceLayer.cpp in Sources */,
 				503AE10017EB989F00D1A890 /* AppController.mm in Sources */,
@@ -1391,6 +1404,7 @@
 				266ACB0319323E2A004DF401 /* Fighter.cpp in Sources */,
 				266ACB0D19323E2A004DF401 /* TextSprite.cpp in Sources */,
 				855E13451934D8D000683F21 /* Medal.cpp in Sources */,
+				8528F15419363F5200EF967E /* MedalRewardsLayer.cpp in Sources */,
 				266ACB0519323E2A004DF401 /* Player.cpp in Sources */,
 				503AE10217EB989F00D1A890 /* RootViewController.mm in Sources */,
 				503AE10117EB989F00D1A890 /* main.m in Sources */,
@@ -1419,6 +1433,7 @@
 				266ACB0219323E2A004DF401 /* Bullet.cpp in Sources */,
 				266ACB0619323E2A004DF401 /* Player.cpp in Sources */,
 				266ACB0A19323E2A004DF401 /* MenuItemImageLabel.cpp in Sources */,
+				8528F15119362B8C00EF967E /* MedalChecker.cpp in Sources */,
 				266ACB1019323E2A004DF401 /* Configuration.cpp in Sources */,
 				266ACAFE19323E2A004DF401 /* StageSelect.cpp in Sources */,
 				266ACAF819323E2A004DF401 /* Base.cpp in Sources */,
@@ -1432,6 +1447,7 @@
 				266ACB1E19323E2A004DF401 /* ResetGameLayer.cpp in Sources */,
 				503AE10517EB98FF00D1A890 /* main.cpp in Sources */,
 				855E13461934D8D000683F21 /* Medal.cpp in Sources */,
+				8528F15519363F5200EF967E /* MedalRewardsLayer.cpp in Sources */,
 				266ACB1A19323E2A004DF401 /* MenuSettings.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

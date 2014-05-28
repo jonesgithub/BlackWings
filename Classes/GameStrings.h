@@ -61,12 +61,18 @@ typedef struct _baseStrings{
     std::string upgradeRange;
 
     std::string weaponQuantity;
-
+    
+    std::string sparCapacity;
+    std::string sparRecoverRate;
+    std::string second;
+    
 }BaseStrings;
 
 typedef struct _medalStrings{
     std::string medalname[25];
     std::string medaldscr[25];
+    std::string medalrewardstip;
+    std::string medalrewardok;
 }MedalStrings;
 
 typedef struct _gameStrings
