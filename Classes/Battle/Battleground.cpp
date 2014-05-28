@@ -15,6 +15,11 @@ Battleground* s_battleground = nullptr;
 Battleground::Battleground()
 {
     _stage = 0;
+    
+    //todo:配置基地血量
+    _curPlayerBase_Blood = _playerBase_Blood = 1000;
+    _curEnemyBase_Blood = _enemyBase_Blood = 1000;
+    
     s_battleground = this;
     s_players.clear();
     s_enemys.clear();
@@ -143,6 +148,15 @@ void Battleground::plainFindTarget()
             else if(nearestDistance < player->plainConfig.range * 2)
             {
                 player->attackLocations(plainTargetPos,attTarget);
+                log("Player ======>>>> attack...");
+                _enemyBase_Blood-=player->plainConfig.attack;
+                if (_enemyBase_Blood>0) {
+                    _enemyBloodBar->setPercent((float(_curEnemyBase_Blood))/_enemyBase_Blood);
+                }
+                else{
+                    _enemyBloodBar->setPercent(0);
+                    //win;
+                }
             }
         }
     }
@@ -181,7 +195,13 @@ void Battleground::enemyFindTarget()
             else if(nearestDistance < enemy->enemyConfig.range * 2)
             {
                 enemy->attackLocations(enemyTargetPos,attTarget);
-            }  
+                log("Enemy=======>>>> attack ");
+                _curPlayerBase_Blood-=enemy->plainConfig.attack;
+                _enemyBloodBar->setPercent((float(_curPlayerBase_Blood))/_playerBase_Blood);
+                if (_curPlayerBase_Blood<0) {
+                    //lost;
+                }
+            }
         }
     }
 }
@@ -349,6 +369,25 @@ void Battleground::createHealthBar()
     enemy_icon->setPosition(Point(595,27));
     bar->addChild(enemy_icon);
     
+    auto _playerBkBar = Sprite::createWithSpriteFrameName("battle_lifeBox.png");
+    _playerBkBar->setPosition(Point(160,27));
+    bar->addChild(_playerBkBar);
+    
+    _playerBloodBar = ui::LoadingBar::create("battle_life_plain.png");
+    _playerBloodBar->setAnchorPoint(Point::ANCHOR_BOTTOM_LEFT);
+    _playerBloodBar->setPositionY(3);
+    _playerBkBar->addChild(_playerBloodBar);
+    
+    auto _enmeyBkBar = Sprite::createWithSpriteFrameName("battle_lifeBox.png");
+    _enmeyBkBar->setPosition(Point(475,27));
+    bar->addChild(_enmeyBkBar);
+    
+    _enemyBloodBar = ui::LoadingBar::create("battle_life_enemy.png");
+    _enemyBloodBar->setPositionY(3);
+    _enemyBloodBar->setAnchorPoint(Point::ANCHOR_BOTTOM_LEFT);
+    _enmeyBkBar->addChild(_enemyBloodBar);
+
+    
     //_battleParallaxNode->addChild(bar,1,Point(1,1),Point(s_visibleRect.center.x,s_visibleRect.visibleHeight * 3));
 }
 
@@ -371,8 +410,6 @@ void Battleground::createRadarChart()
     radarScreen->setPosition(Point(0, 95));//down:95; up:310
     radarChart->addChild(radarScreen);
     
-    
-
     //text
     auto stageTextBox = Sprite::createWithSpriteFrameName("stageName_box.png");
     stageTextBox->setAnchorPoint(Point::ANCHOR_TOP_LEFT);
@@ -471,7 +508,6 @@ void Battleground::showPotInRadar(float dt)
         
         player->potInRadar->setPosition(Point(actualX,actualY));
 
-        log("player: x===>%f,y===>%f",player->potInRadar->getPositionX(),player->potInRadar->getPositionY());
     }
     
     for (auto enemy : s_enemys)
@@ -483,6 +519,5 @@ void Battleground::showPotInRadar(float dt)
         auto actualY = 590 + radarChart->getContentSize().height * ratioY;
         
         enemy->potInRadar->setPosition(Point(actualX,actualY));
-        log("enmey: x===>%f,y===>%f",enemy->potInRadar->getPositionX(),enemy->potInRadar->getPositionY());
     }
 }

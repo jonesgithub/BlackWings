@@ -8,6 +8,7 @@
 #include "MenuSettings.h"
 #include "PlayerBar.h"
 #include "StageSelect.h"
+#include "Medal.h"
 
 USING_NS_CC;
 USING_NS_CC_EXT;
@@ -20,6 +21,7 @@ bool Base::init()
         loadLayer->addPlist("playerBag.plist","playerBag.png");
         loadLayer->addPlist("upgrade.plist","upgrade.png");
         loadLayer->addPlist("home.plist","home.png");
+        loadLayer->addPlist("medal/medal_icons.plist","medal/medal_icons.png");
         this->addChild(loadLayer);
         loadLayer->startLoad();
 
@@ -46,13 +48,20 @@ void Base::createBase(Ref *sender)
 
     createTopPanel();
 
-    auto listener = EventListenerCustom::create(StageSelect::eventBack, [=](EventCustom* event){
+    auto listenerStageSelect = EventListenerCustom::create(StageSelect::eventBack, [=](EventCustom* event){
+        _topPanel->runAction(MoveBy::create(0.2f,Point(0,-200)));
+        _upgradePanel->runAction(MoveBy::create(0.2f,Point(0,s_visibleRect.visibleHeight)));
+        _playerBag->runAction(Sequence::create( MoveBy::create(0.15f,Point(0,136)),nullptr ));
+    });
+    
+    auto listenerMedal = EventListenerCustom::create(Medal::eventBack, [=](EventCustom* event){
         _topPanel->runAction(MoveBy::create(0.2f,Point(0,-200)));
         _upgradePanel->runAction(MoveBy::create(0.2f,Point(0,s_visibleRect.visibleHeight)));
         _playerBag->runAction(Sequence::create( MoveBy::create(0.15f,Point(0,136)),nullptr ));
     });
 
-    _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
+    _eventDispatcher->addEventListenerWithSceneGraphPriority(listenerStageSelect, this);
+    _eventDispatcher->addEventListenerWithSceneGraphPriority(listenerMedal, this);
 }
 
 void Base::createUpgrade()
@@ -202,13 +211,13 @@ void Base::createFighterInfo(Node* panel)
         
         auto listener = EventListenerCustom::create(PlayerBar::eventPlayerSelect, [=](EventCustom* event)
         {
-            _flight_level_label ->setString(<#const std::string &text#>);
-            _flight_life_label ->setString(<#const std::string &text#>);
-            _flight_attack_label ->setString(<#const std::string &text#>);
-            _flight_speed_label ->setString(<#const std::string &text#>);
-            _flight_defend_label ->setString(<#const std::string &text#>);
-            _flight_range_label ->setString(<#const std::string &text#>);
-            _flight_upgrade_need_money_label ->setString(<#const std::string &text#>);
+//            _flight_level_label ->setString(<#const std::string &text#>);
+//            _flight_life_label ->setString(<#const std::string &text#>);
+//            _flight_attack_label ->setString(<#const std::string &text#>);
+//            _flight_speed_label ->setString(<#const std::string &text#>);
+//            _flight_defend_label ->setString(<#const std::string &text#>);
+//            _flight_range_label ->setString(<#const std::string &text#>);
+//            _flight_upgrade_need_money_label ->setString(<#const std::string &text#>);
         });
         _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
     }
@@ -250,6 +259,12 @@ void Base::createTopPanel()
 void Base::menuCallbackMeadl(Ref *sender)
 {
     log("menuCallbackMeadl");
+    _topPanel->runAction(MoveBy::create(0.2f,Point(0,200)));
+    _upgradePanel->runAction(MoveBy::create(0.2f,Point(0,-s_visibleRect.visibleHeight)));
+    _playerBag->runAction(Sequence::create( MoveBy::create(0.15f,Point(0,-150)),
+                                           MoveBy::create(0.05f,Point(0,14)),nullptr ));
+    auto medalLayer = Medal::create();
+    addChild(medalLayer);
 }
 
 void Base::menuCallbackSetting(Ref *sender)

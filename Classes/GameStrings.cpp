@@ -190,3 +190,56 @@ void GSBaseInit(GameLanguage language)
         s_gameStrings.base->weaponQuantity = dict["weaponQuantity"].asString();
     }
 }
+
+void GSMedalInfo(GameLanguage language)
+{
+    static bool lazyInitCh = true;
+    static bool lazyInitEn = true;
+    static MedalStrings s_chMedalStrings;
+    static MedalStrings s_enMedalStrings;
+    
+    bool parseString = false;
+    std::string  medalStringsFilePath;
+    
+    auto fileUtils = cocos2d::FileUtils::getInstance();
+    
+    switch (language)
+    {
+        case GameLanguage::Chinese:
+            if (lazyInitCh)
+            {
+                medalStringsFilePath = fileUtils->fullPathForFilename("medalStringsCh.xml");
+                parseString = true;
+                lazyInitCh = false;
+            }
+            s_gameStrings.medalInfo = &s_chMedalStrings;
+            break;
+        case GameLanguage::English:
+            if (lazyInitEn)
+            {
+                medalStringsFilePath = fileUtils->fullPathForFilename("medalStringsEn.xml");
+                parseString = true;
+                lazyInitEn = false;
+            }
+            s_gameStrings.medalInfo = &s_enMedalStrings;
+            break;
+        default:
+            break;
+    }
+    
+    if (parseString)
+    {
+        auto dict = fileUtils->getValueMapFromFile(medalStringsFilePath);
+        
+        char str[30];
+        for (int i=0; i<25; ++i) {
+            sprintf(str, "medal_%d_name",i+1);
+            s_gameStrings.medalInfo->medalname[i] = dict[str].asString();
+        }
+        
+        for (int i=0; i<25; ++i) {
+            sprintf(str, "medal_%d_dscr",i+1);
+            s_gameStrings.medalInfo->medaldscr[i] = dict[str].asString();
+        }
+    }
+}

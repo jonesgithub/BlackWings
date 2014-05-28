@@ -49,19 +49,12 @@ extern GameConfig s_gameConfig;
 
 typedef struct _plainConfig
 {
-    //建设所需晶石
     int sparForMake;
-    //升级所需宝石
     int gemForUpgrade;
-    //生命
     int life;
-    //攻击
     int attack;
-    //速度
     int speed;
-    //防御力
     int defense;
-    //射程
     int range;
 }PlainConfig;
 
@@ -69,15 +62,10 @@ extern PlainConfig s_plainConfigs[FIGHTER_MAX][FIGHTER_LEVEL_MAX];
 
 typedef struct _enemyConfig
 {
-    //生命
     int life;
-    //攻击
     int attack;
-    //速度
     int speed;
-    //防御力
     int defense;
-    //射程
     int range;
 }EnemyConfig;
 
@@ -85,15 +73,10 @@ extern EnemyConfig s_enemyConfigs[ENEMY_MAX][ENEMY_LEVEL_MAX];
 
 typedef struct _weaponConfig
 {
-    //购买所需宝石
     int costGem;
-    //升级所需宝石
     int gemForUpgrade;
-    //攻击
     int attack;
-    //持续时间
-    float duration; 
-    //携带上限
+    float duration;
     int capacity;
 }WeaponConfig;
 

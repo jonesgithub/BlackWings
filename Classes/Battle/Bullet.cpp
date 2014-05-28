@@ -50,27 +50,27 @@ bool Bullet::initBullet(Attacker attacker,int type,int level)
         sprintf(fileName,"p_bullet_%d_%d.png",type + 1,level + 1);
         switch (type)
         {
-        case 0://轻型战机
+        case 0:
             _trace = false;
             _attackMode = AttackMode::SINGLE;
             break;
-        case 1://合金甲战机
+        case 1:
             _trace = false;
             _attackMode = AttackMode::SINGLE;
             break;
-        case 2://导弹战机
+        case 2:
             _trace = true;
             _attackMode = AttackMode::RANG;
             break;
-        case 3://光束战机
+        case 3:
             _trace = false;
             _attackMode = AttackMode::SINGLE;
             break;
-        case 4://磁力战机
+        case 4:
             _trace = false;
             _attackMode = AttackMode::DIFFUSION;
             break;
-        case 5://黑色之翼
+        case 5:
             _trace = true;
             _attackMode = AttackMode::SINGLE;
             break;
