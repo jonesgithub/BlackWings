@@ -61,7 +61,11 @@ typedef struct _baseStrings{
     std::string upgradeRange;
 
     std::string weaponQuantity;
-
+    
+    std::string sparCapacity;
+    std::string sparRecoverRate;
+    std::string second;
+    
 }BaseStrings;
 
 typedef struct _gameStrings

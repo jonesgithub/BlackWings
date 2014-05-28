@@ -27,4 +27,11 @@
 	<!-- 基地-武器 -->
 	<key>weaponQuantity</key>
 	<string>QTY:</string>
+    
+    <key>sparRecoverRate</key>
+	<string>* Spar Recover Rate *</string>
+    <key>sparCapacity</key>
+	<string>* Spar Capacity *</string>
+    <key>second</key>
+	<string>second</string>
 </dict>

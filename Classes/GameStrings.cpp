@@ -188,5 +188,10 @@ void GSBaseInit(GameLanguage language)
         s_gameStrings.base->upgradeRange = dict["upgradeRange"].asString();
 
         s_gameStrings.base->weaponQuantity = dict["weaponQuantity"].asString();
+        
+        s_gameStrings.base->sparCapacity = dict["sparCapacity"].asString();
+        s_gameStrings.base->sparRecoverRate = dict["sparRecoverRate"].asString();
+        s_gameStrings.base->second = dict["second"].asString();
+        
     }
 }

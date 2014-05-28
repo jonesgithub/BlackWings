@@ -70,7 +70,7 @@ void Base::createUpgrade()
     upgradeFighter->setAnchorPoint(Point::ANCHOR_MIDDLE_BOTTOM);
     upgradeFighter->setPosition(boxPos);
     _upgradePanel->addChild(upgradeFighter);
-    createFighterInfo(upgradeFighter);
+    createFighterBottomInfo(upgradeFighter);
 
     boxPos.y += baseHeight * 4.5 + padding;
     auto sparCapacitySize = Size(s_visibleRect.visibleWidth - 60,baseHeight * 3);
@@ -84,7 +84,8 @@ void Base::createUpgrade()
     bg1->setContentSize(Size(sparCapacitySize.width * 5 /7,baseHeight));
     bg1->setPosition(Point(sparCapacitySize.width /2,sparCapacitySize.height - 2));
     upgradeSparCapacity->addChild(bg1);
-
+    createFighterMiddleInfo(upgradeSparCapacity);
+    
     boxPos.y += baseHeight * 3 + padding;
     auto sparRecoverySize = Size(s_visibleRect.visibleWidth - 70,baseHeight * 3);
     auto upgradeSparRecovery = Scale9Sprite::createWithSpriteFrameName("upgrade_box.png");
@@ -97,9 +98,10 @@ void Base::createUpgrade()
     bg2->setContentSize(Size(sparRecoverySize.width * 5 /7,baseHeight));
     bg2->setPosition(Point(sparRecoverySize.width /2,sparRecoverySize.height - 2));
     upgradeSparRecovery->addChild(bg2);
+    createFighterTopInfo(upgradeSparRecovery);
 }
 
-void Base::createFighterInfo(Node* panel)
+void Base::createFighterBottomInfo(Node* panel)
 {
     auto panelSize = panel->getContentSize();
     std::string fontFile = "fonts/arial.ttf";
@@ -111,111 +113,315 @@ void Base::createFighterInfo(Node* panel)
     fighterBox->setScale(0.7f);
     fighterBox->setPosition(Point(panelSize.width / 6,panelSize.height * 0.625f));
     panel->addChild(fighterBox);
-
+    
+    auto bottombluBar = Scale9Sprite::createWithSpriteFrameName("bt_main_1.png");
+    bottombluBar->setPosition(Point(panelSize.width / 2,panelSize.height * 0.25f));
+    bottombluBar->setScaleX(1.2f);
+    bottombluBar->setScaleY(0.5f);
+    panel->addChild(bottombluBar);
+    
+    auto spar = Sprite::createWithSpriteFrameName("icon_gem.png");
+    spar->setPosition(Point(200,panelSize.height * 0.25f));
+    panel->addChild(spar);
+    
     auto pos = Point(200,panelSize.height * 0.85f);
 
     {
         auto levelText = TextSprite::create(s_gameStrings.base->upgradeLevel,GameConfig::defaultFontName,fontSize);
-        levelText->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
+        levelText->setAnchorPoint(Point::ANCHOR_TOP_LEFT);
         levelText->setPosition(pos);
         panel->addChild(levelText);
 
-        pos.y = panelSize.height * 0.6f;
+        pos.y = panelSize.height * 0.67f;
         auto attText = TextSprite::create(s_gameStrings.base->upgradeAtt,GameConfig::defaultFontName,fontSize);
-        attText->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
+        attText->setAnchorPoint(Point::ANCHOR_TOP_LEFT);
         attText->setPosition(pos);
         panel->addChild(attText);
 
-        pos.y = panelSize.height * 0.35f;
+        pos.y = panelSize.height * 0.5f;
         auto defText = TextSprite::create(s_gameStrings.base->upgradeDef,GameConfig::defaultFontName,fontSize);
-        defText->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
+        defText->setAnchorPoint(Point::ANCHOR_TOP_LEFT);
         defText->setPosition(pos);
         panel->addChild(defText);
 
         pos.x = 400;
         pos.y = panelSize.height * 0.85f;
         auto lifeText = TextSprite::create(s_gameStrings.base->upgradeLife,GameConfig::defaultFontName,fontSize);
-        lifeText->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
+        lifeText->setAnchorPoint(Point::ANCHOR_TOP_LEFT);
         lifeText->setPosition(pos);
         panel->addChild(lifeText);
 
-        pos.y = panelSize.height * 0.6f;
+        pos.y = panelSize.height * 0.67f;
         auto spdText = TextSprite::create(s_gameStrings.base->upgradeSpd,GameConfig::defaultFontName,fontSize);
-        spdText->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
+        spdText->setAnchorPoint(Point::ANCHOR_TOP_LEFT);
         spdText->setPosition(pos);
         panel->addChild(spdText);
 
-        pos.y = panelSize.height * 0.35f;
+        pos.y = panelSize.height * 0.5f;
         auto rangeText = TextSprite::create(s_gameStrings.base->upgradeRange,GameConfig::defaultFontName,fontSize);
-        rangeText->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
+        rangeText->setAnchorPoint(Point::ANCHOR_TOP_LEFT);
         rangeText->setPosition(pos);
         panel->addChild(rangeText);
+        
+        pos.y = panelSize.height * 0.25f;
+        auto leveUpText = TextSprite::create(s_gameStrings.base->upgrade,GameConfig::defaultFontName,fontSize);
+        leveUpText->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
+        leveUpText->setPosition(pos-Point(40,0));
+        panel->addChild(leveUpText);
     }
-    
-    
-    
+
     {
         pos.x = 290;
         pos.y = panelSize.height * 0.85f;
-        _flight_level_label = Label::createWithTTF("0",fontFile,fontSize);
-        _flight_level_label->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
-        _flight_level_label->setPosition(pos);
-        _flight_level_label->setTextColor(infoColor);
-        panel->addChild(_flight_level_label);
-
-        pos.y = panelSize.height * 0.6f;
-        _flight_attack_label = Label::createWithTTF("0",fontFile,fontSize);
-        _flight_attack_label->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
-        _flight_attack_label->setPosition(pos);
-        _flight_attack_label->setTextColor(infoColor);
-        panel->addChild(_flight_attack_label);
-
-        pos.y = panelSize.height * 0.35f;
-        _flight_defend_label = Label::createWithTTF("0",fontFile,fontSize);
-        _flight_defend_label->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
-        _flight_defend_label->setPosition(pos);
-        _flight_defend_label->setTextColor(infoColor);
-        panel->addChild(_flight_defend_label);
-    
+        auto level = Label::createWithTTF("0",fontFile,fontSize);
+        level->setAnchorPoint(Point::ANCHOR_TOP_LEFT);
+        level->setPosition(pos);
+        level->setTextColor(infoColor);
+        panel->addChild(level);
+        
+        pos.y = panelSize.height * 0.67f;
+        auto att = Label::createWithTTF("0",fontFile,fontSize);
+        att->setAnchorPoint(Point::ANCHOR_TOP_LEFT);
+        att->setPosition(pos);
+        att->setTextColor(infoColor);
+        panel->addChild(att);
+        
+        pos.y = panelSize.height * 0.5f;
+        auto def = Label::createWithTTF("0",fontFile,fontSize);
+        def->setAnchorPoint(Point::ANCHOR_TOP_LEFT);
+        def->setPosition(pos);
+        def->setTextColor(infoColor);
+        panel->addChild(def);
+        
+        pos.y = panelSize.height * 0.25f;
+        auto leveUpCost = Label::createWithTTF("13000",fontFile,fontSize);
+        leveUpCost->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
+        leveUpCost->setPosition(spar->getPosition()+Point(spar->getContentSize().width/2,0));
+        leveUpCost->setTextColor(Color4B(255,255,0,255));
+        panel->addChild(leveUpCost);
+        
         pos.x = 490;
         pos.y = panelSize.height * 0.85f;
-        _flight_life_label = Label::createWithTTF("0",fontFile,fontSize);
-        _flight_life_label->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
-        _flight_life_label->setPosition(pos);
-        _flight_life_label->setTextColor(infoColor);
-        panel->addChild(_flight_life_label);
-
-        pos.y = panelSize.height * 0.6f;
-        _flight_speed_label = Label::createWithTTF("0",fontFile,fontSize);
-        _flight_speed_label->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
-        _flight_speed_label->setPosition(pos);
-        _flight_speed_label->setTextColor(infoColor);
-        panel->addChild(_flight_speed_label);
-
-        pos.y = panelSize.height * 0.35f;
-        _flight_range_label = Label::createWithTTF("0",fontFile,fontSize);
-        _flight_range_label->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
-        _flight_range_label->setPosition(pos);
-        _flight_range_label->setTextColor(infoColor);
-        panel->addChild(_flight_range_label);
+        auto life = Label::createWithTTF("0",fontFile,fontSize);
+        life->setAnchorPoint(Point::ANCHOR_TOP_LEFT);
+        life->setPosition(pos);
+        life->setTextColor(infoColor);
+        panel->addChild(life);
         
+        pos.y = panelSize.height * 0.67f;
+        auto spd = Label::createWithTTF("0",fontFile,fontSize);
+        spd->setAnchorPoint(Point::ANCHOR_TOP_LEFT);
+        spd->setPosition(pos);
+        spd->setTextColor(infoColor);
+        panel->addChild(spd);
         
+        pos.y = panelSize.height * 0.5f;
+        auto range = Label::createWithTTF("0",fontFile,fontSize);
+        range->setAnchorPoint(Point::ANCHOR_TOP_LEFT);
+        range->setPosition(pos);
+        range->setTextColor(infoColor);
+        panel->addChild(range);
+   
+   
         auto listener = EventListenerCustom::create(PlayerBar::eventPlayerSelect, [=](EventCustom* event)
-        {
-            /*
-            _flight_level_label ->setString(<#const std::string &text#>);
-            _flight_life_label ->setString(<#const std::string &text#>);
-            _flight_attack_label ->setString(<#const std::string &text#>);
-            _flight_speed_label ->setString(<#const std::string &text#>);
-            _flight_defend_label ->setString(<#const std::string &text#>);
-            _flight_range_label ->setString(<#const std::string &text#>);
-            _flight_upgrade_need_money_label ->setString(<#const std::string &text#>);
-             */
-        });
+       {
+            level ->setString("10");
+            att ->setString("10");
+            def ->setString("10");
+            life ->setString("10");
+            spd ->setString("10");
+            range ->setString("10");
+            leveUpCost->setString("3100");
+       });
         _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
     }
 }
-
+void Base::createFighterMiddleInfo(Node* panel)
+{
+    auto panelSize = panel->getContentSize();
+    std::string fontFile = "fonts/arial.ttf";
+    int fontSize = 20;
+    auto infoColor = Color4B(153,217,234,255);
+    
+    
+    auto bottombluBar = Scale9Sprite::createWithSpriteFrameName("bt_main_1.png");
+    bottombluBar->setPosition(Point(panelSize.width / 2,panelSize.height * 0.25f));
+    bottombluBar->setScaleX(1.2f);
+    bottombluBar->setScaleY(0.5f);
+    panel->addChild(bottombluBar);
+    
+    auto spar = Sprite::createWithSpriteFrameName("icon_gem.png");
+    spar->setPosition(Point(200,panelSize.height * 0.25f));
+    panel->addChild(spar);
+    
+    auto pos = Point(200,panelSize.height * 0.85f);
+    
+    {
+        auto levelText = TextSprite::create(s_gameStrings.base->upgradeLevel,GameConfig::defaultFontName,fontSize);
+        levelText->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
+        levelText->setPosition(pos);
+        panel->addChild(levelText);
+        
+        pos.x = panelSize.width/2;
+        pos.y = panelSize.height * 0.53f;
+        auto sparCapacityText = TextSprite::create(s_gameStrings.base->sparCapacity,GameConfig::defaultFontName,fontSize);
+        sparCapacityText->setPosition(pos);
+        sparCapacityText->setColor(Color3B(169,169,169));
+        panel->addChild(sparCapacityText);
+        
+        pos.x = 400;
+        pos.y = panelSize.height * 0.25f;
+        auto leveUpText = TextSprite::create(s_gameStrings.base->upgrade,GameConfig::defaultFontName,fontSize);
+        leveUpText->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
+        leveUpText->setPosition(pos-Point(40,0));
+        panel->addChild(leveUpText);
+    }
+    {
+        pos.x = 290;
+        pos.y = panelSize.height * 0.85f;
+        auto level = Label::createWithTTF("0",fontFile,fontSize);
+        level->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
+        level->setPosition(pos);
+        panel->addChild(level);
+        
+        pos.x = 350;
+        pos.y = panelSize.height * 0.85f;
+        auto cost = Label::createWithTTF("0",fontFile,fontSize);
+        cost->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
+        cost->setPosition(pos);
+        cost->setTextColor(infoColor);
+        panel->addChild(cost);
+        
+        auto slash = Label::createWithTTF("/",fontFile,fontSize);
+        slash->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
+        slash->setPosition(cost->getPosition()+Point(cost->getContentSize().width,0));
+        panel->addChild(slash);
+        
+        auto total = Label::createWithTTF("0",fontFile,fontSize);
+        total->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
+        total->setPosition(slash->getPosition()+Point(slash->getContentSize().width,0));
+        panel->addChild(total);
+        
+        
+        pos.y = panelSize.height * 0.25f;
+        auto leveUpCost = Label::createWithTTF("13000",fontFile,fontSize);
+        leveUpCost->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
+        leveUpCost->setPosition(spar->getPosition()+Point(spar->getContentSize().width/2,0));
+        leveUpCost->setTextColor(Color4B(255,255,0,255));
+        panel->addChild(leveUpCost);
+        
+        auto listener = EventListenerCustom::create(PlayerBar::eventPlayerSelect, [=](EventCustom* event)
+                                                    {
+                                                        level ->setString("10");
+                                            
+                                                        cost ->setString("1200");
+                                                        
+                                                        slash->setPosition(cost->getPosition()+Point(cost->getContentSize().width,0));
+                                                        
+                                                        total ->setString("1500");
+                                                        total->setPosition(slash->getPosition()+Point(slash->getContentSize().width,0));
+                                                        
+                                                        leveUpCost->setString("1500");
+                                                    });
+        _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
+    }
+}
+void Base::createFighterTopInfo(Node* panel)
+{
+    auto panelSize = panel->getContentSize();
+    std::string fontFile = "fonts/arial.ttf";
+    int fontSize = 20;
+    auto infoColor = Color4B(153,217,234,255);
+    
+    
+    auto bottombluBar = Scale9Sprite::createWithSpriteFrameName("bt_main_1.png");
+    bottombluBar->setPosition(Point(panelSize.width / 2,panelSize.height * 0.25f));
+    bottombluBar->setScaleX(1.2f);
+    bottombluBar->setScaleY(0.5f);
+    panel->addChild(bottombluBar);
+    
+    auto spar = Sprite::createWithSpriteFrameName("icon_gem.png");
+    spar->setPosition(Point(200,panelSize.height * 0.25f));
+    panel->addChild(spar);
+    
+    auto pos = Point(200,panelSize.height * 0.85f);
+    
+    {
+        auto levelText = TextSprite::create(s_gameStrings.base->upgradeLevel,GameConfig::defaultFontName,fontSize);
+        levelText->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
+        levelText->setPosition(pos);
+        panel->addChild(levelText);
+        
+        pos.x = panelSize.width/2;
+        pos.y = panelSize.height * 0.53f;
+        auto sparRecoverRateText = TextSprite::create(s_gameStrings.base->sparRecoverRate,GameConfig::defaultFontName,fontSize);
+        sparRecoverRateText->setPosition(pos);
+        sparRecoverRateText->setColor(Color3B(169,169,169));
+        panel->addChild(sparRecoverRateText);
+        
+        pos.x = 400;
+        pos.y = panelSize.height * 0.25f;
+        auto leveUpText = TextSprite::create(s_gameStrings.base->upgrade,GameConfig::defaultFontName,fontSize);
+        leveUpText->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
+        leveUpText->setPosition(pos-Point(40,0));
+        panel->addChild(leveUpText);
+    }
+    {
+        pos.x = 290;
+        pos.y = panelSize.height * 0.85f;
+        auto level = Label::createWithTTF("0",fontFile,fontSize);
+        level->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
+        level->setPosition(pos);
+        panel->addChild(level);
+        
+        pos.x = 350;
+        pos.y = panelSize.height * 0.85f;
+        auto plus = Label::createWithTTF("+",fontFile,fontSize);
+        plus->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
+        plus->setPosition(pos);
+        plus->setTextColor(infoColor);
+        panel->addChild(plus);
+        
+        auto cost = Label::createWithTTF("0",fontFile,fontSize);
+        cost->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
+        cost->setPosition(plus->getPosition()+Point(plus->getContentSize().width,0));
+        cost->setTextColor(infoColor);
+        panel->addChild(cost);
+        
+        auto slash = Label::createWithTTF("/",fontFile,fontSize);
+        slash->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
+        slash->setPosition(cost->getPosition()+Point(cost->getContentSize().width,0));
+        panel->addChild(slash);
+        
+        auto total = Label::createWithTTF(s_gameStrings.base->second,fontFile,fontSize);
+        total->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
+        total->setPosition(slash->getPosition()+Point(slash->getContentSize().width,0));
+        panel->addChild(total);
+        
+        
+        pos.y = panelSize.height * 0.25f;
+        auto leveUpCost = Label::createWithTTF("13000",fontFile,fontSize);
+        leveUpCost->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
+        leveUpCost->setPosition(spar->getPosition()+Point(spar->getContentSize().width/2,0));
+        leveUpCost->setTextColor(Color4B(255,255,0,255));
+        panel->addChild(leveUpCost);
+        
+        auto listener = EventListenerCustom::create(PlayerBar::eventPlayerSelect, [=](EventCustom* event)
+                                                    {
+                                                        level ->setString("10");
+                                                        
+                                                        cost ->setString("1200");
+                                                        cost->setPosition(plus->getPosition()+Point(plus->getContentSize().width,0));
+                                                        
+                                                        slash->setPosition(cost->getPosition()+Point(cost->getContentSize().width,0));
+                                                    
+                                                        total->setPosition(slash->getPosition()+Point(slash->getContentSize().width,0));
+                                                        
+                                                        leveUpCost->setString("1500");
+                                                    });
+        _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
+    }
+}
 void Base::createTopPanel()
 {
     _topPanel = Node::create();
@@ -266,7 +472,7 @@ void Base::menuCallbackBattle(Ref *sender)
     _upgradePanel->runAction(MoveBy::create(0.2f,Point(0,-s_visibleRect.visibleHeight)));
     _playerBag->runAction(Sequence::create( MoveBy::create(0.15f,Point(0,-150)),
         MoveBy::create(0.05f,Point(0,14)),nullptr ));
-
+    
     auto stageSelect = StageSelect::create();
     this->addChild(stageSelect);
 }

@@ -24,4 +24,14 @@
 
 	<key>weaponQuantity</key>
 	<string>数量：</string>
+    
+    <key>repeadSpeed</key>
+	<string>射程：</string>
+    
+    <key>sparRecoverRate</key>
+	<string>* 晶石回复速度 *</string>
+    <key>sparCapacity</key>
+	<string>* 晶石最大容量 *</string>
+    <key>second</key>
+	<string>秒</string>
 </dict>

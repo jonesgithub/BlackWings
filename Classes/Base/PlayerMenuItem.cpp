@@ -42,7 +42,6 @@ bool PlayerMenuItem::init(Type playerType,int index)
         selectedSprite = Sprite::createWithSpriteFrameName("item_1.png");
         //disabledSprite = Sprite::createWithSpriteFrameName("item_4.png");
         ret = initWithNormalSprite(normalSprite, selectedSprite, disabledSprite, nullptr);
-
         if (ret)
         {
             char iconFileName[25];
