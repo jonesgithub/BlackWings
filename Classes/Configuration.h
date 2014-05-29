@@ -55,6 +55,7 @@ public:
     
     void initMedalRewards();
 
+    //主角属性
     float musicVolume;
     float sfxVolume;
     int language;

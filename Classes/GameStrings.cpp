@@ -74,6 +74,10 @@ void GSMainMenuInit(GameLanguage language)
         s_gameStrings.mainMenu->aboutEmail = dict["aboutEmail"].asString();
         s_gameStrings.mainMenu->aboutRate = dict["aboutRate"].asString();
         s_gameStrings.mainMenu->aboutRateAppreciation = dict["aboutRateAppreciation"].asString();
+        
+        s_gameStrings.mainMenu->stageselect = dict["stage_select"].asString();
+        s_gameStrings.mainMenu->stagetext = dict["stage_text"].asString();
+        s_gameStrings.mainMenu->stage_fight = dict["stage_fight"].asString();
     }
 }
 
@@ -249,5 +253,9 @@ void GSMedalInfo(GameLanguage language)
         
         s_gameStrings.medalInfo->medalrewardstip = dict["medal_rewards_tip"].asString();
         s_gameStrings.medalInfo->medalrewardok = dict["medal_rewards_comfirm"].asString();
+        s_gameStrings.medalInfo->medaloverstage = dict["overstage"].asString();
+        s_gameStrings.medalInfo->medalusedspcweapon = dict["usedspcweapon"].asString();
+        s_gameStrings.medalInfo->medalkillenemy = dict["killenemy"].asString();
+        s_gameStrings.medalInfo->medalkillbigenemy = dict["killbigenemy"].asString();
     }
 }

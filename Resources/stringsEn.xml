@@ -59,4 +59,12 @@
 	<key>aboutRateAppreciation</key>
 	<string>Please rate this game,Thank you! :)</string>
 	
+    <!-- 关卡菜单 -->
+	<key>stage_select</key>
+    <string>关卡选择</string>
+    <key>stage_text</key>
+    <string>关卡</string>
+    <key>stage_fight</key>
+    <string>战斗！</string>
+    
 </dict>

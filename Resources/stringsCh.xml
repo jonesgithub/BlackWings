@@ -58,5 +58,12 @@
 	<string>★★★★★</string>
 	<key>aboutRateAppreciation</key>
 	<string>给我一个评分吧，谢谢！:)</string>
-	
+    
+    <!-- 关卡菜单 -->
+	<key>stage_select</key>
+    <string>关卡选择</string>
+    <key>stage_text</key>
+    <string>关卡</string>
+    <key>stage_fight</key>
+    <string>战斗</string>
 </dict>

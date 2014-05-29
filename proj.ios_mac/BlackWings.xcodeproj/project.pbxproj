@@ -508,8 +508,8 @@
 		50EF629517ECD46A001EB2F8 /* Icon-100.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-100.png"; sourceTree = "<group>"; };
 		50EF62A017ECD613001EB2F8 /* Icon-29.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-29.png"; sourceTree = "<group>"; };
 		50EF62A117ECD613001EB2F8 /* Icon-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-50.png"; sourceTree = "<group>"; };
-		8527812D1934FAA700A0DEA5 /* medalStringsCh.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = medalStringsCh.xml; path = ../medalStringsCh.xml; sourceTree = "<group>"; };
-		8527812E1934FAA700A0DEA5 /* medalStringsEn.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = medalStringsEn.xml; path = ../medalStringsEn.xml; sourceTree = "<group>"; };
+		8527812D1934FAA700A0DEA5 /* medalStringsCh.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = medalStringsCh.xml; sourceTree = "<group>"; };
+		8527812E1934FAA700A0DEA5 /* medalStringsEn.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = medalStringsEn.xml; sourceTree = "<group>"; };
 		8528F14E19362B8C00EF967E /* MedalChecker.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MedalChecker.cpp; sourceTree = "<group>"; };
 		8528F14F19362B8C00EF967E /* MedalChecker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MedalChecker.h; sourceTree = "<group>"; };
 		8528F15219363F5200EF967E /* MedalRewardsLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MedalRewardsLayer.cpp; sourceTree = "<group>"; };
@@ -872,6 +872,8 @@
 		78C7DDAA14EBA5050085D0C2 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				8527812D1934FAA700A0DEA5 /* medalStringsCh.xml */,
+				8527812E1934FAA700A0DEA5 /* medalStringsEn.xml */,
 				8598E7281933804500E72CDE /* baseStringsCh.xml */,
 				8598E7291933804500E72CDE /* baseStringsEn.xml */,
 				8598E72A1933804500E72CDE /* CloseNormal.png */,
@@ -915,8 +917,6 @@
 		8598E72F1933804500E72CDE /* hd */ = {
 			isa = PBXGroup;
 			children = (
-				8527812D1934FAA700A0DEA5 /* medalStringsCh.xml */,
-				8527812E1934FAA700A0DEA5 /* medalStringsEn.xml */,
 				855E13381934D0EB00683F21 /* battle_life_enemy.png */,
 				855E13391934D0EB00683F21 /* battle_life_plain.png */,
 				8598E7301933804500E72CDE /* allBt.plist */,

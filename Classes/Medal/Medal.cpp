@@ -11,6 +11,7 @@
 #include "TextSprite.h"
 #include "MenuItemImageLabel.h"
 #include "GameStrings.h"
+#include "Configuration.h"
 #include "MedalRewardsLayer.h"
 
 USING_NS_CC;
@@ -32,6 +33,7 @@ bool Medal::init()
     };
     _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
     
+    //panel
     auto panelSize = Size(s_visibleRect.visibleWidth,s_visibleRect.visibleHeight-60);
     
     _cellSize.width = 546;
@@ -44,7 +46,57 @@ bool Medal::init()
     this->addChild(_panel);
     _panel->runAction(MoveTo::create(0.15f,s_visibleRect.top));
     
-    auto tableView = TableView::create(this, Size(panelSize.width, panelSize.height - 100));
+    //medal_data_bk
+    auto medal_data_bk = Sprite::createWithSpriteFrameName("bt_mission_3.png");
+    medal_data_bk->setAnchorPoint(Point::ANCHOR_MIDDLE);
+    medal_data_bk->setPosition(panelSize.width/2,panelSize.height-70);
+    _panel->addChild(medal_data_bk);
+    
+    auto medal_logo = Sprite::createWithSpriteFrameName("icon_medal.png");
+    medal_logo->setAnchorPoint(Point::ANCHOR_MIDDLE);
+    medal_logo->setPosition(Point(50,50));
+    medal_data_bk->addChild(medal_logo);
+    
+    auto label_1 = TextSprite::create(s_gameStrings.medalInfo->medaloverstage, s_gameConfig.defaultFontName, 20);
+    auto label_2 = TextSprite::create(s_gameStrings.medalInfo->medalusedspcweapon, s_gameConfig.defaultFontName, 20);
+    auto label_3 = TextSprite::create(s_gameStrings.medalInfo->medalkillenemy, s_gameConfig.defaultFontName, 20);
+    auto label_4 = TextSprite::create(s_gameStrings.medalInfo->medalkillbigenemy, s_gameConfig.defaultFontName, 20);
+    label_1->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
+    label_2->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
+    label_3->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
+    label_4->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
+    label_1->setPosition(Point(130,70));
+    label_2->setPosition(Point(300,70));
+    label_3->setPosition(Point(130,30));
+    label_4->setPosition(Point(300,30));
+    medal_data_bk->addChild(label_1);
+    medal_data_bk->addChild(label_2);
+    medal_data_bk->addChild(label_3);
+    medal_data_bk->addChild(label_4);
+
+    auto label_num1 = TextSprite::create(Value(s_gameConfig.treasure.overStage).asString().c_str(), s_gameConfig.defaultFontName, 20);
+    auto label_num2 = TextSprite::create(Value(s_gameConfig.treasure.usedSpcWeapon).asString().c_str(), s_gameConfig.defaultFontName, 20);
+    auto label_num3 = TextSprite::create(Value(s_gameConfig.treasure.killEnemy).asString().c_str(), s_gameConfig.defaultFontName, 20);
+    auto label_num4 = TextSprite::create(Value(s_gameConfig.treasure.killBigEnemy).asString().c_str(), s_gameConfig.defaultFontName, 20);
+    label_num1->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
+    label_num2->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
+    label_num3->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
+    label_num4->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
+    label_num1->setPosition(Point(230,70));
+    label_num2->setPosition(Point(440,70));
+    label_num3->setPosition(Point(230,30));
+    label_num4->setPosition(Point(440,30));
+    label_num1->setColor(Color3B(0, 0, 255));
+    label_num2->setColor(Color3B(0, 0, 255));
+    label_num3->setColor(Color3B(0, 0, 255));
+    label_num4->setColor(Color3B(0, 0, 255));
+    medal_data_bk->addChild(label_num1);
+    medal_data_bk->addChild(label_num2);
+    medal_data_bk->addChild(label_num3);
+    medal_data_bk->addChild(label_num4);
+    
+    //tabview
+    auto tableView = TableView::create(this, Size(panelSize.width, panelSize.height - 150));
     tableView->setDirection(ScrollView::Direction::VERTICAL);
     tableView->setVerticalFillOrder(TableView::VerticalFillOrder::TOP_DOWN);
     tableView->setPosition(Point(50,20));
@@ -52,6 +104,8 @@ bool Medal::init()
     tableView->reloadData();
     _panel->addChild(tableView, 1);
     
+    
+    //closebtn
     auto itemClosed = MenuItemImageLabel::createWithFrameName("back_0.png","back_1.png",
                                                               CC_CALLBACK_1(Medal::menuCallbackClosed,this));
     itemClosed->setAnchorPoint(Point::ANCHOR_TOP_RIGHT);

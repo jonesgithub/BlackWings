@@ -34,6 +34,10 @@ typedef struct _mainMenuStrings
     std::string aboutEmail;
     std::string aboutRate;
     std::string aboutRateAppreciation;
+    
+    std::string stageselect;
+    std::string stagetext;
+    std::string stage_fight;
 }MainMenuStrings;
 
 typedef struct _helpInfoStrings{
@@ -73,6 +77,10 @@ typedef struct _medalStrings{
     std::string medaldscr[25];
     std::string medalrewardstip;
     std::string medalrewardok;
+    std::string medaloverstage;
+    std::string medalusedspcweapon;
+    std::string medalkillenemy;
+    std::string medalkillbigenemy;
 }MedalStrings;
 
 typedef struct _gameStrings

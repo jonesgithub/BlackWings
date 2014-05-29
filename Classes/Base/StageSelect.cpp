@@ -14,7 +14,11 @@ bool StageSelect::init()
 {
     if (Layer::init())
     {
-        _selectStage = 0;
+        selected_cell = nullptr;
+        s_gameConfig.treasure.overStage = 20;
+        _selectItem = s_gameConfig.treasure.overStage;
+        _noTouch = true ;
+        
         auto listener = EventListenerTouchOneByOne::create();
         listener->setSwallowTouches(true);
         listener->onTouchBegan = [](Touch* touch, Event* event){
@@ -22,7 +26,7 @@ bool StageSelect::init()
         };
         _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
 
-        auto panelSize = Size(506,s_visibleRect.visibleHeight * 0.8f);//s_visibleRect.visibleWidth - 97
+        auto panelSize = Size(568,s_visibleRect.visibleHeight * 0.88f);//s_visibleRect.visibleWidth - 97
         auto panelCenterX = panelSize.width / 2.0f;
 
         _cellSize.width = panelSize.width;
@@ -33,7 +37,31 @@ bool StageSelect::init()
         _panel->setPosition(Point(s_visibleRect.center.x,s_visibleRect.top.y + panelSize.height));
         _panel->setContentSize(panelSize);
         this->addChild(_panel);
-        _panel->runAction(MoveTo::create(0.15f,s_visibleRect.top));
+        
+        auto stageselect_text = TextSprite::create(s_gameStrings.mainMenu->stageselect.c_str());
+        stageselect_text->setAnchorPoint(Point::ANCHOR_MIDDLE);
+        stageselect_text->setPosition(Point(panelSize.width/2, panelSize.height-170));
+        _panel->addChild(stageselect_text);
+        
+        auto left_door = Sprite::create("door_l.png");
+        auto right_door = Sprite::create("door_r.png");
+        left_door->setScale(0.95f, 0.78f);
+        right_door->setScale(0.95f, 0.78f);
+        left_door->setAnchorPoint(Point::ANCHOR_MIDDLE_RIGHT);
+        right_door->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
+        left_door->setPosition(Point(panelSize.width/2+20,panelSize.height/2-35));
+        right_door->setPosition(Point(panelSize.width/2-20,panelSize.height/2-35));
+        _panel->addChild(left_door,2);
+        _panel->addChild(right_door,2);
+
+        
+        auto actionmovedone = CallFunc::create(
+                                        [=](){
+                                            left_door->runAction(ScaleTo::create(0.5f, 0, 1.0f));
+                                            right_door->runAction(ScaleTo::create(0.5f, 0, 1.0f));
+                                        });
+        _panel->runAction(Sequence::create(MoveTo::create(0.15f,s_visibleRect.top),
+                                           actionmovedone,nullptr));
 
         auto tableView = TableView::create(this, Size(panelSize.width, panelSize.height - 335));
         tableView->setDirection(ScrollView::Direction::VERTICAL);
@@ -49,9 +77,10 @@ bool StageSelect::init()
         itemClosed->setPosition((s_visibleRect.visibleWidth + panelSize.width)/2,panelSize.height);
 
         auto itemFight = MenuItemImageLabel::createWithFrameName("btA_0.png","btA_1.png",
-            CC_CALLBACK_1(StageSelect::menuCallbackFight,this));
+            CC_CALLBACK_1(StageSelect::menuCallbackFight,this), s_gameStrings.mainMenu->stage_fight.c_str());
         itemFight->setPosition(Point(panelSize.width / 2,77));
-       
+        itemFight->setTextColor(Color3B(255, 255, 0));
+        
         auto menu = Menu::create( itemClosed, itemFight, nullptr);
         menu->setPosition(Point::ZERO);
         _panel->addChild(menu);
@@ -66,11 +95,6 @@ cocos2d::extension::TableViewCell* StageSelect::tableCellAtIndex(cocos2d::extens
 {
     auto cell = table->dequeueCell();
 
-    char stageText[10];
-    char iconFileName[25];
-
-    sprintf(stageText,"stage %d",idx);
-
     if (!cell)
     {
         cell = TableViewCell::create();
@@ -79,25 +103,42 @@ cocos2d::extension::TableViewCell* StageSelect::tableCellAtIndex(cocos2d::extens
         icon->setPosition(Point(50,_cellSize.height /2));
         cell->addChild(icon,0,10);*/
 
-        auto infoSprite = TextSprite::create(stageText,GameConfig::defaultFontName,25,
-            Size(_cellSize.width - 200,_cellSize.height - 50),TextHAlignment::LEFT,TextVAlignment::CENTER);
-        infoSprite->setPosition(Point(_cellSize.width /2,_cellSize.height /2));
-        cell->addChild(infoSprite,0,20);
+        auto cell_node = getItemNode(idx);
+        cell->addChild(cell_node,0,10);
+        log("aaaaaaaaaaaa");
+        if(_noTouch && idx==_selectItem)
+        {selected_cell = cell;}
     }
     else
     {
-        auto icon = (Sprite*)cell->getChildByTag(10);
-        if (icon)
-        {
-            //icon->setSpriteFrame(iconFileName);
-        }
-
-        auto label = (TextSprite*)cell->getChildByTag(20);
-        if (label)
-        {
-            label->setText(stageText);
-            //label->setColor(textColor);
-        }
+        auto item_bk = (Sprite*)cell->getChildByTag(10)->getChildByTag(20);
+        if(idx <= s_gameConfig.treasure.overStage)
+            item_bk->setSpriteFrame("bt_mission_0.png");
+        else
+            item_bk->setSpriteFrame("bt_mission_1.png");
+        
+//        auto item_hl = (Sprite*)cell->getChildByTag(10)->getChildByTag(30);
+//        item_hl->setSpriteFrame("bt_mission_3.png");
+//        item_hl->setVisible(false);
+        
+        std::string stage_text_str = s_gameStrings.mainMenu->stagetext + " - " + Value((int)idx+1).asString();
+        auto stage_text = (TextSprite*)cell->getChildByTag(10)->getChildByTag(40);
+        stage_text->setText(stage_text_str);
+        if(idx<=s_gameConfig.treasure.overStage)
+            stage_text->setColor(Color3B(230,230,230));
+        else
+            stage_text->setColor(Color3B(80,80,80));
+        
+        if(_selectItem == idx)
+            cell->getChildByTag(10)->getChildByTag(30)->setVisible(true);
+        else
+            cell->getChildByTag(10)->getChildByTag(30)->setVisible(false);
+        
+        if(_noTouch && idx==_selectItem)
+        {selected_cell = cell;
+            cell->getChildByTag(10)->getChildByTag(30)->setVisible(true);}
+        log("bbbbbbbbbbbbb");
+        
     }
 
     return cell;
@@ -105,12 +146,46 @@ cocos2d::extension::TableViewCell* StageSelect::tableCellAtIndex(cocos2d::extens
 
 void StageSelect::tableCellTouched(extension::TableView* table, extension::TableViewCell* cell)
 {
-    _selectStage = cell->getIdx();
+    _noTouch = false;
+    if(cell->getIdx()<=s_gameConfig.treasure.overStage)
+    {
+        if(selected_cell)
+        {
+            selected_cell->getChildByTag(10)->getChildByTag(30)->setVisible(false);
+//            auto stage_text = (TextSprite*)cell->getChildByTag(10)->getChildByTag(40);
+//            stage_text->setColor(Color3B(230,230,230));
+        }
+        _selectItem = cell->getIdx();
+        cell->getChildByTag(10)->getChildByTag(30)->setVisible(true);
+//        auto stage_text = (TextSprite*)cell->getChildByTag(10)->getChildByTag(40);
+//        stage_text->setColor(Color3B(0,0,255));
+        selected_cell = cell;
+        log("====>%d",_selectItem);
+    }
 }
+
+
+//void StageSelect::tableCellHighlight(extension::TableView* table, extension::TableViewCell* cell)
+//{
+//    if (cell->getIdx()<=s_gameConfig.treasure.overStage) {
+//        cell->getChildByTag(10)->getChildByTag(30)->setVisible(true);
+//        auto stage_text = (TextSprite*)cell->getChildByTag(10)->getChildByTag(40);
+//        stage_text->setColor(Color3B(0,0,255));
+//    }
+//}
+
+//void StageSelect::tableCellUnhighlight(extension::TableView* table, extension::TableViewCell* cell)
+//{
+//    if (cell->getIdx()<=s_gameConfig.treasure.overStage) {
+//    cell->getChildByTag(10)->getChildByTag(30)->setVisible(false);
+//    auto stage_text = (TextSprite*)cell->getChildByTag(10)->getChildByTag(40);
+//    stage_text->setColor(Color3B(230,230,230));
+//    }
+//}
 
 void StageSelect::menuCallbackFight(Ref *sender)
 {
-    auto battle = Battleground::create(_selectStage);
+    auto battle = Battleground::create(_selectItem);
     Director::getInstance()->replaceScene(battle);
 }
 
@@ -136,4 +211,46 @@ void StageSelect::menuCallbackClosed(Ref *sender)
             this->removeFromParentAndCleanup(true);
     }  ),nullptr);
     _panel->runAction(action);
+}
+
+Node* StageSelect::getItemNode(int i)
+{
+    auto item = Node::create();
+    Sprite* item_bk = nullptr;
+    if(i<=s_gameConfig.treasure.overStage)
+        item_bk = Sprite::createWithSpriteFrameName("bt_mission_0.png");
+    else
+        item_bk = Sprite::createWithSpriteFrameName("bt_mission_1.png");
+    item->setAnchorPoint(Point::ANCHOR_MIDDLE);
+    item_bk->setPosition(Point(_cellSize.width/2,_cellSize.height/2));
+    item_bk->setTag(20);
+    item->addChild(item_bk);
+    
+    auto item_hl = Sprite::createWithSpriteFrameName("bt_mission_3.png");
+    item_hl->setAnchorPoint(Point::ANCHOR_MIDDLE);
+    item_hl->setPosition(Point(_cellSize.width/2,_cellSize.height/2));
+    item_hl->setTag(30);
+    item_hl->setVisible(false);
+    item->addChild(item_hl);
+    
+    if(i == _selectItem)
+        item_hl->setVisible(true);
+    else
+        item_hl->setVisible(false);
+    
+    if(_noTouch && i==_selectItem)
+        item_hl->setVisible(true);
+    
+    std::string stage_text_str = s_gameStrings.mainMenu->stagetext + " - " + Value(i+1).asString();
+    auto stage_text = TextSprite::create(stage_text_str,GameConfig::defaultFontName,GameConfig::defaultFontSize);
+    if(i<=s_gameConfig.treasure.overStage)
+        stage_text->setColor(Color3B(230,230,230));
+    else
+        stage_text->setColor(Color3B(80,80,80));
+    stage_text->setAnchorPoint(Point::ANCHOR_MIDDLE);
+    stage_text->setPosition(Point(_cellSize.width/2,_cellSize.height/2));
+    stage_text->setTag(40);
+    item->addChild(stage_text);
+
+    return item;
 }

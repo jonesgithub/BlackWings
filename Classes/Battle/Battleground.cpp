@@ -59,17 +59,17 @@ bool Battleground::init(int stage)
     if (Scene::init())
     {
         auto loadLayer = LoadResourceLayer::create(CC_CALLBACK_1(Battleground::createBattleground, this));
-        loadLayer->addImage("battle/createBombTip_box.png");
-        loadLayer->addPlist("map/map_clouds.plist","map/map_clouds.png");
-        loadLayer->addPlist("battle/bases.plist","battle/bases.png");
-        loadLayer->addPlist("battle/battle.plist","battle/battle.png");        
-        loadLayer->addPlist("battle/e_bullets.plist","battle/e_bullets.png");
-        loadLayer->addPlist("battle/explode_A.plist","battle/explode_A.png");
-        loadLayer->addPlist("battle/explode_B.plist","battle/explode_B.png");
-        loadLayer->addPlist("battle/explode_C.plist","battle/explode_C.png");
-        loadLayer->addPlist("battle/p_bullets.plist","battle/p_bullets.png");
-        loadLayer->addPlist("battle/plainFire.plist","battle/plainFire.png");
-        loadLayer->addPlist("battle/enemys.plist","battle/enemys.png");
+        loadLayer->addImage("createBombTip_box.png");
+        loadLayer->addPlist("map_clouds.plist","map_clouds.png");
+        loadLayer->addPlist("bases.plist","bases.png");
+        loadLayer->addPlist("battle.plist","battle.png");
+        loadLayer->addPlist("e_bullets.plist","e_bullets.png");
+        loadLayer->addPlist("explode_A.plist","explode_A.png");
+        loadLayer->addPlist("explode_B.plist","explode_B.png");
+        loadLayer->addPlist("explode_C.plist","explode_C.png");
+        loadLayer->addPlist("p_bullets.plist","p_bullets.png");
+        loadLayer->addPlist("plainFire.plist","plainFire.png");
+        loadLayer->addPlist("enemys.plist","enemys.png");
         this->addChild(loadLayer);
         loadLayer->startLoad();
         
@@ -418,7 +418,7 @@ void Battleground::createRadarChart()
     this->addChild(stageTextBox);
     
     std::string str = "STAGE" + Value(_stage).asString();
-    auto stageText = Label::createWithTTF(str,"fonts/arial.ttf",12);
+    auto stageText = Label::createWithTTF(str,"arial.ttf",12);
     stageText->setAnchorPoint(Point::ANCHOR_MIDDLE);
     stageText->setPosition(Point(stageTextBox->getContentSize().width/2,stageTextBox->getContentSize().height/2));
     stageTextBox->addChild(stageText);
