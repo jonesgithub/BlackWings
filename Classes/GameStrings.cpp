@@ -74,6 +74,10 @@ void GSMainMenuInit(GameLanguage language)
         s_gameStrings.mainMenu->aboutEmail = dict["aboutEmail"].asString();
         s_gameStrings.mainMenu->aboutRate = dict["aboutRate"].asString();
         s_gameStrings.mainMenu->aboutRateAppreciation = dict["aboutRateAppreciation"].asString();
+        
+        s_gameStrings.mainMenu->stageselect = dict["stage_select"].asString();
+        s_gameStrings.mainMenu->stagetext = dict["stage_text"].asString();
+        s_gameStrings.mainMenu->stage_fight = dict["stage_fight"].asString();
     }
 }
 
@@ -193,5 +197,65 @@ void GSBaseInit(GameLanguage language)
         s_gameStrings.base->sparRecoverRate = dict["sparRecoverRate"].asString();
         s_gameStrings.base->second = dict["second"].asString();
         
+    }
+}
+
+void GSMedalInfo(GameLanguage language)
+{
+    static bool lazyInitCh = true;
+    static bool lazyInitEn = true;
+    static MedalStrings s_chMedalStrings;
+    static MedalStrings s_enMedalStrings;
+    
+    bool parseString = false;
+    std::string  medalStringsFilePath;
+    
+    auto fileUtils = cocos2d::FileUtils::getInstance();
+    
+    switch (language)
+    {
+        case GameLanguage::Chinese:
+            if (lazyInitCh)
+            {
+                medalStringsFilePath = fileUtils->fullPathForFilename("medalStringsCh.xml");
+                parseString = true;
+                lazyInitCh = false;
+            }
+            s_gameStrings.medalInfo = &s_chMedalStrings;
+            break;
+        case GameLanguage::English:
+            if (lazyInitEn)
+            {
+                medalStringsFilePath = fileUtils->fullPathForFilename("medalStringsEn.xml");
+                parseString = true;
+                lazyInitEn = false;
+            }
+            s_gameStrings.medalInfo = &s_enMedalStrings;
+            break;
+        default:
+            break;
+    }
+    
+    if (parseString)
+    {
+        auto dict = fileUtils->getValueMapFromFile(medalStringsFilePath);
+        
+        char str[30];
+        for (int i=0; i<25; ++i) {
+            sprintf(str, "medal_%d_name",i+1);
+            s_gameStrings.medalInfo->medalname[i] = dict[str].asString();
+        }
+        
+        for (int i=0; i<25; ++i) {
+            sprintf(str, "medal_%d_dscr",i+1);
+            s_gameStrings.medalInfo->medaldscr[i] = dict[str].asString();
+        }
+        
+        s_gameStrings.medalInfo->medalrewardstip = dict["medal_rewards_tip"].asString();
+        s_gameStrings.medalInfo->medalrewardok = dict["medal_rewards_comfirm"].asString();
+        s_gameStrings.medalInfo->medaloverstage = dict["overstage"].asString();
+        s_gameStrings.medalInfo->medalusedspcweapon = dict["usedspcweapon"].asString();
+        s_gameStrings.medalInfo->medalkillenemy = dict["killenemy"].asString();
+        s_gameStrings.medalInfo->medalkillbigenemy = dict["killbigenemy"].asString();
     }
 }

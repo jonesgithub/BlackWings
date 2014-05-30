@@ -20,11 +20,8 @@ public:
 private:
     enum class AttackMode
     {
-        //µ¥Ìå¹¥»÷
         SINGLE,
-        //·¶Î§ÉËº¦
         RANG,
-        //À©É¢¹¥»÷
         DIFFUSION
     };
     Bullet();
@@ -43,9 +40,7 @@ private:
     bool _fire;
     //
     int _attack;
-    //×·×Ù¹¥»÷
     bool _trace;
-    //¹¥»÷·¶Î§  0-¹¥»÷
     int _attRang;
 
     Animation* explode_A;

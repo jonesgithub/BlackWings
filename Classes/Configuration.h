@@ -1,6 +1,8 @@
 #pragma once
 
 #include <string>
+#include <vector>
+#include <functional>
 
 #define FIGHTER_MAX 6
 #define FIGHTER_LEVEL_MAX 15
@@ -11,12 +13,29 @@
 #define WEAPON_MAX 3
 #define WEAPON_LEVEL_MAX 10
 
+#define MEDAL_MAX 25
+#define MEDAL_REWARDS_COUNT 4
+
 enum class Attacker
 {
     ENEMY,
     PLAIN,
     WEAPON
 };
+
+typedef struct _treasure
+{
+    int money;//é’±
+    int starboom;//æ˜Ÿé™…ç‚¸å¼¹æ•°é‡
+    int laser;//é•­å°„æ•°é‡
+    int blackhole;//é»‘æ´æ•°é‡
+    int killEnemy;//å·²æ€æ­»æ•Œäººæ•°é‡
+    int usedSpcWeapon;//å·²ä½¿ç”¨ç‰¹æ®Šæ­¦å™¨æ•°é‡
+    int overStage;//å·²è¿‡å…³æ•°
+    int killBigEnemy;//å·²æ€æ­»å¤§å‹æ•Œäººæ•°é‡
+    bool firstKill;//ç¬¬ä¸€åœºèƒœåˆ©
+    bool unlockAllFighter;//å·²è§£é”æ‰€æœ‰æ•Œæœº
+}Treasure;
 
 class GameConfig
 {
@@ -33,7 +52,10 @@ public:
     void setSFXVolume(float volume);
 
     void saveConfig();
+    
+    void initMedalRewards();
 
+    //ä¸»è§’å±æ€§
     float musicVolume;
     float sfxVolume;
     int language;
@@ -43,25 +65,24 @@ public:
 
     bool weaponLocked;
     int weaponsLevel[WEAPON_MAX];
+    
+    bool medal_lock[MEDAL_MAX];
+    bool medal_get[MEDAL_MAX];
+    
+    Treasure treasure;
+    std::function<void()> medal_reward_callbacks[MEDAL_MAX];
 };
 
 extern GameConfig s_gameConfig;
 
 typedef struct _plainConfig
 {
-    //½¨ÉèËùĞè¾§Ê¯
     int sparForMake;
-    //Éı¼¶ËùĞè±¦Ê¯
     int gemForUpgrade;
-    //ÉúÃü
     int life;
-    //¹¥»÷
     int attack;
-    //ËÙ¶È
     int speed;
-    //·ÀÓùÁ¦
     int defense;
-    //Éä³Ì
     int range;
 }PlainConfig;
 
@@ -69,15 +90,10 @@ extern PlainConfig s_plainConfigs[FIGHTER_MAX][FIGHTER_LEVEL_MAX];
 
 typedef struct _enemyConfig
 {
-    //ÉúÃü
     int life;
-    //¹¥»÷
     int attack;
-    //ËÙ¶È
     int speed;
-    //·ÀÓùÁ¦
     int defense;
-    //Éä³Ì
     int range;
 }EnemyConfig;
 
@@ -85,16 +101,13 @@ extern EnemyConfig s_enemyConfigs[ENEMY_MAX][ENEMY_LEVEL_MAX];
 
 typedef struct _weaponConfig
 {
-    //¹ºÂòËùĞè±¦Ê¯
     int costGem;
-    //Éı¼¶ËùĞè±¦Ê¯
     int gemForUpgrade;
-    //¹¥»÷
     int attack;
-    //³ÖĞøÊ±¼ä
-    float duration; 
-    //Ğ¯´øÉÏÏŞ
+    float duration;
     int capacity;
 }WeaponConfig;
 
 extern WeaponConfig s_weaponConfigs[WEAPON_MAX][WEAPON_LEVEL_MAX];
+
+extern int s_medalRewards[MEDAL_MAX][MEDAL_REWARDS_COUNT];

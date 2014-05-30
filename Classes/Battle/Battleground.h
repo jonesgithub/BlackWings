@@ -2,6 +2,7 @@
 #define __BW_Battleground_H__
 
 #include "cocos2d.h"
+#include "ui/CocosGUI.h"
 
 USING_NS_CC;
 
@@ -69,6 +70,13 @@ private:
     
     Sprite* radarScreen;
     Sprite* radarChart;
+    
+    int _playerBase_Blood;
+    int _curPlayerBase_Blood;
+    int _enemyBase_Blood;
+    int _curEnemyBase_Blood;
+    cocos2d::ui::LoadingBar* _playerBloodBar;
+    cocos2d::ui::LoadingBar* _enemyBloodBar;
 };
 
 #endif

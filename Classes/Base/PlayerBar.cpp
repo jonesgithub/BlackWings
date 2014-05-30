@@ -27,6 +27,9 @@ bool PlayerBar::init()
     rightBar->setFlippedX(true);
     rightBar->setPosition(s_visibleRect.bottom);
     this->addChild(rightBar);
+    
+    //Add by Jacky.
+    _playerMenu = Node::create();
 
     float interval;
     if (weaponEnable)
