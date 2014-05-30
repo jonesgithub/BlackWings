@@ -29,7 +29,7 @@ bool PlayerBar::init()
     this->addChild(rightBar);
     
     //Add by Jacky.
-    _playerMenu = Node::create();
+//    _playerMenu = Node::create();
 
     float interval;
     if (weaponEnable)
@@ -42,6 +42,8 @@ bool PlayerBar::init()
     }
     auto playerPos = Point(s_visibleRect.visibleOriginX + 20 + interval/2, s_visibleRect.visibleOriginY + 68);
 
+    _playerMenu = Menu::create();
+    
     for (int i = 0; i < FIGHTER_MAX; ++i)
     {
         auto player = PlayerMenuItem::create(PlayerMenuItem::Type::Fighter,i);
