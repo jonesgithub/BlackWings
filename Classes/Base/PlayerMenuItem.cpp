@@ -45,14 +45,14 @@ bool PlayerMenuItem::init(Type playerType,int index)
         if (ret)
         {
             char iconFileName[25];
-            if (s_gameConfig.fightersLocked[index])
+            if (s_playerConfig.fighterslocked[index])
             {
                 sprintf(iconFileName,"icon_lock.png");
                 this->setEnabled(false);
             }
             else
             {
-                sprintf(iconFileName,"plain_%d_lv_%d.png",index + 1,s_gameConfig.fightersLevle[index] + 1);
+                sprintf(iconFileName,"plain_%d_lv_%d.png",index + 1,s_playerConfig.fighterslevel[index] + 1);
             }
             auto fighter = Sprite::createWithSpriteFrameName(iconFileName);
             fighter->setPosition(Point(44,76));
@@ -74,7 +74,7 @@ bool PlayerMenuItem::init(Type playerType,int index)
         if (ret)
         {
             char iconFileName[25];
-            sprintf(iconFileName,"bomb_%d_%d.png",index + 1,s_gameConfig.weaponsLevel[index] + 1);
+            sprintf(iconFileName,"bomb_%d_%d.png",index + 1,s_playerConfig.weaponslevel[index] + 1);
             auto weapon = Sprite::createWithSpriteFrameName(iconFileName);
             weapon->setPosition(Point(size.width/2,76));
             weapon->setRotation(90);

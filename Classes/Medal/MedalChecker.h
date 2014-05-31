@@ -23,6 +23,14 @@ public:
     }
     
     void check();
+    void check_firstkill();
+    void check_killenemy();
+    void check_money();
+    void check_killbigenmey();
+    void check_usedspcweapon();
+    void check_unlockallfighter();
+    void check_stagevictory();
+    void check_fightermaxlevel();
 private:
     
     MedalChecker();
@@ -42,15 +50,6 @@ private:
     };
     
     static CGarbo m_garbo;
-    
-    void check_firstkill();
-    void check_killenemy();
-    void check_money();
-    void check_killbigenmey();
-    void check_usedspcweapon();
-    void check_unlockallfighter();
-    void check_stagevictory();
-    void check_fightermaxlevel();
 };
 
 #endif /* defined(__BlackWings__MedalChecker__) */

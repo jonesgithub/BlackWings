@@ -56,7 +56,7 @@ bool Fighter::initFighter(Attacker attacker,int type,int level /* = 0 */)
         potInRadar->retain();
         break;
     case Attacker::PLAIN:
-        level = s_gameConfig.fightersLevle[type];
+        level = s_playerConfig.fighterslevel[type];
         sprintf(fileName,"plain_%d_lv_%d.png",type + 1,level + 1);
         plainConfig = s_plainConfigs[type][level];
         potInRadar = Sprite::createWithSpriteFrameName("map_enemy.png");

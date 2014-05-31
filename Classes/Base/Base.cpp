@@ -41,7 +41,7 @@ void Base::createBase(Ref *sender)
     
     this->removeChild((LoadResourceLayer*)sender,true);
 
-    GSBaseInit((GameLanguage)s_gameConfig.language);
+    GSBaseInit((GameLanguage)s_playerConfig.language);
 
     createUpgrade();
 
@@ -459,7 +459,7 @@ void Base::createTopPanel()
     _topPanel->addChild(rightRail);
 
     auto medalItem = MenuItemImageLabel::createWithFrameName("btA_0.png","btA_1.png",
-        CC_CALLBACK_1(Base::menuCallbackMeadl,this),s_gameStrings.base->topBarMedal);
+        CC_CALLBACK_1(Base::menuCallbackMedal,this),s_gameStrings.base->topBarMedal);
     medalItem->setPosition(Point(120,890));
 
     auto settingItem = MenuItemImageLabel::createWithFrameName("option_0.png","option_1.png",
@@ -475,7 +475,7 @@ void Base::createTopPanel()
     _topPanel->addChild(menu);
 }
 
-void Base::menuCallbackMeadl(Ref *sender)
+void Base::menuCallbackMedal(Ref *sender)
 {
     log("menuCallbackMeadl");
     _topPanel->runAction(MoveBy::create(0.2f,Point(0,200)));

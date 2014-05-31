@@ -206,15 +206,16 @@ void MenuSettings::menuCallbackClosed(Ref *sender)
 
 void MenuSettings::menuCallbackLanguage(Ref *sender)
 {
-    if (s_gameConfig.language == (int)GameLanguage::English)
+    if (s_playerConfig.language == (int)GameLanguage::English)
     {
-        s_gameConfig.language = (int)GameLanguage::Chinese;
+        s_playerConfig.language = (int)GameLanguage::Chinese;
         GSMainMenuInit(GameLanguage::Chinese);
-    } 
+    }
     else
     {
-        s_gameConfig.language = (int)GameLanguage::English;
+        s_playerConfig.language = (int)GameLanguage::English;
         GSMainMenuInit(GameLanguage::English);
+
     }
 
     _musicText->setText(s_gameStrings.mainMenu->settingMusic);
@@ -232,14 +233,14 @@ void MenuSettings::menuCallbackLanguage(Ref *sender)
         break;
     case GameInterface::Base:
         {
-            GSBaseInit(GameLanguage(s_gameConfig.language));
+            GSBaseInit(GameLanguage(s_playerConfig.language));
             _helpItem->setText(s_gameStrings.mainMenu->help);
             _backToMainMenuItem->setText(s_gameStrings.base->topBarMainMenu);
         }
         break;
     case GameInterface::Battle:
         {
-            GSBaseInit(GameLanguage(s_gameConfig.language));
+            GSBaseInit(GameLanguage(s_playerConfig.language));
             _resumeGameItem->setText(s_gameStrings.mainMenu->settingResume);
             _retryGameItem->setText(s_gameStrings.mainMenu->settingRetry);
             _backToBaseItem->setText(s_gameStrings.mainMenu->settingBackToBase);
@@ -286,7 +287,7 @@ void MenuSettings::createSlider()
     musicSlider->loadSlidBallTextures("sound_slider_bt_0.png", "sound_slider_bt_1.png", "",ui::TextureResType::UI_TEX_TYPE_PLIST);
     musicSlider->loadProgressBarTexture("sound_slider_bg_0.png",ui::TextureResType::UI_TEX_TYPE_PLIST);
     musicSlider->setPosition(Point(_panelSize.width * 0.96f - 120,_musicText->getPositionY()));
-    musicSlider->setPercent(s_gameConfig.musicVolume * 100);
+    musicSlider->setPercent(s_playerConfig.musicVolume * 100);
     musicSlider->addEventListenerSlider(this, sliderpercentchangedselector(MenuSettings::musicSliderEvent));
     _panel->addChild(musicSlider);
 
@@ -296,19 +297,19 @@ void MenuSettings::createSlider()
     sfxSlider->loadSlidBallTextures("sound_slider_bt_0.png", "sound_slider_bt_1.png", "",ui::TextureResType::UI_TEX_TYPE_PLIST);
     sfxSlider->loadProgressBarTexture("sound_slider_bg_0.png",ui::TextureResType::UI_TEX_TYPE_PLIST);
     sfxSlider->setPosition(Point(_panelSize.width * 0.96f - 120,_sfxText->getPositionY()));
-    sfxSlider->setPercent(s_gameConfig.sfxVolume * 100); 
+    sfxSlider->setPercent(s_playerConfig.sfxVolume * 100);
     sfxSlider->addEventListenerSlider(this, sliderpercentchangedselector(MenuSettings::sfxSliderEvent));
     _panel->addChild(sfxSlider);
 }
 
 void MenuSettings::musicSliderEvent(Ref *sender, ui::SliderEventType type)
 {
-    s_gameConfig.musicVolume = ((Slider*)sender)->getPercent() / 100.0f;
-    CocosDenshion::SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(s_gameConfig.musicVolume);
+    s_playerConfig.musicVolume = ((Slider*)sender)->getPercent() / 100.0f;
+    CocosDenshion::SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(s_playerConfig.musicVolume);
 }
 
 void MenuSettings::sfxSliderEvent(Ref *sender, ui::SliderEventType type)
 {
-    s_gameConfig.sfxVolume = ((Slider*)sender)->getPercent() / 100.0f;
-    CocosDenshion::SimpleAudioEngine::getInstance()->setEffectsVolume(s_gameConfig.sfxVolume);
+    s_playerConfig.sfxVolume = ((Slider*)sender)->getPercent() / 100.0f;
+    CocosDenshion::SimpleAudioEngine::getInstance()->setEffectsVolume(s_playerConfig.sfxVolume);
 }
