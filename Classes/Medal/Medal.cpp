@@ -236,13 +236,40 @@ Node* Medal::getItemNode(int i)
 	item_bk->setAnchorPoint(Point::ANCHOR_BOTTOM_LEFT);
 	item->addChild(item_bk,0,20);
     
+    auto menu = Menu::create();
+    item->addChild(menu);
+    menu->setPosition(0, 0);
+    
+    CCLOG("will get item node:%d.", i);
+    if (i == 5){
+        CCLOG("lock:%d,get:%d.", s_playerConfig.medallocked[i], s_playerConfig.medalget[i]);
+    }
+    
     Sprite* item_image_bk = nullptr;
+    auto callback = nullptr;
+    MenuItemImageLabel* btnGetBonus = MenuItemImageLabel::createWithFrameName("btD_0.png", "bt_buy_gem_0.png", callback, "领取奖励");
+    btnGetBonus->setPosition(432, 45);
+    menu->addChild(btnGetBonus);
     if (s_playerConfig.medallocked[i]) {
         item_image_bk = Sprite::createWithSpriteFrameName("icon_medal_box_1.png");
+        btnGetBonus->setEnabled(false);
     }
     else{
         item_image_bk = Sprite::createWithSpriteFrameName("icon_medal_box_0.png");
+        btnGetBonus->setEnabled(true);
     }
+    
+    //get bonus
+    if (s_playerConfig.medalget[i]) {
+        btnGetBonus->selected();
+    }
+    else{
+        btnGetBonus->setVisible(false);
+        Sprite* item_got_icon = Sprite::createWithSpriteFrameName("icon_get.png");
+        item->addChild(item_got_icon);
+        item_got_icon->setPosition(476, 30);
+    }
+    //
     item_image_bk->setAnchorPoint(Point::ANCHOR_MIDDLE);
 	item_image_bk->setPosition(Point(70,_cellSize.height/2-10));
 	item->addChild(item_image_bk,0,30);
