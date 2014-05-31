@@ -9,7 +9,7 @@ public:
 
     virtual bool init();
 
-    void menuCallbackMeadl(Ref *sender);
+    void menuCallbackMedal(Ref *sender);
     void menuCallbackSetting(Ref *sender);
     void menuCallbackBattle(Ref *sender);
 

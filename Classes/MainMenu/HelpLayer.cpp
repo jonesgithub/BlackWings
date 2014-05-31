@@ -11,7 +11,7 @@ bool HelpLayer::init()
 {
     if (LayerColor::initWithColor(Color4B(255,255,255,0)))
     {
-        GSHelpInfoInit((GameLanguage)s_gameConfig.language);
+        GSHelpInfoInit((GameLanguage)s_playerConfig.language);
 
         this->runAction(FadeTo::create(0.5f,100));
 
@@ -100,7 +100,7 @@ extension::TableViewCell* HelpLayer::tableCellAtIndex(extension::TableView *tabl
     case 5:
     case 6:
     case 7:
-        if (s_gameConfig.fightersLocked[idx - 2])
+        if (s_playerConfig.fighterslocked[idx - 2])
         {
             sprintf(iconFileName,"icon_unknown.png");
             text = s_gameStrings.helpInfo->fighterLocked;
@@ -108,7 +108,7 @@ extension::TableViewCell* HelpLayer::tableCellAtIndex(extension::TableView *tabl
         } 
         else
         {
-            sprintf(iconFileName,"plain_%d_lv_%d.png",idx - 1,s_gameConfig.fightersLevle[idx - 2] + 1);
+            sprintf(iconFileName,"plain_%d_lv_%d.png",idx - 1,s_playerConfig.fighterslevel[idx - 2] + 1);
             text = s_gameStrings.helpInfo->fighter[idx - 2];
             textColor = Color3B::YELLOW;
         }
@@ -116,7 +116,7 @@ extension::TableViewCell* HelpLayer::tableCellAtIndex(extension::TableView *tabl
     case 8: 
     case 9:
     case 10:
-        if (s_gameConfig.weaponLocked)
+        if (s_playerConfig.weaponlocked)
         {
             sprintf(iconFileName,"icon_unknown.png");
             text = s_gameStrings.helpInfo->weaponLocked;
@@ -124,7 +124,7 @@ extension::TableViewCell* HelpLayer::tableCellAtIndex(extension::TableView *tabl
         } 
         else
         {
-            sprintf(iconFileName,"bomb_%d_%d.png",idx - 7,s_gameConfig.weaponsLevel[idx - 8] + 1);
+            sprintf(iconFileName,"bomb_%d_%d.png",idx - 7,s_playerConfig.weaponslevel[idx - 8] + 1);
             text = s_gameStrings.helpInfo->weapon[idx - 8];
             textColor = Color3B::ORANGE;
         }
