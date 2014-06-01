@@ -49,7 +49,11 @@ bool Bullet::initBullet(Attacker attacker,int type,int level)
             break;
         case Attacker::BOSS:
             sprintf(fileName,"e_bullet_%d_%d.png",type + 1,level + 1);
-            _attack = s_enemyConfigs[type][level].attack;
+            _attack = s_bossConfig[level].attack;
+            break;
+        case Attacker::TOWER:
+            sprintf(fileName,"e_bullet_%d_%d.png",type + 1,level + 1);
+            _attack = s_towerConfig[level].attack;
             break;
         case Attacker::PLAIN:
             sprintf(fileName,"p_bullet_%d_%d.png",type + 1,level + 1);

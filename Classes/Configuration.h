@@ -18,8 +18,8 @@
 #define MEDAL_MAX 25
 #define MEDAL_REWARDS_COUNT 4
 
-#define STONE_SPEED_LEVEL_MAX 15
-#define STONE_CAPACITY_LEVEL_MAX 15
+#define STONE_SPEED_LEVEL_MAX 20
+#define STONE_CAPACITY_LEVEL_MAX 20
 
 #define STAGE_COUNT 50
 
@@ -108,6 +108,25 @@ extern GameConfig s_gameConfig;
 
 //写死数据
 ////////////////////////////////////
+
+//stone
+typedef struct _stoneSpeed
+{
+    int speed;//回复速度
+    int gemForUpgrade;//升级所需gem
+}StoneSpeed;
+
+extern StoneSpeed s_stoneSpeed[STONE_SPEED_LEVEL_MAX];
+
+typedef struct _stoneCapacity
+{
+    int initstone;//初始stone
+    int maxstone;//最大stone
+    int gemForUpgrade;//升级所需gem
+}StoneCapacity;
+
+extern StoneCapacity s_stoneCapacity[STONE_CAPACITY_LEVEL_MAX];
+
 
 //Plain.Enemy.Weapon Cofig
 typedef struct _plainConfig

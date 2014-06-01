@@ -22,6 +22,8 @@ Battleground::Battleground()
     s_battleground = this;
     s_players.clear();
     s_enemys.clear();
+    s_boss.clear();
+    s_towers.clear();
 
     explode_A = nullptr;
     explode_B = nullptr;
@@ -32,6 +34,8 @@ Battleground::~Battleground()
 {
     s_players.clear();
     s_enemys.clear();
+    s_boss.clear();
+    s_towers.clear();
 
     CC_SAFE_RELEASE_NULL(explode_A);
     CC_SAFE_RELEASE_NULL(explode_B);
@@ -170,8 +174,8 @@ void Battleground::createBattleground(Ref *sender)
     
     //normal enmey dispacther
 //    initNormalEnemy();
-//    initTowerEnemy();
-    initBossEnemy();
+    initTowerEnemy();
+//    initBossEnemy();
 }
 
 void Battleground::battleLoop(float dt)
@@ -182,6 +186,8 @@ void Battleground::battleLoop(float dt)
     enemyFindTarget();
     
     bossFindTarget();
+    
+    towerFindTarget();
     
 }
 
@@ -220,6 +226,17 @@ void Battleground::plainFindTarget()
                     nearestDistance = distance;
                     plainTargetPos = boss->getPosition();
                     attTarget = boss;
+                }
+            }
+            
+            for (auto tower : s_towers)
+            {
+                distance = tower->getPosition().getDistance(playerPos);
+                if (distance < nearestDistance)
+                {
+                    nearestDistance = distance;
+                    plainTargetPos = tower->getPosition();
+                    attTarget = tower;
                 }
             }
             
@@ -310,6 +327,36 @@ void Battleground::bossFindTarget()
         }
     }
 }
+
+void Battleground::towerFindTarget()
+{
+    for(auto tower : s_towers)
+    {
+        if(tower->state == FighterState::IDLE)
+        {
+            Player* attTarget = nullptr;
+            Point enemyTargetPos;
+            const auto& towerPos = tower->getPosition();
+            for (auto player : s_players)
+            {
+                if(towerPos.getDistance(player->getPosition()) < tower->towerConfig.range*2)
+                {
+                    attTarget = player;
+                    enemyTargetPos = player->getPosition();
+                }
+            }
+            if(attTarget!=nullptr)
+            {
+                tower->attackLocations(enemyTargetPos,attTarget);
+            }
+            else
+            {
+                tower->state = FighterState::IDLE;
+            }
+        }
+    }
+}
+
 
 void Battleground::createFighterBase()
 {
@@ -509,6 +556,15 @@ void Battleground::callbackPlayerDestroy(EventCustom* event)
             }
             break;
         }
+        case Attacker::TOWER:
+        {
+            const auto& it = std::find(s_towers.begin(),s_towers.end(),player);
+            if (it != s_towers.end())
+            {
+                s_towers.erase(it);
+            }
+            break;
+        }
         case Attacker::PLAIN:
         {
             const auto& it = std::find(s_players.begin(),s_players.end(),player);
@@ -570,6 +626,17 @@ void Battleground::showPotInRadar(float dt)
         
         boss->potInRadar->setPosition(Point(actualX,actualY));
     }
+    
+    for (auto tower : s_towers)
+    {
+        auto ratioX = tower->getPositionX()/s_visibleRect.visibleWidth;
+        auto ratioY = tower->getPositionY()/(s_visibleRect.visibleHeight*3);
+        
+        auto actualX = 15 + radarChart->getContentSize().width * ratioX;
+        auto actualY = 590 + radarChart->getContentSize().height * ratioY;
+        
+        tower->potInRadar->setPosition(Point(actualX,actualY));
+    }
 }
 
 void Battleground::initNormalEnemy()
@@ -588,14 +655,14 @@ void Battleground::initTowerEnemy()
         int y =(*(s_battleTowerEnemyInfo[_stage]._btec+i)).y;
         
         //todo:create tower
-        auto enemy = Fighter::createEnemy(1,level);
-        enemy->setPosition(Point(x,y));
-        _battleParallaxNode->addChild(enemy);
+        auto tower = Fighter::createTower(level);
+        tower->setPosition(Point(x,y));
+        _battleParallaxNode->addChild(tower);
         
-        enemy->potInRadar->setPosition(Point(-100,-100));
-        this->addChild(enemy->potInRadar,100);
+        tower->potInRadar->setPosition(Point(-100,-100));
+        this->addChild(tower->potInRadar,100);
         
-        s_enemys.push_back(enemy);
+        s_towers.push_back(tower);
     }
 }
 

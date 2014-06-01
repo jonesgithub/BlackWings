@@ -50,6 +50,7 @@ private:
     void plainFindTarget();
     void enemyFindTarget();
     void bossFindTarget();
+    void towerFindTarget();
 
     void callbackPlayerDestroy(EventCustom* event);
     void callbackPlayerBaseHurt(EventCustom* event);
@@ -74,6 +75,7 @@ private:
     std::vector<Fighter*> s_players;
     std::vector<Fighter*> s_enemys;
     std::vector<Fighter*> s_boss;
+    std::vector<Fighter*> s_towers;
 
     Animation* explode_A;
     Animation* explode_B;
