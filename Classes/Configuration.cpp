@@ -11,6 +11,8 @@ const int GameConfig::defaultFontSize = 30;
 
 const std::string GameConfig::eventLanguageChange = "eventLanguageChange";
 const std::string GameConfig::eventPlayerDestroy = "eventPlayerDestroy";
+const std::string GameConfig::eventPlayerBaseHurt = "eventPlayerBaseHurt";
+const std::string GameConfig::eventEnemyBaseHurt = "eventEnemyBaseHurt";
 
 void GameConfig::lazyInit()
 {
@@ -421,6 +423,40 @@ EnemyConfig s_enemyConfigs[ENEMY_MAX][ENEMY_LEVEL_MAX] = {
         {100,100,100,  10,100}
     }
 };
+
+EnemyConfig s_bossConfig[ENEMY_LEVEL_MAX] =
+{
+    //Boss 生命，攻击，速度，防御，射程
+    {100000,100,100,  10,100},
+    {100,100,100,  10,100},
+    {100,100,100,  10,100},
+    {100,100,100,  10,100},
+    {100,100,100,  10,100},
+    
+    {100,100,100,  10,100},
+    {100,100,100,  10,100},
+    {100,100,100,  10,100},
+    {100,100,100,  10,100},
+    {100,100,100,  10,100}
+};
+
+EnemyConfig s_towerConfig[ENEMY_LEVEL_MAX]=
+{
+    //Tower 生命，攻击，速度，防御，射程
+    {100000,100,0,  10,100},
+    {100,100,0,  10,100},
+    {100,100,0,  10,100},
+    {100,100,0,  10,100},
+    {100,100,0,  10,100},
+    
+    {100,100,0,  10,100},
+    {100,100,0,  10,100},
+    {100,100,0,  10,100},
+    {100,100,0,  10,100},
+    {100,100,0,  10,100}
+};
+
+
 WeaponConfig s_weaponConfigs[WEAPON_MAX][WEAPON_LEVEL_MAX] = {
     {//星际炸弹，购买所需宝石，升级所需宝石，攻击，持续时间，携带上限
         {100,100,  100,100,100},
@@ -492,3 +528,88 @@ int s_medalRewards[MEDAL_MAX][MEDAL_REWARDS_COUNT]=
     {900000, 0, 0, 3},
     {1200000, 0, 0, 3}
 };
+
+//每关敌人基地血量
+int s_enemyBaseBlood[STAGE_COUNT]=
+{
+    1000, 2000, 3000, 4000, 5000,
+    1000, 2000, 3000, 4000, 5000,
+    1000, 2000, 3000, 4000, 5000,
+    1000, 2000, 3000, 4000, 5000,
+    1000, 2000, 3000, 4000, 5000,
+    1000, 2000, 3000, 4000, 5000,
+    1000, 2000, 3000, 4000, 5000,
+    1000, 2000, 3000, 4000, 5000,
+    1000, 2000, 3000, 4000, 5000,
+    1000, 2000, 3000, 4000, 5000
+};
+
+//每关玩家基地血量
+int s_playerBaseBlood[STAGE_COUNT]=
+{
+    1000, 2000, 3000, 4000, 5000,
+    1000, 2000, 3000, 4000, 5000,
+    1000, 2000, 3000, 4000, 5000,
+    1000, 2000, 3000, 4000, 5000,
+    1000, 2000, 3000, 4000, 5000,
+    1000, 2000, 3000, 4000, 5000,
+    1000, 2000, 3000, 4000, 5000,
+    1000, 2000, 3000, 4000, 5000,
+    1000, 2000, 3000, 4000, 5000,
+    1000, 2000, 3000, 4000, 5000
+};
+
+cocos2d::Point s_EnemyBasePos;
+cocos2d::Point s_PlayerBasePos;
+
+//普通敌人出兵配置
+BattleNormalEnemyInfo s_battleNormalEnemyInfo[2]=
+{
+    {s_battleNormalEnemyConfig_0, STAGE_ENEMY_WAVES_00},
+    {s_battleNormalEnemyConfig_1, STAGE_ENEMY_WAVES_01}
+};
+
+//时间间隔，类型，等级，数量
+BattleNormalEnemyConfig s_battleNormalEnemyConfig_0[STAGE_ENEMY_WAVES_00] =
+{
+    {2,1,2,1},
+    {5,3,2,2},
+    {2,4,5,1}
+};
+
+BattleNormalEnemyConfig s_battleNormalEnemyConfig_1[STAGE_ENEMY_WAVES_01] =
+{
+    {2,1,2,1},
+    {5,3,2,2}
+};
+
+//炮塔配置
+BattleTowerEnemyInfo s_battleTowerEnemyInfo[1]=
+{
+    {s_battleTowerEnemyConfig_0, STAGE_TOWER_COUNTS_00}
+};
+
+//等级，x，y
+BattleTowerEnemyConfig s_battleTowerEnemyConfig_0[STAGE_TOWER_COUNTS_00] =
+{
+//    {2,300,1300},
+    {1,400,1800}
+};
+
+//Boss配置
+BattleBossEnemyInfo s_battleBossEnemyInfo[STAGE_COUNT] =
+{
+    //等级，出现时间间隔
+    {0,10},{2,10},{3,10},{4,10},{5,10},
+    {1,10},{2,10},{3,10},{4,10},{5,10},
+    {1,10},{2,10},{3,10},{4,10},{5,10},
+    {1,10},{2,10},{3,10},{4,10},{5,10},
+    {1,10},{2,10},{3,10},{4,10},{5,10},
+    {1,10},{2,10},{3,10},{4,10},{5,10},
+    {1,10},{2,10},{3,10},{4,10},{5,10},
+    {1,10},{2,10},{3,10},{4,10},{5,10},
+    {1,10},{2,10},{3,10},{4,10},{5,10},
+    {1,10},{2,10},{3,10},{4,10},{5,10}
+};
+
+

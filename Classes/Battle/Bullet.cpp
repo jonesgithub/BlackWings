@@ -43,51 +43,54 @@ bool Bullet::initBullet(Attacker attacker,int type,int level)
 
     switch (attacker)
     {
-    case Attacker::ENEMY:
-        sprintf(fileName,"e_bullet_%d_%d.png",type + 1,level + 1);
-        break;
-    case Attacker::PLAIN:
-        sprintf(fileName,"p_bullet_%d_%d.png",type + 1,level + 1);
-        switch (type)
+        case Attacker::ENEMY:
+            sprintf(fileName,"e_bullet_%d_%d.png",type + 1,level + 1);
+            _attack = s_enemyConfigs[type][level].attack;
+            break;
+        case Attacker::BOSS:
+            sprintf(fileName,"e_bullet_%d_%d.png",type + 1,level + 1);
+            _attack = s_enemyConfigs[type][level].attack;
+            break;
+        case Attacker::PLAIN:
+            sprintf(fileName,"p_bullet_%d_%d.png",type + 1,level + 1);
+            _attack = s_plainConfigs[type][level].attack;
+            switch (type)
         {
-        case 0:
-            _trace = false;
-            _attackMode = AttackMode::SINGLE;
+            case 0:
+                _trace = false;
+                _attackMode = AttackMode::SINGLE;
+                break;
+            case 1:
+                _trace = false;
+                _attackMode = AttackMode::SINGLE;
+                break;
+            case 2:
+                _trace = true;
+                _attackMode = AttackMode::RANG;
+                break;
+            case 3:
+                _trace = false;
+                _attackMode = AttackMode::SINGLE;
+                break;
+            case 4:
+                _trace = false;
+                _attackMode = AttackMode::DIFFUSION;
+                break;
+            case 5:
+                _trace = true;
+                _attackMode = AttackMode::SINGLE;
+                break;
+            default:
+                break;
+        }
             break;
-        case 1:
-            _trace = false;
-            _attackMode = AttackMode::SINGLE;
-            break;
-        case 2:
-            _trace = true;
-            _attackMode = AttackMode::RANG;
-            break;
-        case 3:
-            _trace = false;
-            _attackMode = AttackMode::SINGLE;
-            break;
-        case 4:
-            _trace = false;
-            _attackMode = AttackMode::DIFFUSION;
-            break;
-        case 5:
-            _trace = true;
-            _attackMode = AttackMode::SINGLE;
+        case Attacker::WEAPON:
+            //sprintf(fileName,"p_bullet_%d_%d.png",type + 1,level + 1);
             break;
         default:
             break;
-        }
-        break;
-    case Attacker::WEAPON:
-        //sprintf(fileName,"p_bullet_%d_%d.png",type + 1,level + 1);
-        break;
-    default:
-        break;
     }
-
-    //
-    _attack = 35;
-
+    
     auto frame = SpriteFrameCache::getInstance()->getSpriteFrameByName(fileName);
     ret = initWithSpriteFrame(frame);
 
@@ -145,6 +148,14 @@ void Bullet::attackLocations(Point& pos,Player* target)
             if (_attTarget && _attTarget->getPosition().getDistance(_attTargetPos) < 30)
             {
                 _attTarget->hurt(_attack);
+            }
+            else if(!_attTarget && _attTargetPos == s_PlayerBasePos)
+            {
+                _eventDispatcher->dispatchCustomEvent(GameConfig::eventPlayerBaseHurt,this);
+            }
+            else if(!_attTarget && _attTargetPos == s_EnemyBasePos)
+            {
+                _eventDispatcher->dispatchCustomEvent(GameConfig::eventEnemyBaseHurt,this);
             }
             node->removeFromParentAndCleanup(true);
     }  ),nullptr);
