@@ -7,6 +7,7 @@
 #include "MenuSettings.h"
 #include "Fighter.h"
 #include "Bullet.h"
+#include <random>
 
 
 USING_NS_CC;
@@ -24,6 +25,7 @@ Battleground::Battleground()
     s_enemys.clear();
     s_boss.clear();
     s_towers.clear();
+    s_cditems.clear();
 
     explode_A = nullptr;
     explode_B = nullptr;
@@ -36,6 +38,7 @@ Battleground::~Battleground()
     s_enemys.clear();
     s_boss.clear();
     s_towers.clear();
+    s_cditems.clear();
 
     CC_SAFE_RELEASE_NULL(explode_A);
     CC_SAFE_RELEASE_NULL(explode_B);
@@ -76,6 +79,7 @@ bool Battleground::init(int stage)
     {
         auto loadLayer = LoadResourceLayer::create(CC_CALLBACK_1(Battleground::createBattleground, this));
         loadLayer->addImage("createBombTip_box.png");
+        loadLayer->addImage("plain_progress.png");
         loadLayer->addPlist("map_clouds.plist","map_clouds.png");
         loadLayer->addPlist("bases.plist","bases.png");
         loadLayer->addPlist("battle.plist","battle.png");
@@ -103,22 +107,61 @@ void Battleground::eventCallbackPlayerSelect(EventCustom* event)
 
     if (index < 6)
     {
-        //auto buildBox = Sprite::createWithSpriteFrameName("plain_progress_box.png");
-
-
-        auto player = Fighter::createPlain(index);
-        player->setPosition(Point(s_visibleRect.visibleOriginX + 100 + rand()%440,
-            s_visibleRect.visibleOriginY + 100 + rand()% 50));
-        _battleParallaxNode->addChild(player);
+        _indexOfChooseFlight = index;
+        auto cditem = CDItem::create(index, CC_CALLBACK_1(Battleground::createFlight, this));
+        cditem->setAnchorPoint(Point::ANCHOR_MIDDLE);
+        cditem->setPosition(FlightItemsPos[index]);
+        this->addChild(cditem);
         
-        this->addChild(player->potInRadar, 100);
-
-        s_players.push_back(player);
+        auto movedone = CallFunc::create([=](){cditem->_isMove = false;});
+        log("s_cditems.size() is %d",s_cditems.size());
+        auto show = Sequence::create(ScaleTo::create(0.2f, 0.7f), MoveTo::create(0.2f, CDItemsPos[s_cditems.size()]), movedone, nullptr);
+        cditem->runAction(show);
+        s_cditems.push_back(cditem);
+        
+        
+        showStoneAndGem(Point(500,800), 3, 2, 100, 20);
     }
     else
     {
-
+        ;
     }
+}
+
+void Battleground::callbackResortCDItems(EventCustom* event)
+{
+    int curpos = 0;
+    CDItem* cditem = (CDItem*)event->getUserData();
+    for (int i = 0; i < s_cditems.size(); ++i) {
+        if(cditem == s_cditems.at(i))
+        {
+            curpos=i;
+        }
+    }
+    
+    const auto& it = std::find(s_cditems.begin(),s_cditems.end(),cditem);
+    if (it != s_cditems.end())
+    {
+        s_cditems.erase(it);
+    }
+    
+    for (int i = curpos; i<s_cditems.size(); ++i)
+    {
+        CDItem* t_cditem = s_cditems.at(i);
+        if(!t_cditem->_isMove)
+            t_cditem->_isMove = true;
+            t_cditem->runAction(Sequence::create(MoveTo::create(0.2f, CDItemsPos[i]), CallFunc::create([&](){cditem->_isMove = false;}),nullptr));
+    }
+}
+
+void Battleground::createFlight(Ref* sender)
+{
+    auto player = Fighter::createPlain(_indexOfChooseFlight);
+    player->setPosition(Point(s_visibleRect.visibleOriginX + 100 + rand()%440,
+                              s_visibleRect.visibleOriginY + 100 + rand()% 50));
+    _battleParallaxNode->addChild(player);
+    this->addChild(player->potInRadar, 100);
+    s_players.push_back(player);
 }
 
 void Battleground::createBattleground(Ref *sender)
@@ -134,7 +177,7 @@ void Battleground::createBattleground(Ref *sender)
     map->setScale(2.0f, 5.0f);
     _battleParallaxNode->addChild(map);
 
-    createFighterBase();
+    createFlightBase();
 
     createRadarChart();
 
@@ -169,6 +212,10 @@ void Battleground::createBattleground(Ref *sender)
     auto enenyBaseHurtListener = EventListenerCustom::create(GameConfig::eventEnemyBaseHurt,
                                                               CC_CALLBACK_1(Battleground::callbackEnemyBaseHurt,this));
     _eventDispatcher->addEventListenerWithSceneGraphPriority(enenyBaseHurtListener, this);
+    
+    auto resortCDItemsListener = EventListenerCustom::create(GameConfig::eventResortCDItems,
+                                                             CC_CALLBACK_1(Battleground::callbackResortCDItems,this));
+    _eventDispatcher->addEventListenerWithSceneGraphPriority(resortCDItemsListener, this);
 
     createAnimations();
     
@@ -358,7 +405,7 @@ void Battleground::towerFindTarget()
 }
 
 
-void Battleground::createFighterBase()
+void Battleground::createFlightBase()
 {
     auto playerBaseLeft = Sprite::createWithSpriteFrameName("base_1.png");
     playerBaseLeft->setAnchorPoint(Point::ANCHOR_BOTTOM_RIGHT);
@@ -690,24 +737,6 @@ void Battleground::dispatchBoss(float dt)
 
 void Battleground::dispatchEnemys_1(float dt)
 {
-//    int dispatchNum = 1;//rand()%5 + 1;
-//    for (int index = 0; index < dispatchNum; ++index)
-//    {
-//        //
-//        int type = rand() %  10;
-//        int level = 2;
-//        
-//        auto enemy = Fighter::createEnemy(type,level);
-//        enemy->setPosition(Point(s_visibleRect.visibleOriginX + 100 + rand()%440,
-//                                 s_visibleRect.visibleOriginY + _battlegroundHeight));
-//        _battleParallaxNode->addChild(enemy);
-//        
-//        enemy->potInRadar->setPosition(Point(-100,-100));
-//        this->addChild(enemy->potInRadar,100);
-//        
-//        s_enemys.push_back(enemy);
-//    }
-    
     for(int i=0; i<(*(s_battleNormalEnemyInfo[_stage]._bnec+_curWaves)).count; ++i)
     {
         int type = (*(s_battleNormalEnemyInfo[_stage]._bnec+_curWaves)).type;
@@ -792,4 +821,60 @@ void Battleground::callbackEnemyBaseHurt(EventCustom* event)
         _enemyBloodBar->setPercent(0);
         win();
     }
+}
+
+void Battleground::showStoneAndGem(Point pos, int stoneCount, int gemCount, int stone, int gem)
+{
+    srand((unsigned)time(NULL));
+    for(int i = 0; i < stoneCount; ++i)
+    {
+        Point offsetPos(2*(rand()%100)-100,rand()%100-50);
+        log("offsetPos11111,%f,%f",offsetPos.x,offsetPos.y);
+        auto stone_sprite = Sprite::createWithSpriteFrameName("icon_stone.png");
+        stone_sprite->setScale(0.5f);
+        stone_sprite->setAnchorPoint(Point::ANCHOR_MIDDLE);
+        stone_sprite->setPosition(pos);
+        this->addChild(stone_sprite);
+        stone_sprite->runAction(Sequence::create(MoveBy::create(0.5f, offsetPos), DelayTime::create(0.5f), MoveTo::create(1.0f, StonePos), RemoveSelf::create(), nullptr));
+    }
+    for(int i = 0; i < gemCount; ++i)
+    {
+        Point offsetPos(2*(rand()%100)-100,rand()%100-50);
+        auto gem_sprite = Sprite::createWithSpriteFrameName("icon_gem.png");
+        log("offsetPos22222,%f,%f",offsetPos.x,offsetPos.y);
+        gem_sprite->setScale(0.5f);
+        gem_sprite->setAnchorPoint(Point::ANCHOR_MIDDLE);
+        gem_sprite->setPosition(pos);
+        this->addChild(gem_sprite);
+        gem_sprite->runAction(Sequence::create(MoveBy::create(0.5f, offsetPos), DelayTime::create(0.5f), MoveTo::create(1.0f, GemPos), RemoveSelf::create(), nullptr));
+    }
+    this->runAction(Sequence::create(DelayTime::create(2.1f), CallFunc::create([=](){
+        auto stone_text_bk = Sprite::createWithSpriteFrameName("gemTip_box.png");
+        stone_text_bk->setAnchorPoint(Point::ANCHOR_MIDDLE);
+        stone_text_bk->setPosition(StonePos+Point(0,30));
+        this->addChild(stone_text_bk);
+        
+        std::string strStonetext = "+ " + Value(stone).asString();
+        auto stone_text = TextSprite::create(strStonetext);
+        stone_text->setAnchorPoint(Point::ANCHOR_MIDDLE);
+        stone_text->setPosition(Point(stone_text_bk->getContentSize().width/2,stone_text_bk->getContentSize().height/2));
+        stone_text_bk->addChild(stone_text);
+        
+        stone_text_bk->setOpacity(0);
+        stone_text_bk->runAction(Sequence::create(FadeIn::create(0.1f), DelayTime::create(0.3f), FadeOut::create(0.1f), RemoveSelf::create(), nullptr));
+        
+        auto gem_text_bk = Sprite::createWithSpriteFrameName("gemTip_box.png");
+        gem_text_bk->setAnchorPoint(Point::ANCHOR_MIDDLE);
+        gem_text_bk->setPosition(GemPos+Point(0,30));
+        this->addChild(gem_text_bk);
+        
+        std::string strGemtext = "+ " + Value(gem).asString();
+        auto gem_text = TextSprite::create(strGemtext);
+        gem_text->setAnchorPoint(Point::ANCHOR_MIDDLE);
+        gem_text->setPosition(Point(stone_text_bk->getContentSize().width/2,stone_text_bk->getContentSize().height/2));
+        gem_text_bk->addChild(gem_text);
+        
+        gem_text_bk->setOpacity(0);
+        gem_text_bk->runAction(Sequence::create(FadeIn::create(0.1f), DelayTime::create(0.3f), FadeOut::create(0.1f), RemoveSelf::create(), nullptr));
+    }), nullptr));
 }
