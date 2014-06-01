@@ -43,11 +43,28 @@ Fighter* Fighter::createBoss(int level)
     return nullptr;
 }
 
+Fighter* Fighter::createTower(int level)
+{
+    auto ret = new (std::nothrow) Fighter;
+    if (ret && ret->initFighter(Attacker::TOWER,9,level))
+    {
+        ret->autorelease();
+        return ret;
+    }
+    
+    delete ret;
+    return nullptr;
+}
+
 
 Fighter::Fighter()
 : state(FighterState::IDLE)
 , _attTarget(nullptr)
-,potInRadar(nullptr)
+,potInRadar(nullptr),
+gun(nullptr),
+_bloodbar(nullptr),
+_maxlife(0),
+_curlife(0)
 {
 }
 
@@ -63,32 +80,40 @@ bool Fighter::initFighter(Attacker attacker,int type,int level /* = 0 */)
     _attacker = attacker;
     switch (attacker)
     {
-    case Attacker::ENEMY:
-        sprintf(fileName,"enemy_%d_lv_%d.png",type + 1,level + 1);
-        enemyConfig = s_enemyConfigs[type][level];
-        potInRadar = Sprite::createWithSpriteFrameName("map_enemy.png");
-        potInRadar->retain();
-        break;
-    case Attacker::BOSS:
-        sprintf(fileName,"boos_%d.png",level + 1);
-        bossConfig = s_bossConfig[level];
-        potInRadar = Sprite::createWithSpriteFrameName("map_enemy.png");
-        potInRadar->retain();
-        break;
-    case Attacker::TOWER:
-        break;
-    case Attacker::PLAIN:
-        level = s_playerConfig.fighterslevel[type];
-        sprintf(fileName,"plain_%d_lv_%d.png",type + 1,level + 1);
-        plainConfig = s_plainConfigs[type][level];
-        potInRadar = Sprite::createWithSpriteFrameName("map_plain.png");
-        potInRadar->retain();
-        break;
-    case Attacker::WEAPON:
-        break;
-    
-    default:
-        break;
+        case Attacker::ENEMY:
+            sprintf(fileName,"enemy_%d_lv_%d.png",type + 1,level + 1);
+            enemyConfig = s_enemyConfigs[type][level];
+            _curlife = _maxlife = enemyConfig.life;
+            potInRadar = Sprite::createWithSpriteFrameName("map_enemy.png");
+            potInRadar->retain();
+            break;
+        case Attacker::BOSS:
+            sprintf(fileName,"boos_%d.png",level + 1);
+            bossConfig = s_bossConfig[level];
+            _curlife = _maxlife = bossConfig.life;
+            potInRadar = Sprite::createWithSpriteFrameName("map_enemy.png");
+            potInRadar->retain();
+            break;
+        case Attacker::TOWER:
+            sprintf(fileName,"fixed_enemy_%d.png",level + 1);
+            towerConfig = s_towerConfig[level];
+            _curlife = _maxlife = towerConfig.life;
+            potInRadar = Sprite::createWithSpriteFrameName("map_enemy.png");
+            potInRadar->retain();
+            break;
+        case Attacker::PLAIN:
+            level = s_playerConfig.fighterslevel[type];
+            sprintf(fileName,"plain_%d_lv_%d.png",type + 1,level + 1);
+            plainConfig = s_plainConfigs[type][level];
+            _curlife = _maxlife = plainConfig.life;
+            potInRadar = Sprite::createWithSpriteFrameName("map_plain.png");
+            potInRadar->retain();
+            break;
+        case Attacker::WEAPON:
+            break;
+            
+        default:
+            break;
     }
     
     _fighterIcon = Sprite::createWithSpriteFrameName(fileName);
@@ -96,6 +121,33 @@ bool Fighter::initFighter(Attacker attacker,int type,int level /* = 0 */)
     _fighterIcon->setPosition(Point(iconSize.width/2, iconSize.height/2));
     this->setContentSize(_fighterIcon->getContentSize());
     this->addChild(_fighterIcon);
+    
+    if (attacker == Attacker::ENEMY || attacker == Attacker::BOSS || attacker == Attacker::TOWER )
+    {
+        _bloodbar = ui::LoadingBar::create("battle_life_enemy.png");
+        _bloodbar->setAnchorPoint(Point::ANCHOR_MIDDLE);
+        _bloodbar->setPosition(Point(_fighterIcon->getContentSize().width/2,_fighterIcon->getContentSize().height+10));
+        _fighterIcon->addChild(_bloodbar);
+        _bloodbar->setScale(0.3f);
+    }
+    else if(attacker == Attacker::PLAIN)
+    {
+        _bloodbar = ui::LoadingBar::create("battle_life_plain.png");
+        _bloodbar->setAnchorPoint(Point::ANCHOR_MIDDLE);
+        _bloodbar->setPosition(Point(_fighterIcon->getContentSize().width/2,-10));
+        _fighterIcon->addChild(_bloodbar);
+        _bloodbar->setScale(0.3f);
+    }
+    
+    if(_attacker == Attacker::TOWER)
+    {
+        sprintf(fileName,"fixed_enemy_%d_gun.png",level + 1);
+        gun = Sprite::createWithSpriteFrameName(fileName);
+        gun->setAnchorPoint(Point::ANCHOR_MIDDLE);
+        gun->setPosition(_fighterIcon->getContentSize().width/2,_fighterIcon->getContentSize().height/2);
+        _fighterIcon->addChild(gun);
+        this->scheduleUpdate();
+    }
 
     ret = true;
 
@@ -144,6 +196,8 @@ void Fighter::moveTo(Point& pos,Player* target)
                                                                                                                state = FighterState::IDLE;
                                                                                                            }  ),nullptr));
             break;
+        case Attacker::TOWER:
+            break;
         default:
             break;
     }
@@ -163,6 +217,11 @@ void Fighter::attackLocations(Point& pos,Player* target)
 
     //this->runAction(RotateTo::create(0.2f,_position.getAngle(_attTargetPos) * 180));
     log("ang:%f",_position.getAngle(_attTargetPos) * 180);
+    
+    if(_attacker == Attacker::TOWER && gun)
+    {
+        gun->setRotation((_position.getAngle(_attTargetPos)) * 180+180);
+    }
     
 }
 
@@ -188,6 +247,15 @@ void Fighter::fire(float dt)
             log("fire_pos:%f,%f",_attTargetPos.x,_attTargetPos.y);
         }
             break;
+        case Attacker::TOWER:
+        {
+            auto bullet = Bullet::createBullet(Attacker::TOWER,9,_fighterLevel);
+            bullet->setPosition(_position);
+            _parent->addChild(bullet);
+            bullet->attackLocations(_attTargetPos,_attTarget);
+            log("fire_pos:%f,%f",_attTargetPos.x,_attTargetPos.y);
+        }
+            break;
         case Attacker::PLAIN:
         {
             auto bullet = Bullet::createBullet(Attacker::PLAIN,_fighterType,_fighterLevel);
@@ -205,30 +273,31 @@ void Fighter::fire(float dt)
 
 void Fighter::hurt(int ATK)
 {
-    int life = 0;
     switch (_attacker)
     {
         case Attacker::ENEMY:
             if (ATK > enemyConfig.defense)
             {
-                enemyConfig.life -= ATK;
+                _curlife -= ATK;
             }
-            life = enemyConfig.life;
             break;
         case Attacker::BOSS:
             if (ATK > bossConfig.defense)
             {
-                bossConfig.life -= ATK;
+                _curlife -= ATK;
             }
-            life = bossConfig.life;
+            break;
+        case Attacker::TOWER:
+            if (ATK > towerConfig.defense)
+            {
+                _curlife -= ATK;
+            }
             break;
         case Attacker::PLAIN:
             if (ATK > plainConfig.defense)
             {
-                plainConfig.life -= ATK - plainConfig.defense;
+                _curlife -= ATK - plainConfig.defense;
             }
-            
-            life = plainConfig.life;
             break;
         case Attacker::WEAPON:
             break;
@@ -236,13 +305,29 @@ void Fighter::hurt(int ATK)
             break;
     }
 
-    if (life <= 0)
+    if (_curlife > 0) {
+        _bloodbar->setPercent((float(_curlife*100))/_maxlife);
+    }
+    else
     {
         state = FighterState::DESTROY;
+        _bloodbar->setPercent(0);
         potInRadar->removeFromParent();
         CC_SAFE_RELEASE(potInRadar);
         this->unschedule(schedule_selector(Fighter::fire));
         _eventDispatcher->dispatchCustomEvent(GameConfig::eventPlayerDestroy,this);
         this->removeFromParentAndCleanup(true);
+    }
+}
+
+void Fighter::update(float dt)
+{
+    if(_attacker == Attacker::TOWER && gun)
+    {
+        if (state == FighterState::IDLE)
+        {
+            int curangel = (int)gun->getRotation();
+            gun->setRotation(++curangel%360);
+        }
     }
 }
