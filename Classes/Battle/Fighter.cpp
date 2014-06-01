@@ -30,6 +30,20 @@ Fighter* Fighter::createEnemy(int type,int level)
     return nullptr;
 }
 
+Fighter* Fighter::createBoss(int level)
+{
+    auto ret = new (std::nothrow) Fighter;
+    if (ret && ret->initFighter(Attacker::BOSS,9,level))
+    {
+        ret->autorelease();
+        return ret;
+    }
+    
+    delete ret;
+    return nullptr;
+}
+
+
 Fighter::Fighter()
 : state(FighterState::IDLE)
 , _attTarget(nullptr)
@@ -52,18 +66,27 @@ bool Fighter::initFighter(Attacker attacker,int type,int level /* = 0 */)
     case Attacker::ENEMY:
         sprintf(fileName,"enemy_%d_lv_%d.png",type + 1,level + 1);
         enemyConfig = s_enemyConfigs[type][level];
-        potInRadar = Sprite::createWithSpriteFrameName("map_plain.png");
+        potInRadar = Sprite::createWithSpriteFrameName("map_enemy.png");
         potInRadar->retain();
         break;
+    case Attacker::BOSS:
+        sprintf(fileName,"boos_%d.png",level + 1);
+        bossConfig = s_bossConfig[level];
+        potInRadar = Sprite::createWithSpriteFrameName("map_enemy.png");
+        potInRadar->retain();
+        break;
+    case Attacker::TOWER:
+        break;
     case Attacker::PLAIN:
-        level = s_gameConfig.fightersLevle[type];
+        level = s_playerConfig.fighterslevel[type];
         sprintf(fileName,"plain_%d_lv_%d.png",type + 1,level + 1);
         plainConfig = s_plainConfigs[type][level];
-        potInRadar = Sprite::createWithSpriteFrameName("map_enemy.png");
+        potInRadar = Sprite::createWithSpriteFrameName("map_plain.png");
         potInRadar->retain();
         break;
     case Attacker::WEAPON:
         break;
+    
     default:
         break;
     }
@@ -102,10 +125,28 @@ void Fighter::moveTo(Point& pos,Player* target)
     float dy = _position.y - pos.y;
     auto dis = sqrtf(dx*dx + dy*dy);
     
-    this->runAction(Sequence::create(MoveTo::create(dis / 100,pos), CallFunc::create(
-        [&](){
-           state = FighterState::IDLE; 
-    }  ),nullptr));
+    switch (_attacker) {
+        case Attacker::ENEMY:
+            this->runAction(Sequence::create(MoveTo::create(dis / enemyConfig.speed,pos), CallFunc::create(
+                                                                                                           [&](){
+                                                                                                               state = FighterState::IDLE;
+                                                                                                           }  ),nullptr));
+            break;
+        case Attacker::BOSS:
+            this->runAction(Sequence::create(MoveTo::create(dis / bossConfig.speed,pos), CallFunc::create(
+                                                                                                           [&](){
+                                                                                                               state = FighterState::IDLE;
+                                                                                                           }  ),nullptr));
+            break;
+        case Attacker::PLAIN:
+            this->runAction(Sequence::create(MoveTo::create(dis / plainConfig.speed,pos), CallFunc::create(
+                                                                                                           [&](){
+                                                                                                               state = FighterState::IDLE;
+                                                                                                           }  ),nullptr));
+            break;
+        default:
+            break;
+    }
 }
 
 void Fighter::attackLocations(Point& pos,Player* target)
@@ -129,26 +170,36 @@ void Fighter::fire(float dt)
 {
     switch (_attacker)
     {
-    case Attacker::ENEMY:
+        case Attacker::ENEMY:
         {
             auto bullet = Bullet::createBullet(Attacker::ENEMY,_fighterType,_fighterLevel);
             bullet->setPosition(_position);
             _parent->addChild(bullet);
             bullet->attackLocations(_attTargetPos,_attTarget);
+            log("fire_pos:%f,%f",_attTargetPos.x,_attTargetPos.y);
         }
-        break;
-    case Attacker::PLAIN:
+            break;
+        case Attacker::BOSS:
+        {
+            auto bullet = Bullet::createBullet(Attacker::BOSS,9,_fighterLevel);
+            bullet->setPosition(_position);
+            _parent->addChild(bullet);
+            bullet->attackLocations(_attTargetPos,_attTarget);
+            log("fire_pos:%f,%f",_attTargetPos.x,_attTargetPos.y);
+        }
+            break;
+        case Attacker::PLAIN:
         {
             auto bullet = Bullet::createBullet(Attacker::PLAIN,_fighterType,_fighterLevel);
             bullet->setPosition(_position);
             _parent->addChild(bullet);
             bullet->attackLocations(_attTargetPos,_attTarget);
         }
-        break;
-    case Attacker::WEAPON:
-        break;
-    default:
-        break;
+            break;
+        case Attacker::WEAPON:
+            break;
+        default:
+            break;
     }
 }
 
@@ -157,25 +208,32 @@ void Fighter::hurt(int ATK)
     int life = 0;
     switch (_attacker)
     {
-    case Attacker::ENEMY:
-        if (ATK > enemyConfig.defense)
-        {
-            enemyConfig.life -= ATK;
-        }
-        life = enemyConfig.life;
-        break;
-    case Attacker::PLAIN:
-        if (ATK > plainConfig.defense)
-        {
-            plainConfig.life -= ATK - plainConfig.defense;
-        }
-        
-        life = plainConfig.life;
-        break;
-    case Attacker::WEAPON:
-        break;
-    default:
-        break;
+        case Attacker::ENEMY:
+            if (ATK > enemyConfig.defense)
+            {
+                enemyConfig.life -= ATK;
+            }
+            life = enemyConfig.life;
+            break;
+        case Attacker::BOSS:
+            if (ATK > bossConfig.defense)
+            {
+                bossConfig.life -= ATK;
+            }
+            life = bossConfig.life;
+            break;
+        case Attacker::PLAIN:
+            if (ATK > plainConfig.defense)
+            {
+                plainConfig.life -= ATK - plainConfig.defense;
+            }
+            
+            life = plainConfig.life;
+            break;
+        case Attacker::WEAPON:
+            break;
+        default:
+            break;
     }
 
     if (life <= 0)

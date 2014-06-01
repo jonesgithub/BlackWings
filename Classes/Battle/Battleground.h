@@ -27,12 +27,16 @@ public:
     virtual void onExit();
 
     void battleLoop(float dt);
-    void dispatchEnemys(float dt);
+    void dispatchEnemys_1(float dt);
+    void dispatchEnemys_2(float dt);
+    void dispatchBoss(float dt);
     void showPotInRadar(float dt);
 
     bool onTouchBegan(Touch* touch, Event* event);
     void onTouchMoved(Touch* touch, Event* event);
     void onTouchEnded(Touch* touch, Event* event);
+    
+
 
 private:
     void createBattleground(Ref *sender);
@@ -45,8 +49,18 @@ private:
 
     void plainFindTarget();
     void enemyFindTarget();
+    void bossFindTarget();
 
     void callbackPlayerDestroy(EventCustom* event);
+    void callbackPlayerBaseHurt(EventCustom* event);
+    void callbackEnemyBaseHurt(EventCustom* event);
+    
+    void initNormalEnemy();
+    void initTowerEnemy();
+    void initBossEnemy();
+    
+    void win();
+    void lost();
 
     Battleground();
     ~Battleground();
@@ -59,6 +73,7 @@ private:
 
     std::vector<Fighter*> s_players;
     std::vector<Fighter*> s_enemys;
+    std::vector<Fighter*> s_boss;
 
     Animation* explode_A;
     Animation* explode_B;
@@ -77,6 +92,13 @@ private:
     int _curEnemyBase_Blood;
     cocos2d::ui::LoadingBar* _playerBloodBar;
     cocos2d::ui::LoadingBar* _enemyBloodBar;
+    
+    //normal敌机出兵配置
+    int _maxWaves;
+    int _curWaves;
+    
+    //boss level
+    //int _bossLevel;
 };
 
 #endif

@@ -16,7 +16,11 @@ public:
     void attackLocations(Point& pos,Player* target);
 
     virtual void onEnter();
+    
     //virtual void onExit();
+    
+    int _attack;
+
 private:
     enum class AttackMode
     {
@@ -39,7 +43,6 @@ private:
 
     bool _fire;
     //
-    int _attack;
     bool _trace;
     int _attRang;
 

@@ -19,6 +19,9 @@ public:
     static Fighter* createPlain(int type);
 
     static Fighter* createEnemy(int type,int level);
+    
+    static Fighter* createBoss(int level);
+
 
     void moveTo(Point& pos,Player* target);
 
@@ -31,6 +34,7 @@ public:
     FighterState state;
     PlainConfig plainConfig;
     EnemyConfig enemyConfig;
+    EnemyConfig bossConfig;
 
     Attacker _attacker;
     
