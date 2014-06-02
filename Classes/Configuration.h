@@ -18,6 +18,8 @@
 #define MEDAL_MAX 25
 #define MEDAL_REWARDS_COUNT 4
 
+#define STAGE_REWAEDS_COUNT 4
+
 #define STONE_SPEED_LEVEL_MAX 20
 #define STONE_CAPACITY_LEVEL_MAX 20
 
@@ -169,8 +171,10 @@ typedef struct _weaponConfig
 
 extern WeaponConfig s_weaponConfigs[WEAPON_MAX][WEAPON_LEVEL_MAX];
 
-//Medal
+//MedalRewards
 extern int s_medalRewards[MEDAL_MAX][MEDAL_REWARDS_COUNT];
+//StageRewardss
+extern int s_stageRewards[STAGE_COUNT][STAGE_REWAEDS_COUNT];
 
 //Battle
 extern int s_enemyBaseBlood[STAGE_COUNT];

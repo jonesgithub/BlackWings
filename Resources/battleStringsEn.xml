@@ -12,6 +12,12 @@
     <key>gameoverloss</key>
     <string>损失数量：</string>
     <key>gameoverreward</key>
-    <string>奖励</string>
+    <string>- - - - - - - - - - - - - - - - - 奖励 - - - - - - - - - - - - - - - - -</string>
+    <key>returnbase</key>
+    <string>返回空间站</string>
+    <key>nextstage</key>
+    <string>下一关</string>
+    <key>restartstage</key>
+    <string>重新挑战</string>
     
 </dict>
