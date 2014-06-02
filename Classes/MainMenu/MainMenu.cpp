@@ -38,6 +38,7 @@ void MainMenu::createBg(Ref *sender)
     frameCache->addSpriteFramesWithFile("icons.plist");
     frameCache->addSpriteFramesWithFile("plains.plist");
     frameCache->addSpriteFramesWithFile("bombs.plist");
+    frameCache->addSpriteFramesWithFile("mission_icons.plist");
 
     if (fabs(s_visibleRect.visibleHeight - 1136) < FLT_EPSILON)
     {

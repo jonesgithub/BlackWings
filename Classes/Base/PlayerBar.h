@@ -21,9 +21,10 @@ public:
     
     void setGem(int num);
     
+    Node* _playerMenu;
+    
 private:
     bool _showFighter;
-    Node* _playerMenu;
     
     Label* stoneNum;
     Label* stoneTatalNum;

@@ -9,9 +9,12 @@
 #include "PlayerBar.h"
 #include "StageSelect.h"
 #include "Medal.h"
+#include "PersonalApi.h"
+
 
 USING_NS_CC;
 USING_NS_CC_EXT;
+using namespace std;
 
 bool Base::init()
 {
@@ -26,10 +29,10 @@ bool Base::init()
         loadLayer->addImage("door_r.png");
         this->addChild(loadLayer);
         loadLayer->startLoad();
-
+        
         return true;
     }
-
+    
     return false;
 }
 
@@ -40,16 +43,16 @@ void Base::createBase(Ref *sender)
     addChild(bg);
     
     this->removeChild((LoadResourceLayer*)sender,true);
-
+    
     GSBaseInit((GameLanguage)s_playerConfig.language);
-
+    
     createUpgrade();
-
+    
     _playerBag = PlayerBar::create();
     this->addChild(_playerBag);
     
     createTopPanel();
-
+    
     auto listenerStageSelect = EventListenerCustom::create(StageSelect::eventBack, [=](EventCustom* event){
         _topPanel->runAction(MoveBy::create(0.2f,Point(0,-200)));
         _upgradePanel->runAction(MoveBy::create(0.2f,Point(0,s_visibleRect.visibleHeight)));
@@ -61,7 +64,7 @@ void Base::createBase(Ref *sender)
         _upgradePanel->runAction(MoveBy::create(0.2f,Point(0,s_visibleRect.visibleHeight)));
         _playerBag->runAction(Sequence::create( MoveBy::create(0.15f,Point(0,136)),nullptr ));
     });
-
+    
     _eventDispatcher->addEventListenerWithSceneGraphPriority(listenerStageSelect, this);
     _eventDispatcher->addEventListenerWithSceneGraphPriority(listenerMedal, this);
 }
@@ -70,19 +73,19 @@ void Base::createUpgrade()
 {
     _upgradePanel = Node::create();
     this->addChild(_upgradePanel);
-
+    
     int baseHeight = 50;
     int padding = 30;
-
+    
     auto boxPos = Point(s_visibleRect.center.x,s_visibleRect.center.y - baseHeight * 5);
-
+    
     auto upgradeFighter = Scale9Sprite::createWithSpriteFrameName("upgrade_box.png");
     upgradeFighter->setContentSize(Size(s_visibleRect.visibleWidth - 50,baseHeight * 4.5));
     upgradeFighter->setAnchorPoint(Point::ANCHOR_MIDDLE_BOTTOM);
     upgradeFighter->setPosition(boxPos);
     _upgradePanel->addChild(upgradeFighter);
     createFighterBottomInfo(upgradeFighter);
-
+    
     boxPos.y += baseHeight * 4.5 + padding;
     auto sparCapacitySize = Size(s_visibleRect.visibleWidth - 60,baseHeight * 3);
     auto upgradeSparCapacity = Scale9Sprite::createWithSpriteFrameName("upgrade_box.png");
@@ -125,6 +128,18 @@ void Base::createFighterBottomInfo(Node* panel)
     fighterBox->setPosition(Point(panelSize.width / 6,panelSize.height * 0.625f));
     panel->addChild(fighterBox);
     
+    
+    string fighterNum = PersonalApi::convertIntToString(1);
+    string fighterLv = PersonalApi::convertIntToString(s_playerConfig.fighterslevel[0]+1);
+    string fighterName = "plain_"+fighterNum+"_lv_"+fighterLv+".png";
+    _fighterPic = Sprite::createWithSpriteFrameName(fighterName.c_str());
+    
+    //_fighterPic->setPosition(((PlayerBar*)_playerBag)->_playerMenu->getChildByTag(PersonalApi::convertStringToInt(fighterNum)-1)->getPosition());
+    panel->addChild(_fighterPic);
+    auto moveTo = MoveTo::create(0.5, fighterBox->getPosition());
+    _fighterPic->runAction(moveTo);
+    
+    
     auto bottombluBar = Scale9Sprite::createWithSpriteFrameName("bt_main_1.png");
     bottombluBar->setPosition(Point(panelSize.width / 2,panelSize.height * 0.25f));
     bottombluBar->setScaleX(1.2f);
@@ -136,38 +151,38 @@ void Base::createFighterBottomInfo(Node* panel)
     panel->addChild(spar);
     
     auto pos = Point(200,panelSize.height * 0.85f);
-
+    
     {
         auto levelText = TextSprite::create(s_gameStrings.base->upgradeLevel,GameConfig::defaultFontName,fontSize);
         levelText->setAnchorPoint(Point::ANCHOR_TOP_LEFT);
         levelText->setPosition(pos);
         panel->addChild(levelText);
-
+        
         pos.y = panelSize.height * 0.67f;
         auto attText = TextSprite::create(s_gameStrings.base->upgradeAtt,GameConfig::defaultFontName,fontSize);
         attText->setAnchorPoint(Point::ANCHOR_TOP_LEFT);
         attText->setPosition(pos);
         panel->addChild(attText);
-
+        
         pos.y = panelSize.height * 0.5f;
         auto defText = TextSprite::create(s_gameStrings.base->upgradeDef,GameConfig::defaultFontName,fontSize);
         defText->setAnchorPoint(Point::ANCHOR_TOP_LEFT);
         defText->setPosition(pos);
         panel->addChild(defText);
-
+        
         pos.x = 400;
         pos.y = panelSize.height * 0.85f;
         auto lifeText = TextSprite::create(s_gameStrings.base->upgradeLife,GameConfig::defaultFontName,fontSize);
         lifeText->setAnchorPoint(Point::ANCHOR_TOP_LEFT);
         lifeText->setPosition(pos);
         panel->addChild(lifeText);
-
+        
         pos.y = panelSize.height * 0.67f;
         auto spdText = TextSprite::create(s_gameStrings.base->upgradeSpd,GameConfig::defaultFontName,fontSize);
         spdText->setAnchorPoint(Point::ANCHOR_TOP_LEFT);
         spdText->setPosition(pos);
         panel->addChild(spdText);
-
+        
         pos.y = panelSize.height * 0.5f;
         auto rangeText = TextSprite::create(s_gameStrings.base->upgradeRange,GameConfig::defaultFontName,fontSize);
         rangeText->setAnchorPoint(Point::ANCHOR_TOP_LEFT);
@@ -180,7 +195,7 @@ void Base::createFighterBottomInfo(Node* panel)
         leveUpText->setPosition(pos-Point(40,0));
         panel->addChild(leveUpText);
     }
-
+    
     {
         pos.x = 290;
         pos.y = panelSize.height * 0.85f;
@@ -232,18 +247,33 @@ void Base::createFighterBottomInfo(Node* panel)
         range->setPosition(pos);
         range->setTextColor(infoColor);
         panel->addChild(range);
-   
-   
+        
+        
         auto listener = EventListenerCustom::create(PlayerBar::eventPlayerSelect, [=](EventCustom* event)
-       {
-            level ->setString("10");
-            att ->setString("10");
-            def ->setString("10");
-            life ->setString("10");
-            spd ->setString("10");
-            range ->setString("10");
-            leveUpCost->setString("3100");
-       });
+                                                    {
+                                                        level ->setString("10");
+                                                        att ->setString("10");
+                                                        def ->setString("10");
+                                                        life ->setString("10");
+                                                        spd ->setString("10");
+                                                        range ->setString("10");
+                                                        leveUpCost->setString("3100");
+                                                        
+                                                        float interval = (s_visibleRect.visibleWidth - 40) / FIGHTER_MAX;
+                                                        auto playerPos = Point(s_visibleRect.visibleOriginX + 20 + interval/2, s_visibleRect.visibleOriginY + 68);
+                                                        string fighterNum = PersonalApi::convertIntToString((uintptr_t)event->getUserData()+1);
+                                                        string fighterLv = PersonalApi::convertIntToString(s_playerConfig.fighterslevel[(uintptr_t)event->getUserData()]+1);
+                                                        string fighterName = "plain_"+fighterNum+"_lv_"+fighterLv+".png";
+                                                        
+                                                        _fighterPic = Sprite::createWithSpriteFrameName(fighterName.c_str());
+                                                        
+                                                        
+                                                        //_fighterPic->setPosition(_playerBag->getChildByTag(1)->getChildByTag((int)event->getUserData())->getPosition());
+                                                        panel->addChild(_fighterPic);
+                                                        auto moveTo = MoveTo::create(0.5, fighterBox->getPosition());
+                                                        _fighterPic->runAction(moveTo);
+                                                        
+                                                    });
         _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
     }
 }
@@ -324,7 +354,7 @@ void Base::createFighterMiddleInfo(Node* panel)
         auto listener = EventListenerCustom::create(PlayerBar::eventPlayerSelect, [=](EventCustom* event)
                                                     {
                                                         level ->setString("10");
-                                            
+                                                        
                                                         cost ->setString("1200");
                                                         
                                                         slash->setPosition(cost->getPosition()+Point(cost->getContentSize().width,0));
@@ -418,15 +448,15 @@ void Base::createFighterTopInfo(Node* panel)
         panel->addChild(leveUpCost);
         
         auto listener = EventListenerCustom::create(PlayerBar::eventPlayerSelect, [=](EventCustom* event)
-//        {
-//            _flight_level_label ->setString(<#const std::string &text#>);
-//            _flight_life_label ->setString(<#const std::string &text#>);
-//            _flight_attack_label ->setString(<#const std::string &text#>);
-//            _flight_speed_label ->setString(<#const std::string &text#>);
-//            _flight_defend_label ->setString(<#const std::string &text#>);
-//            _flight_range_label ->setString(<#const std::string &text#>);
-//            _flight_upgrade_need_money_label ->setString(<#const std::string &text#>);
-//        });
+                                                    //        {
+                                                    //            _flight_level_label ->setString(<#const std::string &text#>);
+                                                    //            _flight_life_label ->setString(<#const std::string &text#>);
+                                                    //            _flight_attack_label ->setString(<#const std::string &text#>);
+                                                    //            _flight_speed_label ->setString(<#const std::string &text#>);
+                                                    //            _flight_defend_label ->setString(<#const std::string &text#>);
+                                                    //            _flight_range_label ->setString(<#const std::string &text#>);
+                                                    //            _flight_upgrade_need_money_label ->setString(<#const std::string &text#>);
+                                                    //        });
                                                     {
                                                         level ->setString("10");
                                                         
@@ -434,7 +464,7 @@ void Base::createFighterTopInfo(Node* panel)
                                                         cost->setPosition(plus->getPosition()+Point(plus->getContentSize().width,0));
                                                         
                                                         slash->setPosition(cost->getPosition()+Point(cost->getContentSize().width,0));
-                                                    
+                                                        
                                                         total->setPosition(slash->getPosition()+Point(slash->getContentSize().width,0));
                                                         
                                                         leveUpCost->setString("1500");
@@ -446,30 +476,30 @@ void Base::createTopPanel()
 {
     _topPanel = Node::create();
     this->addChild(_topPanel);
-
+    
     auto leftRail = Sprite::createWithSpriteFrameName("dingjia.png");
     leftRail->setAnchorPoint(Point::ANCHOR_TOP_RIGHT);
     leftRail->setPosition(s_visibleRect.top);
     _topPanel->addChild(leftRail);
-
+    
     auto rightRail = Sprite::createWithSpriteFrameName("dingjia.png");
     rightRail->setAnchorPoint(Point::ANCHOR_TOP_LEFT);
     rightRail->setFlippedX(true);
     rightRail->setPosition(s_visibleRect.top);
     _topPanel->addChild(rightRail);
-
+    
     auto medalItem = MenuItemImageLabel::createWithFrameName("btA_0.png","btA_1.png",
-        CC_CALLBACK_1(Base::menuCallbackMedal,this),s_gameStrings.base->topBarMedal);
+                                                             CC_CALLBACK_1(Base::menuCallbackMedal,this),s_gameStrings.base->topBarMedal);
     medalItem->setPosition(Point(120,890));
-
+    
     auto settingItem = MenuItemImageLabel::createWithFrameName("option_0.png","option_1.png",
-        CC_CALLBACK_1(Base::menuCallbackSetting,this));
+                                                               CC_CALLBACK_1(Base::menuCallbackSetting,this));
     settingItem->setPosition(Point(s_visibleRect.center.x,890));
-
+    
     auto battleItem = MenuItemImageLabel::createWithFrameName("btA_0.png","btA_1.png",
-        CC_CALLBACK_1(Base::menuCallbackBattle,this),s_gameStrings.base->topBarBattle);
+                                                              CC_CALLBACK_1(Base::menuCallbackBattle,this),s_gameStrings.base->topBarBattle);
     battleItem->setPosition(Point(520,890));
-
+    
     auto menu = Menu::create( medalItem, settingItem, battleItem,nullptr);
     menu->setPosition(Point::ZERO);
     _topPanel->addChild(menu);
@@ -497,7 +527,7 @@ void Base::menuCallbackBattle(Ref *sender)
     _topPanel->runAction(MoveBy::create(0.2f,Point(0,200)));
     _upgradePanel->runAction(MoveBy::create(0.2f,Point(0,-s_visibleRect.visibleHeight)));
     _playerBag->runAction(Sequence::create( MoveBy::create(0.15f,Point(0,-150)),
-        MoveBy::create(0.05f,Point(0,14)),nullptr ));
+                                           MoveBy::create(0.05f,Point(0,14)),nullptr ));
     
     auto stageSelect = StageSelect::create();
     this->addChild(stageSelect);
