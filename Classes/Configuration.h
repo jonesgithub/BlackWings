@@ -47,6 +47,7 @@ typedef struct _playerconfig
     int language;//语言
     
     int stone;//晶石，游戏中的生成
+    int stoneMax;//石头上限
     int gem;//宝石，花钱购买的
     int starbomb;//星际炸弹数量
     int laser;//镭射数量

@@ -98,6 +98,8 @@
 		50EF629917ECD46A001EB2F8 /* Icon-100.png in Resources */ = {isa = PBXBuildFile; fileRef = 50EF629517ECD46A001EB2F8 /* Icon-100.png */; };
 		50EF62A217ECD613001EB2F8 /* Icon-29.png in Resources */ = {isa = PBXBuildFile; fileRef = 50EF62A017ECD613001EB2F8 /* Icon-29.png */; };
 		50EF62A317ECD613001EB2F8 /* Icon-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 50EF62A117ECD613001EB2F8 /* Icon-50.png */; };
+		6896E008193C49E0009282C5 /* PersonalApi.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6896E006193C49E0009282C5 /* PersonalApi.cpp */; };
+		6896E009193C49E0009282C5 /* PersonalApi.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6896E006193C49E0009282C5 /* PersonalApi.cpp */; };
 		8527812F1934FAA700A0DEA5 /* medalStringsCh.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8527812D1934FAA700A0DEA5 /* medalStringsCh.xml */; };
 		852781301934FAA700A0DEA5 /* medalStringsCh.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8527812D1934FAA700A0DEA5 /* medalStringsCh.xml */; };
 		852781311934FAA700A0DEA5 /* medalStringsEn.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8527812E1934FAA700A0DEA5 /* medalStringsEn.xml */; };
@@ -518,6 +520,8 @@
 		50EF629517ECD46A001EB2F8 /* Icon-100.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-100.png"; sourceTree = "<group>"; };
 		50EF62A017ECD613001EB2F8 /* Icon-29.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-29.png"; sourceTree = "<group>"; };
 		50EF62A117ECD613001EB2F8 /* Icon-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-50.png"; sourceTree = "<group>"; };
+		6896E006193C49E0009282C5 /* PersonalApi.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PersonalApi.cpp; sourceTree = "<group>"; };
+		6896E007193C49E0009282C5 /* PersonalApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonalApi.h; sourceTree = "<group>"; };
 		8527812D1934FAA700A0DEA5 /* medalStringsCh.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = medalStringsCh.xml; sourceTree = "<group>"; };
 		8527812E1934FAA700A0DEA5 /* medalStringsEn.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = medalStringsEn.xml; sourceTree = "<group>"; };
 		8528F14E19362B8C00EF967E /* MedalChecker.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MedalChecker.cpp; sourceTree = "<group>"; };
@@ -690,6 +694,8 @@
 		15AA9C4015B7EC450033D6C2 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				6896E006193C49E0009282C5 /* PersonalApi.cpp */,
+				6896E007193C49E0009282C5 /* PersonalApi.h */,
 				855E13421934D8D000683F21 /* Medal */,
 				266ACBA819336AD5004DF401 /* xxtea.cpp */,
 				266ACBA919336AD5004DF401 /* xxtea.h */,
@@ -1447,6 +1453,7 @@
 				266ACB1D19323E2A004DF401 /* ResetGameLayer.cpp in Sources */,
 				266ACB1719323E2A004DF401 /* MainMenu.cpp in Sources */,
 				266ACAF719323E2A004DF401 /* Base.cpp in Sources */,
+				6896E008193C49E0009282C5 /* PersonalApi.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1483,6 +1490,7 @@
 				8555021D193B2BD300DEAF12 /* CDItem.cpp in Sources */,
 				8528F15519363F5200EF967E /* MedalRewardsLayer.cpp in Sources */,
 				266ACB1A19323E2A004DF401 /* MenuSettings.cpp in Sources */,
+				6896E009193C49E0009282C5 /* PersonalApi.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

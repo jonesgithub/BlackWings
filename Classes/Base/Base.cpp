@@ -41,7 +41,7 @@ void Base::createBase(Ref *sender)
     
     this->removeChild((LoadResourceLayer*)sender,true);
 
-//    GSBaseInit((GameLanguage)s_playerConfig.language);
+    GSBaseInit((GameLanguage)s_playerConfig.language);
 
     createUpgrade();
 

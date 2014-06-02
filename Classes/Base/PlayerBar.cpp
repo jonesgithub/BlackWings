@@ -5,6 +5,7 @@
 #include "GameStrings.h"
 #include "MenuItemImageLabel.h"
 #include "PlayerMenuItem.h"
+#include "PersonalApi.h"
 
 USING_NS_CC_EXT;
 
@@ -100,6 +101,42 @@ bool PlayerBar::init()
     gemIcon->setPosition(Point(s_visibleRect.center.x - 43,s_visibleRect.visibleOriginY + 165));
     gemIcon->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
     this->addChild(gemIcon);
+    
+    std::string fontFile = "arial.ttf";
+    int fontSize = 20;
+    
+    auto slash = Label::createWithTTF("/",fontFile,fontSize);
+    slash->setAnchorPoint(Point::ANCHOR_MIDDLE_BOTTOM);
+    slash->setPosition(Point(numBg->getContentSize().width/2,6));
+    slash->setColor(Color3B(169,169,169));
+    numBg->addChild(slash);
+    
+    auto stoneNum = Label::createWithTTF(PersonalApi::convertIntToString(s_playerConfig.stone).c_str(),fontFile,fontSize);
+    stoneNum->setAnchorPoint(Point::ANCHOR_BOTTOM_RIGHT);
+    stoneNum->setPosition(Point(slash->getPositionX()-10,slash->getPositionY()));
+    numBg->addChild(stoneNum);
+    
+    auto stoneTatalNum = Label::createWithTTF(PersonalApi::convertIntToString(s_playerConfig.stoneMax).c_str(),fontFile,fontSize);
+    stoneTatalNum->setAnchorPoint(Point::ANCHOR_BOTTOM_LEFT);
+    stoneTatalNum->setPosition(Point(slash->getPositionX()+10,slash->getPositionY()));
+    stoneTatalNum->setColor(Color3B(169,169,169));
+    numBg->addChild(stoneTatalNum);
+    
+    auto sparNum = Label::createWithTTF(PersonalApi::convertIntToString(s_playerConfig.gem).c_str(),fontFile,fontSize);
+    sparNum->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
+    sparNum->setPosition(Point(gemIcon->getPositionX()+gemIcon->getContentSize().width+5,gemIcon->getPositionY()));
+    sparNum->setColor(Color3B(255,255,0));
+    this->addChild(sparNum);
+    
+    auto listener = EventListenerCustom::create(PlayerBar::eventPlayerSelect, [=](EventCustom* event)
+                                                {
+                                                    stoneNum->setString( PersonalApi::convertIntToString(s_playerConfig.stone).c_str());
+                                                    stoneNum->setPosition(Point(slash->getPositionX()-10,slash->getPositionY()));
+                                                    stoneTatalNum->setString(PersonalApi::convertIntToString(s_playerConfig.stoneMax).c_str());
+                                                    stoneTatalNum->setPosition(Point(slash->getPositionX()+10,slash->getPositionY()));
+                                                    sparNum->setString(PersonalApi::convertIntToString(s_playerConfig.gem).c_str());
+                                                });
+    _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
 
     return true;
 }

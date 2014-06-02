@@ -79,6 +79,7 @@ void GameConfig::initConfig()
     s_playerConfig.language = (int)GameLanguage::English;
     
     s_playerConfig.stone = 200;
+    s_playerConfig.stoneMax = 1000;
     s_playerConfig.gem = 1000;
     s_playerConfig.starbomb = 1;
     s_playerConfig.laser = 1;
