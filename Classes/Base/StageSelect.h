@@ -37,4 +37,7 @@ private:
     Size _cellSize;
     
     bool _noTouch;
+    
+    Sprite* left_door;
+    Sprite* right_door;
 };

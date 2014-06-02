@@ -45,22 +45,27 @@ bool StageSelect::init()
         _panel->addChild(stageselect_text);
         
         //door effect.
-        auto left_door = Sprite::create("door_l.png");
-        auto right_door = Sprite::create("door_r.png");
-        left_door->setScale(0.95f, 0.78f);
-        right_door->setScale(0.95f, 0.78f);
+        left_door = Sprite::create("door_l.png");
+        right_door = Sprite::create("door_r.png");
+        left_door->setScale(1.08f, 0.9f);
+        right_door->setScale(1.08f, 0.9f);
         left_door->setAnchorPoint(Point::ANCHOR_MIDDLE_RIGHT);
         right_door->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
-        left_door->setPosition(Point(panelSize.width/2+20,panelSize.height/2-35));
-        right_door->setPosition(Point(panelSize.width/2-20,panelSize.height/2-35));
+        left_door->setPosition(Point(panelSize.width/2+20,panelSize.height/2-39));
+        right_door->setPosition(Point(panelSize.width/2-20,panelSize.height/2-39));
         _panel->addChild(left_door,2);
         _panel->addChild(right_door,2);
 
         
         auto actionmovedone = CallFunc::create(
                                         [=](){
-                                            left_door->runAction(ScaleTo::create(0.5f, 0, 1.0f));
-                                            right_door->runAction(ScaleTo::create(0.5f, 0, 1.0f));
+                                            auto size = left_door->getContentSize();
+                                            auto move = MoveBy::create(0.5, Point(-(size.width+20), 0));
+                                            left_door->runAction(move);
+                                            left_door->runAction(ScaleTo::create(0.5, 0, 0.9f));
+                                            auto move1 = move->reverse();
+                                            right_door->runAction(move1);
+                                            right_door->runAction(ScaleTo::create(0.5, 0, 0.9f));
                                         });
         _panel->runAction(Sequence::create(MoveTo::create(0.15f,s_visibleRect.top),
                                            actionmovedone,nullptr));
@@ -211,7 +216,20 @@ ssize_t StageSelect::numberOfCellsInTableView(cocos2d::extension::TableView *tab
 void StageSelect::menuCallbackClosed(Ref *sender)
 {
     this->runAction(FadeTo::create(0.15f,0));
+    
+    auto actionmovedone = CallFunc::create(
+                                           [=](){
+                                               auto size = left_door->getContentSize();
+                                               auto move = MoveBy::create(0.5, Point((size.width+20), 0));
+                                               left_door->runAction(move);
+                                               left_door->runAction(ScaleTo::create(0.5, 1.08, 0.9f));
+                                               auto move1 = move->reverse();
+                                               right_door->runAction(move1);
+                                               right_door->runAction(ScaleTo::create(0.5, 1.08, 0.9f));
+                                           });
     auto action = Sequence::create(
+        actionmovedone,
+        DelayTime::create(0.6),
         MoveBy::create(0.15f, Point(0,s_visibleRect.visibleHeight * 0.8f)),
         CallFunc::create(
         [&](){
