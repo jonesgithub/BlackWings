@@ -11,7 +11,7 @@ bool HelpLayer::init()
 {
     if (LayerColor::initWithColor(Color4B(255,255,255,0)))
     {
-        GSHelpInfoInit((GameLanguage)s_playerConfig.language);
+//        GSHelpInfoInit((GameLanguage)s_playerConfig.language);
 
         this->runAction(FadeTo::create(0.5f,100));
 

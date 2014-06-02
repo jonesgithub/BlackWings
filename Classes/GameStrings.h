@@ -83,12 +83,22 @@ typedef struct _medalStrings{
     std::string medalkillbigenemy;
 }MedalStrings;
 
+typedef struct _battleStrings{
+    std::string gameovertitle_win;
+    std::string gameovertitle_loss;
+    std::string gameovertime;
+    std::string gameoverkill;
+    std::string gameoverloss;
+    std::string gameoverreward;
+}BattleStrings;
+
 typedef struct _gameStrings
 {
     MainMenuStrings *mainMenu;
     HelpInfoStrings *helpInfo;
     BaseStrings *base;
     MedalStrings *medalInfo;
+    BattleStrings *battleInfo;
 }GameStrings;
 
 extern GameStrings s_gameStrings;
@@ -102,3 +112,4 @@ extern void GSMainMenuInit(GameLanguage language);
 extern void GSHelpInfoInit(GameLanguage language);
 extern void GSBaseInit(GameLanguage language);
 extern void GSMedalInfo(GameLanguage language);
+extern void GSBattleInfo(GameLanguage language);

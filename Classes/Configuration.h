@@ -91,6 +91,7 @@ public:
     const static std::string eventPlayerDestroy;
     const static std::string eventPlayerBaseHurt;
     const static std::string eventEnemyBaseHurt;
+    const static std::string eventResortCDItems;
     
     void lazyInit();
     
@@ -101,6 +102,7 @@ public:
     void setMusicVolume(float volume);
     void setSFXVolume(float volume);
     void setLanguage(GameLanguage languag);
+    void GSInitLanguage(GameLanguage language);
 };
 
 extern GameConfig s_gameConfig;
@@ -138,6 +140,7 @@ typedef struct _plainConfig
     int speed;
     int defense;
     int range;
+    int cd;
 }PlainConfig;
 
 extern PlainConfig s_plainConfigs[FIGHTER_MAX][FIGHTER_LEVEL_MAX];

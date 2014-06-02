@@ -23,9 +23,7 @@ bool Medal::init()
     if (!Layer::init()) {
         return false;
     }
-    
-    GSMedalInfo((GameLanguage)s_playerConfig.language);
-        
+            
     auto listener = EventListenerTouchOneByOne::create();
     listener->setSwallowTouches(true);
     listener->onTouchBegan = [](Touch* touch, Event* event){

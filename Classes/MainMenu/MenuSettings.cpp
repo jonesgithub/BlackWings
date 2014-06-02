@@ -209,12 +209,12 @@ void MenuSettings::menuCallbackLanguage(Ref *sender)
     if (s_playerConfig.language == (int)GameLanguage::English)
     {
         s_playerConfig.language = (int)GameLanguage::Chinese;
-        GSMainMenuInit(GameLanguage::Chinese);
+        s_gameConfig.GSInitLanguage(GameLanguage::Chinese);
     }
     else
     {
         s_playerConfig.language = (int)GameLanguage::English;
-        GSMainMenuInit(GameLanguage::English);
+        s_gameConfig.GSInitLanguage(GameLanguage::English);
 
     }
 
@@ -233,14 +233,14 @@ void MenuSettings::menuCallbackLanguage(Ref *sender)
         break;
     case GameInterface::Base:
         {
-            GSBaseInit(GameLanguage(s_playerConfig.language));
+//            GSBaseInit(GameLanguage(s_playerConfig.language));
             _helpItem->setText(s_gameStrings.mainMenu->help);
             _backToMainMenuItem->setText(s_gameStrings.base->topBarMainMenu);
         }
         break;
     case GameInterface::Battle:
         {
-            GSBaseInit(GameLanguage(s_playerConfig.language));
+//            GSBaseInit(GameLanguage(s_playerConfig.language));
             _resumeGameItem->setText(s_gameStrings.mainMenu->settingResume);
             _retryGameItem->setText(s_gameStrings.mainMenu->settingRetry);
             _backToBaseItem->setText(s_gameStrings.mainMenu->settingBackToBase);
