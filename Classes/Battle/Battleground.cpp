@@ -763,7 +763,7 @@ void Battleground::onTouchMoved(Touch* touch, Event* event)
 
 void Battleground::onTouchEnded(Touch* touch, Event* event)
 {
-    if(_readytouseWeapon && touch->getLocation() == _touchbegin)
+    if(_readytouseWeapon && touch->getLocation().getDistance(_touchbegin)<10)
  {
      _readytouseWeapon = false;
      showuseweapontip(false);
