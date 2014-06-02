@@ -205,9 +205,7 @@ void Battleground::createBattleground(Ref *sender)
     auto playerBag = PlayerBar::create();
     this->addChild(playerBag);
 
-    this->schedule(schedule_selector(Battleground::battleLoop),0.1f);
-    
-    this->schedule(schedule_selector(Battleground::showPotInRadar), 0.1f);
+    this->schedule(schedule_selector(Battleground::battleLoop), 0.1f);
 
     createListener();
 
@@ -258,15 +256,17 @@ void Battleground::createListener()
 
 void Battleground::initEnemyDispatcher()
 {
-//    initNormalEnemy();
+    initNormalEnemy();
     initTowerEnemy();
-//    initBossEnemy();
+    initBossEnemy();
 }
 
 void Battleground::battleLoop(float dt)
 {
     if(!_isGameOver)
     {
+        showPotInRadar();
+        
         plainFindTarget();
         
         enemyFindTarget();
@@ -274,6 +274,8 @@ void Battleground::battleLoop(float dt)
         bossFindTarget();
         
         towerFindTarget();
+        
+        weaponFindTarget();
     }
 }
 
@@ -443,6 +445,150 @@ void Battleground::towerFindTarget()
     }
 }
 
+void Battleground::weaponFindTarget()
+{
+    starbombFindTarget();
+    laserFindTarget();
+    blackholeFindTarget();
+}
+
+void Battleground::starbombFindTarget()
+{
+    for (int i = 0; i < s_Starbombs.size(); ++i) {
+        if (s_Starbombs[i]->_weaponConfig.duration <= 0) {
+            const auto& it = std::find(s_Starbombs.begin(),s_Starbombs.end(),s_Starbombs[i]);
+            s_Starbombs[i]->removeFromParent();
+            s_Starbombs.erase(it);
+        }
+    }
+    
+    for (auto & starbomb : s_Starbombs) {
+        starbomb->_weaponConfig.duration--;
+        log(".....%f",starbomb->_weaponConfig.duration);
+        
+        for (auto enemy : s_enemys)
+        {
+            auto distance = enemy->getPosition().getDistance(starbomb->_pos);
+            if (distance < starbomb->_weaponConfig.range)
+            {
+                enemy->hurt(starbomb->_weaponConfig.attack);
+            }
+        }
+        
+        for (auto boss : s_boss)
+        {
+            auto distance = boss->getPosition().getDistance(starbomb->_pos);
+            if (distance < starbomb->_weaponConfig.range)
+            {
+                boss->hurt(starbomb->_weaponConfig.attack);
+            }
+        }
+        
+        for (auto tower : s_towers)
+        {
+            auto distance = tower->getPosition().getDistance(starbomb->_pos);
+            if (distance < starbomb->_weaponConfig.range)
+            {
+                tower->hurt(starbomb->_weaponConfig.attack);
+            }
+        }
+    }
+}
+
+void Battleground::laserFindTarget()
+{
+    for (int i = 0; i < s_Lasers.size(); ++i) {
+        if (s_Lasers[i]->_weaponConfig.duration <= 0) {
+            const auto& it = std::find(s_Lasers.begin(),s_Lasers.end(),s_Lasers[i]);
+            s_Lasers[i]->removeFromParent();
+            s_Lasers.erase(it);
+        }
+    }
+    
+    for (auto & laser : s_Lasers) {
+        laser->_weaponConfig.duration--;
+        log(".....%f",laser->_weaponConfig.duration);
+        
+        for (auto enemy : s_enemys)
+        {
+            auto distance = fabs(enemy->getPositionY()-laser->_pos.y);
+            if (distance < laser->_weaponConfig.range)
+            {
+                enemy->hurt(laser->_weaponConfig.attack);
+            }
+        }
+        
+        for (auto boss : s_boss)
+        {
+            auto distance = fabs(boss->getPositionY()-laser->_pos.y);
+            if (distance < laser->_weaponConfig.range)
+            {
+                boss->hurt(laser->_weaponConfig.attack);
+            }
+        }
+        
+        for (auto tower : s_towers)
+        {
+            auto distance = fabs(tower->getPositionY()-laser->_pos.y);
+            if (distance < laser->_weaponConfig.range)
+            {
+                tower->hurt(laser->_weaponConfig.attack);
+            }
+        }
+    }
+}
+
+void Battleground::blackholeFindTarget()
+{
+    for (int i = 0; i < s_Blackholes.size(); ++i) {
+        if (s_Blackholes[i]->_weaponConfig.duration <= 0) {
+            const auto& it = std::find(s_Blackholes.begin(),s_Blackholes.end(),s_Blackholes[i]);
+            s_Blackholes[i]->removeFromParent();
+            s_Blackholes.erase(it);
+        }
+    }
+    
+    for (auto & blackhole : s_Blackholes) {
+        blackhole->_weaponConfig.duration--;
+        log(".....%f",blackhole->_weaponConfig.duration);
+        
+        for (auto enemy : s_enemys)
+        {
+            auto distance = enemy->getPosition().getDistance(blackhole->_pos);
+            if (distance < blackhole->_weaponConfig.range)
+            {
+                enemy->hurt(blackhole->_weaponConfig.attack);
+            }
+        }
+        
+        for (auto boss : s_boss)
+        {
+            auto distance = boss->getPosition().getDistance(blackhole->_pos);
+            if (distance < blackhole->_weaponConfig.range)
+            {
+                boss->hurt(blackhole->_weaponConfig.attack);
+            }
+        }
+        
+        for (auto tower : s_towers)
+        {
+            auto distance = tower->getPosition().getDistance(blackhole->_pos);
+            if (distance < blackhole->_weaponConfig.range)
+            {
+                tower->hurt(blackhole->_weaponConfig.attack);
+            }
+        }
+        
+        for (auto player : s_players)
+        {
+            auto distance = player->getPosition().getDistance(blackhole->_pos);
+            if (distance < blackhole->_weaponConfig.range)
+            {
+                player->hurt(blackhole->_weaponConfig.attack);
+            }
+        }
+    }
+}
 
 void Battleground::createFlightBase()
 {
@@ -698,7 +844,7 @@ void Battleground::callbackPlayerDestroy(EventCustom* event)
     }
 }
 
-void Battleground::showPotInRadar(float dt)
+void Battleground::showPotInRadar()
 {
     for (auto player : s_players)
     {
@@ -950,7 +1096,6 @@ void Battleground::readyToUseWeapon(WeaponType weapon)
     _readytouseWeapon = true;
     showuseweapontip(true);
     _choosedWeapon = weapon;
-    
 }
 
 void Battleground::createStarBomb(const cocos2d::Point& pos)
@@ -1010,16 +1155,21 @@ void Battleground::showuseweapontip(bool enable)
 void Battleground::callbackStarbombHurt(EventCustom* event)
 {
     auto starbomb = (Weapon*)event->getUserData();
-    auto t_pos = starbomb->_pos;
+    log(".....%f",starbomb->_weaponConfig.duration);
+    s_Starbombs.push_back(starbomb);
     
 }
 
 void Battleground::callbackLaserHurt(EventCustom* event)
 {
-    
+    auto laser = (Weapon*)event->getUserData();
+    log(".....%f",laser->_weaponConfig.duration);
+    s_Lasers.push_back(laser);
 }
 
 void Battleground::callbackBlackholeHurt(EventCustom* event)
 {
-    
+    auto blackhole = (Weapon*)event->getUserData();
+    log(".....%f",blackhole->_weaponConfig.duration);
+    s_Blackholes.push_back(blackhole);
 }
