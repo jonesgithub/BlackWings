@@ -5,6 +5,7 @@
 #include "GameStrings.h"
 #include "MenuItemImageLabel.h"
 #include "Battleground.h"
+#include "RotateBall.h"
 
 USING_NS_CC_EXT;
 
@@ -85,6 +86,10 @@ bool StageSelect::init()
         auto menu = Menu::create( itemClosed, itemFight, nullptr);
         menu->setPosition(Point::ZERO);
         _panel->addChild(menu);
+        
+        auto ball = RotateBall::createWithIdx(13);
+        addChild(ball);
+        ball->setPosition(120, 120);
 
         return true;
     }
@@ -130,6 +135,10 @@ cocos2d::extension::TableViewCell* StageSelect::tableCellAtIndex(cocos2d::extens
         else
             stage_text->setColor(Color3B(80,80,80));
         
+//        if (<#condition#>) {
+//            <#statements#>
+//        }
+        
         if(_selectItem == idx)
             cell->getChildByTag(10)->getChildByTag(30)->setVisible(true);
         else
@@ -162,6 +171,7 @@ void StageSelect::tableCellTouched(extension::TableView* table, extension::Table
 //        stage_text->setColor(Color3B(0,0,255));
         selected_cell = cell;
         log("====>%d",_selectItem);
+        
     }
 }
 
@@ -252,6 +262,19 @@ Node* StageSelect::getItemNode(int i)
     stage_text->setPosition(Point(_cellSize.width/2,_cellSize.height/2));
     stage_text->setTag(40);
     item->addChild(stage_text);
+    
+    //set new state
+    CCLOG("--stage is: %d, idx: %d.", s_playerConfig.overstage, i);
+    if (s_playerConfig.overstage != i) {
+        auto sp_new = Sprite::createWithSpriteFrameName("icon_new.png");
+        addChild(sp_new);
+        sp_new->setPosition(400, 36);
+    }
+    
+    //
+    auto ball = RotateBall::createWithIdx(13);
+    addChild(ball);
+    ball->setPosition(20, 20);
 
     return item;
 }
