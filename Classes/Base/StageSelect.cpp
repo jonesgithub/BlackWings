@@ -111,7 +111,6 @@ cocos2d::extension::TableViewCell* StageSelect::tableCellAtIndex(cocos2d::extens
 
         auto cell_node = getItemNode(idx);
         cell->addChild(cell_node,0,10);
-        log("aaaaaaaaaaaa");
         if(_noTouch && idx==_selectItem)
         {selected_cell = cell;}
     }
@@ -147,7 +146,6 @@ cocos2d::extension::TableViewCell* StageSelect::tableCellAtIndex(cocos2d::extens
         if(_noTouch && idx==_selectItem)
         {selected_cell = cell;
             cell->getChildByTag(10)->getChildByTag(30)->setVisible(true);}
-        log("bbbbbbbbbbbbb");
         
     }
 

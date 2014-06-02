@@ -3,6 +3,7 @@
 #include "cocos2d.h"
 #include "Configuration.h"
 #include "Player.h"
+#include "ui/CocosGUI.h"
 
 USING_NS_CC;
 
@@ -19,6 +20,11 @@ public:
     static Fighter* createPlain(int type);
 
     static Fighter* createEnemy(int type,int level);
+    
+    static Fighter* createBoss(int level);
+    
+    static Fighter* createTower(int level);
+
 
     void moveTo(Point& pos,Player* target);
 
@@ -27,14 +33,19 @@ public:
     void hurt(int ATK);
 
     void fire(float dt);
+    
+    void update(float dt);
 
     FighterState state;
     PlainConfig plainConfig;
     EnemyConfig enemyConfig;
+    EnemyConfig bossConfig;
+    EnemyConfig towerConfig;
 
     Attacker _attacker;
     
     Sprite* potInRadar;
+    Sprite* gun;
 
 private:
     Fighter();
@@ -49,4 +60,9 @@ private:
 
     int _fighterType;
     int _fighterLevel;
+    
+    cocos2d::ui::LoadingBar* _bloodbar;
+    int _maxlife;
+    int _curlife;
+
 };

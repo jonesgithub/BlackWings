@@ -470,6 +470,7 @@ void Base::createTopPanel()
     auto battleItem = MenuItemImageLabel::createWithFrameName("btA_0.png","btA_1.png",
         CC_CALLBACK_1(Base::menuCallbackBattle,this),s_gameStrings.base->topBarBattle);
     battleItem->setPosition(Point(520,890));
+
     
     //add get more gem
     auto itemBuyGem = MenuItemImageLabel::createWithFrameName("bt_buy_gem_0.png","bt_buy_gem_1.png",
@@ -479,6 +480,7 @@ void Base::createTopPanel()
     auto menu = Menu::create( medalItem, settingItem, battleItem, itemBuyGem,nullptr);
     menu->setPosition(Point::ZERO);
     _topPanel->addChild(menu);
+
 }
 
 void Base::menuCallbackMedal(Ref *sender)

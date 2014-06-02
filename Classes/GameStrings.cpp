@@ -259,3 +259,55 @@ void GSMedalInfo(GameLanguage language)
         s_gameStrings.medalInfo->medalkillbigenemy = dict["killbigenemy"].asString();
     }
 }
+
+void GSBattleInfo(GameLanguage language)
+{
+    static bool lazyInitCh = true;
+    static bool lazyInitEn = true;
+    static BattleStrings s_chBattleStrings;
+    static BattleStrings s_enBattleStrings;
+    
+    bool parseString = false;
+    std::string  BattleStringsFilePath;
+    
+    auto fileUtils = cocos2d::FileUtils::getInstance();
+    
+    switch (language)
+    {
+        case GameLanguage::Chinese:
+            if (lazyInitCh)
+            {
+                BattleStringsFilePath = fileUtils->fullPathForFilename("battleStringsCh.xml");
+                parseString = true;
+                lazyInitCh = false;
+            }
+            s_gameStrings.battleInfo = &s_chBattleStrings;
+            break;
+        case GameLanguage::English:
+            if (lazyInitEn)
+            {
+                BattleStringsFilePath = fileUtils->fullPathForFilename("battleStringsEn.xml");
+                parseString = true;
+                lazyInitEn = false;
+            }
+            s_gameStrings.battleInfo = &s_enBattleStrings;
+            break;
+        default:
+            break;
+    }
+    
+    if (parseString)
+    {
+        auto dict = fileUtils->getValueMapFromFile(BattleStringsFilePath);
+        
+        s_gameStrings.battleInfo->gameovertitle_win = dict["gameovertitle_win"].asString();
+        s_gameStrings.battleInfo->gameovertitle_loss = dict["gameovertitle_loss"].asString();
+        s_gameStrings.battleInfo->gameovertime = dict["gameovertime"].asString();
+        s_gameStrings.battleInfo->gameoverkill = dict["gameoverkill"].asString();
+        s_gameStrings.battleInfo->gameoverloss = dict["gameoverloss"].asString();
+        s_gameStrings.battleInfo->gameoverreward = dict["gameoverreward"].asString();
+        s_gameStrings.battleInfo->returnbase = dict["returnbase"].asString();
+        s_gameStrings.battleInfo->nextstage = dict["nextstage"].asString();
+        s_gameStrings.battleInfo->restartstage = dict["restartstage"].asString();
+    }
+}

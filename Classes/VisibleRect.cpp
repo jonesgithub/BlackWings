@@ -1,4 +1,5 @@
 #include "VisibleRect.h"
+#include "Configuration.h"
 
 USING_NS_CC;
 
@@ -41,5 +42,8 @@ void VisibleRect::lazyInit()
 
     rightBottom.x = right.x;
     rightBottom.y = bottom.y;
+    
+    s_EnemyBasePos = cocos2d::Point(s_visibleRect.visibleWidth /2, s_visibleRect.visibleOriginY +s_visibleRect.visibleHeight * 3 - 130);
+    s_PlayerBasePos = cocos2d::Point(s_visibleRect.visibleWidth /2, s_visibleRect.visibleOriginY + 280);
 }
 

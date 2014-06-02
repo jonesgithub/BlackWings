@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dict>
+    <!-- 游戏结束画面 -->
+    <key>gameovertitle_win</key>
+    <string>Victory!</string>
+    <key>gameovertitle_loss</key>
+    <string>Loss!</string>
+    <key>gameovertime</key>
+    <string>战斗时间：</string>
+    <key>gameoverkill</key>
+    <string>杀敌数量：</string>
+    <key>gameoverloss</key>
+    <string>损失数量：</string>
+    <key>gameoverreward</key>
+    <string>- - - - - - - - - - - - - - - - - 奖励 - - - - - - - - - - - - - - - - -</string>
+    <key>returnbase</key>
+    <string>返回空间站</string>
+    <key>nextstage</key>
+    <string>下一关</string>
+    <key>restartstage</key>
+    <string>重新挑战</string>
+    
+</dict>
