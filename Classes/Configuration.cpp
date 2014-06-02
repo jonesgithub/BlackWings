@@ -14,6 +14,9 @@ const std::string GameConfig::eventPlayerDestroy = "eventPlayerDestroy";
 const std::string GameConfig::eventPlayerBaseHurt = "eventPlayerBaseHurt";
 const std::string GameConfig::eventEnemyBaseHurt = "eventEnemyBaseHurt";
 const std::string GameConfig::eventResortCDItems = "eventResortCDItems";
+const std::string GameConfig::eventStarbombHurt = "eventStarbombHurt";
+const std::string GameConfig::eventLaserHurt = "eventLaserHurt";
+const std::string GameConfig::eventBlackholeHurt = "eventBlackholeHurt";
 
 void GameConfig::lazyInit()
 {
@@ -100,17 +103,17 @@ void GameConfig::initConfig()
     s_playerConfig.fighterslocked[4] = true;
     s_playerConfig.fighterslocked[5] = true;
 
-    s_playerConfig.fighterslevel[0] = 1;
-    s_playerConfig.fighterslevel[1] = 1;
-    s_playerConfig.fighterslevel[2] = 1;
-    s_playerConfig.fighterslevel[3] = 1;
-    s_playerConfig.fighterslevel[4] = 1;
-    s_playerConfig.fighterslevel[5] = 1;
+    s_playerConfig.fighterslevel[0] = 0;
+    s_playerConfig.fighterslevel[1] = 0;
+    s_playerConfig.fighterslevel[2] = 0;
+    s_playerConfig.fighterslevel[3] = 0;
+    s_playerConfig.fighterslevel[4] = 0;
+    s_playerConfig.fighterslevel[5] = 0;
 
     s_playerConfig.weaponlocked = true;
-    s_playerConfig.weaponslevel[0] = 1;
-    s_playerConfig.weaponslevel[1] = 1;
-    s_playerConfig.weaponslevel[2] = 1;
+    s_playerConfig.weaponslevel[0] = 0;
+    s_playerConfig.weaponslevel[1] = 0;
+    s_playerConfig.weaponslevel[2] = 0;
 
     for (int i=0; i<MEDAL_MAX; ++i) {
     s_playerConfig.medallocked[i] = true;
@@ -485,48 +488,48 @@ EnemyConfig s_towerConfig[ENEMY_LEVEL_MAX]=
 
 
 WeaponConfig s_weaponConfigs[WEAPON_MAX][WEAPON_LEVEL_MAX] = {
-    {//星际炸弹，购买所需宝石，升级所需宝石，攻击，持续时间，携带上限
-        {100,100,  100,100,100},
-        {100,100,  100,100,100},
-        {100,100,  100,100,100},
-        {100,100,  100,100,100},
-        {100,100,  100,100,100},
+    {//星际炸弹，购买所需宝石，升级所需宝石，攻击，持续时间（帧），携带上限，攻击范围
+        {100,100,  100,100,100,100},
+        {100,100,  100,100,100,100},
+        {100,100,  100,100,100,100},
+        {100,100,  100,100,100,100},
+        {100,100,  100,100,100,100},
 
-        {100,100,  100,100,100},
-        {100,100,  100,100,100},
-        {100,100,  100,100,100},
-        {100,100,  100,100,100},
-        {100,100,  100,100,100}
+        {100,100,  100,100,100,100},
+        {100,100,  100,100,100,100},
+        {100,100,  100,100,100,100},
+        {100,100,  100,100,100,100},
+        {100,100,  100,100,100,100}
     },
-    {//激光发射器，购买所需宝石，升级所需宝石，攻击，持续时间，携带上限
-        {100,100,  100,100,100},
-        {100,100,  100,100,100},
-        {100,100,  100,100,100},
-        {100,100,  100,100,100},
-        {100,100,  100,100,100},
+    {//激光发射器，购买所需宝石，升级所需宝石，攻击，持续时间（帧），携带上限，攻击范围
+        {100,100,  100,100,100,100},
+        {100,100,  100,100,100,100},
+        {100,100,  100,100,100,100},
+        {100,100,  100,100,100,100},
+        {100,100,  100,100,100,100},
 
-        {100,100,  100,100,100},
-        {100,100,  100,100,100},
-        {100,100,  100,100,100},
-        {100,100,  100,100,100},
-        {100,100,  100,100,100}
+        {100,100,  100,100,100,100},
+        {100,100,  100,100,100,100},
+        {100,100,  100,100,100,100},
+        {100,100,  100,100,100,100},
+        {100,100,  100,100,100,100}
     },
-    {////黑洞，购买所需宝石，升级所需宝石，攻击，持续时间，携带上限
-        {100,100,  100,100,100},
-        {100,100,  100,100,100},
-        {100,100,  100,100,100},
-        {100,100,  100,100,100},
-        {100,100,  100,100,100},
+    {////黑洞，购买所需宝石，升级所需宝石，攻击，持续时间（帧），携带上限，攻击范围
+        {100,100,  100,100,100,100},
+        {100,100,  100,100,100,100},
+        {100,100,  100,100,100,100},
+        {100,100,  100,100,100,100},
+        {100,100,  100,100,100,100},
 
-        {100,100,  100,100,100},
-        {100,100,  100,100,100},
-        {100,100,  100,100,100},
-        {100,100,  100,100,100},
-        {100,100,  100,100,100}
+        {100,100,  100,100,100,100},
+        {100,100,  100,100,100,100},
+        {100,100,  100,100,100,100},
+        {100,100,  100,100,100,100},
+        {100,100,  100,100,100,100}
     }
 };
 
-//勋章奖励：宝石，星际炸弹，激光，黑洞
+//勋章奖励：宝石，星际炸弹，激光，黑洞（宝石必须有，后者3选1）
 int s_medalRewards[MEDAL_MAX][MEDAL_REWARDS_COUNT]=
 {
     {300, 0, 0, 0},
@@ -556,7 +559,7 @@ int s_medalRewards[MEDAL_MAX][MEDAL_REWARDS_COUNT]=
     {1200000, 0, 0, 3}
 };
 
-//关卡奖励：宝石，星际炸弹，激光，黑洞
+//关卡奖励：宝石，星际炸弹，激光，黑洞（宝石必须有，后者3选1）
 int s_stageRewards[STAGE_COUNT][STAGE_REWAEDS_COUNT]=
 {
     {300, 0, 0, 0},

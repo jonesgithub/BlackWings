@@ -88,9 +88,6 @@ bool Bullet::initBullet(Attacker attacker,int type,int level)
                 break;
         }
             break;
-        case Attacker::WEAPON:
-            //sprintf(fileName,"p_bullet_%d_%d.png",type + 1,level + 1);
-            break;
         default:
             break;
     }

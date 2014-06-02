@@ -28,9 +28,6 @@ bool PlayerBar::init()
     rightBar->setFlippedX(true);
     rightBar->setPosition(s_visibleRect.bottom);
     this->addChild(rightBar);
-    
-    //Add by Jacky.
-//    _playerMenu = Node::create();
 
     float interval;
     if (weaponEnable)
@@ -111,18 +108,18 @@ bool PlayerBar::init()
     slash->setColor(Color3B(169,169,169));
     numBg->addChild(slash);
     
-    auto stoneNum = Label::createWithTTF(PersonalApi::convertIntToString(s_playerConfig.stone).c_str(),fontFile,fontSize);
+    stoneNum = Label::createWithTTF(PersonalApi::convertIntToString(s_playerConfig.stone).c_str(),fontFile,fontSize);
     stoneNum->setAnchorPoint(Point::ANCHOR_BOTTOM_RIGHT);
     stoneNum->setPosition(Point(slash->getPositionX()-10,slash->getPositionY()));
     numBg->addChild(stoneNum);
     
-    auto stoneTatalNum = Label::createWithTTF(PersonalApi::convertIntToString(s_playerConfig.stoneMax).c_str(),fontFile,fontSize);
+    stoneTatalNum = Label::createWithTTF(PersonalApi::convertIntToString(s_playerConfig.stoneMax).c_str(),fontFile,fontSize);
     stoneTatalNum->setAnchorPoint(Point::ANCHOR_BOTTOM_LEFT);
     stoneTatalNum->setPosition(Point(slash->getPositionX()+10,slash->getPositionY()));
     stoneTatalNum->setColor(Color3B(169,169,169));
     numBg->addChild(stoneTatalNum);
     
-    auto sparNum = Label::createWithTTF(PersonalApi::convertIntToString(s_playerConfig.gem).c_str(),fontFile,fontSize);
+    sparNum = Label::createWithTTF(PersonalApi::convertIntToString(s_playerConfig.gem).c_str(),fontFile,fontSize);
     sparNum->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
     sparNum->setPosition(Point(gemIcon->getPositionX()+gemIcon->getContentSize().width+5,gemIcon->getPositionY()));
     sparNum->setColor(Color3B(255,255,0));
@@ -155,4 +152,19 @@ void PlayerBar::menuCallbackArrow(Ref *sender)
         _playerMenu->runAction(Sequence::create( MoveBy::create(0.25f,Point(s_visibleRect.visibleWidth,0)),
             MoveBy::create(0.1f,Point(-30,0)), nullptr) );
     }
+}
+
+void PlayerBar::setStone(int num)
+{
+    stoneNum->setString(Value(num).asString().c_str());
+}
+
+void PlayerBar::setStoneMax(int num)
+{
+    stoneTatalNum->setString(Value(num).asString().c_str());
+}
+
+void PlayerBar::setGem(int num)
+{
+    sparNum->setString(Value(num).asString().c_str());
 }
