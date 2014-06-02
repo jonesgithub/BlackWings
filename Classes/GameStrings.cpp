@@ -277,7 +277,7 @@ void GSBattleInfo(GameLanguage language)
         case GameLanguage::Chinese:
             if (lazyInitCh)
             {
-                BattleStringsFilePath = fileUtils->fullPathForFilename("medalStringsCh.xml");
+                BattleStringsFilePath = fileUtils->fullPathForFilename("battleStringsCh.xml");
                 parseString = true;
                 lazyInitCh = false;
             }
@@ -286,7 +286,7 @@ void GSBattleInfo(GameLanguage language)
         case GameLanguage::English:
             if (lazyInitEn)
             {
-                BattleStringsFilePath = fileUtils->fullPathForFilename("medalStringsEn.xml");
+                BattleStringsFilePath = fileUtils->fullPathForFilename("battleStringsEn.xml");
                 parseString = true;
                 lazyInitEn = false;
             }
@@ -306,5 +306,8 @@ void GSBattleInfo(GameLanguage language)
         s_gameStrings.battleInfo->gameoverkill = dict["gameoverkill"].asString();
         s_gameStrings.battleInfo->gameoverloss = dict["gameoverloss"].asString();
         s_gameStrings.battleInfo->gameoverreward = dict["gameoverreward"].asString();
+        s_gameStrings.battleInfo->returnbase = dict["returnbase"].asString();
+        s_gameStrings.battleInfo->nextstage = dict["nextstage"].asString();
+        s_gameStrings.battleInfo->restartstage = dict["restartstage"].asString();
     }
 }

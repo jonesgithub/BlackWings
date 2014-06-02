@@ -90,6 +90,9 @@ typedef struct _battleStrings{
     std::string gameoverkill;
     std::string gameoverloss;
     std::string gameoverreward;
+    std::string returnbase;
+    std::string nextstage;
+    std::string restartstage;
 }BattleStrings;
 
 typedef struct _gameStrings

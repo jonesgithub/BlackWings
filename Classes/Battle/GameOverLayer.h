@@ -23,6 +23,10 @@ public:
     void nextStage_callback(cocos2d::Ref* pSender);
 
     void restartStage_callback(cocos2d::Ref* pSender);
+    
+private:
+    
+    int _stage;
 
 };
 

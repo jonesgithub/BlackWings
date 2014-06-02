@@ -7,8 +7,7 @@
 #include "MenuSettings.h"
 #include "Fighter.h"
 #include "Bullet.h"
-#include <random>
-
+#include "GameOverLayer.h"
 
 USING_NS_CC;
 
@@ -19,6 +18,7 @@ Battleground::Battleground()
     _stage = 0;
     _maxWaves = 0;
     _curWaves = 0;
+    _isGameOver = false;
     
     s_battleground = this;
     s_players.clear();
@@ -227,15 +227,16 @@ void Battleground::createBattleground(Ref *sender)
 
 void Battleground::battleLoop(float dt)
 {
-    
-    plainFindTarget();
-    
-    enemyFindTarget();
-    
-    bossFindTarget();
-    
-    towerFindTarget();
-    
+    if(!_isGameOver)
+    {
+        plainFindTarget();
+        
+        enemyFindTarget();
+        
+        bossFindTarget();
+        
+        towerFindTarget();
+    }
 }
 
 void Battleground::plainFindTarget()
@@ -785,12 +786,20 @@ void Battleground::dispatchEnemys_2(float dt)
 
 void Battleground::win()
 {
-    log("win");
+    if (!_isGameOver) {
+        _isGameOver = true;
+        auto go = GameOverLayer::create(true, _stage, 100, 100, 100);
+        this->addChild(go);
+    }
 }
 
 void Battleground::lost()
 {
-    log("lost");
+    if (!_isGameOver) {
+        _isGameOver = true;
+        auto go = GameOverLayer::create(false, _stage, 100, 100, 100);
+        this->addChild(go);
+    }
 }
 
 void Battleground::callbackPlayerBaseHurt(EventCustom* event)

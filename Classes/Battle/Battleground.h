@@ -120,6 +120,9 @@ private:
     
     //当前选择的飞机
     int _indexOfChooseFlight;
+    
+    //游戏状态
+    bool _isGameOver;
 };
 
 #endif
