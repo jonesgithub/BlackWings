@@ -34,6 +34,7 @@ public:
     virtual bool init();
     
     void menuCallbackClosed(Ref *sender);
+    void onClick(Ref *sender);
 private:
 };
 

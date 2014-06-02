@@ -520,6 +520,6 @@ void Base::menuCallbackBuyGem(Ref *sender)
 {
     CCLOG("will shop gem");
     auto gemLy = BuyGemLayer::create();
-    addChild(gemLy);
-    gemLy->setPosition(s_visibleRect.center.x, s_visibleRect.center.y);
+    this->addChild(gemLy);
+    gemLy->setPosition(100, 0);
 }
