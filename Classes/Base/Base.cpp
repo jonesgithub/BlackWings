@@ -9,6 +9,7 @@
 #include "PlayerBar.h"
 #include "StageSelect.h"
 #include "Medal.h"
+#include "BuyGemLayer.h"
 
 USING_NS_CC;
 USING_NS_CC_EXT;
@@ -470,9 +471,16 @@ void Base::createTopPanel()
         CC_CALLBACK_1(Base::menuCallbackBattle,this),s_gameStrings.base->topBarBattle);
     battleItem->setPosition(Point(520,890));
 
-    auto menu = Menu::create( medalItem, settingItem, battleItem,nullptr);
+    
+    //add get more gem
+    auto itemBuyGem = MenuItemImageLabel::createWithFrameName("bt_buy_gem_0.png","bt_buy_gem_1.png",
+                                                              CC_CALLBACK_1(Base::menuCallbackBuyGem,this), "获取更多");
+    itemBuyGem->setPosition(300, 800);
+
+    auto menu = Menu::create( medalItem, settingItem, battleItem, itemBuyGem,nullptr);
     menu->setPosition(Point::ZERO);
     _topPanel->addChild(menu);
+
 }
 
 void Base::menuCallbackMedal(Ref *sender)
@@ -506,4 +514,12 @@ void Base::menuCallbackBattle(Ref *sender)
 void Base::menuCallbackUpgrade(Ref *sender)
 {
     
+}
+
+void Base::menuCallbackBuyGem(Ref *sender)
+{
+    CCLOG("will shop gem");
+    auto gemLy = BuyGemLayer::create();
+    this->addChild(gemLy);
+    gemLy->setPosition(100, 0);
 }

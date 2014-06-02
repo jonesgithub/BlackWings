@@ -14,6 +14,9 @@ public:
     void menuCallbackBattle(Ref *sender);
 
     void menuCallbackUpgrade(Ref *sender);
+    
+    //get more gem
+    void menuCallbackBuyGem(Ref *sender);
 
 private:
     void createBase(Ref *sender);

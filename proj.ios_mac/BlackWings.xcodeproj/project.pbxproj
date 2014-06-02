@@ -289,6 +289,8 @@
 		D44C620E132DFF430009C878 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D44C620D132DFF430009C878 /* AVFoundation.framework */; };
 		D44C6210132DFF4E0009C878 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D44C620F132DFF4E0009C878 /* AudioToolbox.framework */; };
 		D6B0611B1803AB670077942B /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6B0611A1803AB670077942B /* CoreMotion.framework */; };
+		D70949F1193A0B4E003D197E /* RotateBall.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D70949EF193A0B4E003D197E /* RotateBall.cpp */; };
+		D70949F8193AC706003D197E /* BuyGemLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D70949F6193AC706003D197E /* BuyGemLayer.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -625,6 +627,10 @@
 		D44C620D132DFF430009C878 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		D44C620F132DFF4E0009C878 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		D6B0611A1803AB670077942B /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.0.sdk/System/Library/Frameworks/CoreMotion.framework; sourceTree = DEVELOPER_DIR; };
+		D70949EF193A0B4E003D197E /* RotateBall.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RotateBall.cpp; sourceTree = "<group>"; };
+		D70949F0193A0B4E003D197E /* RotateBall.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RotateBall.h; sourceTree = "<group>"; };
+		D70949F6193AC706003D197E /* BuyGemLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BuyGemLayer.cpp; sourceTree = "<group>"; };
+		D70949F7193AC706003D197E /* BuyGemLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BuyGemLayer.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -754,6 +760,8 @@
 				266ACACD19323E2A004DF401 /* PlayerMenuItem.h */,
 				266ACACE19323E2A004DF401 /* StageSelect.cpp */,
 				266ACACF19323E2A004DF401 /* StageSelect.h */,
+				D70949EF193A0B4E003D197E /* RotateBall.cpp */,
+				D70949F0193A0B4E003D197E /* RotateBall.h */,
 			);
 			name = Base;
 			path = ../Classes/Base;
@@ -810,6 +818,8 @@
 				266ACAF019323E2A004DF401 /* RedeemLayer.h */,
 				266ACAF119323E2A004DF401 /* ResetGameLayer.cpp */,
 				266ACAF219323E2A004DF401 /* ResetGameLayer.h */,
+				D70949F6193AC706003D197E /* BuyGemLayer.cpp */,
+				D70949F7193AC706003D197E /* BuyGemLayer.h */,
 			);
 			name = MainMenu;
 			path = ../Classes/MainMenu;
@@ -1451,6 +1461,8 @@
 				266ACB1319323E2A004DF401 /* AboutLayer.cpp in Sources */,
 				266ACB1919323E2A004DF401 /* MenuSettings.cpp in Sources */,
 				266ACB1D19323E2A004DF401 /* ResetGameLayer.cpp in Sources */,
+				D70949F1193A0B4E003D197E /* RotateBall.cpp in Sources */,
+				D70949F8193AC706003D197E /* BuyGemLayer.cpp in Sources */,
 				266ACB1719323E2A004DF401 /* MainMenu.cpp in Sources */,
 				266ACAF719323E2A004DF401 /* Base.cpp in Sources */,
 				6896E008193C49E0009282C5 /* PersonalApi.cpp in Sources */,
