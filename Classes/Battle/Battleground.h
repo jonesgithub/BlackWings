@@ -4,6 +4,7 @@
 #include "cocos2d.h"
 #include "ui/CocosGUI.h"
 #include "CDItem.h"
+#include "Weapon.h"
 
 USING_NS_CC;
 
@@ -12,6 +13,7 @@ class Bullet;
 
 const int RADARSCREEN_DOWN = 95;
 const int RADARSCREEN_UP = 310;
+
 
 //暂时设置最大的冷却项为8，差不多一排。
 const Point CDItemsPos[8]=
@@ -67,11 +69,17 @@ private:
     void bossFindTarget();
     void towerFindTarget();
 
+    void createListener();
     void callbackPlayerDestroy(EventCustom* event);
     void callbackPlayerBaseHurt(EventCustom* event);
     void callbackEnemyBaseHurt(EventCustom* event);
     void callbackResortCDItems(EventCustom* event);
     
+    void callbackStarbombHurt(EventCustom* event);
+    void callbackLaserHurt(EventCustom* event);
+    void callbackBlackholeHurt(EventCustom* event);
+    
+    void initEnemyDispatcher();
     void initNormalEnemy();
     void initTowerEnemy();
     void initBossEnemy();
@@ -81,6 +89,15 @@ private:
     
     void showStoneAndGem(Point pos, int stoneCount, int gemCount, int stone, int gem);
 
+    void readyToUseWeapon(WeaponType weapon);
+    void createStarBomb(const cocos2d::Point& pos);
+    void createLaser(const cocos2d::Point& pos);
+    void createBlackhole(const cocos2d::Point& pos);
+    void showuseweapontip(bool enable);
+    bool _readytouseWeapon;
+    cocos2d::Point _touchbegin;
+    WeaponType _choosedWeapon;
+    
     Battleground();
     ~Battleground();
 

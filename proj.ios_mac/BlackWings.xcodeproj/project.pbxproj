@@ -120,6 +120,8 @@
 		85550228193B964500DEAF12 /* battleStringsCh.xml in Resources */ = {isa = PBXBuildFile; fileRef = 85550225193B964500DEAF12 /* battleStringsCh.xml */; };
 		85550229193B964500DEAF12 /* battleStringsEn.xml in Resources */ = {isa = PBXBuildFile; fileRef = 85550226193B964500DEAF12 /* battleStringsEn.xml */; };
 		8555022A193B964500DEAF12 /* battleStringsEn.xml in Resources */ = {isa = PBXBuildFile; fileRef = 85550226193B964500DEAF12 /* battleStringsEn.xml */; };
+		8555022F193C679800DEAF12 /* Weapon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8555022D193C679800DEAF12 /* Weapon.cpp */; };
+		85550230193C679800DEAF12 /* Weapon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8555022D193C679800DEAF12 /* Weapon.cpp */; };
 		855E133A1934D0EB00683F21 /* battle_life_enemy.png in Resources */ = {isa = PBXBuildFile; fileRef = 855E13381934D0EB00683F21 /* battle_life_enemy.png */; };
 		855E133B1934D0EB00683F21 /* battle_life_enemy.png in Resources */ = {isa = PBXBuildFile; fileRef = 855E13381934D0EB00683F21 /* battle_life_enemy.png */; };
 		855E133C1934D0EB00683F21 /* battle_life_plain.png in Resources */ = {isa = PBXBuildFile; fileRef = 855E13391934D0EB00683F21 /* battle_life_plain.png */; };
@@ -536,6 +538,8 @@
 		85550222193B8FAE00DEAF12 /* GameOverLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameOverLayer.h; sourceTree = "<group>"; };
 		85550225193B964500DEAF12 /* battleStringsCh.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = battleStringsCh.xml; sourceTree = "<group>"; };
 		85550226193B964500DEAF12 /* battleStringsEn.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = battleStringsEn.xml; sourceTree = "<group>"; };
+		8555022D193C679800DEAF12 /* Weapon.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Weapon.cpp; sourceTree = "<group>"; };
+		8555022E193C679800DEAF12 /* Weapon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Weapon.h; sourceTree = "<group>"; };
 		855E13381934D0EB00683F21 /* battle_life_enemy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = battle_life_enemy.png; sourceTree = "<group>"; };
 		855E13391934D0EB00683F21 /* battle_life_plain.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = battle_life_plain.png; sourceTree = "<group>"; };
 		855E13431934D8D000683F21 /* Medal.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Medal.cpp; sourceTree = "<group>"; };
@@ -774,6 +778,8 @@
 				8555021B193B2BD300DEAF12 /* CDItem.h */,
 				85550221193B8FAE00DEAF12 /* GameOverLayer.cpp */,
 				85550222193B8FAE00DEAF12 /* GameOverLayer.h */,
+				8555022D193C679800DEAF12 /* Weapon.cpp */,
+				8555022E193C679800DEAF12 /* Weapon.h */,
 			);
 			name = Battle;
 			path = ../Classes/Battle;
@@ -1429,6 +1435,7 @@
 				266ACAF519323E2A004DF401 /* AppDelegate.cpp in Sources */,
 				8528F15019362B8C00EF967E /* MedalChecker.cpp in Sources */,
 				266ACB0B19323E2A004DF401 /* NotificationLayer.cpp in Sources */,
+				8555022F193C679800DEAF12 /* Weapon.cpp in Sources */,
 				85550223193B8FAE00DEAF12 /* GameOverLayer.cpp in Sources */,
 				266ACB0719323E2A004DF401 /* LoadResourceLayer.cpp in Sources */,
 				503AE10017EB989F00D1A890 /* AppController.mm in Sources */,
@@ -1467,6 +1474,7 @@
 				266ACB1419323E2A004DF401 /* AboutLayer.cpp in Sources */,
 				266ACB0019323E2A004DF401 /* Battleground.cpp in Sources */,
 				266ACAFA19323E2A004DF401 /* PlayerBar.cpp in Sources */,
+				85550230193C679800DEAF12 /* Weapon.cpp in Sources */,
 				266ACAFC19323E2A004DF401 /* PlayerMenuItem.cpp in Sources */,
 				266ACB1219323E2A004DF401 /* GameStrings.cpp in Sources */,
 				266ACB0219323E2A004DF401 /* Bullet.cpp in Sources */,

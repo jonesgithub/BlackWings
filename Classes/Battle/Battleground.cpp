@@ -19,6 +19,8 @@ Battleground::Battleground()
     _maxWaves = 0;
     _curWaves = 0;
     _isGameOver = false;
+    _readytouseWeapon = false;
+    _touchbegin = Point::ZERO;
     
     s_battleground = this;
     s_players.clear();
@@ -90,6 +92,7 @@ bool Battleground::init(int stage)
         loadLayer->addPlist("p_bullets.plist","p_bullets.png");
         loadLayer->addPlist("plainFire.plist","plainFire.png");
         loadLayer->addPlist("enemys.plist","enemys.png");
+        loadLayer->addPlist("bombs.plist","bombs.png");
         this->addChild(loadLayer);
         loadLayer->startLoad();
         
@@ -107,6 +110,10 @@ void Battleground::eventCallbackPlayerSelect(EventCustom* event)
 
     if (index < 6)
     {
+        //is weapon touch?
+        _readytouseWeapon = false;
+        showuseweapontip(false);
+        
         _indexOfChooseFlight = index;
         auto cditem = CDItem::create(index, CC_CALLBACK_1(Battleground::createFlight, this));
         cditem->setAnchorPoint(Point::ANCHOR_MIDDLE);
@@ -120,11 +127,23 @@ void Battleground::eventCallbackPlayerSelect(EventCustom* event)
         s_cditems.push_back(cditem);
         
         
-        showStoneAndGem(Point(500,800), 3, 2, 100, 20);
+//        showStoneAndGem(Point(500,800), 3, 2, 100, 20);
+    }
+    else if(index == 6)
+    {
+        readyToUseWeapon(WeaponType::STARBOMB);
+    }
+    else if(index ==7)
+    {
+        readyToUseWeapon(WeaponType::LASER);
+    }
+    else if(index ==8)
+    {
+        readyToUseWeapon(WeaponType::BLACKHOLE);
     }
     else
     {
-        ;
+        log("Error Weapon Item...%d", index);
     }
 }
 
@@ -187,39 +206,58 @@ void Battleground::createBattleground(Ref *sender)
     this->addChild(playerBag);
 
     this->schedule(schedule_selector(Battleground::battleLoop),0.1f);
-
-//    this->schedule(schedule_selector(Battleground::dispatchEnemys),5.0f);
     
     this->schedule(schedule_selector(Battleground::showPotInRadar), 0.1f);
 
+    createListener();
+
+    createAnimations();
+    
+    initEnemyDispatcher();
+}
+
+void Battleground::createListener()
+{
     auto listener = EventListenerTouchOneByOne::create();
     listener->setSwallowTouches(true);
-
+    
     listener->onTouchBegan = CC_CALLBACK_2(Battleground::onTouchBegan, this);
     listener->onTouchMoved = CC_CALLBACK_2(Battleground::onTouchMoved, this);
     listener->onTouchEnded = CC_CALLBACK_2(Battleground::onTouchEnded, this);
-
+    
     _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
-
-    auto destroyListener = EventListenerCustom::create(GameConfig::eventPlayerDestroy, 
-        CC_CALLBACK_1(Battleground::callbackPlayerDestroy,this));
+    
+    auto destroyListener = EventListenerCustom::create(GameConfig::eventPlayerDestroy,
+                                                       CC_CALLBACK_1(Battleground::callbackPlayerDestroy,this));
     _eventDispatcher->addEventListenerWithSceneGraphPriority(destroyListener, this);
     
     auto playerBaseHurtListener = EventListenerCustom::create(GameConfig::eventPlayerBaseHurt,
-                                                       CC_CALLBACK_1(Battleground::callbackPlayerBaseHurt,this));
+                                                              CC_CALLBACK_1(Battleground::callbackPlayerBaseHurt,this));
     _eventDispatcher->addEventListenerWithSceneGraphPriority(playerBaseHurtListener, this);
     
     auto enenyBaseHurtListener = EventListenerCustom::create(GameConfig::eventEnemyBaseHurt,
-                                                              CC_CALLBACK_1(Battleground::callbackEnemyBaseHurt,this));
+                                                             CC_CALLBACK_1(Battleground::callbackEnemyBaseHurt,this));
     _eventDispatcher->addEventListenerWithSceneGraphPriority(enenyBaseHurtListener, this);
     
     auto resortCDItemsListener = EventListenerCustom::create(GameConfig::eventResortCDItems,
                                                              CC_CALLBACK_1(Battleground::callbackResortCDItems,this));
     _eventDispatcher->addEventListenerWithSceneGraphPriority(resortCDItemsListener, this);
-
-    createAnimations();
     
-    //normal enmey dispacther
+    auto starbombHurtListener = EventListenerCustom::create(GameConfig::eventStarbombHurt,
+                                                             CC_CALLBACK_1(Battleground::callbackStarbombHurt,this));
+    _eventDispatcher->addEventListenerWithSceneGraphPriority(starbombHurtListener, this);
+    
+    auto laserHurtListener = EventListenerCustom::create(GameConfig::eventLaserHurt,
+                                                            CC_CALLBACK_1(Battleground::callbackLaserHurt,this));
+    _eventDispatcher->addEventListenerWithSceneGraphPriority(laserHurtListener, this);
+    
+    auto blackholeHurtListener = EventListenerCustom::create(GameConfig::eventBlackholeHurt,
+                                                            CC_CALLBACK_1(Battleground::callbackBlackholeHurt,this));
+    _eventDispatcher->addEventListenerWithSceneGraphPriority(blackholeHurtListener, this);
+}
+
+void Battleground::initEnemyDispatcher()
+{
 //    initNormalEnemy();
     initTowerEnemy();
 //    initBossEnemy();
@@ -552,12 +590,14 @@ void Battleground::createRadarChart()
 
 bool Battleground::onTouchBegan(Touch* touch, Event* event)
 {
+    _touchbegin = touch->getLocation();
     return true;
 }
 
 void Battleground::onTouchMoved(Touch* touch, Event* event)
 {
     auto op = _battleParallaxNode->getPosition();
+    log("op.y==========%f",op.y);
     op.y += touch->getLocation().y - touch->getPreviousLocation().y;
     if (op.y < s_visibleRect.visibleHeight - _battlegroundHeight)
     {
@@ -577,7 +617,26 @@ void Battleground::onTouchMoved(Touch* touch, Event* event)
 
 void Battleground::onTouchEnded(Touch* touch, Event* event)
 {
-
+    if(_readytouseWeapon && touch->getLocation() == _touchbegin)
+ {
+     _readytouseWeapon = false;
+     showuseweapontip(false);
+     
+     auto pos = touch->getLocation() - _battleParallaxNode->getPosition();
+     switch (_choosedWeapon) {
+         case WeaponType::STARBOMB:
+            createStarBomb(pos);
+             break;
+         case WeaponType::LASER:
+             createLaser(pos);
+             break;
+         case WeaponType::BLACKHOLE:
+             createBlackhole(pos);
+             break;
+         default:
+             break;
+     }
+ }
 }
 
 void Battleground::callbackPlayerDestroy(EventCustom* event)
@@ -838,7 +897,6 @@ void Battleground::showStoneAndGem(Point pos, int stoneCount, int gemCount, int 
     for(int i = 0; i < stoneCount; ++i)
     {
         Point offsetPos(2*(rand()%100)-100,rand()%100-50);
-        log("offsetPos11111,%f,%f",offsetPos.x,offsetPos.y);
         auto stone_sprite = Sprite::createWithSpriteFrameName("icon_stone.png");
         stone_sprite->setScale(0.5f);
         stone_sprite->setAnchorPoint(Point::ANCHOR_MIDDLE);
@@ -850,7 +908,6 @@ void Battleground::showStoneAndGem(Point pos, int stoneCount, int gemCount, int 
     {
         Point offsetPos(2*(rand()%100)-100,rand()%100-50);
         auto gem_sprite = Sprite::createWithSpriteFrameName("icon_gem.png");
-        log("offsetPos22222,%f,%f",offsetPos.x,offsetPos.y);
         gem_sprite->setScale(0.5f);
         gem_sprite->setAnchorPoint(Point::ANCHOR_MIDDLE);
         gem_sprite->setPosition(pos);
@@ -886,4 +943,83 @@ void Battleground::showStoneAndGem(Point pos, int stoneCount, int gemCount, int 
         gem_text_bk->setOpacity(0);
         gem_text_bk->runAction(Sequence::create(FadeIn::create(0.1f), DelayTime::create(0.3f), FadeOut::create(0.1f), RemoveSelf::create(), nullptr));
     }), nullptr));
+}
+
+void Battleground::readyToUseWeapon(WeaponType weapon)
+{
+    _readytouseWeapon = true;
+    showuseweapontip(true);
+    _choosedWeapon = weapon;
+    
+}
+
+void Battleground::createStarBomb(const cocos2d::Point& pos)
+{
+    log("pos.x....%f,pos.y...%f",pos.x,pos.y);
+    auto starbomb = Weapon::createStarBomb(pos);
+    _battleParallaxNode->addChild(starbomb);
+}
+void Battleground::createLaser(const cocos2d::Point& pos)
+{
+    log("pos.x....%f,pos.y...%f",pos.x,pos.y);
+    auto laser = Weapon::createLaser(pos);
+    _battleParallaxNode->addChild(laser);
+}
+void Battleground::createBlackhole(const cocos2d::Point& pos)
+{
+    log("pos.x....%f,pos.y...%f",pos.x,pos.y);
+    auto blackhole = Weapon::createBlackhole(pos);
+    _battleParallaxNode->addChild(blackhole);
+}
+
+void Battleground::showuseweapontip(bool enable)
+{
+    if (enable)
+    {
+        auto node_exist = getChildByTag(180);
+        if (node_exist) {
+            this->removeChildByTag(180);
+        }
+        auto node = Node::create();
+        node->setAnchorPoint(Point::ANCHOR_MIDDLE);
+        node->setPosition(Point(s_visibleRect.visibleWidth/2, 280));
+        this->addChild(node,10,180);
+        
+        auto tip_bk = Sprite::create("createBombTip_box.png");
+        tip_bk->cocos2d::Node::setAnchorPoint(Point::ANCHOR_MIDDLE);
+        node->addChild(tip_bk);
+        
+        auto tip = TextSprite::create("test xxxx");
+        tip->setColor(Color3B::BLACK);
+        tip->setAnchorPoint(Point::ANCHOR_MIDDLE);
+        tip->setPosition(Point(tip_bk->getContentSize().width/2,tip_bk->getContentSize().height/2));
+        tip_bk->addChild(tip);
+        
+        node->runAction(Sequence::create(MoveBy::create(0.1f, Point(0,20)), MoveBy::create(0.1f, Point(0,-20)),
+                                         MoveBy::create(0.1f, Point(0,20)), MoveBy::create(0.1f, Point(0,-20)),nullptr));
+    }
+    else
+    {
+        auto node_exist = getChildByTag(180);
+        if (node_exist) {
+            this->removeChildByTag(180);
+        }
+    }
+}
+
+void Battleground::callbackStarbombHurt(EventCustom* event)
+{
+    auto starbomb = (Weapon*)event->getUserData();
+    auto t_pos = starbomb->_pos;
+    
+}
+
+void Battleground::callbackLaserHurt(EventCustom* event)
+{
+    
+}
+
+void Battleground::callbackBlackholeHurt(EventCustom* event)
+{
+    
 }

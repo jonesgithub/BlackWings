@@ -109,8 +109,6 @@ bool Fighter::initFighter(Attacker attacker,int type,int level /* = 0 */)
             potInRadar = Sprite::createWithSpriteFrameName("map_plain.png");
             potInRadar->retain();
             break;
-        case Attacker::WEAPON:
-            break;
             
         default:
             break;
@@ -264,8 +262,6 @@ void Fighter::fire(float dt)
             bullet->attackLocations(_attTargetPos,_attTarget);
         }
             break;
-        case Attacker::WEAPON:
-            break;
         default:
             break;
     }
@@ -298,8 +294,6 @@ void Fighter::hurt(int ATK)
             {
                 _curlife -= ATK - plainConfig.defense;
             }
-            break;
-        case Attacker::WEAPON:
             break;
         default:
             break;

@@ -34,7 +34,6 @@ enum class Attacker
 {
     ENEMY,
     PLAIN,
-    WEAPON,
     TOWER,
     BOSS
 };
@@ -95,6 +94,9 @@ public:
     const static std::string eventPlayerBaseHurt;
     const static std::string eventEnemyBaseHurt;
     const static std::string eventResortCDItems;
+    const static std::string eventStarbombHurt;
+    const static std::string eventLaserHurt;
+    const static std::string eventBlackholeHurt;
     
     void lazyInit();
     
@@ -168,6 +170,7 @@ typedef struct _weaponConfig
     int attack;
     float duration;
     int capacity;
+    int range;
 }WeaponConfig;
 
 extern WeaponConfig s_weaponConfigs[WEAPON_MAX][WEAPON_LEVEL_MAX];

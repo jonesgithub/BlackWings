@@ -47,7 +47,7 @@ void Base::createBase(Ref *sender)
 
     _playerBag = PlayerBar::create();
     this->addChild(_playerBag);
-
+    
     createTopPanel();
 
     auto listenerStageSelect = EventListenerCustom::create(StageSelect::eventBack, [=](EventCustom* event){
