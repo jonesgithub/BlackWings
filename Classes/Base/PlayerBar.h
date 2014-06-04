@@ -23,6 +23,8 @@ public:
     
     Node* _playerMenu;
     
+    cocos2d::MenuItemSprite * fighterCopy;
+    
 private:
     bool _showFighter;
     
