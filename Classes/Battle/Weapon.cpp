@@ -128,6 +128,7 @@ void Weapon::createWeapon()
                                                                           bomb_effect->setAnchorPoint(Point::ANCHOR_MIDDLE);
                                                                           bomb_effect->setPosition(Point(s_visibleRect.visibleWidth/2,_pos.y));
                                                                           this->addChild(bomb_effect);
+                                                                          _eventDispatcher->dispatchCustomEvent(GameConfig::eventLaserHurt,this);
                                                                       }),
                                                                                                           nullptr));
                                                                       this->addChild(bulletA);
@@ -145,7 +146,6 @@ void Weapon::createWeapon()
                                                                                                                         nullptr),
                                                                                                           nullptr));                                                                      this->addChild(bulletB);
                                                                       
-                                                                      _eventDispatcher->dispatchCustomEvent(GameConfig::eventLaserHurt,this);
                                                                   }),
                                                  nullptr));
         }

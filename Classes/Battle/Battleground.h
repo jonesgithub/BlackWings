@@ -48,7 +48,7 @@ public:
     void dispatchEnemys_1(float dt);
     void dispatchEnemys_2(float dt);
     void dispatchBoss(float dt);
-    void showPotInRadar(float dt);
+    void showPotInRadar();
 
     bool onTouchBegan(Touch* touch, Event* event);
     void onTouchMoved(Touch* touch, Event* event);
@@ -68,6 +68,10 @@ private:
     void enemyFindTarget();
     void bossFindTarget();
     void towerFindTarget();
+    void weaponFindTarget();
+    void starbombFindTarget();
+    void laserFindTarget();
+    void blackholeFindTarget();
 
     void createListener();
     void callbackPlayerDestroy(EventCustom* event);
@@ -140,6 +144,11 @@ private:
     
     //游戏状态
     bool _isGameOver;
+    
+    //已触发的武器
+    std::vector<Weapon*> s_Starbombs;
+    std::vector<Weapon*> s_Lasers;
+    std::vector<Weapon*> s_Blackholes;
 };
 
 #endif
