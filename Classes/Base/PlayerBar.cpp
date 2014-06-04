@@ -46,10 +46,74 @@ bool PlayerBar::init()
     {
         auto player = PlayerMenuItem::create(PlayerMenuItem::Type::Fighter,i);
         player->setPosition(playerPos);
+        player->setTag(1000+i);
         playerPos.x += interval;
-        _playerMenu->addChild(player,0,i);
+        _playerMenu->addChild(player,1,i);
+        if (0 == i)
+        {
+            auto selectedSp = Sprite::createWithSpriteFrameName("item_1.png");
+            player->setNormalImage(selectedSp);
+            
+             char* name = new char[30];
+             sprintf(name,"plain_%d_lv_%d.png",0,s_playerConfig.fighterslevel[0]);
+             
+             Node *normalSprite = nullptr;
+             Node *selectedSprite = nullptr;
+             normalSprite = Sprite::createWithSpriteFrameName("plain_1_lv_1.png");
+             selectedSprite = Sprite::createWithSpriteFrameName("plain_1_lv_1.png");
+             fighterCopy = MenuItemSprite::create(normalSprite, selectedSprite);
+             _playerMenu->addChild(fighterCopy);
+             
+             auto move = MoveTo::create(1.0, Point(123,370));
+             fighterCopy->runAction(move);
+             
+        }
     }
+    
+    auto picChangeListener = EventListenerCustom::create(PlayerBar::eventPlayerSelect, [=](EventCustom* event)
+                                                         {
+                                                             for (int i = 0; i<FIGHTER_MAX; i++)
+                                                             {
+                                                                 /*  bug
+                                                                 log("zz==%d",100+i);
+                                                                 PlayerMenuItem * playerMenuItem = ((PlayerMenuItem * )_playerMenu->getChildByTag(1000+i));
+                                                                 int index = (uintptr_t)event->getUserData();
+                                                                 log("yy==%d",playerMenuItem->getTag());
+                                                                 if (i == index+10000)
+                                                                 {
+                                                                     auto selectedSp = Sprite::createWithSpriteFrameName("item_1.png");
+                                                                     playerMenuItem->setNormalImage(selectedSp);
+                                                                     
+                                                                     
+                                                                      char* name = new char[30];
+                                                                      sprintf(name,"plain_%d_lv_%d.png",index,s_playerConfig.fighterslevel[index]);
+                                                                      fighterCopy->setPosition(selectedSp->getPosition());
+                                                                      
+                                                                      Node *normalSprite = nullptr;
+                                                                      Node *selectedSprite = nullptr;
+                                                                      
+                                                                      normalSprite = Sprite::createWithSpriteFrameName("plain_1_lv_1.png");
+                                                                      selectedSprite = Sprite::createWithSpriteFrameName("plain_1_lv_1.png");
+                                                                      fighterCopy->setNormalImage(normalSprite);
+                                                                      fighterCopy->setNormalImage(selectedSprite);
+                                                                      
+                                                                      auto move = MoveTo::create(1.0, Point(123,370));
+                                                                      fighterCopy->runAction(move);
+                                                                      
+                                                                 }
+                                                                 else
+                                                                 {
+                                                                     auto selectedSp = Sprite::createWithSpriteFrameName("item_0.png");
+                                                                     playerMenuItem->setNormalImage(selectedSp);
+                                                                 }
+                                                                  */
+                                                             }
+                                                         });
+    _eventDispatcher->addEventListenerWithSceneGraphPriority(picChangeListener, this);
+    
 
+    
+    
     if (weaponEnable)
     {
         auto arrowItem = MenuItemImageLabel::createWithFrameName("bt_arrow_0.png","bt_arrow_1.png",
