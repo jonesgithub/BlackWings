@@ -31,6 +31,10 @@ bool PlayerMenuItem::init(Type playerType,int index)
 {
     bool ret = false;
 
+
+    _type = playerType;
+    _index = index;
+    
     Node *normalSprite = nullptr;
     Node *selectedSprite = nullptr;
     Node *disabledSprite = nullptr;
@@ -64,6 +68,7 @@ bool PlayerMenuItem::init(Type playerType,int index)
         typeIndex = FIGHTER_MAX + index;
         auto interval = (s_visibleRect.visibleWidth - 40 - 65) / WEAPON_MAX;
         auto size = Size(interval - 30,131);
+        size.width+=10;
         normalSprite = Scale9Sprite::createWithSpriteFrameName("item_0.png");
         normalSprite->setContentSize(size);
         selectedSprite = Scale9Sprite::createWithSpriteFrameName("item_1.png");
@@ -83,6 +88,10 @@ bool PlayerMenuItem::init(Type playerType,int index)
         }
     }
 
+    auto activeCDListener = EventListenerCustom::create(GameConfig::eventactiveCD,
+                                                       CC_CALLBACK_1(PlayerMenuItem::activeCD_callback,this));
+    _eventDispatcher->addEventListenerWithSceneGraphPriority(activeCDListener, this);
+    
     return ret;
 }
 
@@ -90,5 +99,58 @@ void PlayerMenuItem::activate()
 {
     MenuItemImage::activate();
     //
+    if(s_gameConfig.isInBattle)
+    {
+        if (_type == Type::Fighter) {
+            setEnabled(false);
+            auto cd_sprite = Sprite::createWithSpriteFrameName("item_4.png");
+            auto offset = Point(44,65);
+            auto cdtime = s_plainConfigs[_index][s_playerConfig.fighterslevel[_index]].cd;
+            cd_sprite->setOpacity(200);
+            auto cd_progress = ProgressTimer::create(cd_sprite);
+            cd_progress->setType(ProgressTimer::Type::RADIAL);
+            cd_progress->setMidpoint(Point(0.5f, 0.5f));
+            cd_progress->setBarChangeRate(Point(0, 1));
+            cd_progress->setPosition(offset);
+            Node::addChild(cd_progress,1,0);
+            cd_progress->runAction(Sequence::create(ProgressTo::create(3, 100),
+                                                    RemoveSelf::create(),
+                                                    CallFunc::create([&]()
+                                                                     {
+                                                                         setEnabled(true);
+                                                                     }),
+                                                    nullptr));
+        }
+    }
     _eventDispatcher->dispatchCustomEvent(PlayerBar::eventPlayerSelect,(void*)typeIndex);
+}
+
+void PlayerMenuItem::activeCD_callback(EventCustom* event)
+{
+    if (s_gameConfig.isInBattle) {
+        if (_type == Type::Weapon) {
+            int t_index = (uintptr_t)event->getUserData();
+            if(t_index == _index)
+            {
+                setEnabled(false);
+                auto cd_sprite = Sprite::createWithSpriteFrameName("itemB_4.png");
+                auto offset = Point(80,65);
+                auto cdtime = s_weaponConfigs[_index][s_playerConfig.weaponslevel[_index]].cd;
+                cd_sprite->setOpacity(200);
+                auto cd_progress = ProgressTimer::create(cd_sprite);
+                cd_progress->setType(ProgressTimer::Type::RADIAL);
+                cd_progress->setMidpoint(Point(0.5f, 0.5f));
+                cd_progress->setBarChangeRate(Point(0, 1));
+                cd_progress->setPosition(offset);
+                Node::addChild(cd_progress,1,0);
+                cd_progress->runAction(Sequence::create(ProgressTo::create(3, 100),
+                                                        RemoveSelf::create(),
+                                                        CallFunc::create([&]()
+                                                                         {
+                                                                             setEnabled(true);
+                                                                         }),
+                                                        nullptr));            }
+        }
+    }
+    
 }

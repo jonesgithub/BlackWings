@@ -21,7 +21,12 @@ public:
 
 private:
     PlayerMenuItem();
+    
+    void activeCD_callback(EventCustom* event);
 
     TextSprite * _label;
     int typeIndex;
+    
+    Type _type;
+    int _index;
 };

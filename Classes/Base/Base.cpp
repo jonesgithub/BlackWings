@@ -26,6 +26,8 @@ bool Base::init()
         loadLayer->addImage("door_r.png");
         this->addChild(loadLayer);
         loadLayer->startLoad();
+        
+        s_gameConfig.isInBattle = false;
 
         return true;
     }

@@ -97,6 +97,7 @@ public:
     const static std::string eventStarbombHurt;
     const static std::string eventLaserHurt;
     const static std::string eventBlackholeHurt;
+    const static std::string eventactiveCD;
     
     void lazyInit();
     
@@ -108,6 +109,9 @@ public:
     void setSFXVolume(float volume);
     void setLanguage(GameLanguage languag);
     void GSInitLanguage(GameLanguage language);
+    
+    //global var
+    bool isInBattle;
 };
 
 extern GameConfig s_gameConfig;
@@ -145,7 +149,8 @@ typedef struct _plainConfig
     int speed;
     int defense;
     int range;
-    int cd;
+    float buildtime;
+    float cd;
 }PlainConfig;
 
 extern PlainConfig s_plainConfigs[FIGHTER_MAX][FIGHTER_LEVEL_MAX];
@@ -171,6 +176,7 @@ typedef struct _weaponConfig
     float duration;
     int capacity;
     int range;
+    float cd;
 }WeaponConfig;
 
 extern WeaponConfig s_weaponConfigs[WEAPON_MAX][WEAPON_LEVEL_MAX];

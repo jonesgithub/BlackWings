@@ -97,6 +97,7 @@ bool Battleground::init(int stage)
         loadLayer->startLoad();
         
         _stage = stage;
+        s_gameConfig.isInBattle = true ;
 
         return true;
     }
@@ -772,12 +773,15 @@ void Battleground::onTouchEnded(Touch* touch, Event* event)
      switch (_choosedWeapon) {
          case WeaponType::STARBOMB:
             createStarBomb(pos);
+             _eventDispatcher->dispatchCustomEvent(GameConfig::eventactiveCD, (void*)0);
              break;
          case WeaponType::LASER:
              createLaser(pos);
+             _eventDispatcher->dispatchCustomEvent(GameConfig::eventactiveCD, (void*)1);
              break;
          case WeaponType::BLACKHOLE:
              createBlackhole(pos);
+             _eventDispatcher->dispatchCustomEvent(GameConfig::eventactiveCD, (void*)2);
              break;
          default:
              break;
