@@ -48,70 +48,9 @@ bool PlayerBar::init()
         player->setPosition(playerPos);
         player->setTag(1000+i);
         playerPos.x += interval;
-        _playerMenu->addChild(player,1,i);
-        if (0 == i)
-        {
-            auto selectedSp = Sprite::createWithSpriteFrameName("item_1.png");
-            player->setNormalImage(selectedSp);
-            
-             char* name = new char[30];
-             sprintf(name,"plain_%d_lv_%d.png",0,s_playerConfig.fighterslevel[0]);
-             
-             Node *normalSprite = nullptr;
-             Node *selectedSprite = nullptr;
-             normalSprite = Sprite::createWithSpriteFrameName("plain_1_lv_1.png");
-             selectedSprite = Sprite::createWithSpriteFrameName("plain_1_lv_1.png");
-             fighterCopy = MenuItemSprite::create(normalSprite, selectedSprite);
-             _playerMenu->addChild(fighterCopy);
-             
-             auto move = MoveTo::create(1.0, Point(123,370));
-             fighterCopy->runAction(move);
-             
-        }
-    }
-    
-    auto picChangeListener = EventListenerCustom::create(PlayerBar::eventPlayerSelect, [=](EventCustom* event)
-                                                         {
-                                                             for (int i = 0; i<FIGHTER_MAX; i++)
-                                                             {
-                                                                 /*  bug
-                                                                 log("zz==%d",100+i);
-                                                                 PlayerMenuItem * playerMenuItem = ((PlayerMenuItem * )_playerMenu->getChildByTag(1000+i));
-                                                                 int index = (uintptr_t)event->getUserData();
-                                                                 log("yy==%d",playerMenuItem->getTag());
-                                                                 if (i == index+10000)
-                                                                 {
-                                                                     auto selectedSp = Sprite::createWithSpriteFrameName("item_1.png");
-                                                                     playerMenuItem->setNormalImage(selectedSp);
-                                                                     
-                                                                     
-                                                                      char* name = new char[30];
-                                                                      sprintf(name,"plain_%d_lv_%d.png",index,s_playerConfig.fighterslevel[index]);
-                                                                      fighterCopy->setPosition(selectedSp->getPosition());
-                                                                      
-                                                                      Node *normalSprite = nullptr;
-                                                                      Node *selectedSprite = nullptr;
-                                                                      
-                                                                      normalSprite = Sprite::createWithSpriteFrameName("plain_1_lv_1.png");
-                                                                      selectedSprite = Sprite::createWithSpriteFrameName("plain_1_lv_1.png");
-                                                                      fighterCopy->setNormalImage(normalSprite);
-                                                                      fighterCopy->setNormalImage(selectedSprite);
-                                                                      
-                                                                      auto move = MoveTo::create(1.0, Point(123,370));
-                                                                      fighterCopy->runAction(move);
-                                                                      
-                                                                 }
-                                                                 else
-                                                                 {
-                                                                     auto selectedSp = Sprite::createWithSpriteFrameName("item_0.png");
-                                                                     playerMenuItem->setNormalImage(selectedSp);
-                                                                 }
-                                                                  */
-                                                             }
-                                                         });
-    _eventDispatcher->addEventListenerWithSceneGraphPriority(picChangeListener, this);
-    
+        _playerMenu->addChild(player,1);
 
+    }
     
     
     if (weaponEnable)
@@ -127,41 +66,42 @@ bool PlayerBar::init()
         {
             auto player = PlayerMenuItem::create(PlayerMenuItem::Type::Weapon,i);
             player->setPosition(playerPos);
+            player->setTag(1000+FIGHTER_MAX+i);
             playerPos.x += interval;
-            _playerMenu->addChild(player,0,i);
+            _playerMenu->addChild(player,0);
         }
     }
 
     _playerMenu->setPosition(Point::ZERO);
-    this->addChild(_playerMenu);
+    this->addChild(_playerMenu,3);
 
     auto leftSidebar = Sprite::createWithSpriteFrameName("dijia2.png");
     leftSidebar->getTexture()->setAliasTexParameters();
     leftSidebar->setAnchorPoint(Point::ANCHOR_BOTTOM_LEFT);
     leftSidebar->setPosition(s_visibleRect.leftBottom);
-    this->addChild(leftSidebar);
+    this->addChild(leftSidebar,2);
 
     auto rightSidebar = Sprite::createWithSpriteFrameName("dijia2.png");
     rightSidebar->getTexture()->setAliasTexParameters();
     rightSidebar->setFlippedX(true);
     rightSidebar->setAnchorPoint(Point::ANCHOR_BOTTOM_RIGHT);
     rightSidebar->setPosition(s_visibleRect.rightBottom);
-    this->addChild(rightSidebar);
+    this->addChild(rightSidebar,2);
 
     auto stoneIcon = Sprite::createWithSpriteFrameName("icon_stone.png");
     stoneIcon->setPosition(Point(s_visibleRect.center.x - 282,s_visibleRect.visibleOriginY + 165));
     stoneIcon->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
-    this->addChild(stoneIcon);
+    this->addChild(stoneIcon,2);
 
     auto numBg = Sprite::createWithSpriteFrameName("numBackground.png");
     numBg->setPosition(Point(s_visibleRect.center.x - 237,s_visibleRect.visibleOriginY + 165));
     numBg->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
-    this->addChild(numBg);
+    this->addChild(numBg,2);
 
     auto gemIcon = Sprite::createWithSpriteFrameName("icon_gem.png");
     gemIcon->setPosition(Point(s_visibleRect.center.x - 43,s_visibleRect.visibleOriginY + 165));
     gemIcon->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
-    this->addChild(gemIcon);
+    this->addChild(gemIcon,2);
     
     std::string fontFile = "arial.ttf";
     int fontSize = 20;
@@ -187,17 +127,17 @@ bool PlayerBar::init()
     sparNum->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
     sparNum->setPosition(Point(gemIcon->getPositionX()+gemIcon->getContentSize().width+5,gemIcon->getPositionY()));
     sparNum->setColor(Color3B(255,255,0));
-    this->addChild(sparNum);
+    this->addChild(sparNum,2);
     
-    auto listener = EventListenerCustom::create(PlayerBar::eventPlayerSelect, [=](EventCustom* event)
-                                                {
-                                                    stoneNum->setString( PersonalApi::convertIntToString(s_playerConfig.stone).c_str());
-                                                    stoneNum->setPosition(Point(slash->getPositionX()-10,slash->getPositionY()));
-                                                    stoneTatalNum->setString(PersonalApi::convertIntToString(s_playerConfig.stoneMax).c_str());
-                                                    stoneTatalNum->setPosition(Point(slash->getPositionX()+10,slash->getPositionY()));
-                                                    sparNum->setString(PersonalApi::convertIntToString(s_playerConfig.gem).c_str());
-                                                });
-    _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
+//    auto listener = EventListenerCustom::create(PlayerBar::eventPlayerSelect, [=](EventCustom* event)
+//                                                {
+//                                                    stoneNum->setString( PersonalApi::convertIntToString(s_playerConfig.stone).c_str());
+//                                                    stoneNum->setPosition(Point(slash->getPositionX()-10,slash->getPositionY()));
+//                                                    stoneTatalNum->setString(PersonalApi::convertIntToString(s_playerConfig.stoneMax).c_str());
+//                                                    stoneTatalNum->setPosition(Point(slash->getPositionX()+10,slash->getPositionY()));
+//                                                    sparNum->setString(PersonalApi::convertIntToString(s_playerConfig.gem).c_str());
+//                                                });
+//    _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
 
     return true;
 }

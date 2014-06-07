@@ -52,6 +52,7 @@ void Battleground::onEnter()
     Scene::onEnter();
     _eventDispatcher->addCustomEventListener(PlayerBar::eventPlayerSelect,
                                              std::bind(&Battleground::eventCallbackPlayerSelect, this, std::placeholders::_1));
+    
 }
 
 void Battleground::onExit()

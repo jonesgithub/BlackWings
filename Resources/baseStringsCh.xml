@@ -21,7 +21,11 @@
 	<string>速度：</string>
 	<key>upgradeRange</key>
 	<string>射程：</string>
-
+    <key>upgradeDuration</key>
+	<string>持续时间：</string>
+    <key>upgradeBuy</key>
+	<string>购买</string>
+    
 	<key>weaponQuantity</key>
 	<string>数量：</string>
     
@@ -34,4 +38,38 @@
 	<string>* 晶石最大容量 *</string>
     <key>second</key>
 	<string>秒</string>
+    
+    <key>flight_0_name</key>
+    <string>* 轻型战机 *</string>
+    <key>flight_1_name</key>
+    <string>* 合金战机 *</string>
+    <key>flight_2_name</key>
+    <string>* 导弹战机 *</string>
+    <key>flight_3_name</key>
+    <string>* 光束战机 *</string>
+    <key>flight_4_name</key>
+    <string>* 磁力战机 *</string>
+    <key>flight_5_name</key>
+    <string>* 黑色之翼 *</string>
+    <key>weapon_0_name</key>
+    <string>* 星际炸弹 *</string>
+    <key>weapon_1_name</key>
+    <string>* 激光发射器 *</string>
+    <key>weapon_2_name</key>
+    <string>* 黑洞 *</string>
+    
+    <!-- upgrade ui -->
+    <key>stonespeed</key>
+    <string>晶石回复速度</string>
+    <key>stoneinit</key>
+    <string>战役初始晶石</string>
+    <key>stonemax</key>
+    <string>晶石最大容量</string>
+    <key>useStone</key>
+    <string>消耗晶石</string>
+    <key>buyusegem</key>
+    <string>购买需要宝石</string>
+    <key>buymax</key>
+    <string>携带上限</string>
+   
 </dict>

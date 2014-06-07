@@ -23,6 +23,8 @@ private:
     PlayerMenuItem();
     
     void activeCD_callback(EventCustom* event);
+    
+    void unselectedall(EventCustom* event);
 
     TextSprite * _label;
     int typeIndex;

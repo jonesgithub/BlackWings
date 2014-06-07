@@ -100,6 +100,7 @@ public:
     const static std::string eventLaserHurt;
     const static std::string eventBlackholeHurt;
     const static std::string eventactiveCD;
+    const static std::string eventunseletedall;
     
     void lazyInit();
     

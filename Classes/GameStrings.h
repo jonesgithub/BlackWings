@@ -63,6 +63,8 @@ typedef struct _baseStrings{
     std::string upgradeLife;
     std::string upgradeSpd;
     std::string upgradeRange;
+    std::string upgradeDuration;
+    std::string upgradeBuy;
 
     std::string weaponQuantity;
     
@@ -70,6 +72,16 @@ typedef struct _baseStrings{
     std::string sparRecoverRate;
     std::string second;
     
+    std::string flightname[6];
+    std::string weaponname[3];
+    
+    std::string stonespeed;
+    std::string stoneinit;
+    std::string stonemax;
+    std::string useStone;
+    std::string buyusegem;
+    std::string buymax;
+
 }BaseStrings;
 
 typedef struct _medalStrings{

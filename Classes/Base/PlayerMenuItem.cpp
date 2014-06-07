@@ -57,6 +57,10 @@ bool PlayerMenuItem::init(Type playerType,int index)
             else
             {
                 sprintf(iconFileName,"plain_%d_lv_%d.png",index + 1,s_playerConfig.fighterslevel[index] + 1);
+                
+                auto stoneformake_text = TextSprite::create(Value(s_plainConfigs[index][s_playerConfig.fighterslevel[index]].sparForMake).asString().c_str(),GameConfig::defaultFontName,20);
+                stoneformake_text->setPosition(Point(44,25));
+                Node::addChild(stoneformake_text,3);
             }
             auto fighter = Sprite::createWithSpriteFrameName(iconFileName);
             fighter->setPosition(Point(44,76));
@@ -84,13 +88,57 @@ bool PlayerMenuItem::init(Type playerType,int index)
             weapon->setPosition(Point(size.width/2,76));
             weapon->setRotation(90);
             Node::addChild(weapon,1,0);
-            //disabledSprite = Sprite::createWithSpriteFrameName("item_4.png");
+            
+            auto count_text = TextSprite::create(s_gameStrings.base->weaponQuantity.c_str(),GameConfig::defaultFontName,20);
+            count_text->setPosition(Point(45,25));
+            Node::addChild(count_text,1);
+            
+            std::string fontFile = "arial.ttf";
+            int fontSize = 20;
+            
+            auto slash = Label::createWithTTF("/",fontFile,fontSize);
+            slash->setAnchorPoint(Point::ANCHOR_MIDDLE);
+            slash->setPosition(Point(size.width/2+15,25));
+            Node::addChild(slash,1);
+            
+            int weapon_countNum = 0;
+            int weapon_maxNum =0;
+            switch (index) {
+                case 0:
+                    weapon_countNum = s_playerConfig.starbomb;
+                    break;
+                case 1:
+                    weapon_countNum = s_playerConfig.laser;
+                    break;
+                case 2:
+                    weapon_countNum = s_playerConfig.blackhole;
+                    break;
+                default:
+                    break;
+            }
+            weapon_maxNum = s_weaponConfigs[index][s_playerConfig.weaponslevel[index]].capacity;
+            
+            auto countNum = Label::createWithTTF(Value(weapon_countNum).asString().c_str(),fontFile,fontSize);
+            countNum->setAnchorPoint(Point::ANCHOR_MIDDLE_RIGHT);
+            countNum->setPosition(Point(slash->getPositionX()-10,slash->getPositionY()));
+            Node::addChild(countNum);
+            
+            auto stoneTatalNum = Label::createWithTTF(Value(weapon_maxNum).asString().c_str(),fontFile,fontSize);
+            stoneTatalNum->setColor(Color3B::GRAY);
+            stoneTatalNum->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
+            stoneTatalNum->setPosition(Point(slash->getPositionX()+10,slash->getPositionY()));
+            Node::addChild(stoneTatalNum);
+
         }
     }
 
     auto activeCDListener = EventListenerCustom::create(GameConfig::eventactiveCD,
                                                        CC_CALLBACK_1(PlayerMenuItem::activeCD_callback,this));
     _eventDispatcher->addEventListenerWithSceneGraphPriority(activeCDListener, this);
+    
+    auto unselectedallListener = EventListenerCustom::create(GameConfig::eventunseletedall,
+                                                        CC_CALLBACK_1(PlayerMenuItem::unselectedall,this));
+    _eventDispatcher->addEventListenerWithSceneGraphPriority(unselectedallListener, this);
     
     return ret;
 }
@@ -113,7 +161,7 @@ void PlayerMenuItem::activate()
             cd_progress->setBarChangeRate(Point(0, 1));
             cd_progress->setPosition(offset);
             Node::addChild(cd_progress,1,0);
-            cd_progress->runAction(Sequence::create(ProgressTo::create(3, 100),
+            cd_progress->runAction(Sequence::create(ProgressTo::create(cdtime, 100),
                                                     RemoveSelf::create(),
                                                     CallFunc::create([&]()
                                                                      {
@@ -121,6 +169,11 @@ void PlayerMenuItem::activate()
                                                                      }),
                                                     nullptr));
         }
+    }
+    else
+    {
+        _eventDispatcher->dispatchCustomEvent(GameConfig::eventunseletedall);
+        selected();
     }
     _eventDispatcher->dispatchCustomEvent(PlayerBar::eventPlayerSelect,(void*)typeIndex);
 }
@@ -143,7 +196,7 @@ void PlayerMenuItem::activeCD_callback(EventCustom* event)
                 cd_progress->setBarChangeRate(Point(0, 1));
                 cd_progress->setPosition(offset);
                 Node::addChild(cd_progress,1,0);
-                cd_progress->runAction(Sequence::create(ProgressTo::create(3, 100),
+                cd_progress->runAction(Sequence::create(ProgressTo::create(cdtime, 100),
                                                         RemoveSelf::create(),
                                                         CallFunc::create([&]()
                                                                          {
@@ -153,4 +206,9 @@ void PlayerMenuItem::activeCD_callback(EventCustom* event)
         }
     }
     
+}
+
+void PlayerMenuItem::unselectedall(EventCustom* event)
+{
+    unselected();
 }
