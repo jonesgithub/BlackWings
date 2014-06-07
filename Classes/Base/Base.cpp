@@ -9,6 +9,7 @@
 #include "StageSelect.h"
 #include "Medal.h"
 #include "PlayerMenuItem.h"
+#include "UpgradeUILayer.h"
 
 USING_NS_CC;
 USING_NS_CC_EXT;
@@ -49,21 +50,22 @@ void Base::createBase(Ref *sender)
 
     createUpgrade();
 
-    _playerBag = PlayerBar::create();
-    this->addChild(_playerBag,3);
+    createBottomPanel();
     
     createTopPanel();
 
     auto listenerStageSelect = EventListenerCustom::create(StageSelect::eventBack, [=](EventCustom* event){
         _topPanel->runAction(MoveBy::create(0.2f,Point(0,-200)));
         _upgradePanel->runAction(MoveBy::create(0.2f,Point(0,s_visibleRect.visibleHeight)));
-        _playerBag->runAction(Sequence::create( MoveBy::create(0.15f,Point(0,136)),nullptr ));
+        _bottomPanel->runAction(Sequence::create( MoveBy::create(0.15f,Point(0,136)),nullptr ));
+        _curSelectedFlight->setVisible(true);
     });
     
     auto listenerMedal = EventListenerCustom::create(Medal::eventBack, [=](EventCustom* event){
         _topPanel->runAction(MoveBy::create(0.2f,Point(0,-200)));
         _upgradePanel->runAction(MoveBy::create(0.2f,Point(0,s_visibleRect.visibleHeight)));
-        _playerBag->runAction(Sequence::create( MoveBy::create(0.15f,Point(0,136)),nullptr ));
+        _bottomPanel->runAction(Sequence::create( MoveBy::create(0.15f,Point(0,136)),nullptr ));
+        _curSelectedFlight->setVisible(true);
     });
 
     _eventDispatcher->addEventListenerWithSceneGraphPriority(listenerStageSelect, this);
@@ -79,7 +81,7 @@ void Base::createBase(Ref *sender)
         
         auto flight = Sprite::createWithSpriteFrameName(name);
         flight->setPosition(player->getPosition()+Point(0,50));
-        this->addChild(flight,2);
+        _bottomPanel->addChild(flight);
         
         _curSelectedFlight = flight;
         _curSeletedIndex = 0;
@@ -103,7 +105,7 @@ void Base::createBase(Ref *sender)
                                                                      
                                                                      auto flight = Sprite::createWithSpriteFrameName(name);
                                                                      flight->setPosition(_playerBag->_playerMenu->getChildByTag(1000+i)->getPosition()+Point(0,50));
-                                                                     this->addChild(flight,2);
+                                                                     _bottomPanel->addChild(flight);
                                                                      
                                                                      _curSelectedFlight = flight;
                                                                      _curSeletedIndex = i;
@@ -124,7 +126,7 @@ void Base::createBase(Ref *sender)
                                                                      
                                                                      auto flight = Sprite::createWithSpriteFrameName(name);
                                                                      flight->setPosition(_playerBag->_playerMenu->getChildByTag(1000+i)->getPosition()-Point(s_visibleRect.visibleWidth, 0)+Point(0,50));
-                                                                     this->addChild(flight,2);
+                                                                     _bottomPanel->addChild(flight);
                                                                      
                                                                      _curSelectedFlight = flight;
                                                                      _curSeletedIndex = i;
@@ -149,6 +151,14 @@ void Base::createBase(Ref *sender)
                                                                  else
                                                                  {
                                                                      upgradeFighter->removeAllChildren();
+                                                                     int baseHeight = 50;
+                                                                     auto boxPos = Point(s_visibleRect.center.x,s_visibleRect.center.y - baseHeight * 5);
+                                                                     
+                                                                     upgradeFighter = Scale9Sprite::createWithSpriteFrameName("upgrade_box.png");
+                                                                     upgradeFighter->setContentSize(Size(s_visibleRect.visibleWidth - 50,baseHeight * 4.5));
+                                                                     upgradeFighter->setAnchorPoint(Point::ANCHOR_MIDDLE_BOTTOM);
+                                                                     upgradeFighter->setPosition(boxPos);
+                                                                     _upgradePanel->addChild(upgradeFighter);
                                                                      createFighterBottomInfo(upgradeFighter, index);
                                                                  }
                                                              }
@@ -156,9 +166,15 @@ void Base::createBase(Ref *sender)
                                                              {
                                                                  if(_isInFilghtUpgradeUI)
                                                                  {
-                                                                     for (int i=0; i<16; ++i) {
-                                                                         upgradeFighter->removeChildByTag(i);
-                                                                     }
+                                                                     upgradeFighter->removeAllChildren();
+                                                                     int baseHeight = 50;
+                                                                     auto boxPos = Point(s_visibleRect.center.x,s_visibleRect.center.y - baseHeight * 5);
+                                                                     
+                                                                     upgradeFighter = Scale9Sprite::createWithSpriteFrameName("upgrade_box.png");
+                                                                     upgradeFighter->setContentSize(Size(s_visibleRect.visibleWidth - 50,baseHeight * 4.5));
+                                                                     upgradeFighter->setAnchorPoint(Point::ANCHOR_MIDDLE_BOTTOM);
+                                                                     upgradeFighter->setPosition(boxPos);
+                                                                     _upgradePanel->addChild(upgradeFighter);
                                                                      createWeaponBottomInfo(upgradeFighter, index - FIGHTER_MAX);
                                                                  }
                                                                  else
@@ -173,6 +189,14 @@ void Base::createBase(Ref *sender)
     _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
     
 
+}
+
+void Base::createBottomPanel()
+{
+    _bottomPanel =  Node::create();
+    this->addChild(_bottomPanel);
+    _playerBag = PlayerBar::create();
+    _bottomPanel->addChild(_playerBag,1);
 }
 
 void Base::createUpgrade()
@@ -236,12 +260,19 @@ void Base::createFighterBottomInfo(Node* panel,int t_index)
     panel->addChild(fighterBox);
     fighterBox->setTag(0);
     
-    auto bottombluBar = Scale9Sprite::createWithSpriteFrameName("bt_main_1.png");
-    bottombluBar->setPosition(Point(panelSize.width / 2,panelSize.height * 0.25f));
-    bottombluBar->setScaleX(1.2f);
-    bottombluBar->setScaleY(0.5f);
-    panel->addChild(bottombluBar);
-    bottombluBar->setTag(1);
+//    auto bottombluBar = Scale9Sprite::createWithSpriteFrameName("bt_main_1.png");
+//    bottombluBar->setPosition(Point(panelSize.width / 2,panelSize.height * 0.25f));
+//    bottombluBar->setScaleX(1.2f);
+//    bottombluBar->setScaleY(0.5f);
+//    panel->addChild(bottombluBar);
+//    bottombluBar->setTag(1);
+
+    auto menuitem = MenuItemImageLabel::createWithFrameName("bt_main_0.png","bt_main_1.png",CC_CALLBACK_1(Base::upgradeFlight,this));
+    menuitem->setScale(1.2f,0.5f);
+    menuitem->setPosition(Point(panelSize.width / 2,panelSize.height * 0.25f));
+    auto menu = Menu::create(menuitem,nullptr);
+    menu->setPosition(Point::ZERO);
+    panel->addChild(menu);
     
     auto spar = Sprite::createWithSpriteFrameName("icon_gem.png");
     spar->setPosition(Point(200,panelSize.height * 0.25f));
@@ -375,11 +406,25 @@ void Base::createWeaponBottomInfo(Node* panel, int t_index)
     fighterBox->setPosition(Point(panelSize.width / 6,panelSize.height * 0.625f));
     panel->addChild(fighterBox);
     
-    auto bottombluBar = Scale9Sprite::createWithSpriteFrameName("bt_main_1.png");
-    bottombluBar->setPosition(Point(panelSize.width / 2,panelSize.height * 0.25f));
-    bottombluBar->setScaleX(1.2f);
-    bottombluBar->setScaleY(0.5f);
-    panel->addChild(bottombluBar);
+//    auto bottombluBar = Scale9Sprite::createWithSpriteFrameName("bt_main_1.png");
+//    bottombluBar->setPosition(Point(panelSize.width / 2,panelSize.height * 0.25f));
+//    bottombluBar->setScaleX(1.2f);
+//    bottombluBar->setScaleY(0.5f);
+//    panel->addChild(bottombluBar);
+
+    auto menuitem = MenuItemImageLabel::createWithFrameName("bt_main_0.png","bt_main_1.png",CC_CALLBACK_1(Base::upgradeWeapon,this));
+    menuitem->setScale(1.2f,0.5f);
+    menuitem->setPosition(Point(panelSize.width / 2,panelSize.height * 0.25f));
+    auto menu = Menu::create(menuitem,nullptr);
+    menu->setPosition(Point::ZERO);
+    panel->addChild(menu);
+    
+    auto menuitembuy = MenuItemImageLabel::createWithFrameName("btB_0.png","btB_1.png",CC_CALLBACK_1(Base::buyWeapon,this));
+    menuitembuy->setScale(0.8f);
+    menuitembuy->setPosition(Point(panelSize.width / 2+200,panelSize.height/2+50));
+    auto menubuy = Menu::create(menuitembuy,nullptr);
+    menubuy->setPosition(Point::ZERO);
+    panel->addChild(menubuy);
     
     auto spar = Sprite::createWithSpriteFrameName("icon_gem.png");
     spar->setPosition(Point(200,panelSize.height * 0.25f));
@@ -411,6 +456,15 @@ void Base::createWeaponBottomInfo(Node* panel, int t_index)
         leveUpText->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
         leveUpText->setPosition(pos-Point(40,0));
         panel->addChild(leveUpText);
+        
+        auto stone_icon = Sprite::createWithSpriteFrameName("icon_gem.png");
+        stone_icon->setPosition(Point(menuitembuy->getContentSize().width/2-35,menuitembuy->getContentSize().height/2+20));
+        menuitembuy->addChild(stone_icon);
+        
+        auto buy_text = TextSprite::create(s_gameStrings.base->upgradeBuy,GameConfig::defaultFontName,GameConfig::defaultFontSize);
+        buy_text->setColor(Color3B::BLUE);
+        buy_text->setPosition(Point(menuitembuy->getContentSize().width/2,menuitembuy->getContentSize().height/2-20));
+        menuitembuy->addChild(buy_text);
     }
     
     {
@@ -443,6 +497,11 @@ void Base::createWeaponBottomInfo(Node* panel, int t_index)
         _weapon_upgradeforgem_label->setTextColor(Color4B(255,255,0,255));
         panel->addChild(_weapon_upgradeforgem_label);
         
+        auto buy_gem = TextSprite::create(Value(s_weaponConfigs[t_index][s_playerConfig.weaponslevel[t_index]].gemForUpgrade).asString().c_str(),fontFile,25);
+        buy_gem->setColor(Color3B::YELLOW);
+        buy_gem->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
+        buy_gem->setPosition(Point(menuitembuy->getContentSize().width/2-20,menuitembuy->getContentSize().height/2+20));
+        menuitembuy->addChild(buy_gem);
     }
 }
 
@@ -455,11 +514,18 @@ void Base::createFighterMiddleInfo(Node* panel)
     auto infoColor = Color4B(153,217,234,255);
     
     
-    auto bottombluBar = Scale9Sprite::createWithSpriteFrameName("bt_main_1.png");
-    bottombluBar->setPosition(Point(panelSize.width / 2,panelSize.height * 0.25f));
-    bottombluBar->setScaleX(1.2f);
-    bottombluBar->setScaleY(0.5f);
-    panel->addChild(bottombluBar);
+//    auto bottombluBar = Scale9Sprite::createWithSpriteFrameName("bt_main_1.png");
+//    bottombluBar->setPosition(Point(panelSize.width / 2,panelSize.height * 0.25f));
+//    bottombluBar->setScaleX(1.2f);
+//    bottombluBar->setScaleY(0.5f);
+//    panel->addChild(bottombluBar);
+    
+    auto menuitem = MenuItemImageLabel::createWithFrameName("bt_main_0.png","bt_main_1.png",CC_CALLBACK_1(Base::upgradeStoneMax,this));
+    menuitem->setScale(1.2f,0.5f);
+    menuitem->setPosition(Point(panelSize.width / 2,panelSize.height * 0.25f));
+    auto menu = Menu::create(menuitem,nullptr);
+    menu->setPosition(Point::ZERO);
+    panel->addChild(menu);
     
     auto spar = Sprite::createWithSpriteFrameName("icon_gem.png");
     spar->setPosition(Point(200,panelSize.height * 0.25f));
@@ -545,11 +611,20 @@ void Base::createFighterTopInfo(Node* panel)
     auto infoColor = Color4B(153,217,234,255);
     
     
-    auto bottombluBar = Scale9Sprite::createWithSpriteFrameName("bt_main_1.png");
-    bottombluBar->setPosition(Point(panelSize.width / 2,panelSize.height * 0.25f));
-    bottombluBar->setScaleX(1.2f);
-    bottombluBar->setScaleY(0.5f);
-    panel->addChild(bottombluBar);
+    //
+//    auto bottombluBar = Scale9Sprite::createWithSpriteFrameName("bt_main_1.png");
+//    bottombluBar->setPosition(Point(panelSize.width / 2,panelSize.height * 0.25f));
+//    bottombluBar->setScaleX(1.2f);
+//    bottombluBar->setScaleY(0.5f);
+//    panel->addChild(bottombluBar);
+    
+    auto menuitem = MenuItemImageLabel::createWithFrameName("bt_main_0.png","bt_main_1.png",CC_CALLBACK_1(Base::upgradeStoneSpeed,this));
+    menuitem->setScale(1.2f,0.5f);
+    menuitem->setPosition(Point(panelSize.width / 2,panelSize.height * 0.25f));
+    auto menu = Menu::create(menuitem,nullptr);
+    menu->setPosition(Point::ZERO);
+    panel->addChild(menu);
+    
     
     auto spar = Sprite::createWithSpriteFrameName("icon_gem.png");
     spar->setPosition(Point(200,panelSize.height * 0.25f));
@@ -603,6 +678,7 @@ void Base::createFighterTopInfo(Node* panel)
         slash->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
         slash->setPosition(cost->getPosition()+Point(cost->getContentSize().width,0));
         panel->addChild(slash);
+        
         
         auto total = Label::createWithTTF(s_gameStrings.base->second,fontFile,fontSize);
         total->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
@@ -680,30 +756,64 @@ void Base::menuCallbackMedal(Ref *sender)
     log("menuCallbackMeadl");
     _topPanel->runAction(MoveBy::create(0.2f,Point(0,200)));
     _upgradePanel->runAction(MoveBy::create(0.2f,Point(0,-s_visibleRect.visibleHeight)));
-    _playerBag->runAction(Sequence::create( MoveBy::create(0.15f,Point(0,-150)),
+    _bottomPanel->runAction(Sequence::create( MoveBy::create(0.15f,Point(0,-150)),
                                            MoveBy::create(0.05f,Point(0,14)),nullptr ));
+    _curSelectedFlight->setVisible(false);
     auto medalLayer = Medal::create();
-    addChild(medalLayer);
+    addChild(medalLayer,4);
 }
 
 void Base::menuCallbackSetting(Ref *sender)
 {
     auto settingLayer = MenuSettings::create(GameInterface::Base);
-    addChild(settingLayer);
+    addChild(settingLayer,4);
 }
 
 void Base::menuCallbackBattle(Ref *sender)
 {
     _topPanel->runAction(MoveBy::create(0.2f,Point(0,200)));
     _upgradePanel->runAction(MoveBy::create(0.2f,Point(0,-s_visibleRect.visibleHeight)));
-    _playerBag->runAction(Sequence::create( MoveBy::create(0.15f,Point(0,-150)),
+    _bottomPanel->runAction(Sequence::create( MoveBy::create(0.15f,Point(0,-150)),
         MoveBy::create(0.05f,Point(0,14)),nullptr ));
+    _curSelectedFlight->setVisible(false);
     
     auto stageSelect = StageSelect::create();
-    this->addChild(stageSelect);
+    this->addChild(stageSelect,4);
 }
 
-void Base::menuCallbackUpgrade(Ref *sender)
+void Base::upgradeStoneSpeed(Ref* sender)
+{
+    showUpgradeUI(BasePanel::Toppanel);
+}
+
+void Base::upgradeStoneMax(Ref* sender)
+{
+    showUpgradeUI(BasePanel::MiddlePanel);
+}
+
+void Base::upgradeFlight(Ref* sender)
+{
+    showUpgradeUI(BasePanel::FlightPanel);
+}
+
+void Base::upgradeWeapon(Ref* sender)
+{
+    showUpgradeUI(BasePanel::WeaponPanel);
+
+}
+
+void Base::buyWeapon(Ref *sender)
+{
+
+}
+
+void Base::showUpgradeUI(BasePanel basePanel)
+{
+    auto layer = UpgradeUILayer::create(basePanel, _curSeletedIndex);
+    this->addChild(layer);
+}
+
+void Base::updatePanelStatus()
 {
     
 }

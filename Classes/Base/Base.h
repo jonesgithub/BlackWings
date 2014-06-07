@@ -4,6 +4,13 @@
 #include "PlayerBar.h"
 #include "extensions/cocos-ext.h"
 
+enum class BasePanel
+{
+    Toppanel,
+    MiddlePanel,
+    FlightPanel,
+    WeaponPanel
+};
 
 class Base : public cocos2d::Scene
 {
@@ -16,13 +23,22 @@ public:
     void menuCallbackSetting(Ref *sender);
     void menuCallbackBattle(Ref *sender);
     
-    void menuCallbackUpgrade(Ref *sender);
+    void upgradeStoneSpeed(Ref* sender);
+    void upgradeStoneMax(Ref* sender);
+    void upgradeFlight(Ref* sender);
+    void upgradeWeapon(Ref* sender);
+    
+    void buyWeapon(Ref* sender);
+    
+    void showUpgradeUI(BasePanel basePanel);
+    void updatePanelStatus();
     
 private:
     void createBase(Ref *sender);
     
     void createUpgrade();
     void createTopPanel();
+    void createBottomPanel();
     
     void createFighterBottomInfo(Node* panel, int t_index);
     void createWeaponBottomInfo(Node* panel, int t_index);
@@ -32,6 +48,7 @@ private:
     PlayerBar* _playerBag;
     Node* _upgradePanel;
     Node* _topPanel;
+    Node* _bottomPanel;
     
     bool _isInFilghtUpgradeUI;
     

@@ -57,6 +57,10 @@ bool PlayerMenuItem::init(Type playerType,int index)
             else
             {
                 sprintf(iconFileName,"plain_%d_lv_%d.png",index + 1,s_playerConfig.fighterslevel[index] + 1);
+                
+                auto stoneformake_text = TextSprite::create(Value(s_plainConfigs[index][s_playerConfig.fighterslevel[index]].sparForMake).asString().c_str(),GameConfig::defaultFontName,20);
+                stoneformake_text->setPosition(Point(44,25));
+                Node::addChild(stoneformake_text,3);
             }
             auto fighter = Sprite::createWithSpriteFrameName(iconFileName);
             fighter->setPosition(Point(44,76));
@@ -84,7 +88,47 @@ bool PlayerMenuItem::init(Type playerType,int index)
             weapon->setPosition(Point(size.width/2,76));
             weapon->setRotation(90);
             Node::addChild(weapon,1,0);
-            //disabledSprite = Sprite::createWithSpriteFrameName("item_4.png");
+            
+            auto count_text = TextSprite::create(s_gameStrings.base->weaponQuantity.c_str(),GameConfig::defaultFontName,20);
+            count_text->setPosition(Point(45,25));
+            Node::addChild(count_text,1);
+            
+            std::string fontFile = "arial.ttf";
+            int fontSize = 20;
+            
+            auto slash = Label::createWithTTF("/",fontFile,fontSize);
+            slash->setAnchorPoint(Point::ANCHOR_MIDDLE);
+            slash->setPosition(Point(size.width/2+15,25));
+            Node::addChild(slash,1);
+            
+            int weapon_countNum = 0;
+            int weapon_maxNum =0;
+            switch (index) {
+                case 0:
+                    weapon_countNum = s_playerConfig.starbomb;
+                    break;
+                case 1:
+                    weapon_countNum = s_playerConfig.laser;
+                    break;
+                case 2:
+                    weapon_countNum = s_playerConfig.blackhole;
+                    break;
+                default:
+                    break;
+            }
+            weapon_maxNum = s_weaponConfigs[index][s_playerConfig.weaponslevel[index]].capacity;
+            
+            auto countNum = Label::createWithTTF(Value(weapon_countNum).asString().c_str(),fontFile,fontSize);
+            countNum->setAnchorPoint(Point::ANCHOR_MIDDLE_RIGHT);
+            countNum->setPosition(Point(slash->getPositionX()-10,slash->getPositionY()));
+            Node::addChild(countNum);
+            
+            auto stoneTatalNum = Label::createWithTTF(Value(weapon_maxNum).asString().c_str(),fontFile,fontSize);
+            stoneTatalNum->setColor(Color3B::GRAY);
+            stoneTatalNum->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
+            stoneTatalNum->setPosition(Point(slash->getPositionX()+10,slash->getPositionY()));
+            Node::addChild(stoneTatalNum);
+
         }
     }
 

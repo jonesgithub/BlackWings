@@ -199,6 +199,23 @@ void GSBaseInit(GameLanguage language)
         s_gameStrings.base->sparRecoverRate = dict["sparRecoverRate"].asString();
         s_gameStrings.base->second = dict["second"].asString();
         
+        char str[30];
+        for (int i=0; i<6; ++i) {
+            sprintf(str, "flight_%d_name",i);
+            s_gameStrings.base->flightname[i] = dict[str].asString();
+        }
+        for (int i=0; i<3; ++i) {
+            sprintf(str, "weapon_%d_name",i);
+            s_gameStrings.base->weaponname[i] = dict[str].asString();
+        }
+        
+        s_gameStrings.base->stonespeed = dict["stonespeed"].asString();
+        s_gameStrings.base->stoneinit = dict["stoneinit"].asString();
+        s_gameStrings.base->stonemax = dict["stonemax"].asString();
+        s_gameStrings.base->useStone = dict["useStone"].asString();
+        s_gameStrings.base->buyusegem = dict["buyusegem"].asString();
+        s_gameStrings.base->buymax = dict["buymax"].asString();
+        
     }
 }
 

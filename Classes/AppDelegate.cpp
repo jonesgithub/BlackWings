@@ -13,12 +13,14 @@ bool AppDelegate::applicationDidFinishLaunching() {
         //glview = GLView::create("BlackWings");
         director->setOpenGLView(glview);
     }
-
+    
     auto frameSize = glview->getFrameSize();
 
     int width = frameSize.width;
 
     glview->setDesignResolutionSize(640, 960, ResolutionPolicy::SHOW_ALL);
+    
+    director->setDisplayStats(true);
 
     /*
     if (width > 320)

@@ -48,22 +48,96 @@ void GameConfig::readConfig()
     {
         //todo:把配置读入s_playerConfig
         
-        //        auto data = userDef->getDataForKey("bw");
-        //        auto importantData = data.getBytes();
-        //        auto levelStartIndex = FIGHTER_MAX * 2;
-        //        int index;
-        //        for (int i = 0; i < FIGHTER_MAX; ++i)
-        //        {
-        //            index = 2 * i;
-        //            fightersLocked[i] = importantData[index];
-        //            fightersLevle[i] = importantData[levelStartIndex + index];
-        //        }
-        //        auto weaponStartIndex = levelStartIndex * 2;
-        //        for (int j = 0; j < WEAPON_MAX; ++j)
-        //        {
-        //            index = 2 * j;
-        //            weaponsLevel[j] = importantData[weaponStartIndex + index];
-        //        }
+        auto data = userDef->getDataForKey("bw");
+        auto importantData = data.getBytes();
+        auto levelStartIndex = FIGHTER_MAX * 2;
+        int index;
+        for (int i = 0; i < FIGHTER_MAX; ++i)
+        {
+            index = 2 * i;
+            s_playerConfig.fighterslocked[i] = importantData[index];
+            s_playerConfig.fighterslevel[i] = importantData[levelStartIndex + index];
+        }
+        auto weaponStartIndex = levelStartIndex * 2;
+        for (int j = 0; j < WEAPON_MAX; ++j)
+        {
+            index = 2 * j;
+            s_playerConfig.weaponslevel[j] = importantData[weaponStartIndex + index];
+        }
+        
+        auto medallockedIndex = weaponStartIndex * 2;
+        
+        for (int i = 0; i < MEDAL_MAX; ++i)
+        {
+            index = 2 * i;
+            s_playerConfig.medallocked[i] = importantData[index];
+            s_playerConfig.medalget[i] = importantData[medallockedIndex + index];
+        }
+        
+        auto otherDataIndex = medallockedIndex * 2;
+        for (int i = 0; i < OTHER_DATA; ++i)
+        {
+            index = 2 * i;
+            
+            switch (i)
+            {
+                case 0:
+                    s_playerConfig.musicVolume = importantData[index];
+                    break;
+                case 1:
+                    s_playerConfig.sfxVolume = importantData[index];
+                    break;
+                case 2:
+                    s_playerConfig.language = importantData[index];
+                    break;
+                case 3:
+                     s_playerConfig.stone = importantData[index];
+                    break;
+                case 4:
+                    s_playerConfig.stoneMax = importantData[index];
+                    break;
+                case 5:
+                    s_playerConfig.gem = importantData[index];
+                    break;
+                case 6:
+                    s_playerConfig.starbomb = importantData[index];
+                    break;
+                case 7:
+                    s_playerConfig.laser = importantData[index];
+                    break;
+                case 8:
+                    s_playerConfig.blackhole = importantData[index];
+                    break;
+                case 9:
+                    s_playerConfig.killenemy = importantData[index];
+                    break;
+                case 10:
+                    s_playerConfig.usedweapon = importantData[index];
+                    break;
+                case 11:
+                    s_playerConfig.overstage = importantData[index];
+                    break;
+                case 12:
+                    s_playerConfig.killbigenemy = importantData[index];
+                    break;
+                case 13:
+                    s_playerConfig.firstkill = importantData[index];
+                    break;
+                case 14:
+                    s_playerConfig.unlockallfighter = importantData[index];
+                    break;
+                case 15:
+                    s_playerConfig.stonespeedlevel = importantData[index];
+                    break;
+                    
+                case 16:
+                    s_playerConfig.stonecapacitylevel = importantData[index];
+                    
+                default:
+                    break;
+            }
+            
+        }
     }
     
     CocosDenshion::SimpleAudioEngine::getInstance()->setEffectsVolume(s_playerConfig.musicVolume);
@@ -120,9 +194,10 @@ void GameConfig::initConfig()
     s_playerConfig.weaponslevel[1] = 0;
     s_playerConfig.weaponslevel[2] = 0;
 
-    for (int i=0; i<MEDAL_MAX; ++i) {
-    s_playerConfig.medallocked[i] = true;
-    s_playerConfig.medalget[i] = false;
+    for (int i=0; i<MEDAL_MAX; ++i)
+    {
+        s_playerConfig.medallocked[i] = true;
+        s_playerConfig.medalget[i] = false;
     }
     
     saveConfig();
@@ -134,32 +209,126 @@ void GameConfig::saveConfig()
     userDef->setFloatForKey("music",s_playerConfig.musicVolume);
     userDef->setFloatForKey("sfx",s_playerConfig.sfxVolume);
     userDef->setIntegerForKey("language",int(s_playerConfig.language));
-    //
-    //    auto importantDataSize = sizeof(unsigned char) * (FIGHTER_MAX + FIGHTER_MAX + WEAPON_MAX + 1) * 2;
-    //    auto importantData = (unsigned char*)malloc(importantDataSize);
-    //    auto levelStartIndex = FIGHTER_MAX * 2;
-    //    int index;
-    //    for (int i = 0; i < FIGHTER_MAX; ++i)
-    //    {
-    //        index = 2 * i;
-    //        importantData[index] = fightersLocked[i];
-    //        importantData[index + 1] = rand();
-    //
-    //        importantData[levelStartIndex + index] = fightersLevle[i];
-    //        importantData[levelStartIndex + index + 1] = rand();
-    //    }
-    //    auto weaponStartIndex = levelStartIndex * 2;
-    //    for (int j = 0; j < WEAPON_MAX; ++j)
-    //    {
-    //        index = 2 * j;
-    //        importantData[weaponStartIndex + index] = weaponsLevel[j];
-    //        importantData[weaponStartIndex + index + 1] = rand();
-    //    }
-    //
-    //    Data data;
-    //    data.fastSet(importantData,importantDataSize);
-    //
-    //    userDef->setDataForKey("bw",data);
+    
+    auto importantDataSize = sizeof(unsigned char) * (FIGHTER_MAX + FIGHTER_MAX + WEAPON_MAX + 1) * 2;
+    auto importantData = (unsigned char*)malloc(importantDataSize);
+    auto levelStartIndex = FIGHTER_MAX * 2;
+    int index;
+    for (int i = 0; i < FIGHTER_MAX; ++i)
+    {
+        index = 2 * i;
+        importantData[index] = s_playerConfig.fighterslocked[i];
+        importantData[index + 1] = rand();
+        
+        importantData[levelStartIndex + index] = s_playerConfig.fighterslevel[i];
+        importantData[levelStartIndex + index + 1] = rand();
+    }
+    auto weaponStartIndex = levelStartIndex * 2;
+    for (int j = 0; j < WEAPON_MAX; ++j)
+    {
+        index = 2 * j;
+        importantData[weaponStartIndex + index] = s_playerConfig.weaponslevel[j];
+        importantData[weaponStartIndex + index + 1] = rand();
+    }
+    
+    auto medallockedIndex = weaponStartIndex * 2;
+    
+    for (int i = 0; i < MEDAL_MAX; ++i)
+    {
+        index = 2 * i;
+        importantData[index] =  s_playerConfig.medallocked[i];
+        importantData[index + 1] = rand();
+        
+        importantData[medallockedIndex + index] = s_playerConfig.medalget[i];
+        importantData[medallockedIndex + index + 1] = rand();
+    }
+    
+    auto otherDataIndex = medallockedIndex * 2;
+    for (int i = 0; i < OTHER_DATA; ++i)
+    {
+        index = 2 * i;
+        
+        switch (i)
+        {
+            case 0:
+                importantData[otherDataIndex + index] = s_playerConfig.musicVolume;
+                importantData[otherDataIndex + index + 1] = rand();
+                break;
+            case 1:
+                importantData[otherDataIndex + index] = s_playerConfig.sfxVolume;
+                importantData[otherDataIndex + index + 1] = rand();
+                break;
+            case 2:
+                importantData[otherDataIndex + index] = s_playerConfig.language;
+                importantData[otherDataIndex + index + 1] = rand();
+                break;
+            case 3:
+                importantData[otherDataIndex + index] = s_playerConfig.stone;
+                importantData[otherDataIndex + index + 1] = rand();
+                break;
+            case 4:
+                importantData[otherDataIndex + index] = s_playerConfig.stoneMax;
+                importantData[otherDataIndex + index + 1] = rand();
+                break;
+            case 5:
+                importantData[otherDataIndex + index] = s_playerConfig.gem;
+                importantData[otherDataIndex + index + 1] = rand();
+                break;
+            case 6:
+                importantData[otherDataIndex + index] = s_playerConfig.starbomb;
+                importantData[otherDataIndex + index + 1] = rand();
+                break;
+            case 7:
+                importantData[otherDataIndex + index] = s_playerConfig.laser;
+                importantData[otherDataIndex + index + 1] = rand();
+                break;
+            case 8:
+                importantData[otherDataIndex + index] = s_playerConfig.blackhole;
+                importantData[otherDataIndex + index + 1] = rand();
+                break;
+            case 9:
+                importantData[otherDataIndex + index] = s_playerConfig.killenemy;
+                importantData[otherDataIndex + index + 1] = rand();
+                break;
+            case 10:
+                importantData[otherDataIndex + index] = s_playerConfig.usedweapon;
+                importantData[otherDataIndex + index + 1] = rand();
+                break;
+            case 11:
+                importantData[otherDataIndex + index] = s_playerConfig.overstage;
+                importantData[otherDataIndex + index + 1] = rand();
+                break;
+            case 12:
+                importantData[otherDataIndex + index] = s_playerConfig.killbigenemy;
+                importantData[otherDataIndex + index + 1] = rand();
+                break;
+            case 13:
+                importantData[otherDataIndex + index] = s_playerConfig.firstkill;
+                importantData[otherDataIndex + index + 1] = rand();
+                break;
+            case 14:
+                importantData[otherDataIndex + index] = s_playerConfig.unlockallfighter;
+                importantData[otherDataIndex + index + 1] = rand();
+                break;
+            case 15:
+                importantData[otherDataIndex + index] = s_playerConfig.stonespeedlevel;
+                importantData[otherDataIndex + index + 1] = rand();
+                break;
+          
+            case 16:
+                importantData[otherDataIndex + index] =  s_playerConfig.stonecapacitylevel;
+                importantData[otherDataIndex + index + 1] = rand();
+                
+            default:
+                break;
+        }
+
+    }
+    
+    Data data;
+    data.fastSet(importantData,importantDataSize);
+    
+    userDef->setDataForKey("bw",data);
 }
 
 
