@@ -21,6 +21,10 @@
 	<string>速度：</string>
 	<key>upgradeRange</key>
 	<string>射程：</string>
+    <key>upgradeDuration</key>
+	<string>持续时间：</string>
+    <key>upgradeBuy</key>
+	<string>购买</string>
 
 	<key>weaponQuantity</key>
 	<string>数量：</string>

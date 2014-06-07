@@ -92,6 +92,10 @@ bool PlayerMenuItem::init(Type playerType,int index)
                                                        CC_CALLBACK_1(PlayerMenuItem::activeCD_callback,this));
     _eventDispatcher->addEventListenerWithSceneGraphPriority(activeCDListener, this);
     
+    auto unselectedallListener = EventListenerCustom::create(GameConfig::eventunseletedall,
+                                                        CC_CALLBACK_1(PlayerMenuItem::unselectedall,this));
+    _eventDispatcher->addEventListenerWithSceneGraphPriority(unselectedallListener, this);
+    
     return ret;
 }
 
@@ -113,7 +117,7 @@ void PlayerMenuItem::activate()
             cd_progress->setBarChangeRate(Point(0, 1));
             cd_progress->setPosition(offset);
             Node::addChild(cd_progress,1,0);
-            cd_progress->runAction(Sequence::create(ProgressTo::create(3, 100),
+            cd_progress->runAction(Sequence::create(ProgressTo::create(cdtime, 100),
                                                     RemoveSelf::create(),
                                                     CallFunc::create([&]()
                                                                      {
@@ -121,6 +125,11 @@ void PlayerMenuItem::activate()
                                                                      }),
                                                     nullptr));
         }
+    }
+    else
+    {
+        _eventDispatcher->dispatchCustomEvent(GameConfig::eventunseletedall);
+        selected();
     }
     _eventDispatcher->dispatchCustomEvent(PlayerBar::eventPlayerSelect,(void*)typeIndex);
 }
@@ -143,7 +152,7 @@ void PlayerMenuItem::activeCD_callback(EventCustom* event)
                 cd_progress->setBarChangeRate(Point(0, 1));
                 cd_progress->setPosition(offset);
                 Node::addChild(cd_progress,1,0);
-                cd_progress->runAction(Sequence::create(ProgressTo::create(3, 100),
+                cd_progress->runAction(Sequence::create(ProgressTo::create(cdtime, 100),
                                                         RemoveSelf::create(),
                                                         CallFunc::create([&]()
                                                                          {
@@ -153,4 +162,9 @@ void PlayerMenuItem::activeCD_callback(EventCustom* event)
         }
     }
     
+}
+
+void PlayerMenuItem::unselectedall(EventCustom* event)
+{
+    unselected();
 }

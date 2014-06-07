@@ -18,6 +18,7 @@ const std::string GameConfig::eventStarbombHurt = "eventStarbombHurt";
 const std::string GameConfig::eventLaserHurt = "eventLaserHurt";
 const std::string GameConfig::eventBlackholeHurt = "eventBlackholeHurt";
 const std::string GameConfig::eventactiveCD = "eventactiveCD";
+const std::string GameConfig::eventunseletedall = "eventunseletedall";
 
 
 void GameConfig::lazyInit()

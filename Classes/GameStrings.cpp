@@ -190,6 +190,8 @@ void GSBaseInit(GameLanguage language)
         s_gameStrings.base->upgradeLife = dict["upgradeLife"].asString();
         s_gameStrings.base->upgradeSpd = dict["upgradeSpd"].asString();
         s_gameStrings.base->upgradeRange = dict["upgradeRange"].asString();
+        s_gameStrings.base->upgradeDuration = dict["upgradeDuration"].asString();
+        s_gameStrings.base->upgradeBuy = dict["upgradeBuy"].asString();
 
         s_gameStrings.base->weaponQuantity = dict["weaponQuantity"].asString();
         

@@ -63,6 +63,8 @@ typedef struct _baseStrings{
     std::string upgradeLife;
     std::string upgradeSpd;
     std::string upgradeRange;
+    std::string upgradeDuration;
+    std::string upgradeBuy;
 
     std::string weaponQuantity;
     

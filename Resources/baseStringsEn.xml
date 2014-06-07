@@ -23,6 +23,10 @@
 	<string>SPD:</string>
 	<key>upgradeRange</key>
 	<string>RANGE:</string>
+    <key>upgradeDuration</key>
+	<string>Duration：</string>
+    <key>upgradeBuy</key>
+	<string>BUY</string>
 	
 	<!-- 基地-武器 -->
 	<key>weaponQuantity</key>
