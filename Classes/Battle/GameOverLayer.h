@@ -24,6 +24,8 @@ public:
 
     void restartStage_callback(cocos2d::Ref* pSender);
     
+    void pausegame(float dt);
+    
 private:
     
     int _stage;

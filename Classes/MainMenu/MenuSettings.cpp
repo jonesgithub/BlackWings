@@ -329,6 +329,7 @@ void MenuSettings::sfxSliderEvent(Ref *sender, ui::SliderEventType type)
     s_playerConfig.sfxVolume = ((Slider*)sender)->getPercent() / 100.0f;
     CocosDenshion::SimpleAudioEngine::getInstance()->setEffectsVolume(s_playerConfig.sfxVolume);
 }
+
 void MenuSettings::pausegame(float dt)
 {
     Director::getInstance()->pause();
