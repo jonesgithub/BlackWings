@@ -28,7 +28,7 @@ bool RotateBall::initWithIdx(int idx)
     auto bk = Sprite::createWithSpriteFrameName("icon_planet_shadow.png");
     addChild(bk);
     auto size = bk->getContentSize();
-    CCLOG("size:%f, %f.", size.width, size.height);
+//    CCLOG("size:%f, %f.", size.width, size.height);
     
 //    Lens3D* lens = Lens3D::create(5, Size(86,86), Point(43,43), 43);
 //    

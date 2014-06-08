@@ -5,6 +5,7 @@
 #include "ui/CocosGUI.h"
 #include "CDItem.h"
 #include "Weapon.h"
+#include "PlayerBar.h"
 
 USING_NS_CC;
 
@@ -22,13 +23,33 @@ const Point CDItemsPos[8]=
     Point(300,240),Point(360,240),Point(420,240),Point(480,240)
 };
 
+//飞机坐标
 const Point FlightItemsPos[6]=
 {
     Point(65,70),Point(155,70),Point(245,70),Point(335,70),Point(425,70),Point(515,70)
 };
 
+//晶石、宝石坐标
 const Point StonePos = Point(80,180);
 const Point GemPos = Point(300,180);
+
+//战场数据
+typedef struct _battledata
+{
+    int stage;
+    int time;//即计时
+    int enemydead;
+    int bossdead;
+    int flightdead;
+    int playerbaseblood;
+    int curPlayerBase_Blood;
+    int enemybaseblood;
+    int curEnemyBase_Blood;
+    int curStone;
+    int maxStone;
+    
+    
+}BattleData;
 
 class Battleground : public cocos2d::Scene
 {
@@ -53,6 +74,13 @@ public:
     bool onTouchBegan(Touch* touch, Event* event);
     void onTouchMoved(Touch* touch, Event* event);
     void onTouchEnded(Touch* touch, Event* event);
+    
+    void add_stone(int stone);
+    bool reduce_stone(int stone);
+    void add_gem(int gem);
+    bool reduce_gem(int gem);
+    
+    BattleData _battledata;
     
 private:
     void createBattleground(Ref *sender);
@@ -104,8 +132,11 @@ private:
     
     Battleground();
     ~Battleground();
+    
 
     cocos2d::Node* _battleParallaxNode;
+    
+    PlayerBar* playerBag;
 
     //touch
     Point _touchBegan;
@@ -123,15 +154,15 @@ private:
 
     friend class Bullet;
     
-    int _stage;
+    //int _stage;
     
     Sprite* radarScreen;
     Sprite* radarChart;
     
-    int _playerBase_Blood;
-    int _curPlayerBase_Blood;
-    int _enemyBase_Blood;
-    int _curEnemyBase_Blood;
+    //int _playerBase_Blood;
+    //int _curPlayerBase_Blood;
+    //int _enemyBase_Blood;
+    //int _curEnemyBase_Blood;
     cocos2d::ui::LoadingBar* _playerBloodBar;
     cocos2d::ui::LoadingBar* _enemyBloodBar;
     
@@ -149,6 +180,9 @@ private:
     std::vector<Weapon*> s_Starbombs;
     std::vector<Weapon*> s_Lasers;
     std::vector<Weapon*> s_Blackholes;
+    
+    //cd位置是否被占用
+    bool isCDPosUsed[8];
 };
 
 #endif

@@ -38,6 +38,8 @@ typedef struct _mainMenuStrings
     std::string stageselect;
     std::string stagetext;
     std::string stage_fight;
+    
+    std::string battle_pause;
 }MainMenuStrings;
 
 typedef struct _helpInfoStrings{

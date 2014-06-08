@@ -58,7 +58,7 @@ bool Weapon::initWeapon(WeaponType weapontype, const cocos2d::Point& pos)
     auto target = Sprite::createWithSpriteFrameName("targetPosition.png");
     target->setAnchorPoint(Point::ANCHOR_MIDDLE);
     target->setPosition(_pos);
-    target->setScale(1.5f);
+    target->setScale(3.0f);
     target->setOpacity(0);
     this->addChild(target);
     
@@ -66,8 +66,8 @@ bool Weapon::initWeapon(WeaponType weapontype, const cocos2d::Point& pos)
                                        Spawn::create(
                                                      FadeIn::create(0.5f),
                                                      ScaleTo::create(0.5f, 1.0f),
+                                                     RotateBy::create(0.5f, 180),
                                                      nullptr),
-                                       RotateBy::create(0.5f, 180),
                                        CallFunc::create([this](){createWeapon();}),
                                        RemoveSelf::create(),
                                        nullptr));

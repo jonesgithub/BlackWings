@@ -4,6 +4,9 @@
 #include "TextSprite.h"
 #include "MenuItemImageLabel.h"
 #include "ui/CocosGUI.h"
+#include "Battleground.h"
+
+extern Battleground* s_battleground;
 
 USING_NS_CC;
 using namespace cocos2d::ui;
@@ -31,6 +34,8 @@ public:
 
     void musicSliderEvent(Ref *sender, ui::SliderEventType type);
     void sfxSliderEvent(Ref *sender, ui::SliderEventType type);
+    
+    void pausegame(float dt);
 
 private:
     void createSlider();

@@ -22,7 +22,11 @@ PlayerMenuItem* PlayerMenuItem::create(Type type,int index)
 }
 
 PlayerMenuItem::PlayerMenuItem()
-: _label(nullptr)
+: _label(nullptr),
+flight_avaliable(nullptr),
+weapon_avaliable(nullptr),
+_isInProgress(false),
+_isLocked(true)
 {
     
 }
@@ -53,6 +57,7 @@ bool PlayerMenuItem::init(Type playerType,int index)
             {
                 sprintf(iconFileName,"icon_lock.png");
                 this->setEnabled(false);
+                _isLocked = true;
             }
             else
             {
@@ -61,6 +66,7 @@ bool PlayerMenuItem::init(Type playerType,int index)
                 stoneformake_text = TextSprite::create(Value(s_plainConfigs[index][s_playerConfig.fighterslevel[index]].sparForMake).asString().c_str(),GameConfig::defaultFontName,20);
                 stoneformake_text->setPosition(Point(44,25));
                 Node::addChild(stoneformake_text,3);
+                _isLocked = false;
             }
             auto fighter = Sprite::createWithSpriteFrameName(iconFileName);
             fighter->setPosition(Point(44,76));
@@ -69,6 +75,8 @@ bool PlayerMenuItem::init(Type playerType,int index)
     } 
     else
     {
+        _isLocked = false;
+        
         typeIndex = FIGHTER_MAX + index;
         auto interval = (s_visibleRect.visibleWidth - 40 - 65) / WEAPON_MAX;
         auto size = Size(interval - 30,131);
@@ -134,6 +142,14 @@ bool PlayerMenuItem::init(Type playerType,int index)
                                                                 CC_CALLBACK_1(PlayerMenuItem::updateWeaponData,this));
     _eventDispatcher->addEventListenerWithSceneGraphPriority(updateWeaponDataListener, this);
     
+    auto flightAvaliableListener = EventListenerCustom::create(GameConfig::eventFlightAvaliable,
+                                                                CC_CALLBACK_1(PlayerMenuItem::checkFlightAvaliable,this));
+    _eventDispatcher->addEventListenerWithSceneGraphPriority(flightAvaliableListener, this);
+    
+    auto weaponAvaliableListener = EventListenerCustom::create(GameConfig::eventWeaponAvaliable,
+                                                                CC_CALLBACK_1(PlayerMenuItem::checkWeaponAvaliable,this));
+    _eventDispatcher->addEventListenerWithSceneGraphPriority(weaponAvaliableListener, this);
+    
     return ret;
 }
 
@@ -143,25 +159,33 @@ void PlayerMenuItem::activate()
     //
     if(s_gameConfig.isInBattle)
     {
-        if (_type == Type::Fighter) {
-            setEnabled(false);
-            auto cd_sprite = Sprite::createWithSpriteFrameName("item_4.png");
-            auto offset = Point(44,65);
-            auto cdtime = s_plainConfigs[_index][s_playerConfig.fighterslevel[_index]].cd;
-            cd_sprite->setOpacity(200);
-            auto cd_progress = ProgressTimer::create(cd_sprite);
-            cd_progress->setType(ProgressTimer::Type::RADIAL);
-            cd_progress->setMidpoint(Point(0.5f, 0.5f));
-            cd_progress->setBarChangeRate(Point(0, 1));
-            cd_progress->setPosition(offset);
-            Node::addChild(cd_progress,1,0);
-            cd_progress->runAction(Sequence::create(ProgressTo::create(cdtime, 100),
-                                                    RemoveSelf::create(),
-                                                    CallFunc::create([&]()
-                                                                     {
-                                                                         setEnabled(true);
-                                                                     }),
-                                                    nullptr));
+        if (_type == Type::Fighter)
+        {
+            if(s_battleground->_battledata.curStone >= s_plainConfigs[_index][s_playerConfig.fighterslevel[_index]].sparForMake)
+            {
+                s_battleground->reduce_stone(s_plainConfigs[_index][s_playerConfig.fighterslevel[_index]].sparForMake);
+                
+                setEnabled(false);
+                auto cd_sprite = Sprite::createWithSpriteFrameName("item_4.png");
+                auto offset = Point(44,65);
+                auto cdtime = s_plainConfigs[_index][s_playerConfig.fighterslevel[_index]].cd;
+                cd_sprite->setOpacity(200);
+                auto cd_progress = ProgressTimer::create(cd_sprite);
+                cd_progress->setType(ProgressTimer::Type::RADIAL);
+                cd_progress->setMidpoint(Point(0.5f, 0.5f));
+                cd_progress->setBarChangeRate(Point(0, 1));
+                cd_progress->setPosition(offset);
+                Node::addChild(cd_progress,1,99);
+                _isInProgress = true;
+                cd_progress->runAction(Sequence::create(ProgressTo::create(cdtime, 100),
+                                                        RemoveSelf::create(),
+                                                        CallFunc::create([&]()
+                                                                         {
+                                                                             _isInProgress = false;
+                                                                             setEnabled(true);
+                                                                         }),
+                                                        nullptr));
+            }
         }
     }
     else
@@ -190,10 +214,12 @@ void PlayerMenuItem::activeCD_callback(EventCustom* event)
                 cd_progress->setBarChangeRate(Point(0, 1));
                 cd_progress->setPosition(offset);
                 Node::addChild(cd_progress,1,0);
+                _isInProgress = true;
                 cd_progress->runAction(Sequence::create(ProgressTo::create(cdtime, 100),
                                                         RemoveSelf::create(),
                                                         CallFunc::create([&]()
                                                                          {
+                                                                             _isInProgress = false;
                                                                              setEnabled(true);
                                                                          }),
                                                         nullptr));            }
@@ -223,7 +249,7 @@ void PlayerMenuItem::updateFlightData(EventCustom* event)
 void PlayerMenuItem::updateWeaponData(EventCustom* event)
 {
     int index = (uintptr_t)event->getUserData();
-    if(!s_gameConfig.isInBattle)
+    //if(!s_gameConfig.isInBattle)
     {
         if (_type == Type::Weapon && _index == index)
         {
@@ -232,3 +258,57 @@ void PlayerMenuItem::updateWeaponData(EventCustom* event)
         }
     }
 }
+
+void PlayerMenuItem::checkFlightAvaliable(EventCustom* event)
+{
+    if(s_gameConfig.isInBattle && _type == Type::Fighter && !_isLocked && !_isInProgress)
+    {
+        int have = (uintptr_t)event->getUserData();
+        int cost = s_plainConfigs[_index][s_playerConfig.fighterslevel[_index]].sparForMake;
+        if (have<cost) {
+            if (!flight_avaliable)
+            {
+                setEnabled(false);
+                flight_avaliable = Sprite::createWithSpriteFrameName("item_4.png");
+                flight_avaliable->setOpacity(200);
+                flight_avaliable->setPosition(Point(44,65));
+                Node::addChild(flight_avaliable,88);
+            }
+        }
+        else
+        {
+            if(flight_avaliable)
+            {
+                setEnabled(true);
+                Node::removeChild(flight_avaliable);
+                flight_avaliable = nullptr;
+            }
+        }
+    }
+}
+
+void PlayerMenuItem::checkWeaponAvaliable(EventCustom* event)
+{
+    if(s_gameConfig.isInBattle && _type == Type::Weapon && !_isLocked && !_isInProgress)
+    {
+        int count = s_playerConfig.weaponCount[_index];
+        if (count<=0) {
+            if (!weapon_avaliable)
+            {
+                setEnabled(false);
+                weapon_avaliable = Sprite::createWithSpriteFrameName("itemB_4.png");
+                weapon_avaliable->setOpacity(200);
+                weapon_avaliable->setPosition(Point(80,65));
+                Node::addChild(weapon_avaliable,88);
+            }
+        }
+        else
+        {
+            if(weapon_avaliable)
+            {
+                setEnabled(true);
+                removeChild(weapon_avaliable);
+                weapon_avaliable = nullptr;
+            }
+        }
+    }}

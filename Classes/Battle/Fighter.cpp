@@ -214,7 +214,7 @@ void Fighter::attackLocations(Point& pos,Player* target)
     this->schedule(schedule_selector(Fighter::fire),3.0f);
 
     //this->runAction(RotateTo::create(0.2f,_position.getAngle(_attTargetPos) * 180));
-    log("ang:%f",_position.getAngle(_attTargetPos) * 180);
+//    log("ang:%f",_position.getAngle(_attTargetPos) * 180);
     
     if(_attacker == Attacker::TOWER && gun)
     {
@@ -233,7 +233,7 @@ void Fighter::fire(float dt)
             bullet->setPosition(_position);
             _parent->addChild(bullet);
             bullet->attackLocations(_attTargetPos,_attTarget);
-            log("fire_pos:%f,%f",_attTargetPos.x,_attTargetPos.y);
+//            log("fire_pos:%f,%f",_attTargetPos.x,_attTargetPos.y);
         }
             break;
         case Attacker::BOSS:
@@ -242,7 +242,7 @@ void Fighter::fire(float dt)
             bullet->setPosition(_position);
             _parent->addChild(bullet);
             bullet->attackLocations(_attTargetPos,_attTarget);
-            log("fire_pos:%f,%f",_attTargetPos.x,_attTargetPos.y);
+//            log("fire_pos:%f,%f",_attTargetPos.x,_attTargetPos.y);
         }
             break;
         case Attacker::TOWER:
@@ -251,7 +251,7 @@ void Fighter::fire(float dt)
             bullet->setPosition(_position);
             _parent->addChild(bullet);
             bullet->attackLocations(_attTargetPos,_attTarget);
-            log("fire_pos:%f,%f",_attTargetPos.x,_attTargetPos.y);
+//            log("fire_pos:%f,%f",_attTargetPos.x,_attTargetPos.y);
         }
             break;
         case Attacker::PLAIN:

@@ -24,6 +24,7 @@ public:
     void update(float dt);
     
     bool _isMove;
+    int _pos;
     
 private:
     

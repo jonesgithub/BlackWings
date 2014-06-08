@@ -78,6 +78,9 @@ void GSMainMenuInit(GameLanguage language)
         s_gameStrings.mainMenu->stageselect = dict["stage_select"].asString();
         s_gameStrings.mainMenu->stagetext = dict["stage_text"].asString();
         s_gameStrings.mainMenu->stage_fight = dict["stage_fight"].asString();
+        
+        s_gameStrings.mainMenu->battle_pause = dict["battle_pause"].asString();
+
     }
 }
 

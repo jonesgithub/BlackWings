@@ -107,6 +107,8 @@ public:
     const static std::string eventUpdateMenuItemWeaponData;
     const static std::string eventShowWeaponMenu;
     const static std::string eventShowHideMedalLogo;
+    const static std::string eventFlightAvaliable;
+    const static std::string eventWeaponAvaliable;
     
     void lazyInit();
     
@@ -171,6 +173,8 @@ typedef struct _enemyConfig
     int speed;
     int defense;
     int range;
+    int deadlossstone;//死亡丢失晶石
+    int deadlossgem;//死亡丢失宝石
 }EnemyConfig;
 
 extern EnemyConfig s_enemyConfigs[ENEMY_MAX][ENEMY_LEVEL_MAX];
