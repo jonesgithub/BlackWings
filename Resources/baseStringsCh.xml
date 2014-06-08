@@ -60,16 +60,25 @@
     
     <!-- upgrade ui -->
     <key>stonespeed</key>
-    <string>晶石回复速度</string>
+    <string>晶石回复速度:</string>
     <key>stoneinit</key>
-    <string>战役初始晶石</string>
+    <string>战役初始晶石:</string>
     <key>stonemax</key>
-    <string>晶石最大容量</string>
+    <string>晶石最大容量:</string>
     <key>useStone</key>
-    <string>消耗晶石</string>
+    <string>消耗晶石:</string>
     <key>buyusegem</key>
-    <string>购买需要宝石</string>
+    <string>购买需要宝石:</string>
     <key>buymax</key>
-    <string>携带上限</string>
-   
+    <string>携带上限:</string>
+    
+    <!--  no gem-->
+    <key>nogemcannotbuy</key>
+    <string>没有足够的宝石了！击落敌机或者完成关卡都可以获得宝石奖励！加油吧</string>
+    <key>nogemcanbuy</key>
+    <string>宝石不够了，要买一点么？</string>
+    
+    <!-- buygem -->
+    <key>getmoregem</key>
+    <string>获得更多</string>
 </dict>

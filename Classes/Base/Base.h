@@ -3,6 +3,8 @@
 #include "cocos2d.h"
 #include "PlayerBar.h"
 #include "extensions/cocos-ext.h"
+#include "TextSprite.h"
+#include "MenuItemImageLabel.h"
 
 enum class BasePanel
 {
@@ -31,7 +33,9 @@ public:
     void buyWeapon(Ref* sender);
     
     void showUpgradeUI(BasePanel basePanel);
-    void updatePanelStatus();
+    
+    virtual void onEnter();
+    virtual void onExit();
     
 private:
     void createBase(Ref *sender);
@@ -45,6 +49,10 @@ private:
     void createFighterMiddleInfo(Node* panel);
     void createFighterTopInfo(Node* panel);
     
+    void showGemTip(int num, bool isCost);
+    
+    void showOrHideMedalLogo(EventCustom* event);
+    
     PlayerBar* _playerBag;
     Node* _upgradePanel;
     Node* _topPanel;
@@ -57,7 +65,22 @@ private:
     
     cocos2d::extension::Scale9Sprite* upgradeFighter;
     
-    Node * _fighterPic;
+    MenuItemImageLabel* medalItem;
+    Sprite* medalLogo;
+    
+    cocos2d::Label* top_level;
+    cocos2d::Label* top_speed;
+    cocos2d::Label* top_leveUpCost;
+    cocos2d::Label* top_plus;
+    cocos2d::Label* top_slash;
+    TextSprite* top_second;
+    
+    cocos2d::Label* middle_level;
+    cocos2d::Label* middle_init;
+    cocos2d::Label* middle_slash;
+    cocos2d::Label* middle_total;
+    cocos2d::Label* middle_leveUpCost;
+
     
     cocos2d::Label * _flight_level_label;
     cocos2d::Label * _flight_life_label;
@@ -72,5 +95,6 @@ private:
     cocos2d::Label* _weapon_duration_label;
     cocos2d::Label* _weapon_upgradeforgem_label;
     cocos2d::Label* _weapon_costgem_label;
+    TextSprite* _buy_gem;
 
 };

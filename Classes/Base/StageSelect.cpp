@@ -16,7 +16,6 @@ bool StageSelect::init()
     if (Layer::init())
     {
         selected_cell = nullptr;
-        s_playerConfig.overstage = 20;
         _selectItem = s_playerConfig.overstage;
         _noTouch = true ;
         
@@ -280,7 +279,7 @@ Node* StageSelect::getItemNode(int i)
     item->addChild(stage_text);
     
     //set new state
-    CCLOG("--stage is: %d, idx: %d.", s_playerConfig.overstage, i);
+//    CCLOG("--stage is: %d, idx: %d.", s_playerConfig.overstage, i);
     if (s_playerConfig.overstage != i) {
         auto sp_new = Sprite::createWithSpriteFrameName("icon_new.png");
         addChild(sp_new);

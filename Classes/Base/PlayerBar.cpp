@@ -129,15 +129,28 @@ bool PlayerBar::init()
     sparNum->setColor(Color3B(255,255,0));
     this->addChild(sparNum,2);
     
-//    auto listener = EventListenerCustom::create(PlayerBar::eventPlayerSelect, [=](EventCustom* event)
-//                                                {
-//                                                    stoneNum->setString( PersonalApi::convertIntToString(s_playerConfig.stone).c_str());
-//                                                    stoneNum->setPosition(Point(slash->getPositionX()-10,slash->getPositionY()));
-//                                                    stoneTatalNum->setString(PersonalApi::convertIntToString(s_playerConfig.stoneMax).c_str());
-//                                                    stoneTatalNum->setPosition(Point(slash->getPositionX()+10,slash->getPositionY()));
-//                                                    sparNum->setString(PersonalApi::convertIntToString(s_playerConfig.gem).c_str());
-//                                                });
-//    _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
+    if(s_playerConfig.overstage >= STAGEOFCANBUYGEM)
+    {
+        auto menuitem_getmore = MenuItemImageLabel::createWithFrameName("bt_buy_gem_0.png", "bt_buy_gem_1.png", CC_CALLBACK_1(PlayerBar::getmoregem, this),s_gameStrings.base->getmoregem);
+        menuitem_getmore->setColor(Color3B::YELLOW);
+        menuitem_getmore->setAnchorPoint(Point::ANCHOR_MIDDLE_RIGHT);
+        menuitem_getmore->setPosition(gemIcon->getPositionX()+gemIcon->getContentSize().width+280,gemIcon->getPositionY());
+        
+        auto menu_getmore = Menu::create(menuitem_getmore, nullptr);
+        menu_getmore->setPosition(Point::ZERO);
+        this->addChild(menu_getmore,2);
+    }
+    
+    auto listener = EventListenerCustom::create(GameConfig::eventShowWeaponMenu, [=](EventCustom* event)
+                                                {
+                                                    if (_showFighter)
+                                                    {
+                                                        _showFighter = false;
+                                                        _playerMenu->runAction(Sequence::create( MoveBy::create(0.25f,Point(-s_visibleRect.visibleWidth,0)),
+                                                                                                MoveBy::create(0.1f,Point(30,0)), nullptr) );
+                                                    }
+                                                });
+    _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
 
     return true;
 }
@@ -171,4 +184,9 @@ void PlayerBar::setStoneMax(int num)
 void PlayerBar::setGem(int num)
 {
     sparNum->setString(Value(num).asString().c_str());
+}
+
+void PlayerBar::getmoregem(Ref *sender)
+{
+    //enter buy gem ui.
 }

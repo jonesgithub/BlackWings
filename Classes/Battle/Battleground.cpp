@@ -15,7 +15,6 @@ Battleground* s_battleground = nullptr;
 
 Battleground::Battleground()
 {
-    _stage = 0;
     _maxWaves = 0;
     _curWaves = 0;
     _isGameOver = false;
@@ -97,8 +96,22 @@ bool Battleground::init(int stage)
         this->addChild(loadLayer);
         loadLayer->startLoad();
         
-        _stage = stage;
+        //初始化战场数据
+        _battledata.stage = stage;
+        _battledata.time = 0;
+        _battledata.enemydead = 0;
+        _battledata.bossdead = 0;
+        _battledata.flightdead = 0;
+        _battledata.curPlayerBase_Blood =  _battledata.playerbaseblood = s_playerBaseBlood[stage];
+        _battledata.curEnemyBase_Blood = _battledata.enemybaseblood = s_enemyBaseBlood[stage];
+        _battledata.curStone = s_stoneCapacity[s_playerConfig.stonecapacitylevel].initstone;
+        _battledata.maxStone = s_stoneCapacity[s_playerConfig.stonecapacitylevel].maxstone;
+        
+        
         s_gameConfig.isInBattle = true ;
+        for (int i=0; i<8; ++i) {
+            isCDPosUsed[i] = false;
+        }
 
         return true;
     }
@@ -116,17 +129,28 @@ void Battleground::eventCallbackPlayerSelect(EventCustom* event)
         _readytouseWeapon = false;
         showuseweapontip(false);
         
+        int t_pos = 8;
+        for (int i=0; i<8; ++i) {
+            if (!isCDPosUsed[i]) {
+                t_pos =i;
+                break;
+            }
+        }
+        //no pos can use
+        if (t_pos == 8) return;
+        
         _indexOfChooseFlight = index;
         auto cditem = CDItem::create(index, CC_CALLBACK_1(Battleground::createFlight, this));
         cditem->setAnchorPoint(Point::ANCHOR_MIDDLE);
         cditem->setPosition(FlightItemsPos[index]);
         this->addChild(cditem);
         
+        cditem->_pos = t_pos;
+        isCDPosUsed[t_pos] = true;
+        
         auto movedone = CallFunc::create([=](){cditem->_isMove = false;});
-        log("s_cditems.size() is %d",s_cditems.size());
-        auto show = Sequence::create(ScaleTo::create(0.2f, 0.7f), MoveTo::create(0.2f, CDItemsPos[s_cditems.size()]), movedone, nullptr);
+        auto show = Sequence::create(ScaleTo::create(0.2f, 0.7f), MoveTo::create(0.2f, CDItemsPos[t_pos]), movedone, nullptr);
         cditem->runAction(show);
-        s_cditems.push_back(cditem);
         
         
 //        showStoneAndGem(Point(500,800), 3, 2, 100, 20);
@@ -151,30 +175,38 @@ void Battleground::eventCallbackPlayerSelect(EventCustom* event)
 
 void Battleground::callbackResortCDItems(EventCustom* event)
 {
-    int curpos = 0;
+//    int curpos = 0;
+//    CDItem* cditem = (CDItem*)event->getUserData();
+//    for (int i = 0; i < s_cditems.size(); ++i) {
+//        if(cditem == s_cditems.at(i))
+//        {
+//            curpos=i;
+//        }
+//    }
+//    
+//    const auto& it = std::find(s_cditems.begin(),s_cditems.end(),cditem);
+//    if (it != s_cditems.end())
+//    {
+//        s_cditems.erase(it);
+//    }
+//    
+//    for (int i = curpos; i<s_cditems.size(); ++i)
+//    {
+//        CDItem* t_cditem = s_cditems.at(i);
+//        if(!t_cditem->_isMove)
+//            t_cditem->_isMove = true;
+//        t_cditem->runAction(Sequence::create(MoveTo::create(0.2f, CDItemsPos[i]), CallFunc::create([&](){
+//            if(cditem)
+//                cditem->_isMove = false;}),
+//                                             nullptr));
+//    }
+    
     CDItem* cditem = (CDItem*)event->getUserData();
-    for (int i = 0; i < s_cditems.size(); ++i) {
-        if(cditem == s_cditems.at(i))
-        {
-            curpos=i;
-        }
-    }
+    isCDPosUsed[cditem->_pos] = false;
     
-    const auto& it = std::find(s_cditems.begin(),s_cditems.end(),cditem);
-    if (it != s_cditems.end())
-    {
-        s_cditems.erase(it);
-    }
-    
-    for (int i = curpos; i<s_cditems.size(); ++i)
-    {
-        CDItem* t_cditem = s_cditems.at(i);
-        if(!t_cditem->_isMove)
-            t_cditem->_isMove = true;
-            t_cditem->runAction(Sequence::create(MoveTo::create(0.2f, CDItemsPos[i]), CallFunc::create([&](){cditem->_isMove = false;}),nullptr));
-    }
 }
 
+//创建飞机
 void Battleground::createFlight(Ref* sender)
 {
     auto player = Fighter::createPlain(_indexOfChooseFlight);
@@ -185,6 +217,7 @@ void Battleground::createFlight(Ref* sender)
     s_players.push_back(player);
 }
 
+//创建战场
 void Battleground::createBattleground(Ref *sender)
 {
     this->removeChild((LoadResourceLayer*)sender,true);
@@ -204,7 +237,7 @@ void Battleground::createBattleground(Ref *sender)
 
     createHealthBar();
 
-    auto playerBag = PlayerBar::create();
+    playerBag = PlayerBar::create();
     this->addChild(playerBag);
 
     this->schedule(schedule_selector(Battleground::battleLoop), 0.1f);
@@ -213,6 +246,7 @@ void Battleground::createBattleground(Ref *sender)
 
     createAnimations();
     
+    //初始化敌人配置
     initEnemyDispatcher();
 }
 
@@ -258,9 +292,9 @@ void Battleground::createListener()
 
 void Battleground::initEnemyDispatcher()
 {
-    initNormalEnemy();
-    initTowerEnemy();
-    initBossEnemy();
+//    initNormalEnemy();
+//    initTowerEnemy();
+//    initBossEnemy();
 }
 
 void Battleground::battleLoop(float dt)
@@ -278,6 +312,13 @@ void Battleground::battleLoop(float dt)
         towerFindTarget();
         
         weaponFindTarget();
+        
+        _eventDispatcher->dispatchCustomEvent(GameConfig::eventFlightAvaliable,(void*)_battledata.curStone);
+        _eventDispatcher->dispatchCustomEvent(GameConfig::eventWeaponAvaliable);
+        
+        _battledata.time++;
+        if(_battledata.time%10 == 0)
+            add_stone(s_stoneSpeed[s_playerConfig.stonespeedlevel].speed);
     }
 }
 
@@ -660,8 +701,8 @@ void Battleground::createHealthBar()
     this->addChild(bar);
 
     auto itemPause = MenuItemImageLabel::createWithFrameName("battle_pause_0.png","battle_pause_1.png",
-        CC_CALLBACK_1(Battleground::menuCallbackPause,this),s_gameStrings.mainMenu->settings,
-        "Arial",16);
+        CC_CALLBACK_1(Battleground::menuCallbackPause,this),s_gameStrings.mainMenu->battle_pause,
+        "Arial",20);
     itemPause->setAnchorPoint(Point::ANCHOR_MIDDLE_TOP);
     itemPause->setPosition(s_visibleRect.top);
 
@@ -694,12 +735,6 @@ void Battleground::createHealthBar()
     _enemyBloodBar->setPositionY(3);
     _enemyBloodBar->setAnchorPoint(Point::ANCHOR_BOTTOM_LEFT);
     _enmeyBkBar->addChild(_enemyBloodBar);
-
-    //初始化基地血量
-    _curEnemyBase_Blood = _enemyBase_Blood = s_enemyBaseBlood[_stage];
-    _curPlayerBase_Blood = _playerBase_Blood = s_playerBaseBlood[_stage];
-    
-    //_battleParallaxNode->addChild(bar,1,Point(1,1),Point(s_visibleRect.center.x,s_visibleRect.visibleHeight * 3));
 }
 
 void Battleground::menuCallbackPause(Ref *sender)
@@ -728,7 +763,7 @@ void Battleground::createRadarChart()
         s_visibleRect.top.y - 50 - radarChart->getContentSize().height));
     this->addChild(stageTextBox);
     
-    std::string str = "STAGE" + Value(_stage).asString();
+    std::string str = "STAGE" + Value(_battledata.stage).asString();
     auto stageText = Label::createWithTTF(str,"arial.ttf",12);
     stageText->setAnchorPoint(Point::ANCHOR_MIDDLE);
     stageText->setPosition(Point(stageTextBox->getContentSize().width/2,stageTextBox->getContentSize().height/2));
@@ -745,7 +780,7 @@ bool Battleground::onTouchBegan(Touch* touch, Event* event)
 void Battleground::onTouchMoved(Touch* touch, Event* event)
 {
     auto op = _battleParallaxNode->getPosition();
-    log("op.y==========%f",op.y);
+//    log("op.y==========%f",op.y);
     op.y += touch->getLocation().y - touch->getPreviousLocation().y;
     if (op.y < s_visibleRect.visibleHeight - _battlegroundHeight)
     {
@@ -794,6 +829,9 @@ void Battleground::callbackPlayerDestroy(EventCustom* event)
 {
     Fighter* player = (Fighter*)event->getUserData();
 
+    int get_stone = 0;
+    int get_gem = 0;
+    Point pos = player->getPosition();
     switch (player->_attacker)
     {
         case Attacker::ENEMY:
@@ -802,6 +840,10 @@ void Battleground::callbackPlayerDestroy(EventCustom* event)
             if (it != s_enemys.end())
             {
                 s_enemys.erase(it);
+                _battledata.enemydead++;
+                s_playerConfig.killenemy++;
+                get_stone = player->enemyConfig.deadlossstone;
+                get_gem = player->enemyConfig.deadlossgem;
             }
             break;
         }
@@ -811,6 +853,10 @@ void Battleground::callbackPlayerDestroy(EventCustom* event)
             if (it != s_boss.end())
             {
                 s_boss.erase(it);
+                _battledata.bossdead++;
+                s_playerConfig.killbigenemy++;
+                get_stone = player->bossConfig.deadlossstone;
+                get_gem = player->bossConfig.deadlossgem;
             }
             break;
         }
@@ -820,6 +866,10 @@ void Battleground::callbackPlayerDestroy(EventCustom* event)
             if (it != s_towers.end())
             {
                 s_towers.erase(it);
+                _battledata.enemydead++;
+                s_playerConfig.killenemy++;
+                get_stone = player->towerConfig.deadlossstone;
+                get_gem = player->towerConfig.deadlossgem;
             }
             break;
         }
@@ -829,6 +879,7 @@ void Battleground::callbackPlayerDestroy(EventCustom* event)
             if (it != s_players.end())
             {
                 s_players.erase(it);
+                _battledata.flightdead++;
             }
             break;
         }
@@ -840,8 +891,12 @@ void Battleground::callbackPlayerDestroy(EventCustom* event)
     {
         auto explode = Sprite::create();
         auto action = Sequence::create(Animate::create(s_battleground->explode_C),
-            CallFuncN::create([](Node* sender){
-                sender->removeFromParentAndCleanup(true);
+            CallFuncN::create([=](Node* sender){
+            if(get_stone || get_gem)
+            {
+                this->showStoneAndGem(pos, 2, 2, get_stone, get_gem);
+            }
+            sender->removeFromParentAndCleanup(true);
         }),nullptr);
         explode->runAction(action);
         explode->setPosition(player->getPosition());
@@ -899,18 +954,18 @@ void Battleground::showPotInRadar()
 
 void Battleground::initNormalEnemy()
 {
-    _maxWaves = s_battleNormalEnemyInfo[_stage].waves;
+    _maxWaves = s_battleNormalEnemyInfo[_battledata.stage].waves;
     _curWaves = 0;
-    this->scheduleOnce(schedule_selector(Battleground::dispatchEnemys_1),(*(s_battleNormalEnemyInfo[_stage]._bnec+_curWaves)).duration);
+    this->scheduleOnce(schedule_selector(Battleground::dispatchEnemys_1),(*(s_battleNormalEnemyInfo[_battledata.stage]._bnec+_curWaves)).duration);
 }
 
 void Battleground::initTowerEnemy()
 {
-    for(int i=0; i<s_battleTowerEnemyInfo[_stage].counts; ++i)
+    for(int i=0; i<s_battleTowerEnemyInfo[_battledata.stage].counts; ++i)
     {
-        int level = (*(s_battleTowerEnemyInfo[_stage]._btec+i)).level;
-        int x = (*(s_battleTowerEnemyInfo[_stage]._btec+i)).x;
-        int y =(*(s_battleTowerEnemyInfo[_stage]._btec+i)).y;
+        int level = (*(s_battleTowerEnemyInfo[_battledata.stage]._btec+i)).level;
+        int x = (*(s_battleTowerEnemyInfo[_battledata.stage]._btec+i)).x;
+        int y =(*(s_battleTowerEnemyInfo[_battledata.stage]._btec+i)).y;
         
         //todo:create tower
         auto tower = Fighter::createTower(level);
@@ -926,16 +981,16 @@ void Battleground::initTowerEnemy()
 
 void Battleground::initBossEnemy()
 {
-    if(s_battleBossEnemyInfo[_stage].duration!=0)
+    if(s_battleBossEnemyInfo[_battledata.stage].duration!=0)
     {
-        this->schedule(schedule_selector(Battleground::dispatchBoss), s_battleBossEnemyInfo[_stage].duration);
+        this->schedule(schedule_selector(Battleground::dispatchBoss), s_battleBossEnemyInfo[_battledata.stage].duration);
     }
 }
 
 void Battleground::dispatchBoss(float dt)
 {
     //todo:create boss
-    auto boss = Fighter::createBoss(s_battleBossEnemyInfo[_stage].level);
+    auto boss = Fighter::createBoss(s_battleBossEnemyInfo[_battledata.stage].level);
     boss->setPosition(Point(s_visibleRect.visibleOriginX + 100 + rand()%440,
                              s_visibleRect.visibleOriginY + _battlegroundHeight));
     _battleParallaxNode->addChild(boss);
@@ -948,10 +1003,10 @@ void Battleground::dispatchBoss(float dt)
 
 void Battleground::dispatchEnemys_1(float dt)
 {
-    for(int i=0; i<(*(s_battleNormalEnemyInfo[_stage]._bnec+_curWaves)).count; ++i)
+    for(int i=0; i<(*(s_battleNormalEnemyInfo[_battledata.stage]._bnec+_curWaves)).count; ++i)
     {
-        int type = (*(s_battleNormalEnemyInfo[_stage]._bnec+_curWaves)).type;
-        int level = (*(s_battleNormalEnemyInfo[_stage]._bnec+_curWaves)).level;
+        int type = (*(s_battleNormalEnemyInfo[_battledata.stage]._bnec+_curWaves)).type;
+        int level = (*(s_battleNormalEnemyInfo[_battledata.stage]._bnec+_curWaves)).level;
         
         auto enemy = Fighter::createEnemy(type,level);
         enemy->setPosition(Point(s_visibleRect.visibleOriginX + 100 + rand()%440,
@@ -966,16 +1021,16 @@ void Battleground::dispatchEnemys_1(float dt)
 
     _curWaves = ++_curWaves%_maxWaves;
     this->unschedule(schedule_selector(Battleground::dispatchEnemys_1));
-    this->schedule(schedule_selector(Battleground::dispatchEnemys_2),(*(s_battleNormalEnemyInfo[_stage]._bnec+_curWaves)).duration);
+    this->schedule(schedule_selector(Battleground::dispatchEnemys_2),(*(s_battleNormalEnemyInfo[_battledata.stage]._bnec+_curWaves)).duration);
 
 }
 
 void Battleground::dispatchEnemys_2(float dt)
 {
-    for(int i=0; i<(*(s_battleNormalEnemyInfo[_stage]._bnec+_curWaves)).count; ++i)
+    for(int i=0; i<(*(s_battleNormalEnemyInfo[_battledata.stage]._bnec+_curWaves)).count; ++i)
     {
-        int type = (*(s_battleNormalEnemyInfo[_stage]._bnec+_curWaves)).type;
-        int level = (*(s_battleNormalEnemyInfo[_stage]._bnec+_curWaves)).level;
+        int type = (*(s_battleNormalEnemyInfo[_battledata.stage]._bnec+_curWaves)).type;
+        int level = (*(s_battleNormalEnemyInfo[_battledata.stage]._bnec+_curWaves)).level;
         
         auto enemy = Fighter::createEnemy(type,level);
         enemy->setPosition(Point(s_visibleRect.visibleOriginX + 100 + rand()%440,
@@ -990,7 +1045,7 @@ void Battleground::dispatchEnemys_2(float dt)
     
     _curWaves = ++_curWaves%_maxWaves;
     this->unschedule(schedule_selector(Battleground::dispatchEnemys_2));
-    this->schedule(schedule_selector(Battleground::dispatchEnemys_1),(*(s_battleNormalEnemyInfo[_stage]._bnec+_curWaves)).duration);
+    this->schedule(schedule_selector(Battleground::dispatchEnemys_1),(*(s_battleNormalEnemyInfo[_battledata.stage]._bnec+_curWaves)).duration);
     
 }
 
@@ -998,7 +1053,7 @@ void Battleground::win()
 {
     if (!_isGameOver) {
         _isGameOver = true;
-        auto go = GameOverLayer::create(true, _stage, 100, 100, 100);
+        auto go = GameOverLayer::create(true, _battledata.stage, 100, 100, 100);
         this->addChild(go);
     }
 }
@@ -1007,7 +1062,7 @@ void Battleground::lost()
 {
     if (!_isGameOver) {
         _isGameOver = true;
-        auto go = GameOverLayer::create(false, _stage, 100, 100, 100);
+        auto go = GameOverLayer::create(false, _battledata.stage, 100, 100, 100);
         this->addChild(go);
     }
 }
@@ -1015,11 +1070,11 @@ void Battleground::lost()
 void Battleground::callbackPlayerBaseHurt(EventCustom* event)
 {
     Bullet* bullet = (Bullet*)event->getUserData();
-    log("Enemy=======>>>> attack2 ");
-    _curPlayerBase_Blood-=bullet->_attack;
-    if (_curPlayerBase_Blood>0)
+//    log("Enemy=======>>>> attack2 ");
+    _battledata.curPlayerBase_Blood-=bullet->_attack;
+    if (_battledata.curPlayerBase_Blood>0)
     {
-        _playerBloodBar->setPercent((float(_curPlayerBase_Blood*100))/_playerBase_Blood);
+        _playerBloodBar->setPercent((float(_battledata.curPlayerBase_Blood*100))/_battledata.playerbaseblood);
     }
     else{
         _playerBloodBar->setPercent(0);
@@ -1030,11 +1085,11 @@ void Battleground::callbackPlayerBaseHurt(EventCustom* event)
 void Battleground::callbackEnemyBaseHurt(EventCustom* event)
 {
     Bullet* bullet = (Bullet*)event->getUserData();
-    log("Player ======>>>> attack...");
+//    log("Player ======>>>> attack...");
     //_enemyBase_Blood-=player->plainConfig.attack;
-    _curEnemyBase_Blood-=bullet->_attack;
-    if (_curEnemyBase_Blood>0) {
-        _enemyBloodBar->setPercent((float(_curEnemyBase_Blood*100))/_enemyBase_Blood);
+    _battledata.curEnemyBase_Blood-=bullet->_attack;
+    if (_battledata.curEnemyBase_Blood>0) {
+        _enemyBloodBar->setPercent((float(_battledata.curEnemyBase_Blood*100))/_battledata.enemybaseblood);
     }
     else{
         _enemyBloodBar->setPercent(0);
@@ -1044,6 +1099,7 @@ void Battleground::callbackEnemyBaseHurt(EventCustom* event)
 
 void Battleground::showStoneAndGem(Point pos, int stoneCount, int gemCount, int stone, int gem)
 {
+    Point offset = _battleParallaxNode->getPosition();
     srand((unsigned)time(NULL));
     for(int i = 0; i < stoneCount; ++i)
     {
@@ -1052,8 +1108,8 @@ void Battleground::showStoneAndGem(Point pos, int stoneCount, int gemCount, int 
         stone_sprite->setScale(0.5f);
         stone_sprite->setAnchorPoint(Point::ANCHOR_MIDDLE);
         stone_sprite->setPosition(pos);
-        this->addChild(stone_sprite);
-        stone_sprite->runAction(Sequence::create(MoveBy::create(0.5f, offsetPos), DelayTime::create(0.5f), MoveTo::create(1.0f, StonePos), RemoveSelf::create(), nullptr));
+        _battleParallaxNode->addChild(stone_sprite);
+        stone_sprite->runAction(Sequence::create(MoveBy::create(0.5f, offsetPos), DelayTime::create(0.5f), MoveTo::create(1.0f, StonePos-offset), RemoveSelf::create(), nullptr));
     }
     for(int i = 0; i < gemCount; ++i)
     {
@@ -1062,8 +1118,8 @@ void Battleground::showStoneAndGem(Point pos, int stoneCount, int gemCount, int 
         gem_sprite->setScale(0.5f);
         gem_sprite->setAnchorPoint(Point::ANCHOR_MIDDLE);
         gem_sprite->setPosition(pos);
-        this->addChild(gem_sprite);
-        gem_sprite->runAction(Sequence::create(MoveBy::create(0.5f, offsetPos), DelayTime::create(0.5f), MoveTo::create(1.0f, GemPos), RemoveSelf::create(), nullptr));
+        _battleParallaxNode->addChild(gem_sprite);
+        gem_sprite->runAction(Sequence::create(MoveBy::create(0.5f, offsetPos), DelayTime::create(0.5f), MoveTo::create(1.0f, GemPos-offset), RemoveSelf::create(), nullptr));
     }
     this->runAction(Sequence::create(DelayTime::create(2.1f), CallFunc::create([=](){
         auto stone_text_bk = Sprite::createWithSpriteFrameName("gemTip_box.png");
@@ -1088,11 +1144,16 @@ void Battleground::showStoneAndGem(Point pos, int stoneCount, int gemCount, int 
         std::string strGemtext = "+ " + Value(gem).asString();
         auto gem_text = TextSprite::create(strGemtext);
         gem_text->setAnchorPoint(Point::ANCHOR_MIDDLE);
-        gem_text->setPosition(Point(stone_text_bk->getContentSize().width/2,stone_text_bk->getContentSize().height/2));
+        gem_text->setPosition(Point(gem_text_bk->getContentSize().width/2,gem_text_bk->getContentSize().height/2));
         gem_text_bk->addChild(gem_text);
         
         gem_text_bk->setOpacity(0);
         gem_text_bk->runAction(Sequence::create(FadeIn::create(0.1f), DelayTime::create(0.3f), FadeOut::create(0.1f), RemoveSelf::create(), nullptr));
+        
+        add_gem(gem);
+        
+        add_stone(stone);
+        
     }), nullptr));
 }
 
@@ -1108,18 +1169,28 @@ void Battleground::createStarBomb(const cocos2d::Point& pos)
     log("pos.x....%f,pos.y...%f",pos.x,pos.y);
     auto starbomb = Weapon::createStarBomb(pos);
     _battleParallaxNode->addChild(starbomb);
+    
+    s_playerConfig.usedweapon++;
+    s_playerConfig.weaponCount[0]--;
+    _eventDispatcher->dispatchCustomEvent(GameConfig::eventUpdateMenuItemWeaponData,(void*)0);
 }
 void Battleground::createLaser(const cocos2d::Point& pos)
 {
     log("pos.x....%f,pos.y...%f",pos.x,pos.y);
     auto laser = Weapon::createLaser(pos);
     _battleParallaxNode->addChild(laser);
+    s_playerConfig.usedweapon++;
+    s_playerConfig.weaponCount[1]--;
+    _eventDispatcher->dispatchCustomEvent(GameConfig::eventUpdateMenuItemWeaponData,(void*)1);
 }
 void Battleground::createBlackhole(const cocos2d::Point& pos)
 {
     log("pos.x....%f,pos.y...%f",pos.x,pos.y);
     auto blackhole = Weapon::createBlackhole(pos);
     _battleParallaxNode->addChild(blackhole);
+    s_playerConfig.usedweapon++;
+    s_playerConfig.weaponCount[2]--;
+    _eventDispatcher->dispatchCustomEvent(GameConfig::eventUpdateMenuItemWeaponData,(void*)2);
 }
 
 void Battleground::showuseweapontip(bool enable)
@@ -1177,4 +1248,40 @@ void Battleground::callbackBlackholeHurt(EventCustom* event)
     auto blackhole = (Weapon*)event->getUserData();
     log(".....%f",blackhole->_weaponConfig.duration);
     s_Blackholes.push_back(blackhole);
+}
+
+void Battleground::add_stone(int stone)
+{
+    _battledata.curStone += stone;
+    _battledata.curStone = _battledata.curStone > _battledata.maxStone ? _battledata.maxStone : _battledata.curStone;
+    playerBag->setStone(_battledata.curStone);
+//    _eventDispatcher->dispatchCustomEvent(GameConfig::eventFlightAvaliable,(void*)_battledata.curStone);
+}
+bool Battleground::reduce_stone(int stone)
+{
+    if(stone>_battledata.curStone)
+        return false;
+    else
+    {
+        _battledata.curStone -= stone;
+        playerBag->setStone(_battledata.curStone);
+//        _eventDispatcher->dispatchCustomEvent(GameConfig::eventFlightAvaliable,(void*)_battledata.curStone);
+        return true;
+    }
+}
+void Battleground::add_gem(int gem)
+{
+    s_playerConfig.gem += gem;
+    playerBag->setGem(s_playerConfig.gem);
+}
+bool Battleground::reduce_gem(int gem)
+{
+    if (gem>s_playerConfig.gem)
+        return false;
+    else
+    {
+        s_playerConfig.gem -= gem;
+        playerBag->setGem(s_playerConfig.gem);
+        return true;
+    }
 }

@@ -66,4 +66,8 @@
     <string>关卡</string>
     <key>stage_fight</key>
     <string>战斗</string>
+    
+    <!-- 战斗菜单 -->
+    <key>battle_pause</key>
+    <string>暂停</string>
 </dict>

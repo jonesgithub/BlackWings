@@ -38,6 +38,8 @@ typedef struct _mainMenuStrings
     std::string stageselect;
     std::string stagetext;
     std::string stage_fight;
+    
+    std::string battle_pause;
 }MainMenuStrings;
 
 typedef struct _helpInfoStrings{
@@ -81,7 +83,11 @@ typedef struct _baseStrings{
     std::string useStone;
     std::string buyusegem;
     std::string buymax;
-
+    
+    std::string nogemcannotbuy;
+    std::string nogemcanbuy;
+    
+    std::string getmoregem;
 }BaseStrings;
 
 typedef struct _medalStrings{

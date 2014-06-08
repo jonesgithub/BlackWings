@@ -25,6 +25,8 @@ public:
     
     cocos2d::MenuItemSprite * fighterCopy;
     
+    void getmoregem(Ref* sender);
+    
 private:
     bool _showFighter;
     

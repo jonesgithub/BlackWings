@@ -155,7 +155,10 @@ bool MenuSettings::init(GameInterface face)
                 itemY -= bashY;
                 _retryGameItem = MenuItemImageLabel::createWithFrameName("bt_main_0.png","bt_main_1.png",
                     [](Ref *sender){
-                        auto bettle = Battleground::create(0);
+                        if (Director::getInstance()->isPaused()) {
+                            Director::getInstance()->resume();
+                        }
+                        auto bettle = Battleground::create(s_battleground->_battledata.stage);
                         Director::getInstance()->replaceScene(bettle);
                 },s_gameStrings.mainMenu->settingRetry);
                 _retryGameItem->setPosition(centerX,itemY);
@@ -163,6 +166,9 @@ bool MenuSettings::init(GameInterface face)
                 itemY -= bashY;
                 _backToBaseItem = MenuItemImageLabel::createWithFrameName("bt_main_0.png","bt_main_1.png",
                     [](Ref *sender){
+                        if (Director::getInstance()->isPaused()) {
+                            Director::getInstance()->resume();
+                        }
                         auto base = Base::create();
                         Director::getInstance()->replaceScene(base);
                 },s_gameStrings.mainMenu->settingBackToBase);
@@ -171,6 +177,9 @@ bool MenuSettings::init(GameInterface face)
                 itemY -= bashY;
                 _backToMainMenuItem = MenuItemImageLabel::createWithFrameName("bt_main_0.png","bt_main_1.png",
                     [](Ref *sender){
+                        if (Director::getInstance()->isPaused()) {
+                            Director::getInstance()->resume();
+                        }
                         auto mainMenu = MainMenu::create();
                         Director::getInstance()->replaceScene(mainMenu);
                 },s_gameStrings.base->topBarMainMenu);
@@ -180,6 +189,8 @@ bool MenuSettings::init(GameInterface face)
                     _backToBaseItem, _backToMainMenuItem, nullptr);
                 menu->setPosition(Point::ZERO);
                 _panel->addChild(menu);
+                
+                this->scheduleOnce(schedule_selector(MenuSettings::pausegame), 0.5f);
             }
             break;
         default:
@@ -193,7 +204,12 @@ bool MenuSettings::init(GameInterface face)
 
 void MenuSettings::menuCallbackClosed(Ref *sender)
 {
-    s_gameConfig.saveConfig();
+//    s_gameConfig.saveConfig();
+    
+    if (Director::getInstance()->isPaused()) {
+        Director::getInstance()->resume();
+    }
+    
     this->runAction(FadeTo::create(0.15f,0));
     auto action = Sequence::create(
         MoveBy::create(0.15f, Point(0,600)),
@@ -312,4 +328,8 @@ void MenuSettings::sfxSliderEvent(Ref *sender, ui::SliderEventType type)
 {
     s_playerConfig.sfxVolume = ((Slider*)sender)->getPercent() / 100.0f;
     CocosDenshion::SimpleAudioEngine::getInstance()->setEffectsVolume(s_playerConfig.sfxVolume);
+}
+void MenuSettings::pausegame(float dt)
+{
+    Director::getInstance()->pause();
 }

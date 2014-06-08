@@ -130,6 +130,8 @@
 		855E13461934D8D000683F21 /* Medal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 855E13431934D8D000683F21 /* Medal.cpp */; };
 		856EFA4A19434E95004AEE2B /* UpgradeUILayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 856EFA4819434E95004AEE2B /* UpgradeUILayer.cpp */; };
 		856EFA4B19434E95004AEE2B /* UpgradeUILayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 856EFA4819434E95004AEE2B /* UpgradeUILayer.cpp */; };
+		857F13FE19438A9F000DE4E7 /* NoGemLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 857F13FC19438A9F000DE4E7 /* NoGemLayer.cpp */; };
+		857F13FF19438A9F000DE4E7 /* NoGemLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 857F13FC19438A9F000DE4E7 /* NoGemLayer.cpp */; };
 		8598E77D1933804500E72CDE /* baseStringsCh.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8598E7281933804500E72CDE /* baseStringsCh.xml */; };
 		8598E77E1933804500E72CDE /* baseStringsCh.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8598E7281933804500E72CDE /* baseStringsCh.xml */; };
 		8598E77F1933804500E72CDE /* baseStringsEn.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8598E7291933804500E72CDE /* baseStringsEn.xml */; };
@@ -551,6 +553,8 @@
 		855E13441934D8D000683F21 /* Medal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Medal.h; sourceTree = "<group>"; };
 		856EFA4819434E95004AEE2B /* UpgradeUILayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UpgradeUILayer.cpp; sourceTree = "<group>"; };
 		856EFA4919434E95004AEE2B /* UpgradeUILayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UpgradeUILayer.h; sourceTree = "<group>"; };
+		857F13FC19438A9F000DE4E7 /* NoGemLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NoGemLayer.cpp; sourceTree = "<group>"; };
+		857F13FD19438A9F000DE4E7 /* NoGemLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoGemLayer.h; sourceTree = "<group>"; };
 		8598E7281933804500E72CDE /* baseStringsCh.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = baseStringsCh.xml; sourceTree = "<group>"; };
 		8598E7291933804500E72CDE /* baseStringsEn.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = baseStringsEn.xml; sourceTree = "<group>"; };
 		8598E72A1933804500E72CDE /* CloseNormal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CloseNormal.png; sourceTree = "<group>"; };
@@ -773,6 +777,8 @@
 				D70949F0193A0B4E003D197E /* RotateBall.h */,
 				856EFA4819434E95004AEE2B /* UpgradeUILayer.cpp */,
 				856EFA4919434E95004AEE2B /* UpgradeUILayer.h */,
+				857F13FC19438A9F000DE4E7 /* NoGemLayer.cpp */,
+				857F13FD19438A9F000DE4E7 /* NoGemLayer.h */,
 			);
 			name = Base;
 			path = ../Classes/Base;
@@ -787,9 +793,9 @@
 				266ACAD419323E2A004DF401 /* Bullet.h */,
 				266ACAD519323E2A004DF401 /* Fighter.cpp */,
 				266ACAD619323E2A004DF401 /* Fighter.h */,
-				266ACAD719323E2A004DF401 /* Player.cpp */,
 				266ACAD819323E2A004DF401 /* Player.h */,
 				8555021A193B2BD300DEAF12 /* CDItem.cpp */,
+				266ACAD719323E2A004DF401 /* Player.cpp */,
 				8555021B193B2BD300DEAF12 /* CDItem.h */,
 				85550221193B8FAE00DEAF12 /* GameOverLayer.cpp */,
 				85550222193B8FAE00DEAF12 /* GameOverLayer.h */,
@@ -1450,6 +1456,7 @@
 				266ACB0919323E2A004DF401 /* MenuItemImageLabel.cpp in Sources */,
 				266ACAFB19323E2A004DF401 /* PlayerMenuItem.cpp in Sources */,
 				266ACAF519323E2A004DF401 /* AppDelegate.cpp in Sources */,
+				857F13FE19438A9F000DE4E7 /* NoGemLayer.cpp in Sources */,
 				8528F15019362B8C00EF967E /* MedalChecker.cpp in Sources */,
 				856EFA4A19434E95004AEE2B /* UpgradeUILayer.cpp in Sources */,
 				266ACB0B19323E2A004DF401 /* NotificationLayer.cpp in Sources */,
@@ -1514,6 +1521,7 @@
 				85550224193B8FAE00DEAF12 /* GameOverLayer.cpp in Sources */,
 				266ACBAB19336AD5004DF401 /* xxtea.cpp in Sources */,
 				266ACB1E19323E2A004DF401 /* ResetGameLayer.cpp in Sources */,
+				857F13FF19438A9F000DE4E7 /* NoGemLayer.cpp in Sources */,
 				503AE10517EB98FF00D1A890 /* main.cpp in Sources */,
 				856EFA4B19434E95004AEE2B /* UpgradeUILayer.cpp in Sources */,
 				855E13461934D8D000683F21 /* Medal.cpp in Sources */,
