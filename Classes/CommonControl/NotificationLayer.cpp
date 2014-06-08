@@ -57,7 +57,7 @@ bool NotificationLayer::init(const std::string& notificationMsg,const Size& size
         panel->addChild(menu);
 
         auto notificationText = TextSprite::create(notificationMsg,GameConfig::defaultFontName,GameConfig::defaultFontSize,
-            Size(panelSize.width * 0.8f,panelSize.height * 0.25f));
+            Size(panelSize.width * 0.8f,panelSize.height * 0.3f));
         notificationText->setPosition(panelSize.width * 0.5f,panelSize.height * 0.75f);
         panel->addChild(notificationText);
 

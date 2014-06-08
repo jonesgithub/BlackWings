@@ -58,7 +58,7 @@ bool PlayerMenuItem::init(Type playerType,int index)
             {
                 sprintf(iconFileName,"plain_%d_lv_%d.png",index + 1,s_playerConfig.fighterslevel[index] + 1);
                 
-                auto stoneformake_text = TextSprite::create(Value(s_plainConfigs[index][s_playerConfig.fighterslevel[index]].sparForMake).asString().c_str(),GameConfig::defaultFontName,20);
+                stoneformake_text = TextSprite::create(Value(s_plainConfigs[index][s_playerConfig.fighterslevel[index]].sparForMake).asString().c_str(),GameConfig::defaultFontName,20);
                 stoneformake_text->setPosition(Point(44,25));
                 Node::addChild(stoneformake_text,3);
             }
@@ -101,29 +101,15 @@ bool PlayerMenuItem::init(Type playerType,int index)
             slash->setPosition(Point(size.width/2+15,25));
             Node::addChild(slash,1);
             
-            int weapon_countNum = 0;
-            int weapon_maxNum =0;
-            switch (index) {
-                case 0:
-                    weapon_countNum = s_playerConfig.starbomb;
-                    break;
-                case 1:
-                    weapon_countNum = s_playerConfig.laser;
-                    break;
-                case 2:
-                    weapon_countNum = s_playerConfig.blackhole;
-                    break;
-                default:
-                    break;
-            }
-            weapon_maxNum = s_weaponConfigs[index][s_playerConfig.weaponslevel[index]].capacity;
+            int weapon_countNum = s_playerConfig.weaponCount[index];
+            int weapon_maxNum = s_weaponConfigs[index][s_playerConfig.weaponslevel[index]].capacity;
             
-            auto countNum = Label::createWithTTF(Value(weapon_countNum).asString().c_str(),fontFile,fontSize);
+            countNum = Label::createWithTTF(Value(weapon_countNum).asString().c_str(),fontFile,fontSize);
             countNum->setAnchorPoint(Point::ANCHOR_MIDDLE_RIGHT);
             countNum->setPosition(Point(slash->getPositionX()-10,slash->getPositionY()));
             Node::addChild(countNum);
             
-            auto stoneTatalNum = Label::createWithTTF(Value(weapon_maxNum).asString().c_str(),fontFile,fontSize);
+            stoneTatalNum = Label::createWithTTF(Value(weapon_maxNum).asString().c_str(),fontFile,fontSize);
             stoneTatalNum->setColor(Color3B::GRAY);
             stoneTatalNum->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
             stoneTatalNum->setPosition(Point(slash->getPositionX()+10,slash->getPositionY()));
@@ -139,6 +125,14 @@ bool PlayerMenuItem::init(Type playerType,int index)
     auto unselectedallListener = EventListenerCustom::create(GameConfig::eventunseletedall,
                                                         CC_CALLBACK_1(PlayerMenuItem::unselectedall,this));
     _eventDispatcher->addEventListenerWithSceneGraphPriority(unselectedallListener, this);
+    
+    auto updateflightDataListener = EventListenerCustom::create(GameConfig::eventUpdateMenuItemFlightData,
+                                                          CC_CALLBACK_1(PlayerMenuItem::updateFlightData,this));
+    _eventDispatcher->addEventListenerWithSceneGraphPriority(updateflightDataListener, this);
+    
+    auto updateWeaponDataListener = EventListenerCustom::create(GameConfig::eventUpdateMenuItemWeaponData,
+                                                                CC_CALLBACK_1(PlayerMenuItem::updateWeaponData,this));
+    _eventDispatcher->addEventListenerWithSceneGraphPriority(updateWeaponDataListener, this);
     
     return ret;
 }
@@ -211,4 +205,30 @@ void PlayerMenuItem::activeCD_callback(EventCustom* event)
 void PlayerMenuItem::unselectedall(EventCustom* event)
 {
     unselected();
+}
+
+void PlayerMenuItem::updateFlightData(EventCustom* event)
+{
+    int index = (uintptr_t)event->getUserData();
+    if(!s_gameConfig.isInBattle && _index == index)
+    {
+        if (_type == Type::Fighter)
+        {
+            stoneformake_text->setText(Value(s_plainConfigs[index][s_playerConfig.fighterslevel[index]].sparForMake).asString().c_str());
+        }
+
+    }
+}
+
+void PlayerMenuItem::updateWeaponData(EventCustom* event)
+{
+    int index = (uintptr_t)event->getUserData();
+    if(!s_gameConfig.isInBattle)
+    {
+        if (_type == Type::Weapon && _index == index)
+        {
+            countNum->setString(Value(s_playerConfig.weaponCount[index]).asString());
+            stoneTatalNum->setString(Value(s_weaponConfigs[index][s_playerConfig.weaponslevel[index]].capacity).asString());
+        }
+    }
 }

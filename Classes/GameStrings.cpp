@@ -216,6 +216,11 @@ void GSBaseInit(GameLanguage language)
         s_gameStrings.base->buyusegem = dict["buyusegem"].asString();
         s_gameStrings.base->buymax = dict["buymax"].asString();
         
+        s_gameStrings.base->nogemcannotbuy = dict["nogemcannotbuy"].asString();
+        s_gameStrings.base->nogemcanbuy = dict["nogemcanbuy"].asString();
+        
+        s_gameStrings.base->getmoregem = dict["getmoregem"].asString();
+        
     }
 }
 

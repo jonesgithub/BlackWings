@@ -27,6 +27,8 @@
 
 #define STAGE_COUNT 50
 
+#define STAGEOFCANBUYGEM 5
+
 #define STAGE_ENEMY_WAVES_00 3
 #define STAGE_ENEMY_WAVES_01 2
 
@@ -50,9 +52,7 @@ typedef struct _playerconfig
     int stone;//晶石，游戏中的生成
     int stoneMax;//石头上限
     int gem;//宝石，花钱购买的
-    int starbomb;//星际炸弹数量
-    int laser;//镭射数量
-    int blackhole;//黑洞数量
+    int weaponCount[3];//三种炸弹数量
     int killenemy;//已杀死敌人数量
     int killbigenemy;//已杀死大型敌人数量
     int usedweapon;//已使用特殊武器数量
@@ -101,6 +101,12 @@ public:
     const static std::string eventBlackholeHurt;
     const static std::string eventactiveCD;
     const static std::string eventunseletedall;
+    const static std::string eventUpdateBaseData;
+    const static std::string eventUpdateMenuItemData;
+    const static std::string eventUpdateMenuItemFlightData;
+    const static std::string eventUpdateMenuItemWeaponData;
+    const static std::string eventShowWeaponMenu;
+    const static std::string eventShowHideMedalLogo;
     
     void lazyInit();
     

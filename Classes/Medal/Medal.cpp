@@ -190,9 +190,9 @@ void Medal::tableCellTouched(extension::TableView* table, extension::TableViewCe
     if (s_playerConfig.medalget[cell->getIdx()]) {
         //s_gameConfig.medal_reward_callbacks[cell->getIdx()]();
         s_playerConfig.gem+=s_medalRewards[cell->getIdx()][0];
-        s_playerConfig.starbomb+=s_medalRewards[cell->getIdx()][1];
-        s_playerConfig.laser+=s_medalRewards[cell->getIdx()][2];
-        s_playerConfig.blackhole+=s_medalRewards[cell->getIdx()][3];
+        s_playerConfig.weaponCount[0]+=s_medalRewards[cell->getIdx()][1];
+        s_playerConfig.weaponCount[1]+=s_medalRewards[cell->getIdx()][2];
+        s_playerConfig.weaponCount[2]+=s_medalRewards[cell->getIdx()][3];
         s_playerConfig.medalget[cell->getIdx()] = false;
         auto layer = MedalRewardsLayer::create(s_medalRewards[cell->getIdx()][0],
                                                s_medalRewards[cell->getIdx()][1],
@@ -215,6 +215,7 @@ ssize_t Medal::numberOfCellsInTableView(cocos2d::extension::TableView *table)
 
 void Medal::menuCallbackClosed(Ref *sender)
 {
+    _eventDispatcher->dispatchCustomEvent(GameConfig::eventShowHideMedalLogo);
     this->runAction(FadeTo::create(0.15f,0));
     auto action = Sequence::create(
                                    MoveBy::create(0.15f, Point(0,s_visibleRect.visibleHeight * 0.8f)),

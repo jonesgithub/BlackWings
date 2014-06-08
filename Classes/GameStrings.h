@@ -81,7 +81,11 @@ typedef struct _baseStrings{
     std::string useStone;
     std::string buyusegem;
     std::string buymax;
-
+    
+    std::string nogemcannotbuy;
+    std::string nogemcanbuy;
+    
+    std::string getmoregem;
 }BaseStrings;
 
 typedef struct _medalStrings{

@@ -38,6 +38,7 @@ private:
     
     BasePanel _basePanel;
     int _index;
+    int _needgem;
 };
 
 #endif /* defined(__BlackWings__UpgradeUILayer__) */

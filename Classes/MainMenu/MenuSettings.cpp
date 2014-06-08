@@ -193,7 +193,7 @@ bool MenuSettings::init(GameInterface face)
 
 void MenuSettings::menuCallbackClosed(Ref *sender)
 {
-    s_gameConfig.saveConfig();
+//    s_gameConfig.saveConfig();
     this->runAction(FadeTo::create(0.15f,0));
     auto action = Sequence::create(
         MoveBy::create(0.15f, Point(0,600)),

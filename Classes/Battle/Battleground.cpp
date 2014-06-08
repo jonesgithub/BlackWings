@@ -1088,7 +1088,7 @@ void Battleground::showStoneAndGem(Point pos, int stoneCount, int gemCount, int 
         std::string strGemtext = "+ " + Value(gem).asString();
         auto gem_text = TextSprite::create(strGemtext);
         gem_text->setAnchorPoint(Point::ANCHOR_MIDDLE);
-        gem_text->setPosition(Point(stone_text_bk->getContentSize().width/2,stone_text_bk->getContentSize().height/2));
+        gem_text->setPosition(Point(gem_text_bk->getContentSize().width/2,gem_text_bk->getContentSize().height/2));
         gem_text_bk->addChild(gem_text);
         
         gem_text_bk->setOpacity(0);
