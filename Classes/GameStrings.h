@@ -109,9 +109,11 @@ typedef struct _battleStrings{
     std::string gameoverkill;
     std::string gameoverloss;
     std::string gameoverreward;
+    std::string gameovernewflight;
     std::string returnbase;
     std::string nextstage;
     std::string restartstage;
+    std::string gotosee;
 }BattleStrings;
 
 typedef struct _gameStrings

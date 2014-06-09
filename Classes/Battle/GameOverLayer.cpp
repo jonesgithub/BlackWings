@@ -141,11 +141,11 @@ bool GameOverLayer::init(bool win, int stage, int time, int kill, int loss, int 
         {
             auto icon = Sprite::createWithSpriteFrameName("icon_gem.png");
             icon->setScale(0.7f);
-            icon->setPosition(panelSize.width/2-50, panelSize.height/2+20);
+            icon->setPosition(panelSize.width/2-50, panelSize.height/2);
             _panel->addChild(icon);
             
             auto label = Label::createWithSystemFont(Value(_gem).asString().c_str(), s_gameConfig.defaultFontName, 20);
-            label->setPosition(panelSize.width/2+50,panelSize.height/2+20);
+            label->setPosition(panelSize.width/2+50,panelSize.height/2);
             label->setColor(Color3B::YELLOW);
             _panel->addChild(label);
         }
@@ -153,22 +153,22 @@ bool GameOverLayer::init(bool win, int stage, int time, int kill, int loss, int 
         {
             auto icon1 = Sprite::createWithSpriteFrameName("icon_gem.png");
             icon1->setScale(0.7f);
-            icon1->setPosition(panelSize.width/2-130, panelSize.height/2+20);
+            icon1->setPosition(panelSize.width/2-130, panelSize.height/2);
             _panel->addChild(icon1);
             
             auto label1 = Label::createWithSystemFont(Value(_gem).asString().c_str(), s_gameConfig.defaultFontName, 20);
-            label1->setPosition(panelSize.width/2-80,panelSize.height/2+20);
+            label1->setPosition(panelSize.width/2-80,panelSize.height/2);
             label1->setColor(Color3B::YELLOW);
             _panel->addChild(label1);
             if (_starboom > 0) {
                 auto icon2 = Sprite::createWithSpriteFrameName("bomb_1_1.png");
                 icon2->setScale(0.5f);icon2->setRotation(90);
-                icon2->setPosition(panelSize.width/2+70, panelSize.height/2+20);
+                icon2->setPosition(panelSize.width/2+70, panelSize.height/2);
                 _panel->addChild(icon2);
                 
                 std::string str = "x" + Value(_starboom).asString();
                 auto label2 = Label::createWithSystemFont(str.c_str(), s_gameConfig.defaultFontName, 20);
-                label2->setPosition(panelSize.width/2+130,panelSize.height/2+20);
+                label2->setPosition(panelSize.width/2+130,panelSize.height/2);
                 label2->setColor(Color3B::BLUE);
                 _panel->addChild(label2);
             }
@@ -176,12 +176,12 @@ bool GameOverLayer::init(bool win, int stage, int time, int kill, int loss, int 
                 
                 auto icon2 = Sprite::createWithSpriteFrameName("bomb_2_1.png");
                 icon2->setScale(0.8f);icon2->setRotation(90);
-                icon2->setPosition(panelSize.width/2-50, panelSize.height/2+20);
+                icon2->setPosition(panelSize.width/2-50, panelSize.height/2);
                 _panel->addChild(icon2);
                 
                 std::string str = "x" + Value(_laser).asString();
                 auto label2 = Label::createWithSystemFont(str.c_str(), s_gameConfig.defaultFontName, 20);
-                label2->setPosition(panelSize.width/2+50,panelSize.height/2+20);
+                label2->setPosition(panelSize.width/2+50,panelSize.height/2);
                 label2->setColor(Color3B::BLUE);
                 _panel->addChild(label2);
             }
@@ -189,16 +189,52 @@ bool GameOverLayer::init(bool win, int stage, int time, int kill, int loss, int 
                 
                 auto icon2 = Sprite::createWithSpriteFrameName("bomb_3_1.png");
                 icon2->setScale(0.6f);
-                icon2->setPosition(panelSize.width/2-50, panelSize.height/2+20);
+                icon2->setPosition(panelSize.width/2-50, panelSize.height/2);
                 _panel->addChild(icon2);
                 
                 std::string str = "x" + Value(_blackhole).asString();
                 auto label2 = Label::createWithSystemFont(str.c_str(), s_gameConfig.defaultFontName, 20);
-                label2->setPosition(panelSize.width/2+50,panelSize.height/2+20);
+                label2->setPosition(panelSize.width/2+50,panelSize.height/2);
                 label2->setColor(Color3B::BLUE);
                 _panel->addChild(label2);
             }
         }
+        
+        if(newFlight)
+        {
+            auto newflight_label = TextSprite::create(s_gameStrings.battleInfo->gameovernewflight, "Arial", 20);
+            newflight_label->setColor(Color3B::GRAY);
+            newflight_label->setAnchorPoint(Point::ANCHOR_MIDDLE);
+            newflight_label->setPosition(Point(panelSize.width/2,panelSize.height-380));
+            _panel->addChild(newflight_label);
+            
+            char name[30];
+            sprintf(name,"plain_%d_lv_%d.png",newFlight,1);
+            auto newflight = Sprite::createWithSpriteFrameName(name);
+            newflight->setScale(1.3f);
+            newflight->setAnchorPoint(Point::ANCHOR_MIDDLE);
+            newflight->setPosition(Point(panelSize.width/2,panelSize.height-450));
+            _panel->addChild(newflight);
+            
+            auto newicon = Sprite::createWithSpriteFrameName("icon_new.png");
+            newicon->setAnchorPoint(Point::ANCHOR_MIDDLE);
+            newicon->setPosition(newflight->getPosition()+Point(0,-60));
+            _panel->addChild(newicon);
+            
+        }
+    }
+    
+    if(newFlight)
+    {
+        auto gotosee_menu = MenuItemImageLabel::createWithFrameName("bt_main_0.png", "bt_main_1.png", CC_CALLBACK_1(GameOverLayer::returnBase_callback, this), s_gameStrings.battleInfo->gotosee);
+        gotosee_menu->setScale(0.7f);
+        gotosee_menu->setAnchorPoint(Point::ANCHOR_MIDDLE);
+        gotosee_menu->setPosition(Point(panelSize.width/2, 110));
+        
+        auto menu = Menu::create(gotosee_menu, nullptr);
+        menu->setPosition(Point::ZERO);
+        _panel->addChild(menu);
+        return true;
     }
     
     //menu

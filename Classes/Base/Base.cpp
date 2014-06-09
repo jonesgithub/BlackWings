@@ -131,7 +131,7 @@ void Base::onEnter()
                                                             
                                                             auto flight = Sprite::createWithSpriteFrameName(name);
                                                             flight->setPosition(_playerBag->_playerMenu->getChildByTag(1000+i)->getPosition()+Point(0,50));
-                                                            _bottomPanel->addChild(flight);
+                                                            _bottomPanel->addChild(flight,2);
                                                             
                                                             _curSelectedFlight = flight;
                                                             _curSeletedIndex = i;
@@ -152,7 +152,7 @@ void Base::onEnter()
                                                             
                                                             auto flight = Sprite::createWithSpriteFrameName(name);
                                                             flight->setPosition(_playerBag->_playerMenu->getChildByTag(1000+i)->getPosition()-Point(s_visibleRect.visibleWidth, 0)+Point(0,50));
-                                                            _bottomPanel->addChild(flight);
+                                                            _bottomPanel->addChild(flight,2);
                                                             
                                                             _curSelectedFlight = flight;
                                                             _curSeletedIndex = i;
@@ -199,11 +199,19 @@ void Base::onEnter()
         if (_isInFilghtUpgradeUI) {
             _upgradePanel->removeAllChildren();
             createUpgrade(true,_curSeletedIndex);
+            
+            char iconFileName[25];
+            sprintf(iconFileName,"plain_%d_lv_%d.png",_curSeletedIndex + 1,s_playerConfig.fighterslevel[_curSeletedIndex] + 1);
+            _curSelectedFlight->setSpriteFrame(iconFileName);
         }
         else
         {
             _upgradePanel->removeAllChildren();
             createUpgrade(false,_curSeletedIndex - FIGHTER_MAX);
+            
+            char iconFileName[25];
+            sprintf(iconFileName,"bomb_%d_%d.png",_curSeletedIndex - FIGHTER_MAX + 1,s_playerConfig.weaponslevel[_curSeletedIndex - FIGHTER_MAX] + 1);
+            _curSelectedFlight->setSpriteFrame(iconFileName);
         }
         
         if(_playerBag)
@@ -235,15 +243,15 @@ void Base::onExit()
 void Base::createBottomPanel()
 {
     _bottomPanel =  Node::create();
-    this->addChild(_bottomPanel);
+    this->addChild(_bottomPanel,2);
     _playerBag = PlayerBar::create();
-    _bottomPanel->addChild(_playerBag,1);
+    _bottomPanel->addChild(_playerBag,3);
 }
 
 void Base::createUpgrade(bool isFightUI, int t_index)
 {
     _upgradePanel = Node::create();
-    this->addChild(_upgradePanel);
+    this->addChild(_upgradePanel,1);
 
     int baseHeight = 50;
     int padding = 30;
@@ -906,7 +914,7 @@ void Base::buyWeapon(Ref *sender)
 void Base::showUpgradeUI(BasePanel basePanel)
 {
     auto layer = UpgradeUILayer::create(basePanel, _curSeletedIndex);
-    this->addChild(layer);
+    this->addChild(layer,4);
 }
 
 void Base::showGemTip(int num, bool isCost)

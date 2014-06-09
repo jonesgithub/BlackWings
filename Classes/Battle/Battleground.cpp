@@ -213,7 +213,7 @@ void Battleground::createFlight(Ref* sender)
     player->setPosition(Point(s_visibleRect.visibleOriginX + 100 + rand()%440,
                               s_visibleRect.visibleOriginY + 100 + rand()% 50));
     _battleParallaxNode->addChild(player);
-    this->addChild(player->potInRadar, 100);
+    this->addChild(player->potInRadar, 88);
     s_players.push_back(player);
 }
 
@@ -315,9 +315,9 @@ void Battleground::createListener()
 
 void Battleground::initEnemyDispatcher()
 {
-    initNormalEnemy();
-    initTowerEnemy();
-    initBossEnemy();
+    //initNormalEnemy();
+    //initTowerEnemy();
+    //initBossEnemy();
 }
 
 void Battleground::battleLoop(float dt)
@@ -769,7 +769,7 @@ void Battleground::createHealthBar()
 void Battleground::menuCallbackPause(Ref *sender)
 {
     auto settingLayer = MenuSettings::create(GameInterface::Battle);
-    addChild(settingLayer);
+    addChild(settingLayer,99);
 }
 
 void Battleground::createRadarChart()
@@ -1123,10 +1123,13 @@ void Battleground::win()
         }
         
         //设置飞机解锁(第一架不再检查)
+        
+        int new_flight_index = 0;
         for(int i=1;i<FIGHTER_MAX;++i)
         {
             if (_battledata.stage == s_UnlockflightStage[i] && s_playerConfig.fighterslocked[i]) {
                 s_playerConfig.fighterslocked[i] = false;
+                new_flight_index = i;
                 //checkmedal
                 break;
             }
@@ -1134,7 +1137,7 @@ void Battleground::win()
         
         s_gameConfig.saveConfig();
         
-        auto go = GameOverLayer::create(true, _battledata.stage, _battledata.time, _battledata.enemydead+_battledata.bossdead, _battledata.flightdead, 0);
+        auto go = GameOverLayer::create(true, _battledata.stage, _battledata.time, _battledata.enemydead+_battledata.bossdead, _battledata.flightdead, new_flight_index);
         this->addChild(go,99);
     }
 }
