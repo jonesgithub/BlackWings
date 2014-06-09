@@ -61,7 +61,6 @@ void GameConfig::readConfig()
     {
         //todo:把配置读入s_playerConfig
         
-        auto data = userDef->getDataForKey("bw");
         auto importantData = data.getBytes();
         auto levelStartIndex = FIGHTER_MAX * 2;
         int index;
@@ -223,7 +222,7 @@ void GameConfig::saveConfig()
     userDef->setFloatForKey("sfx",s_playerConfig.sfxVolume);
     userDef->setIntegerForKey("language",int(s_playerConfig.language));
     
-    auto importantDataSize = sizeof(unsigned char) * (FIGHTER_MAX + FIGHTER_MAX + WEAPON_MAX+MEDAL_MAX+OTHER_DATA + 1) * 2;
+    auto importantDataSize = sizeof(unsigned char) * (FIGHTER_MAX * 2 + WEAPON_MAX + MEDAL_MAX * 2 + OTHER_DATA) * 2;
     auto importantData = (unsigned char*)malloc(importantDataSize);
     auto levelStartIndex = FIGHTER_MAX * 2;
     int index;
@@ -343,7 +342,6 @@ void GameConfig::saveConfig()
     
     userDef->setDataForKey("bw",data);
 }
-
 
 void GameConfig::setMusicVolume(float volume)
 {
