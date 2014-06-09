@@ -1009,7 +1009,7 @@ void Battleground::initTowerEnemy()
         _battleParallaxNode->addChild(tower);
         
         tower->potInRadar->setPosition(Point(-100,-100));
-        this->addChild(tower->potInRadar,100);
+        this->addChild(tower->potInRadar,88);
         
         s_towers.push_back(tower);
     }
@@ -1032,7 +1032,7 @@ void Battleground::dispatchBoss(float dt)
     _battleParallaxNode->addChild(boss);
     
     boss->potInRadar->setPosition(Point(-100,-100));
-    this->addChild(boss->potInRadar,100);
+    this->addChild(boss->potInRadar,88);
     
     s_boss.push_back(boss);
 }
@@ -1050,7 +1050,7 @@ void Battleground::dispatchEnemys_1(float dt)
         _battleParallaxNode->addChild(enemy);
         
         enemy->potInRadar->setPosition(Point(-100,-100));
-        this->addChild(enemy->potInRadar,100);
+        this->addChild(enemy->potInRadar,88);
         
         s_enemys.push_back(enemy);
     }
@@ -1074,7 +1074,7 @@ void Battleground::dispatchEnemys_2(float dt)
         _battleParallaxNode->addChild(enemy);
         
         enemy->potInRadar->setPosition(Point(-100,-100));
-        this->addChild(enemy->potInRadar,100);
+        this->addChild(enemy->potInRadar,88);
         
         s_enemys.push_back(enemy);
     }
@@ -1093,6 +1093,7 @@ void Battleground::win()
         for (auto enemy : s_enemys)
         {
             enemy->stopAllActions();
+            //enemy->unscheduleAllSelectors();
         }
         
         for (auto boss : s_boss)
@@ -1133,7 +1134,7 @@ void Battleground::win()
         
         s_gameConfig.saveConfig();
         
-        auto go = GameOverLayer::create(true, _battledata.stage, _battledata.time, _battledata.enemydead+_battledata.bossdead, _battledata.flightdead);
+        auto go = GameOverLayer::create(true, _battledata.stage, _battledata.time, _battledata.enemydead+_battledata.bossdead, _battledata.flightdead, 0);
         this->addChild(go,99);
     }
 }
@@ -1146,26 +1147,30 @@ void Battleground::lost()
         for (auto enemy : s_enemys)
         {
             enemy->stopAllActions();
+            enemy->unscheduleAllSelectors();
         }
         
         for (auto boss : s_boss)
         {
             boss->stopAllActions();
+            boss->unscheduleAllSelectors();
         }
         
         for (auto tower : s_towers)
         {
             tower->stopAllActions();
+            tower->unscheduleAllSelectors();
         }
         
         for (auto player : s_players)
         {
             player->stopAllActions();
+            player->unscheduleAllSelectors();
         }
         
         s_gameConfig.saveConfig();
         
-        auto go = GameOverLayer::create(false, _battledata.stage, _battledata.time, _battledata.enemydead+_battledata.bossdead, _battledata.flightdead);
+        auto go = GameOverLayer::create(false, _battledata.stage, _battledata.time, _battledata.enemydead+_battledata.bossdead, _battledata.flightdead, 0);
         this->addChild(go,99);
     }
 }

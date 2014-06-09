@@ -188,11 +188,11 @@ void GameConfig::initConfig()
     s_playerConfig.stonecapacitylevel = 18;
     
     s_playerConfig.fighterslocked[0] = false;
-    s_playerConfig.fighterslocked[1] = true;
-    s_playerConfig.fighterslocked[2] = true;
-    s_playerConfig.fighterslocked[3] = true;
-    s_playerConfig.fighterslocked[4] = true;
-    s_playerConfig.fighterslocked[5] = true;
+    s_playerConfig.fighterslocked[1] = false;
+    s_playerConfig.fighterslocked[2] = false;
+    s_playerConfig.fighterslocked[3] = false;
+    s_playerConfig.fighterslocked[4] = false;
+    s_playerConfig.fighterslocked[5] = false;
 
     s_playerConfig.fighterslevel[0] = 13;
     s_playerConfig.fighterslevel[1] = 0;

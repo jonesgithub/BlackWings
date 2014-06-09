@@ -267,6 +267,7 @@ void Fighter::fire(float dt)
     }
 }
 
+//简单的受伤判断方式
 void Fighter::hurt(int ATK)
 {
     switch (_attacker)

@@ -18,10 +18,10 @@
 USING_NS_CC;
 USING_NS_CC_EXT;
 
-GameOverLayer* GameOverLayer::create(bool win, int stage, int time, int kill, int loss)
+GameOverLayer* GameOverLayer::create(bool win, int stage, int time, int kill, int loss, int newFlight)
 {
     auto pRet = new GameOverLayer();
-    if (pRet && pRet->init(win, stage, time, kill, loss))
+    if (pRet && pRet->init(win, stage, time, kill, loss, newFlight))
     {
         pRet->autorelease();
         return pRet;
@@ -34,7 +34,7 @@ GameOverLayer* GameOverLayer::create(bool win, int stage, int time, int kill, in
     }
 }
 
-bool GameOverLayer::init(bool win, int stage, int time, int kill, int loss)
+bool GameOverLayer::init(bool win, int stage, int time, int kill, int loss, int newFlight)
 {
     if(!Layer::init())
     {
@@ -228,16 +228,16 @@ bool GameOverLayer::init(bool win, int stage, int time, int kill, int loss)
         _panel->addChild(menu);
     }
     
-    this->scheduleOnce(schedule_selector(GameOverLayer::pausegame), 0.5f);
+    //this->scheduleOnce(schedule_selector(GameOverLayer::pausegame), 0.5f);
 
     return true;
 }
 
 void GameOverLayer::returnBase_callback(cocos2d::Ref* pSender)
 {
-    if (Director::getInstance()->isPaused()) {
-        Director::getInstance()->resume();
-    }
+//    if (Director::getInstance()->isPaused()) {
+//        Director::getInstance()->resume();
+//    }
     
     auto base = Base::create();
     Director::getInstance()->replaceScene(base);
@@ -245,9 +245,9 @@ void GameOverLayer::returnBase_callback(cocos2d::Ref* pSender)
 
 void GameOverLayer::nextStage_callback(cocos2d::Ref* pSender)
 {
-    if (Director::getInstance()->isPaused()) {
-    Director::getInstance()->resume();
-    }
+//    if (Director::getInstance()->isPaused()) {
+//    Director::getInstance()->resume();
+//    }
     
     if(_stage < STAGE_COUNT)
     {
@@ -262,9 +262,9 @@ void GameOverLayer::nextStage_callback(cocos2d::Ref* pSender)
 
 void GameOverLayer::restartStage_callback(cocos2d::Ref* pSender)
 {
-    if (Director::getInstance()->isPaused()) {
-        Director::getInstance()->resume();
-    }
+//    if (Director::getInstance()->isPaused()) {
+//        Director::getInstance()->resume();
+//    }
     auto battle = Battleground::create(_stage);
     Director::getInstance()->replaceScene(battle);
 }
