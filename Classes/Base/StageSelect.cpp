@@ -16,7 +16,7 @@ bool StageSelect::init()
     if (Layer::init())
     {
         selected_cell = nullptr;
-        _selectItem = s_playerConfig.overstage;
+        _selectItem = s_playerConfig.overstage+1;
         _noTouch = true ;
         
         auto listener = EventListenerTouchOneByOne::create();
@@ -121,7 +121,7 @@ cocos2d::extension::TableViewCell* StageSelect::tableCellAtIndex(cocos2d::extens
     else
     {
         auto item_bk = (Sprite*)cell->getChildByTag(10)->getChildByTag(20);
-        if(idx <= s_playerConfig.overstage)
+        if(idx <= s_playerConfig.overstage+1)
             item_bk->setSpriteFrame("bt_mission_0.png");
         else
             item_bk->setSpriteFrame("bt_mission_1.png");
@@ -133,7 +133,7 @@ cocos2d::extension::TableViewCell* StageSelect::tableCellAtIndex(cocos2d::extens
         std::string stage_text_str = s_gameStrings.mainMenu->stagetext + " - " + Value((int)idx+1).asString();
         auto stage_text = (TextSprite*)cell->getChildByTag(10)->getChildByTag(40);
         stage_text->setText(stage_text_str);
-        if(idx<=s_playerConfig.overstage)
+        if(idx<=s_playerConfig.overstage+1)
             stage_text->setColor(Color3B(230,230,230));
         else
             stage_text->setColor(Color3B(80,80,80));
@@ -159,7 +159,7 @@ cocos2d::extension::TableViewCell* StageSelect::tableCellAtIndex(cocos2d::extens
 void StageSelect::tableCellTouched(extension::TableView* table, extension::TableViewCell* cell)
 {
     _noTouch = false;
-    if(cell->getIdx()<=s_playerConfig.overstage)
+    if(cell->getIdx()<=s_playerConfig.overstage+1)
     {
         if(selected_cell)
         {
@@ -243,7 +243,7 @@ Node* StageSelect::getItemNode(int i)
 {
     auto item = Node::create();
     Sprite* item_bk = nullptr;
-    if(i<=s_playerConfig.overstage)
+    if(i<=s_playerConfig.overstage+1)
         item_bk = Sprite::createWithSpriteFrameName("bt_mission_0.png");
     else
         item_bk = Sprite::createWithSpriteFrameName("bt_mission_1.png");
@@ -269,7 +269,7 @@ Node* StageSelect::getItemNode(int i)
     
     std::string stage_text_str = s_gameStrings.mainMenu->stagetext + " - " + Value(i+1).asString();
     auto stage_text = TextSprite::create(stage_text_str,GameConfig::defaultFontName,GameConfig::defaultFontSize);
-    if(i<=s_playerConfig.overstage)
+    if(i<=s_playerConfig.overstage+1)
         stage_text->setColor(Color3B(230,230,230));
     else
         stage_text->setColor(Color3B(80,80,80));

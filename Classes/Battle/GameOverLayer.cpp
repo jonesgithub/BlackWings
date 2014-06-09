@@ -55,7 +55,7 @@ bool GameOverLayer::init(bool win, int stage, int time, int kill, int loss)
     //panel
     Size panelSize;
     if(win)
-        panelSize = Size(s_visibleRect.visibleWidth-60,s_visibleRect.visibleHeight-250);
+        panelSize = Size(s_visibleRect.visibleWidth-60,s_visibleRect.visibleHeight-280);
     else
         panelSize = Size(s_visibleRect.visibleWidth-60,s_visibleRect.visibleHeight-450);
     
@@ -85,18 +85,42 @@ bool GameOverLayer::init(bool win, int stage, int time, int kill, int loss)
     //info
     auto time_label = TextSprite::create(s_gameStrings.battleInfo->gameovertime, "Arial", 20);
     time_label->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
-    time_label->setPosition(Point(120,panelSize.height-150));
+    time_label->setPosition(Point(150,panelSize.height-150));
     _panel->addChild(time_label);
+    
+    time = time > 36000?3599:(time/10);
+    int min = time/60;
+    int sec = time - min*60;
+    char p[10];
+    sprintf(p,"%02d:%02d",min,sec);
+    
+    auto time_content = TextSprite::create(p,"Arial", 20);
+    time_content->setColor(Color3B::BLUE);
+    time_content->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
+    time_content->setPosition(Point(320,panelSize.height-150));
+    _panel->addChild(time_content);
     
     auto kill_label = TextSprite::create(s_gameStrings.battleInfo->gameoverkill, "Arial", 20);
     kill_label->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
-    kill_label->setPosition(Point(120,panelSize.height-200));
+    kill_label->setPosition(Point(150,panelSize.height-200));
     _panel->addChild(kill_label);
+    
+    auto kill_content = TextSprite::create(Value(kill).asString(),"Arial", 20);
+    kill_content->setColor(Color3B::BLUE);
+    kill_content->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
+    kill_content->setPosition(Point(320,panelSize.height-200));
+    _panel->addChild(kill_content);
     
     auto loss_label = TextSprite::create(s_gameStrings.battleInfo->gameoverloss, "Arial", 20);
     loss_label->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
-    loss_label->setPosition(Point(120,panelSize.height-250));
+    loss_label->setPosition(Point(150,panelSize.height-250));
     _panel->addChild(loss_label);
+    
+    auto loss_content = TextSprite::create(Value(loss).asString(), "Arial", 20);
+    loss_content->setColor(Color3B::BLUE);
+    loss_content->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
+    loss_content->setPosition(Point(320,panelSize.height-250));
+    _panel->addChild(loss_content);
     
     //rewards
     if (win)
@@ -204,17 +228,27 @@ bool GameOverLayer::init(bool win, int stage, int time, int kill, int loss)
         _panel->addChild(menu);
     }
     
+    this->scheduleOnce(schedule_selector(GameOverLayer::pausegame), 0.5f);
+
     return true;
 }
 
 void GameOverLayer::returnBase_callback(cocos2d::Ref* pSender)
 {
+    if (Director::getInstance()->isPaused()) {
+        Director::getInstance()->resume();
+    }
+    
     auto base = Base::create();
     Director::getInstance()->replaceScene(base);
 }
 
 void GameOverLayer::nextStage_callback(cocos2d::Ref* pSender)
 {
+    if (Director::getInstance()->isPaused()) {
+    Director::getInstance()->resume();
+    }
+    
     if(_stage < STAGE_COUNT)
     {
         auto battle = Battleground::create(_stage+1);
@@ -228,5 +262,14 @@ void GameOverLayer::nextStage_callback(cocos2d::Ref* pSender)
 
 void GameOverLayer::restartStage_callback(cocos2d::Ref* pSender)
 {
+    if (Director::getInstance()->isPaused()) {
+        Director::getInstance()->resume();
+    }
     auto battle = Battleground::create(_stage);
-    Director::getInstance()->replaceScene(battle);}
+    Director::getInstance()->replaceScene(battle);
+}
+
+void GameOverLayer::pausegame(float dt)
+{
+    Director::getInstance()->pause();
+}

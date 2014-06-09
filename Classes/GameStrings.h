@@ -88,6 +88,7 @@ typedef struct _baseStrings{
     std::string nogemcanbuy;
     
     std::string getmoregem;
+    std::string maxlevel;
 }BaseStrings;
 
 typedef struct _medalStrings{

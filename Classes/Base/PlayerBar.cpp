@@ -112,12 +112,12 @@ bool PlayerBar::init()
     slash->setColor(Color3B(169,169,169));
     numBg->addChild(slash);
     
-    stoneNum = Label::createWithTTF(PersonalApi::convertIntToString(s_playerConfig.stone).c_str(),fontFile,fontSize);
+    stoneNum = Label::createWithTTF(PersonalApi::convertIntToString(s_stoneCapacity[s_playerConfig.stonecapacitylevel].initstone).c_str(),fontFile,fontSize);
     stoneNum->setAnchorPoint(Point::ANCHOR_BOTTOM_RIGHT);
     stoneNum->setPosition(Point(slash->getPositionX()-10,slash->getPositionY()));
     numBg->addChild(stoneNum);
     
-    stoneTatalNum = Label::createWithTTF(PersonalApi::convertIntToString(s_playerConfig.stoneMax).c_str(),fontFile,fontSize);
+    stoneTatalNum = Label::createWithTTF(PersonalApi::convertIntToString(s_stoneCapacity[s_playerConfig.stonecapacitylevel].maxstone).c_str(),fontFile,fontSize);
     stoneTatalNum->setAnchorPoint(Point::ANCHOR_BOTTOM_LEFT);
     stoneTatalNum->setPosition(Point(slash->getPositionX()+10,slash->getPositionY()));
     stoneTatalNum->setColor(Color3B(169,169,169));

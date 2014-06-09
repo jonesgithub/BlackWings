@@ -158,6 +158,7 @@ bool MenuSettings::init(GameInterface face)
                         if (Director::getInstance()->isPaused()) {
                             Director::getInstance()->resume();
                         }
+                        s_gameConfig.saveConfig();
                         auto bettle = Battleground::create(s_battleground->_battledata.stage);
                         Director::getInstance()->replaceScene(bettle);
                 },s_gameStrings.mainMenu->settingRetry);
@@ -169,6 +170,7 @@ bool MenuSettings::init(GameInterface face)
                         if (Director::getInstance()->isPaused()) {
                             Director::getInstance()->resume();
                         }
+                        s_gameConfig.saveConfig();
                         auto base = Base::create();
                         Director::getInstance()->replaceScene(base);
                 },s_gameStrings.mainMenu->settingBackToBase);
@@ -180,6 +182,7 @@ bool MenuSettings::init(GameInterface face)
                         if (Director::getInstance()->isPaused()) {
                             Director::getInstance()->resume();
                         }
+                        s_gameConfig.saveConfig();
                         auto mainMenu = MainMenu::create();
                         Director::getInstance()->replaceScene(mainMenu);
                 },s_gameStrings.base->topBarMainMenu);
@@ -329,6 +332,7 @@ void MenuSettings::sfxSliderEvent(Ref *sender, ui::SliderEventType type)
     s_playerConfig.sfxVolume = ((Slider*)sender)->getPercent() / 100.0f;
     CocosDenshion::SimpleAudioEngine::getInstance()->setEffectsVolume(s_playerConfig.sfxVolume);
 }
+
 void MenuSettings::pausegame(float dt)
 {
     Director::getInstance()->pause();

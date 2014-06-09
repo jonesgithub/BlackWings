@@ -63,9 +63,9 @@
 	<key>stage_select</key>
     <string>关卡选择</string>
     <key>stage_text</key>
-    <string>关卡</string>
+    <string>STAGE</string>
     <key>stage_fight</key>
-    <string>战斗！</string>
+    <string>FIGHT！</string>
     
     <!-- 战斗菜单 -->
     <key>battle_pause</key>

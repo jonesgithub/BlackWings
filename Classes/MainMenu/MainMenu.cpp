@@ -59,6 +59,10 @@ void MainMenu::createBg(Ref *sender)
         MoveBy::create(3.0f,Point(0,-20)),nullptr) );
     logo->runAction(action);
 
+    auto vanishing = ParticleSystemQuad::create("vanishingPoint.plist");
+    vanishing->setPosition(s_visibleRect.center);
+    this->addChild(vanishing);
+    
     createMenu();
 }
 

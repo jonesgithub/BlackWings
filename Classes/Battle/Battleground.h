@@ -70,6 +70,7 @@ public:
     void dispatchEnemys_2(float dt);
     void dispatchBoss(float dt);
     void showPotInRadar();
+    void updateMenuItemStatus(float dt);
 
     bool onTouchBegan(Touch* touch, Event* event);
     void onTouchMoved(Touch* touch, Event* event);
