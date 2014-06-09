@@ -234,33 +234,34 @@ void Battleground::createBattleground(Ref *sender)
     
     _battleParallaxNode->runAction(Sequence::create(
                                                     MoveBy::create(1.0f, Point(0, s_visibleRect.visibleHeight)),
-                                                    CallFunc::create([=](){
-        createFlightBase();
-        
-        createRadarChart();
-        
-        createHealthBar();
-        
-        playerBag = PlayerBar::create();
-        playerBag->setPositionY(-200);
-        this->addChild(playerBag);
-        playerBag->runAction(MoveBy::create(0.5f, Point(0,200)));
-        
-        this->schedule(schedule_selector(Battleground::battleLoop), 0.1f);
-        this->schedule(schedule_selector(Battleground::updateMenuItemStatus), 0.01f);
-        
-        createListener();
-        
-        createAnimations();
-        
-        //初始化敌人配置
-        initEnemyDispatcher();
-    }),
+                                                    CallFunc::create([=]()
+                                                                     {
+                                                                         createFlightBase();
+                                                                         
+                                                                         createRadarChart();
+                                                                         
+                                                                         createHealthBar();
+                                                                         
+                                                                         playerBag = PlayerBar::create();
+                                                                         playerBag->setPositionY(-200);
+                                                                         this->addChild(playerBag);
+                                                                         playerBag->runAction(MoveBy::create(0.5f, Point(0,200)));
+                                                                         
+                                                                         this->schedule(schedule_selector(Battleground::battleLoop), 0.1f);
+                                                                         this->schedule(schedule_selector(Battleground::updateMenuItemStatus), 0.01f);
+                                                                         
+                                                                         createListener();
+                                                                         
+                                                                         createAnimations();
+                                                                         
+                                                                         //初始化敌人配置
+                                                                         initEnemyDispatcher();
+                                                                     }),
                                                     nullptr));
     
-    std::string str = s_gameStrings.mainMenu->stagetext + " - " +Value(_battledata.stage).asString();
+    std::string str = s_gameStrings.mainMenu->stagetext + " - " +Value(_battledata.stage+1).asString();
     auto tip_box = Sprite::createWithSpriteFrameName("bt_main_1.png");
-    tip_box->setPosition(s_visibleRect.center);
+    tip_box->setPosition(s_visibleRect.center + Point(0,100));
     
     auto stageTip = TextSprite::create(str);
     stageTip->setAnchorPoint(Point::ANCHOR_MIDDLE);
@@ -269,7 +270,7 @@ void Battleground::createBattleground(Ref *sender)
     addChild(tip_box);
     
     tip_box->setScaleY(0.1f);
-    tip_box->runAction(Sequence::create(ScaleTo::create(0.2f,1.0f), DelayTime::create(0.6f), ScaleTo::create(0.2f,1.0f,0.1f), RemoveSelf::create(), nullptr));
+    tip_box->runAction(Sequence::create(ScaleTo::create(0.2f,1.0f), DelayTime::create(1.6f), ScaleTo::create(0.2f,1.0f,0.1f), RemoveSelf::create(), nullptr));
 }
 
 void Battleground::createListener()
@@ -314,9 +315,9 @@ void Battleground::createListener()
 
 void Battleground::initEnemyDispatcher()
 {
-//    initNormalEnemy();
-//    initTowerEnemy();
-//    initBossEnemy();
+    initNormalEnemy();
+    initTowerEnemy();
+    initBossEnemy();
 }
 
 void Battleground::battleLoop(float dt)
@@ -796,8 +797,8 @@ void Battleground::createRadarChart()
         s_visibleRect.top.y - 50 - radarChart->getContentSize().height));
     this->addChild(stageTextBox);
     
-    std::string str = s_gameStrings.mainMenu->stagetext + Value(_battledata.stage).asString();
-    auto stageText = Label::createWithTTF(str,"arial.ttf",12);
+    std::string str = s_gameStrings.mainMenu->stagetext + Value(_battledata.stage+1).asString();
+    auto stageText = TextSprite::create(str,GameConfig::defaultFontName,12);
     stageText->setAnchorPoint(Point::ANCHOR_MIDDLE);
     stageText->setPosition(Point(stageTextBox->getContentSize().width/2,stageTextBox->getContentSize().height/2));
     stageTextBox->addChild(stageText);
@@ -1109,6 +1110,29 @@ void Battleground::win()
             player->stopAllActions();
         }
         
+        //设置通过关数
+        s_playerConfig.overstage = s_playerConfig.overstage <= _battledata.stage ? _battledata.stage : s_playerConfig.overstage;
+        //checkmedal
+        
+        //设置首杀
+        if(!s_playerConfig.firstkill)
+        {
+            s_playerConfig.firstkill = true;
+            //checkmedal
+        }
+        
+        //设置飞机解锁(第一架不再检查)
+        for(int i=1;i<FIGHTER_MAX;++i)
+        {
+            if (_battledata.stage == s_UnlockflightStage[i] && s_playerConfig.fighterslocked[i]) {
+                s_playerConfig.fighterslocked[i] = false;
+                //checkmedal
+                break;
+            }
+        }
+        
+        s_gameConfig.saveConfig();
+        
         auto go = GameOverLayer::create(true, _battledata.stage, _battledata.time, _battledata.enemydead+_battledata.bossdead, _battledata.flightdead);
         this->addChild(go,99);
     }
@@ -1138,6 +1162,8 @@ void Battleground::lost()
         {
             player->stopAllActions();
         }
+        
+        s_gameConfig.saveConfig();
         
         auto go = GameOverLayer::create(false, _battledata.stage, _battledata.time, _battledata.enemydead+_battledata.bossdead, _battledata.flightdead);
         this->addChild(go,99);

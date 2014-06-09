@@ -132,6 +132,10 @@
 		856EFA4B19434E95004AEE2B /* UpgradeUILayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 856EFA4819434E95004AEE2B /* UpgradeUILayer.cpp */; };
 		857F13FE19438A9F000DE4E7 /* NoGemLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 857F13FC19438A9F000DE4E7 /* NoGemLayer.cpp */; };
 		857F13FF19438A9F000DE4E7 /* NoGemLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 857F13FC19438A9F000DE4E7 /* NoGemLayer.cpp */; };
+		857F14031944D109000DE4E7 /* missileFlare.plist in Resources */ = {isa = PBXBuildFile; fileRef = 857F14021944D109000DE4E7 /* missileFlare.plist */; };
+		857F14041944D109000DE4E7 /* missileFlare.plist in Resources */ = {isa = PBXBuildFile; fileRef = 857F14021944D109000DE4E7 /* missileFlare.plist */; };
+		857F14091944D408000DE4E7 /* vanishingPoint.plist in Resources */ = {isa = PBXBuildFile; fileRef = 857F14081944D408000DE4E7 /* vanishingPoint.plist */; };
+		857F140A1944D408000DE4E7 /* vanishingPoint.plist in Resources */ = {isa = PBXBuildFile; fileRef = 857F14081944D408000DE4E7 /* vanishingPoint.plist */; };
 		8598E77D1933804500E72CDE /* baseStringsCh.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8598E7281933804500E72CDE /* baseStringsCh.xml */; };
 		8598E77E1933804500E72CDE /* baseStringsCh.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8598E7281933804500E72CDE /* baseStringsCh.xml */; };
 		8598E77F1933804500E72CDE /* baseStringsEn.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8598E7291933804500E72CDE /* baseStringsEn.xml */; };
@@ -555,6 +559,8 @@
 		856EFA4919434E95004AEE2B /* UpgradeUILayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UpgradeUILayer.h; sourceTree = "<group>"; };
 		857F13FC19438A9F000DE4E7 /* NoGemLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NoGemLayer.cpp; sourceTree = "<group>"; };
 		857F13FD19438A9F000DE4E7 /* NoGemLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoGemLayer.h; sourceTree = "<group>"; };
+		857F14021944D109000DE4E7 /* missileFlare.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = missileFlare.plist; path = battle/missileFlare.plist; sourceTree = "<group>"; };
+		857F14081944D408000DE4E7 /* vanishingPoint.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = vanishingPoint.plist; sourceTree = "<group>"; };
 		8598E7281933804500E72CDE /* baseStringsCh.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = baseStringsCh.xml; sourceTree = "<group>"; };
 		8598E7291933804500E72CDE /* baseStringsEn.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = baseStringsEn.xml; sourceTree = "<group>"; };
 		8598E72A1933804500E72CDE /* CloseNormal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CloseNormal.png; sourceTree = "<group>"; };
@@ -975,6 +981,7 @@
 		8598E72F1933804500E72CDE /* hd */ = {
 			isa = PBXGroup;
 			children = (
+				857F14021944D109000DE4E7 /* missileFlare.plist */,
 				8555021E193B514700DEAF12 /* plain_progress.png */,
 				855E13381934D0EB00683F21 /* battle_life_enemy.png */,
 				855E13391934D0EB00683F21 /* battle_life_plain.png */,
@@ -1014,6 +1021,7 @@
 		8598E7331933804500E72CDE /* battle */ = {
 			isa = PBXGroup;
 			children = (
+				857F14081944D408000DE4E7 /* vanishingPoint.plist */,
 				8598E7341933804500E72CDE /* bases.plist */,
 				8598E7351933804500E72CDE /* bases.png */,
 				8598E7361933804500E72CDE /* battle.plist */,
@@ -1300,6 +1308,7 @@
 				8598E7D31933804500E72CDE /* map_1.plist in Resources */,
 				50EF62A317ECD613001EB2F8 /* Icon-50.png in Resources */,
 				5087E78017EB970100C73F5D /* Icon-114.png in Resources */,
+				857F14091944D408000DE4E7 /* vanishingPoint.plist in Resources */,
 				50EF62A217ECD613001EB2F8 /* Icon-29.png in Resources */,
 				8598E7851933804500E72CDE /* arial.ttf in Resources */,
 				852781311934FAA700A0DEA5 /* medalStringsEn.xml in Resources */,
@@ -1330,6 +1339,7 @@
 				8555021F193B514700DEAF12 /* plain_progress.png in Resources */,
 				8598E7F11933804500E72CDE /* medal_icons.plist in Resources */,
 				8598E7DB1933804500E72CDE /* map_3.plist in Resources */,
+				857F14031944D109000DE4E7 /* missileFlare.plist in Resources */,
 				8598E7811933804500E72CDE /* CloseNormal.png in Resources */,
 				8598E8151933804500E72CDE /* particleTexture.png in Resources */,
 				8598E7C51933804500E72CDE /* icons.png in Resources */,
@@ -1358,6 +1368,7 @@
 				8598E77E1933804500E72CDE /* baseStringsCh.xml in Resources */,
 				8598E7C81933804500E72CDE /* loading_bar_a.png in Resources */,
 				8598E79E1933804500E72CDE /* enemys.plist in Resources */,
+				857F14041944D109000DE4E7 /* missileFlare.plist in Resources */,
 				8598E7FA1933804500E72CDE /* plains.png in Resources */,
 				8598E7961933804500E72CDE /* battle.png in Resources */,
 				8598E7E01933804500E72CDE /* map_4.plist in Resources */,
@@ -1370,6 +1381,7 @@
 				8598E7CC1933804500E72CDE /* logo.png in Resources */,
 				8598E7901933804500E72CDE /* bases.plist in Resources */,
 				8598E7821933804500E72CDE /* CloseNormal.png in Resources */,
+				857F140A1944D408000DE4E7 /* vanishingPoint.plist in Resources */,
 				8598E8101933804500E72CDE /* HelloWorld.png in Resources */,
 				8598E78E1933804500E72CDE /* allBt.pvr.ccz in Resources */,
 				8598E7D61933804500E72CDE /* map_1.png in Resources */,

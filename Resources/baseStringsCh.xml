@@ -38,6 +38,9 @@
 	<string>* 晶石最大容量 *</string>
     <key>second</key>
 	<string>秒</string>
+    <key>maxlevel</key>
+    <string>最高等级</string>
+    
     
     <key>flight_0_name</key>
     <string>* 轻型战机 *</string>

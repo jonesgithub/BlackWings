@@ -560,7 +560,7 @@ void UpgradeUILayer::menuCallbackUpgrade(Ref *sender)
                 break;
         }
         
-        //wtf.......
+        s_gameConfig.saveConfig();
         _eventDispatcher->dispatchCustomEvent(GameConfig::eventUpdateBaseData,(void*)_needgem);
         this->removeFromParent();
     }

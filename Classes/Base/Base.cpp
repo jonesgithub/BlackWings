@@ -46,11 +46,27 @@ void Base::createBase(Ref *sender)
     bg->setPosition(s_visibleRect.center);
     addChild(bg);
     
+    //************ adds emission flare ****************
+    auto flare = ParticleSystemQuad::create("missileFlare.plist");
+    flare->setScale(5);
+    flare->setTotalParticles(50);
+    flare->setPosition(s_visibleRect.center + Point(0,400));
+    flare->setPositionType(tPositionType::GROUPED);
+    flare->setStartColor(Color4F(0,0.99,1,1));
+    bg->addChild(flare);
+    
+    //************ adds vanishing ****************
+//    auto fileUtil = FileUtils::getInstance();
+//    auto plistData = fileUtil->getValueMapFromFile("vanishingPoint.plist");
+    auto vanishing = ParticleSystemQuad::create("vanishingPoint.plist");
+    vanishing->setPosition(s_visibleRect.center);
+    this->addChild(vanishing);
+    
     this->removeChild((LoadResourceLayer*)sender,true);
 
     GSBaseInit((GameLanguage)s_playerConfig.language);
 
-    createUpgrade();
+    createUpgrade(true, 0);
 
     createBottomPanel();
     
@@ -148,18 +164,6 @@ void Base::onEnter()
                                                     }
                                                     
                                                     if (index<6) {
-                                                        if(_isInFilghtUpgradeUI)
-                                                        {
-                                                            _flight_level_label ->setString(Value(s_playerConfig.fighterslevel[index]+1).asString());
-                                                            _flight_attack_label ->setString(Value(s_plainConfigs[index][s_playerConfig.fighterslevel[index]].attack).asString());
-                                                            _flight_defend_label ->setString(Value(s_plainConfigs[index][s_playerConfig.fighterslevel[index]].defense).asString());
-                                                            _flight_life_label ->setString(Value(s_plainConfigs[index][s_playerConfig.fighterslevel[index]].life).asString());
-                                                            _flight_speed_label ->setString(Value(s_plainConfigs[index][s_playerConfig.fighterslevel[index]].speed).asString());
-                                                            _flight_range_label ->setString(Value(s_plainConfigs[index][s_playerConfig.fighterslevel[index]].range).asString());
-                                                            _flight_upgradeforgem_label->setString(Value(s_plainConfigs[index][s_playerConfig.fighterslevel[index]].gemForUpgrade).asString());
-                                                        }
-                                                        else
-                                                        {
                                                             upgradeFighter->removeAllChildren();
                                                             int baseHeight = 50;
                                                             auto boxPos = Point(s_visibleRect.center.x,s_visibleRect.center.y - baseHeight * 5);
@@ -168,14 +172,13 @@ void Base::onEnter()
                                                             upgradeFighter->setContentSize(Size(s_visibleRect.visibleWidth - 50,baseHeight * 4.5));
                                                             upgradeFighter->setAnchorPoint(Point::ANCHOR_MIDDLE_BOTTOM);
                                                             upgradeFighter->setPosition(boxPos);
-                                                            _upgradePanel->addChild(upgradeFighter);
+                                                            _upgradePanel->addChild(upgradeFighter,10);
                                                             createFighterBottomInfo(upgradeFighter, index);
-                                                        }
+//                                                        }
                                                     }
                                                     else
                                                     {
-                                                        if(_isInFilghtUpgradeUI)
-                                                        {
+
                                                             upgradeFighter->removeAllChildren();
                                                             int baseHeight = 50;
                                                             auto boxPos = Point(s_visibleRect.center.x,s_visibleRect.center.y - baseHeight * 5);
@@ -184,57 +187,23 @@ void Base::onEnter()
                                                             upgradeFighter->setContentSize(Size(s_visibleRect.visibleWidth - 50,baseHeight * 4.5));
                                                             upgradeFighter->setAnchorPoint(Point::ANCHOR_MIDDLE_BOTTOM);
                                                             upgradeFighter->setPosition(boxPos);
-                                                            _upgradePanel->addChild(upgradeFighter);
+                                                            _upgradePanel->addChild(upgradeFighter,10);
                                                             createWeaponBottomInfo(upgradeFighter, index - FIGHTER_MAX);
-                                                        }
-                                                        else
-                                                        {
-                                                            _weapon_level_label ->setString(Value(s_playerConfig.weaponslevel[index - FIGHTER_MAX]+1).asString());
-                                                            _weapon_attack_label ->setString(Value(s_weaponConfigs[index - FIGHTER_MAX][s_playerConfig.weaponslevel[index - FIGHTER_MAX]+1].attack).asString());
-                                                            char p[30];
-                                                            sprintf(p, "%.2f",s_weaponConfigs[index - FIGHTER_MAX][s_playerConfig.weaponslevel[index - FIGHTER_MAX]+1].duration);
-                                                            _weapon_duration_label ->setString(p);
-                                                            _weapon_upgradeforgem_label ->setString(Value(s_weaponConfigs[index - FIGHTER_MAX][s_playerConfig.weaponslevel[index - FIGHTER_MAX]+1].gemForUpgrade).asString());                                                                 }
                                                     }
                                                     
                                                 });
     _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
     
     auto listenerUpdateBaseData = EventListenerCustom::create(GameConfig::eventUpdateBaseData, [=](EventCustom* event){
-        //update stonespeed panel
-        top_level->setString(Value(s_playerConfig.stonespeedlevel+1).asString());
-        top_speed->setString(Value(s_stoneSpeed[s_playerConfig.stonespeedlevel].speed).asString());
-        top_speed->setPosition(top_plus->getPosition()+Point(top_plus->getContentSize().width,0));
-        top_slash->setPosition(top_speed->getPosition()+Point(top_speed->getContentSize().width,0));
-        top_second->setPosition(top_slash->getPosition()+Point(top_slash->getContentSize().width,0));
-        top_leveUpCost->setString(Value(s_stoneSpeed[s_playerConfig.stonespeedlevel].gemForUpgrade).asString());
-        
-        //updatestoneMax panel
-        middle_level ->setString(Value(s_playerConfig.stonecapacitylevel+1).asString());
-        middle_init ->setString(Value(s_stoneCapacity[s_playerConfig.stonecapacitylevel].initstone).asString());
-        middle_slash->setPosition(middle_init->getPosition()+Point(middle_init->getContentSize().width,0));
-        middle_total ->setString(Value(s_stoneCapacity[s_playerConfig.stonecapacitylevel].maxstone).asString());
-        middle_total->setPosition(middle_slash->getPosition()+Point(middle_slash->getContentSize().width,0));
-        middle_leveUpCost->setString(Value(s_stoneCapacity[s_playerConfig.stonecapacitylevel].gemForUpgrade).asString());
-        
-        //update flight or weapon panel
-        if (_isInFilghtUpgradeUI)
-        {
-            _flight_level_label->setString(Value(s_playerConfig.fighterslevel[_curSeletedIndex]+1).asString());
-            _flight_attack_label->setString(Value(s_plainConfigs[_curSeletedIndex][s_playerConfig.fighterslevel[_curSeletedIndex]].attack).asString());
-            _flight_defend_label->setString(Value(s_plainConfigs[_curSeletedIndex][s_playerConfig.fighterslevel[_curSeletedIndex]].defense).asString());
-            _flight_upgradeforgem_label->setString(Value(s_plainConfigs[_curSeletedIndex][s_playerConfig.fighterslevel[_curSeletedIndex]].gemForUpgrade).asString());
-            _flight_life_label->setString(Value(s_plainConfigs[_curSeletedIndex][s_playerConfig.fighterslevel[_curSeletedIndex]].life).asString());
-            _flight_speed_label->setString(Value(s_plainConfigs[_curSeletedIndex][s_playerConfig.fighterslevel[_curSeletedIndex]].speed).asString());
-            _flight_range_label->setString(Value(s_plainConfigs[_curSeletedIndex][s_playerConfig.fighterslevel[_curSeletedIndex]].range).asString());
+
+        if (_isInFilghtUpgradeUI) {
+            _upgradePanel->removeAllChildren();
+            createUpgrade(true,_curSeletedIndex);
         }
         else
         {
-            _weapon_level_label->setString(Value(s_playerConfig.weaponslevel[_curSeletedIndex-FIGHTER_MAX]+1).asString());
-            _weapon_attack_label->setString(Value(s_weaponConfigs[_curSeletedIndex-FIGHTER_MAX][s_playerConfig.weaponslevel[_curSeletedIndex-FIGHTER_MAX]].attack).asString());
-            _weapon_duration_label->setString(Value(s_weaponConfigs[_curSeletedIndex-FIGHTER_MAX][s_playerConfig.weaponslevel[_curSeletedIndex-FIGHTER_MAX]].duration).asString());
-            _weapon_upgradeforgem_label->setString(Value(s_weaponConfigs[_curSeletedIndex-FIGHTER_MAX][s_playerConfig.weaponslevel[_curSeletedIndex-FIGHTER_MAX]].gemForUpgrade).asString());
-            _buy_gem->setText(Value(s_weaponConfigs[_curSeletedIndex-FIGHTER_MAX][s_playerConfig.weaponslevel[_curSeletedIndex-FIGHTER_MAX]].gemForUpgrade).asString().c_str());
+            _upgradePanel->removeAllChildren();
+            createUpgrade(false,_curSeletedIndex - FIGHTER_MAX);
         }
         
         if(_playerBag)
@@ -271,7 +240,7 @@ void Base::createBottomPanel()
     _bottomPanel->addChild(_playerBag,1);
 }
 
-void Base::createUpgrade()
+void Base::createUpgrade(bool isFightUI, int t_index)
 {
     _upgradePanel = Node::create();
     this->addChild(_upgradePanel);
@@ -281,16 +250,28 @@ void Base::createUpgrade()
 
     auto boxPos = Point(s_visibleRect.center.x,s_visibleRect.center.y - baseHeight * 5);
 
-    upgradeFighter = Scale9Sprite::createWithSpriteFrameName("upgrade_box.png");
-    upgradeFighter->setContentSize(Size(s_visibleRect.visibleWidth - 50,baseHeight * 4.5));
-    upgradeFighter->setAnchorPoint(Point::ANCHOR_MIDDLE_BOTTOM);
-    upgradeFighter->setPosition(boxPos);
-    _upgradePanel->addChild(upgradeFighter);
-    createFighterBottomInfo(upgradeFighter, 0);
+    if (isFightUI) {
+        
+        upgradeFighter = Scale9Sprite::createWithSpriteFrameName("upgrade_box.png");
+        upgradeFighter->setContentSize(Size(s_visibleRect.visibleWidth - 50,baseHeight * 4.5));
+        upgradeFighter->setAnchorPoint(Point::ANCHOR_MIDDLE_BOTTOM);
+        upgradeFighter->setPosition(boxPos);
+        _upgradePanel->addChild(upgradeFighter);
+        createFighterBottomInfo(upgradeFighter, t_index);
+    }
+    else
+    {
+        upgradeFighter = Scale9Sprite::createWithSpriteFrameName("upgrade_box.png");
+        upgradeFighter->setContentSize(Size(s_visibleRect.visibleWidth - 50,baseHeight * 4.5));
+        upgradeFighter->setAnchorPoint(Point::ANCHOR_MIDDLE_BOTTOM);
+        upgradeFighter->setPosition(boxPos);
+        _upgradePanel->addChild(upgradeFighter);
+        createWeaponBottomInfo(upgradeFighter, t_index);
+    }
 
     boxPos.y += baseHeight * 4.5 + padding;
     auto sparCapacitySize = Size(s_visibleRect.visibleWidth - 60,baseHeight * 3);
-    auto upgradeSparCapacity = Scale9Sprite::createWithSpriteFrameName("upgrade_box.png");
+    upgradeSparCapacity = Scale9Sprite::createWithSpriteFrameName("upgrade_box.png");
     upgradeSparCapacity->setAnchorPoint(Point::ANCHOR_MIDDLE_BOTTOM);
     upgradeSparCapacity->setContentSize(sparCapacitySize);
     upgradeSparCapacity->setPosition(boxPos);
@@ -304,7 +285,7 @@ void Base::createUpgrade()
     
     boxPos.y += baseHeight * 3 + padding;
     auto sparRecoverySize = Size(s_visibleRect.visibleWidth - 70,baseHeight * 3);
-    auto upgradeSparRecovery = Scale9Sprite::createWithSpriteFrameName("upgrade_box.png");
+    upgradeSparRecovery = Scale9Sprite::createWithSpriteFrameName("upgrade_box.png");
     upgradeSparRecovery->setContentSize(sparRecoverySize);
     upgradeSparRecovery->setAnchorPoint(Point::ANCHOR_MIDDLE_BOTTOM);
     upgradeSparRecovery->setPosition(boxPos);
@@ -340,10 +321,7 @@ void Base::createFighterBottomInfo(Node* panel,int t_index)
     menu->setPosition(Point::ZERO);
     panel->addChild(menu);
     
-    auto spar = Sprite::createWithSpriteFrameName("icon_gem.png");
-    spar->setPosition(Point(200,panelSize.height * 0.25f));
-    panel->addChild(spar);
-    spar->setTag(2);
+    Sprite* spar;
     
     auto pos = Point(200,panelSize.height * 0.85f);
 
@@ -389,12 +367,31 @@ void Base::createFighterBottomInfo(Node* panel,int t_index)
         panel->addChild(rangeText);
         rangeText->setTag(7);
         
-        pos.y = panelSize.height * 0.25f;
-        auto leveUpText = TextSprite::create(s_gameStrings.base->upgrade,GameConfig::defaultFontName,fontSize);
-        leveUpText->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
-        leveUpText->setPosition(pos-Point(40,0));
-        panel->addChild(leveUpText);
-        leveUpText->setTag(8);
+        if (s_playerConfig.fighterslevel[t_index] < FIGHTER_LEVEL_MAX-1)
+        {
+            spar = Sprite::createWithSpriteFrameName("icon_gem.png");
+            spar->setPosition(Point(200,panelSize.height * 0.25f));
+            panel->addChild(spar);
+            spar->setTag(2);
+            
+            pos.y = panelSize.height * 0.25f;
+            auto leveUpText = TextSprite::create(s_gameStrings.base->upgrade,GameConfig::defaultFontName,fontSize);
+            leveUpText->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
+            leveUpText->setPosition(pos-Point(40,0));
+            panel->addChild(leveUpText);
+            leveUpText->setTag(8);
+        }
+        else
+        {
+            pos.x = panelSize.width/2;
+            pos.y = panelSize.height * 0.25f;
+            auto maxlevel_text = TextSprite::create(s_gameStrings.base->maxlevel,GameConfig::defaultFontName,fontSize);
+            maxlevel_text->setColor(Color3B::YELLOW);
+            maxlevel_text->setAnchorPoint(Point::ANCHOR_MIDDLE);
+            maxlevel_text->setPosition(pos);
+            panel->addChild(maxlevel_text);
+            menu->setEnabled(false);
+        }
     }
 
     {
@@ -423,14 +420,16 @@ void Base::createFighterBottomInfo(Node* panel,int t_index)
         panel->addChild(_flight_defend_label);
         _flight_defend_label->setTag(11);
         
-        pos.y = panelSize.height * 0.25f;
-        _flight_upgradeforgem_label = Label::createWithTTF(Value(s_plainConfigs[t_index][s_playerConfig.fighterslevel[t_index]].gemForUpgrade).asString(),fontFile,fontSize);
-        _flight_upgradeforgem_label->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
-        _flight_upgradeforgem_label->setPosition(spar->getPosition()+Point(spar->getContentSize().width/2,0));
-        _flight_upgradeforgem_label->setTextColor(Color4B(255,255,0,255));
-        panel->addChild(_flight_upgradeforgem_label);
-        _flight_upgradeforgem_label->setTag(12);
-        
+        if (s_playerConfig.fighterslevel[t_index] < FIGHTER_LEVEL_MAX-1)
+        {
+            pos.y = panelSize.height * 0.25f;
+            _flight_upgradeforgem_label = Label::createWithTTF(Value(s_plainConfigs[t_index][s_playerConfig.fighterslevel[t_index]].gemForUpgrade).asString(),fontFile,fontSize);
+            _flight_upgradeforgem_label->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
+            _flight_upgradeforgem_label->setPosition(spar->getPosition()+Point(spar->getContentSize().width/2,0));
+            _flight_upgradeforgem_label->setTextColor(Color4B(255,255,0,255));
+            panel->addChild(_flight_upgradeforgem_label);
+            _flight_upgradeforgem_label->setTag(12);
+        }
         pos.x = 490;
         pos.y = panelSize.height * 0.85f;
         _flight_life_label = Label::createWithTTF(Value(s_plainConfigs[t_index][s_playerConfig.fighterslevel[t_index]].life).asString(),fontFile,fontSize);
@@ -486,9 +485,7 @@ void Base::createWeaponBottomInfo(Node* panel, int t_index)
     menubuy->setPosition(Point::ZERO);
     panel->addChild(menubuy);
     
-    auto spar = Sprite::createWithSpriteFrameName("icon_gem.png");
-    spar->setPosition(Point(200,panelSize.height * 0.25f));
-    panel->addChild(spar);
+    Sprite* spar;
     
     auto pos = Point(200,panelSize.height * 0.85f);
     
@@ -510,12 +507,30 @@ void Base::createWeaponBottomInfo(Node* panel, int t_index)
         duartionText->setPosition(pos);
         panel->addChild(duartionText);
         
-        pos.x = 400;
-        pos.y = panelSize.height * 0.25f;
-        auto leveUpText = TextSprite::create(s_gameStrings.base->upgrade,GameConfig::defaultFontName,fontSize);
-        leveUpText->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
-        leveUpText->setPosition(pos-Point(40,0));
-        panel->addChild(leveUpText);
+        if(s_playerConfig.weaponslevel[t_index] < WEAPON_LEVEL_MAX-1)
+        {
+            spar = Sprite::createWithSpriteFrameName("icon_gem.png");
+            spar->setPosition(Point(200,panelSize.height * 0.25f));
+            panel->addChild(spar);
+            
+            pos.x = 400;
+            pos.y = panelSize.height * 0.25f;
+            auto leveUpText = TextSprite::create(s_gameStrings.base->upgrade,GameConfig::defaultFontName,fontSize);
+            leveUpText->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
+            leveUpText->setPosition(pos-Point(40,0));
+            panel->addChild(leveUpText);
+        }
+        else
+        {
+            pos.x = panelSize.width/2;
+            pos.y = panelSize.height * 0.25f;
+            auto maxlevel_text = TextSprite::create(s_gameStrings.base->maxlevel,GameConfig::defaultFontName,fontSize);
+            maxlevel_text->setColor(Color3B::YELLOW);
+            maxlevel_text->setAnchorPoint(Point::ANCHOR_MIDDLE);
+            maxlevel_text->setPosition(pos);
+            panel->addChild(maxlevel_text);
+            menu->setEnabled(false);
+        }
         
         auto stone_icon = Sprite::createWithSpriteFrameName("icon_gem.png");
         stone_icon->setPosition(Point(menuitembuy->getContentSize().width/2-35,menuitembuy->getContentSize().height/2+20));
@@ -552,13 +567,15 @@ void Base::createWeaponBottomInfo(Node* panel, int t_index)
         _weapon_duration_label->setTextColor(infoColor);
         panel->addChild(_weapon_duration_label);
         
-        pos.y = panelSize.height * 0.25f;
-        _weapon_upgradeforgem_label = Label::createWithTTF(Value(s_weaponConfigs[t_index][s_playerConfig.weaponslevel[t_index]].gemForUpgrade).asString(),fontFile,fontSize);
-        _weapon_upgradeforgem_label->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
-        _weapon_upgradeforgem_label->setPosition(spar->getPosition()+Point(spar->getContentSize().width/2,0));
-        _weapon_upgradeforgem_label->setTextColor(Color4B(255,255,0,255));
-        panel->addChild(_weapon_upgradeforgem_label);
-        
+        if(s_playerConfig.weaponslevel[t_index] < WEAPON_LEVEL_MAX-1)
+        {
+            pos.y = panelSize.height * 0.25f;
+            _weapon_upgradeforgem_label = Label::createWithTTF(Value(s_weaponConfigs[t_index][s_playerConfig.weaponslevel[t_index]].gemForUpgrade).asString(),fontFile,fontSize);
+            _weapon_upgradeforgem_label->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
+            _weapon_upgradeforgem_label->setPosition(spar->getPosition()+Point(spar->getContentSize().width/2,0));
+            _weapon_upgradeforgem_label->setTextColor(Color4B(255,255,0,255));
+            panel->addChild(_weapon_upgradeforgem_label);
+        }
         _buy_gem = TextSprite::create(Value(s_weaponConfigs[t_index][s_playerConfig.weaponslevel[t_index]].gemForUpgrade).asString().c_str(),fontFile,25);
         _buy_gem->setColor(Color3B::YELLOW);
         _buy_gem->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
@@ -582,9 +599,7 @@ void Base::createFighterMiddleInfo(Node* panel)
     menu->setPosition(Point::ZERO);
     panel->addChild(menu);
     
-    auto spar = Sprite::createWithSpriteFrameName("icon_gem.png");
-    spar->setPosition(Point(200,panelSize.height * 0.25f));
-    panel->addChild(spar);
+    Sprite* spar;
     
     auto pos = Point(200,panelSize.height * 0.85f);
     
@@ -601,12 +616,30 @@ void Base::createFighterMiddleInfo(Node* panel)
         sparCapacityText->setColor(Color3B(169,169,169));
         panel->addChild(sparCapacityText);
         
-        pos.x = 400;
-        pos.y = panelSize.height * 0.25f;
-        auto leveUpText = TextSprite::create(s_gameStrings.base->upgrade,GameConfig::defaultFontName,fontSize);
-        leveUpText->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
-        leveUpText->setPosition(pos-Point(40,0));
-        panel->addChild(leveUpText);
+        if(s_playerConfig.stonecapacitylevel < STONE_CAPACITY_LEVEL_MAX-1)
+        {
+            spar = Sprite::createWithSpriteFrameName("icon_gem.png");
+            spar->setPosition(Point(200,panelSize.height * 0.25f));
+            panel->addChild(spar);
+            
+            pos.x = 400;
+            pos.y = panelSize.height * 0.25f;
+            auto leveUpText = TextSprite::create(s_gameStrings.base->upgrade,GameConfig::defaultFontName,fontSize);
+            leveUpText->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
+            leveUpText->setPosition(pos-Point(40,0));
+            panel->addChild(leveUpText);
+        }
+        else
+        {
+            pos.x = panelSize.width/2;
+            pos.y = panelSize.height * 0.25f;
+            auto maxlevel_text = TextSprite::create(s_gameStrings.base->maxlevel,GameConfig::defaultFontName,fontSize);
+            maxlevel_text->setColor(Color3B::YELLOW);
+            maxlevel_text->setAnchorPoint(Point::ANCHOR_MIDDLE);
+            maxlevel_text->setPosition(pos);
+            panel->addChild(maxlevel_text);
+            menu->setEnabled(false);
+        }
     }
     {
         pos.x = 290;
@@ -634,13 +667,15 @@ void Base::createFighterMiddleInfo(Node* panel)
         middle_total->setPosition(middle_slash->getPosition()+Point(middle_slash->getContentSize().width,0));
         panel->addChild(middle_total);
         
-        
-        pos.y = panelSize.height * 0.25f;
-        middle_leveUpCost = Label::createWithTTF(Value(s_stoneCapacity[s_playerConfig.stonecapacitylevel].gemForUpgrade).asString(),fontFile,fontSize);
-        middle_leveUpCost->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
-        middle_leveUpCost->setPosition(spar->getPosition()+Point(spar->getContentSize().width/2,0));
-        middle_leveUpCost->setTextColor(Color4B(255,255,0,255));
-        panel->addChild(middle_leveUpCost);
+        if(s_playerConfig.stonecapacitylevel < STONE_CAPACITY_LEVEL_MAX-1)
+        {
+            pos.y = panelSize.height * 0.25f;
+            middle_leveUpCost = Label::createWithTTF(Value(s_stoneCapacity[s_playerConfig.stonecapacitylevel].gemForUpgrade).asString(),fontFile,fontSize);
+            middle_leveUpCost->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
+            middle_leveUpCost->setPosition(spar->getPosition()+Point(spar->getContentSize().width/2,0));
+            middle_leveUpCost->setTextColor(Color4B(255,255,0,255));
+            panel->addChild(middle_leveUpCost);
+        }
     }
 }
 void Base::createFighterTopInfo(Node* panel)
@@ -657,10 +692,7 @@ void Base::createFighterTopInfo(Node* panel)
     menu->setPosition(Point::ZERO);
     panel->addChild(menu);
     
-    
-    auto spar = Sprite::createWithSpriteFrameName("icon_gem.png");
-    spar->setPosition(Point(200,panelSize.height * 0.25f));
-    panel->addChild(spar);
+    Sprite* spar;
     
     auto pos = Point(200,panelSize.height * 0.85f);
     
@@ -677,12 +709,31 @@ void Base::createFighterTopInfo(Node* panel)
         sparRecoverRateText->setColor(Color3B(169,169,169));
         panel->addChild(sparRecoverRateText);
         
-        pos.x = 400;
-        pos.y = panelSize.height * 0.25f;
-        auto leveUpText = TextSprite::create(s_gameStrings.base->upgrade,GameConfig::defaultFontName,fontSize);
-        leveUpText->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
-        leveUpText->setPosition(pos-Point(40,0));
-        panel->addChild(leveUpText);
+        //不能超过最大级别
+        if(s_playerConfig.stonespeedlevel < STONE_SPEED_LEVEL_MAX-1)
+        {
+            spar = Sprite::createWithSpriteFrameName("icon_gem.png");
+            spar->setPosition(Point(200,panelSize.height * 0.25f));
+            panel->addChild(spar);
+            
+            pos.x = 400;
+            pos.y = panelSize.height * 0.25f;
+            auto leveUpText = TextSprite::create(s_gameStrings.base->upgrade,GameConfig::defaultFontName,fontSize);
+            leveUpText->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
+            leveUpText->setPosition(pos-Point(40,0));
+            panel->addChild(leveUpText);
+        }
+        else
+        {
+            pos.x = panelSize.width/2;
+            pos.y = panelSize.height * 0.25f;
+            auto maxlevel_text = TextSprite::create(s_gameStrings.base->maxlevel,GameConfig::defaultFontName,fontSize);
+            maxlevel_text->setColor(Color3B::YELLOW);
+            maxlevel_text->setAnchorPoint(Point::ANCHOR_MIDDLE);
+            maxlevel_text->setPosition(pos);
+            panel->addChild(maxlevel_text);
+            menu->setEnabled(false);
+        }
     }
     {
         pos.x = 290;
@@ -717,13 +768,15 @@ void Base::createFighterTopInfo(Node* panel)
         top_second->setPosition(top_slash->getPosition()+Point(top_slash->getContentSize().width,0));
         panel->addChild(top_second);
         
-        
-        pos.y = panelSize.height * 0.25f;
-        top_leveUpCost = Label::createWithTTF(Value(s_stoneSpeed[s_playerConfig.stonespeedlevel].gemForUpgrade).asString(),fontFile,fontSize);
-        top_leveUpCost->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
-        top_leveUpCost->setPosition(spar->getPosition()+Point(spar->getContentSize().width/2,0));
-        top_leveUpCost->setTextColor(Color4B(255,255,0,255));
-        panel->addChild(top_leveUpCost);
+        if(s_playerConfig.stonespeedlevel < STONE_SPEED_LEVEL_MAX-1)
+        {
+            pos.y = panelSize.height * 0.25f;
+            top_leveUpCost = Label::createWithTTF(Value(s_stoneSpeed[s_playerConfig.stonespeedlevel].gemForUpgrade).asString(),fontFile,fontSize);
+            top_leveUpCost->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
+            top_leveUpCost->setPosition(spar->getPosition()+Point(spar->getContentSize().width/2,0));
+            top_leveUpCost->setTextColor(Color4B(255,255,0,255));
+            panel->addChild(top_leveUpCost);
+        }
     }
 }
 void Base::createTopPanel()
@@ -829,7 +882,8 @@ void Base::buyWeapon(Ref *sender)
             
             _eventDispatcher->dispatchCustomEvent(GameConfig::eventUpdateMenuItemWeaponData,(void*)(_curSeletedIndex-FIGHTER_MAX));
             _eventDispatcher->dispatchCustomEvent(GameConfig::eventShowWeaponMenu);
-            //wtf...
+            
+            s_gameConfig.saveConfig();
         }
         else
         {

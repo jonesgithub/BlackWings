@@ -119,15 +119,15 @@ void MedalChecker::check_unlockallfighter()
 
 void MedalChecker::check_stagevictory()
 {
-    if (s_playerConfig.overstage >= 30 && s_playerConfig.medallocked[16]) {
+    if (s_playerConfig.overstage >= 29 && s_playerConfig.medallocked[16]) {
         s_playerConfig.medallocked[16] = false;
         s_playerConfig.medalget[16] = true;
     }
-    if (s_playerConfig.overstage >= 40 && s_playerConfig.medallocked[17]) {
+    if (s_playerConfig.overstage >= 39 && s_playerConfig.medallocked[17]) {
         s_playerConfig.medallocked[17] = false;
         s_playerConfig.medalget[17] = true;
     }
-    if (s_playerConfig.overstage >= 50 && s_playerConfig.medallocked[18]) {
+    if (s_playerConfig.overstage >= 49 && s_playerConfig.medallocked[18]) {
         s_playerConfig.medallocked[18] = false;
         s_playerConfig.medalget[18] = true;
     }

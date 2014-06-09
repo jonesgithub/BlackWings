@@ -40,7 +40,7 @@ public:
 private:
     void createBase(Ref *sender);
     
-    void createUpgrade();
+    void createUpgrade(bool isFightUI, int t_index);
     void createTopPanel();
     void createBottomPanel();
     
@@ -64,6 +64,8 @@ private:
     int _curSeletedIndex;
     
     cocos2d::extension::Scale9Sprite* upgradeFighter;
+    cocos2d::extension::Scale9Sprite* upgradeSparCapacity;
+    cocos2d::extension::Scale9Sprite* upgradeSparRecovery;
     
     MenuItemImageLabel* medalItem;
     Sprite* medalLogo;

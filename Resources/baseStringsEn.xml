@@ -38,6 +38,8 @@
 	<string>* Spar Capacity *</string>
     <key>second</key>
 	<string>second</string>
+    <key>maxlevel</key>
+    <string>MAX LEVEL</string>
     
     <key>flight_0_name</key>
     <string>* 轻型战机 *</string>

@@ -224,6 +224,8 @@ void GSBaseInit(GameLanguage language)
         
         s_gameStrings.base->getmoregem = dict["getmoregem"].asString();
         
+        s_gameStrings.base->maxlevel = dict["maxlevel"].asString();
+        
     }
 }
 

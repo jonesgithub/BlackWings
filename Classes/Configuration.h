@@ -27,12 +27,17 @@
 
 #define STAGE_COUNT 50
 
-#define STAGEOFCANBUYGEM 5
+#define STAGEOFCANBUYGEM 1
 
-#define STAGE_ENEMY_WAVES_00 3
+#define STAGE_ENEMY_WAVES_00 1
 #define STAGE_ENEMY_WAVES_01 2
+#define STAGE_ENEMY_WAVES_02 3
+
 
 #define STAGE_TOWER_COUNTS_00 1
+#define STAGE_TOWER_COUNTS_01 1
+#define STAGE_TOWER_COUNTS_02 2
+
 
 enum class Attacker
 {
@@ -131,6 +136,9 @@ extern GameConfig s_gameConfig;
 //写死数据
 ////////////////////////////////////
 
+//解锁飞机关卡
+extern int s_UnlockflightStage[6];
+
 //stone
 typedef struct _stoneSpeed
 {
@@ -220,10 +228,12 @@ typedef struct _battleNormalEnemyInfo
     int waves;
 }BattleNormalEnemyInfo;
 
-extern BattleNormalEnemyInfo s_battleNormalEnemyInfo[2];
+extern BattleNormalEnemyInfo s_battleNormalEnemyInfo[3];
 
 extern BattleNormalEnemyConfig s_battleNormalEnemyConfig_0[STAGE_ENEMY_WAVES_00];
 extern BattleNormalEnemyConfig s_battleNormalEnemyConfig_1[STAGE_ENEMY_WAVES_01];
+extern BattleNormalEnemyConfig s_battleNormalEnemyConfig_2[STAGE_ENEMY_WAVES_02];
+
 
 //TowerEnemy
 typedef struct _battleTowerEnemyConfig
@@ -239,9 +249,11 @@ typedef struct _battleTowerEnemyInfo
     int counts;
 }BattleTowerEnemyInfo;
 
-extern BattleTowerEnemyInfo s_battleTowerEnemyInfo[1];
+extern BattleTowerEnemyInfo s_battleTowerEnemyInfo[3];
 
 extern BattleTowerEnemyConfig s_battleTowerEnemyConfig_0[STAGE_TOWER_COUNTS_00];
+extern BattleTowerEnemyConfig s_battleTowerEnemyConfig_1[STAGE_TOWER_COUNTS_01];
+extern BattleTowerEnemyConfig s_battleTowerEnemyConfig_2[STAGE_TOWER_COUNTS_02];
 
 //BossEnemy
 typedef struct _battleBossEnemyInfo
