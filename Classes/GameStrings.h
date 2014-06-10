@@ -114,6 +114,7 @@ typedef struct _battleStrings{
     std::string nextstage;
     std::string restartstage;
     std::string gotosee;
+    std::string choosepos;
 }BattleStrings;
 
 typedef struct _gameStrings

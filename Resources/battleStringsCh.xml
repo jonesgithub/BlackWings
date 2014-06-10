@@ -23,4 +23,7 @@
     <string>重新挑战</string>
     <key>gotosee</key>
     <string>去看看</string>
+    
+    <key>choosepos</key>
+    <string>在屏幕中选择投放位置</string>
 </dict>

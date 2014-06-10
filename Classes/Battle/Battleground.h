@@ -71,6 +71,7 @@ public:
     void dispatchBoss(float dt);
     void showPotInRadar();
     void updateMenuItemStatus(float dt);
+    void showBombEffect(float dt);
 
     bool onTouchBegan(Touch* touch, Event* event);
     void onTouchMoved(Touch* touch, Event* event);
@@ -118,6 +119,7 @@ private:
     void initBossEnemy();
     
     void win();
+    bool _isWin;
     void lost();
     
     void showStoneAndGem(Point pos, int stoneCount, int gemCount, int stone, int gem);

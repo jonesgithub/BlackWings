@@ -47,13 +47,9 @@ void Base::createBase(Ref *sender)
     addChild(bg);
     
     //************ adds emission flare ****************
-    auto flare = ParticleSystemQuad::create("missileFlare.plist");
-    flare->setScale(5);
-    flare->setTotalParticles(50);
-    flare->setPosition(s_visibleRect.center + Point(0,400));
-    flare->setPositionType(tPositionType::GROUPED);
-    flare->setStartColor(Color4F(0,0.99,1,1));
-    bg->addChild(flare);
+    auto flare = ParticleSystemQuad::create("homeFire.plist");
+    flare->setPosition(s_visibleRect.center + Point(0,355));
+    this->addChild(flare,1);
     
     //************ adds vanishing ****************
 //    auto fileUtil = FileUtils::getInstance();

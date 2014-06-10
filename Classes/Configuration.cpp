@@ -177,9 +177,9 @@ void GameConfig::initConfig()
     s_playerConfig.stone = 200;
     s_playerConfig.stoneMax = 1000;
     s_playerConfig.gem = 1000000;
-    s_playerConfig.weaponCount[0] = 0;
-    s_playerConfig.weaponCount[1] = 0;
-    s_playerConfig.weaponCount[2] = 0;
+    s_playerConfig.weaponCount[0] = 20;
+    s_playerConfig.weaponCount[1] = 20;
+    s_playerConfig.weaponCount[2] = 20;
     s_playerConfig.usedweapon = 0;
     s_playerConfig.overstage = 0;
     s_playerConfig.killbigenemy = 0;

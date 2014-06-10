@@ -20,6 +20,7 @@ Battleground::Battleground()
     _isGameOver = false;
     _readytouseWeapon = false;
     _touchbegin = Point::ZERO;
+    _isWin = false;
     
     s_battleground = this;
     s_players.clear();
@@ -271,6 +272,7 @@ void Battleground::createBattleground(Ref *sender)
     
     tip_box->setScaleY(0.1f);
     tip_box->runAction(Sequence::create(ScaleTo::create(0.2f,1.0f), DelayTime::create(1.6f), ScaleTo::create(0.2f,1.0f,0.1f), RemoveSelf::create(), nullptr));
+    
 }
 
 void Battleground::createListener()
@@ -315,9 +317,9 @@ void Battleground::createListener()
 
 void Battleground::initEnemyDispatcher()
 {
-    //initNormalEnemy();
-    //initTowerEnemy();
-    //initBossEnemy();
+    initNormalEnemy();
+    initTowerEnemy();
+    initBossEnemy();
 }
 
 void Battleground::battleLoop(float dt)
@@ -718,6 +720,7 @@ void Battleground::createAnimations()
         explode_C->addSpriteFrameWithFileName(szName);
     }
     explode_C->setDelayPerUnit(2.8f / 14.0f);*/
+
 }
 
 void Battleground::createHealthBar()
@@ -1089,6 +1092,9 @@ void Battleground::win()
 {
     if (!_isGameOver) {
         _isGameOver = true;
+        _isWin = true;
+        
+        this->schedule(schedule_selector(Battleground::showBombEffect), 0.3f);
         
         for (auto enemy : s_enemys)
         {
@@ -1146,6 +1152,9 @@ void Battleground::lost()
 {
     if (!_isGameOver) {
         _isGameOver = true;
+        _isWin = false;
+        
+        this->schedule(schedule_selector(Battleground::showBombEffect), 0.3f);
         
         for (auto enemy : s_enemys)
         {
@@ -1321,7 +1330,7 @@ void Battleground::showuseweapontip(bool enable)
         tip_bk->cocos2d::Node::setAnchorPoint(Point::ANCHOR_MIDDLE);
         node->addChild(tip_bk);
         
-        auto tip = TextSprite::create("test xxxx");
+        auto tip = TextSprite::create(s_gameStrings.battleInfo->choosepos,GameConfig::defaultFontName,18);
         tip->setColor(Color3B::BLACK);
         tip->setAnchorPoint(Point::ANCHOR_MIDDLE);
         tip->setPosition(Point(tip_bk->getContentSize().width/2,tip_bk->getContentSize().height/2));
@@ -1395,4 +1404,20 @@ bool Battleground::reduce_gem(int gem)
         playerBag->setGem(s_playerConfig.gem);
         return true;
     }
+}
+
+void Battleground::showBombEffect(float dt)
+{
+    char name[30];
+    srand((unsigned)time(NULL));
+    srand(rand());
+    sprintf(name,"bomb_explode_%d.plist",rand()%3+1);
+    auto boombeffect = ParticleSystemQuad::create(name);
+    boombeffect->setScale(0.3f);
+    if(!_isWin)
+        boombeffect->setPosition(Point(50 + rand()%500,s_visibleRect.bottom.y  + rand()%113+150));
+    else
+        boombeffect->setPosition(Point(50 + rand()%500,s_visibleRect.visibleOriginY + _battlegroundHeight -rand()%113-20));
+    _battleParallaxNode->addChild(boombeffect);
+    boombeffect->runAction(Sequence::create(DelayTime::create(1.0f),RemoveSelf::create(), nullptr));
 }

@@ -23,4 +23,8 @@
     <string>重新挑战</string>
     <key>gotosee</key>
     <string>Go To See</string>
+    
+    <key>choosepos</key>
+    <string>Choose Position</string>
+    
 </dict>

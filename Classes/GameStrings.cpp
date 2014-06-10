@@ -340,5 +340,7 @@ void GSBattleInfo(GameLanguage language)
         s_gameStrings.battleInfo->nextstage = dict["nextstage"].asString();
         s_gameStrings.battleInfo->restartstage = dict["restartstage"].asString();
         s_gameStrings.battleInfo->gotosee = dict["gotosee"].asString();
+        s_gameStrings.battleInfo->choosepos = dict["choosepos"].asString();
+        
     }
 }
