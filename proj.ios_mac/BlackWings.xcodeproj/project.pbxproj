@@ -110,6 +110,12 @@
 		8528F15519363F5200EF967E /* MedalRewardsLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8528F15219363F5200EF967E /* MedalRewardsLayer.cpp */; };
 		8528F15A19364CB300EF967E /* medal_icons.png in Resources */ = {isa = PBXBuildFile; fileRef = 8528F15919364CB300EF967E /* medal_icons.png */; };
 		8528F15B19364CB300EF967E /* medal_icons.png in Resources */ = {isa = PBXBuildFile; fileRef = 8528F15919364CB300EF967E /* medal_icons.png */; };
+		8539BFA91947721400CA75B6 /* medal_icons_0.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8539BFA61947721400CA75B6 /* medal_icons_0.plist */; };
+		8539BFAA1947721400CA75B6 /* medal_icons_0.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8539BFA61947721400CA75B6 /* medal_icons_0.plist */; };
+		8539BFAB1947721400CA75B6 /* medal_icons_0.png in Resources */ = {isa = PBXBuildFile; fileRef = 8539BFA71947721400CA75B6 /* medal_icons_0.png */; };
+		8539BFAC1947721400CA75B6 /* medal_icons_0.png in Resources */ = {isa = PBXBuildFile; fileRef = 8539BFA71947721400CA75B6 /* medal_icons_0.png */; };
+		8539BFAD1947721400CA75B6 /* medal_minibox_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 8539BFA81947721400CA75B6 /* medal_minibox_1.png */; };
+		8539BFAE1947721400CA75B6 /* medal_minibox_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 8539BFA81947721400CA75B6 /* medal_minibox_1.png */; };
 		8555021C193B2BD300DEAF12 /* CDItem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8555021A193B2BD300DEAF12 /* CDItem.cpp */; };
 		8555021D193B2BD300DEAF12 /* CDItem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8555021A193B2BD300DEAF12 /* CDItem.cpp */; };
 		8555021F193B514700DEAF12 /* plain_progress.png in Resources */ = {isa = PBXBuildFile; fileRef = 8555021E193B514700DEAF12 /* plain_progress.png */; };
@@ -588,6 +594,9 @@
 		8528F15219363F5200EF967E /* MedalRewardsLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MedalRewardsLayer.cpp; sourceTree = "<group>"; };
 		8528F15319363F5200EF967E /* MedalRewardsLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MedalRewardsLayer.h; sourceTree = "<group>"; };
 		8528F15919364CB300EF967E /* medal_icons.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = medal_icons.png; sourceTree = "<group>"; };
+		8539BFA61947721400CA75B6 /* medal_icons_0.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = medal_icons_0.plist; sourceTree = "<group>"; };
+		8539BFA71947721400CA75B6 /* medal_icons_0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = medal_icons_0.png; sourceTree = "<group>"; };
+		8539BFA81947721400CA75B6 /* medal_minibox_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = medal_minibox_1.png; sourceTree = "<group>"; };
 		8555021A193B2BD300DEAF12 /* CDItem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CDItem.cpp; sourceTree = "<group>"; };
 		8555021B193B2BD300DEAF12 /* CDItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDItem.h; sourceTree = "<group>"; };
 		8555021E193B514700DEAF12 /* plain_progress.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plain_progress.png; sourceTree = "<group>"; };
@@ -1139,6 +1148,9 @@
 		8598E7651933804500E72CDE /* medal */ = {
 			isa = PBXGroup;
 			children = (
+				8539BFA61947721400CA75B6 /* medal_icons_0.plist */,
+				8539BFA71947721400CA75B6 /* medal_icons_0.png */,
+				8539BFA81947721400CA75B6 /* medal_minibox_1.png */,
 				8528F15919364CB300EF967E /* medal_icons.png */,
 				8598E7661933804500E72CDE /* medal-hd.plist */,
 				8598E7671933804500E72CDE /* medal_icons.plist */,
@@ -1465,6 +1477,7 @@
 				8598E7C51933804500E72CDE /* icons.png in Resources */,
 				85550227193B964500DEAF12 /* battleStringsCh.xml in Resources */,
 				8598E8031933804500E72CDE /* mission.png in Resources */,
+				8539BFAD1947721400CA75B6 /* medal_minibox_1.png in Resources */,
 				8598E7BF1933804500E72CDE /* home.plist in Resources */,
 				85A116F819461FC200128549 /* particleTexture.png in Resources */,
 				8598E7BD1933804500E72CDE /* helpTitleBG.png in Resources */,
@@ -1476,9 +1489,11 @@
 				85A116E819461FC200128549 /* effect_hit_1.plist in Resources */,
 				8598E78F1933804500E72CDE /* bases.plist in Resources */,
 				8598E7A71933804500E72CDE /* explode_B.png in Resources */,
+				8539BFA91947721400CA75B6 /* medal_icons_0.plist in Resources */,
 				8598E7ED1933804500E72CDE /* map_clouds.png in Resources */,
 				8598E7C71933804500E72CDE /* loading_bar_a.png in Resources */,
 				85A116D419461FC200128549 /* bomb_1_effectB.plist in Resources */,
+				8539BFAB1947721400CA75B6 /* medal_icons_0.png in Resources */,
 				8598E79B1933804500E72CDE /* e_bullets.png in Resources */,
 				8598E7E91933804500E72CDE /* map_6.png in Resources */,
 			);
@@ -1489,6 +1504,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8598E7E61933804500E72CDE /* map_5.png in Resources */,
+				8539BFAE1947721400CA75B6 /* medal_minibox_1.png in Resources */,
 				8598E77E1933804500E72CDE /* baseStringsCh.xml in Resources */,
 				8598E7C81933804500E72CDE /* loading_bar_a.png in Resources */,
 				8598E79E1933804500E72CDE /* enemys.plist in Resources */,
@@ -1587,8 +1603,10 @@
 				8598E7801933804500E72CDE /* baseStringsEn.xml in Resources */,
 				8598E7EA1933804500E72CDE /* map_6.png in Resources */,
 				8598E7C61933804500E72CDE /* icons.png in Resources */,
+				8539BFAC1947721400CA75B6 /* medal_icons_0.png in Resources */,
 				8598E8141933804500E72CDE /* helpInfoEn.xml in Resources */,
 				8598E7861933804500E72CDE /* arial.ttf in Resources */,
+				8539BFAA1947721400CA75B6 /* medal_icons_0.plist in Resources */,
 				8598E7D01933804500E72CDE /* mainBackground.png in Resources */,
 				8598E7C41933804500E72CDE /* icons.plist in Resources */,
 				85A116DF19461FC200128549 /* bomb_explode_2.plist in Resources */,

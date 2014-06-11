@@ -186,6 +186,7 @@ private:
     
     //cd位置是否被占用
     bool isCDPosUsed[8];
+    
 };
 
 #endif

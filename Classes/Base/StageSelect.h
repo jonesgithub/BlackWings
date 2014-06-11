@@ -40,4 +40,8 @@ private:
     
     Sprite* left_door;
     Sprite* right_door;
+    
+    bool isCloseClick;
+    
+    TableView* tableView;
 };

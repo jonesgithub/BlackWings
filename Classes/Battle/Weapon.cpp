@@ -96,7 +96,7 @@ void Weapon::createWeapon()
                                                                       bomb_1_effectB->setPosition(_pos);
                                                                       this->addChild(bomb_1_effectB);
                                                                       bomb_1_effectB->runAction(Sequence::create(DelayTime::create(3.0f), RemoveSelf::create(), nullptr));
-
+                                                                      bomb_1_effectB->setPositionType(ParticleSystem::PositionType::GROUPED);
                                                                       _eventDispatcher->dispatchCustomEvent(GameConfig::eventStarbombHurt,this);
                                                                   }),
                                                  nullptr));
@@ -129,9 +129,10 @@ void Weapon::createWeapon()
                                                                                                           CallFunc::create([&]()
                                                                       {
                                                                           auto bomb_2_effectB = ParticleSystemQuad::create("bomb_2_effect.plist");
+                                                                          bomb_2_effectB->setPositionType(ParticleSystem::PositionType::GROUPED);
                                                                           bomb_2_effectB->setPosition(Point(s_visibleRect.visibleWidth/2,_pos.y));
-                                                                          this->addChild(bomb_2_effectB);
-                                                                          bomb_2_effectB->runAction(Sequence::create(DelayTime::create(10.0f), RemoveSelf::create(), nullptr));
+                                                                          getParent()->addChild(bomb_2_effectB);
+                                                                          bomb_2_effectB->runAction(Sequence::create(DelayTime::create(_weaponConfig.duration/10), RemoveSelf::create(), nullptr));
                                                                           _eventDispatcher->dispatchCustomEvent(GameConfig::eventLaserHurt,this);
                                                                       }),
                                                                                                           nullptr));
@@ -168,6 +169,7 @@ void Weapon::createWeapon()
                                                                   {
                                                                       //显示粒子特效
                                                                       auto bomb_3_effectB = ParticleSystemQuad::create("bomb_3_effect.plist");
+                                                                      bomb_3_effectB->setPositionType(ParticleSystem::PositionType::GROUPED);
                                                                       bomb_3_effectB->setPosition(_pos);
                                                                       this->addChild(bomb_3_effectB);
                                                                       bomb_3_effectB->runAction(Sequence::create(DelayTime::create(3.0f), RemoveSelf::create(), nullptr));

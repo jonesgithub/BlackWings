@@ -25,6 +25,7 @@ bool Base::init()
         loadLayer->addPlist("upgrade.plist","upgrade.png");
         loadLayer->addPlist("home.plist","home.png");
         loadLayer->addPlist("medal_icons.plist","medal_icons.png");
+        loadLayer->addPlist("medal_icons_0.plist","medal_icons_0.png");
         loadLayer->addPlist("bombs.plist", "bombs.png");
         loadLayer->addImage("door_l.png");
         loadLayer->addImage("door_r.png");
