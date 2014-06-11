@@ -11,6 +11,7 @@
 #include "MainMenu.h"
 #include "Battleground.h"
 #include "Base.h"
+#include "MedalChecker.h"
 
 USING_NS_CC;
 USING_NS_CC_EXT;
@@ -158,6 +159,7 @@ bool MenuSettings::init(GameInterface face)
                         if (Director::getInstance()->isPaused()) {
                             Director::getInstance()->resume();
                         }
+                        MedalChecker::getInstance()->check();
                         s_gameConfig.saveConfig();
                         auto bettle = Battleground::create(s_battleground->_battledata.stage);
                         Director::getInstance()->replaceScene(bettle);
@@ -170,6 +172,7 @@ bool MenuSettings::init(GameInterface face)
                         if (Director::getInstance()->isPaused()) {
                             Director::getInstance()->resume();
                         }
+                        MedalChecker::getInstance()->check();
                         s_gameConfig.saveConfig();
                         auto base = Base::create();
                         Director::getInstance()->replaceScene(base);
@@ -182,6 +185,7 @@ bool MenuSettings::init(GameInterface face)
                         if (Director::getInstance()->isPaused()) {
                             Director::getInstance()->resume();
                         }
+                        MedalChecker::getInstance()->check();
                         s_gameConfig.saveConfig();
                         auto mainMenu = MainMenu::create();
                         Director::getInstance()->replaceScene(mainMenu);

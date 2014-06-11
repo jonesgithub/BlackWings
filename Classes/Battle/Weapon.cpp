@@ -132,7 +132,7 @@ void Weapon::createWeapon()
                                                                           bomb_2_effectB->setPositionType(ParticleSystem::PositionType::GROUPED);
                                                                           bomb_2_effectB->setPosition(Point(s_visibleRect.visibleWidth/2,_pos.y));
                                                                           getParent()->addChild(bomb_2_effectB);
-                                                                          bomb_2_effectB->runAction(Sequence::create(DelayTime::create(_weaponConfig.duration/10), RemoveSelf::create(), nullptr));
+                                                                          log("weapon config ....duration is %f",_weaponConfig.duration/10);                                                                          bomb_2_effectB->runAction(Sequence::create(DelayTime::create(_weaponConfig.duration/10), RemoveSelf::create(), nullptr));
                                                                           _eventDispatcher->dispatchCustomEvent(GameConfig::eventLaserHurt,this);
                                                                       }),
                                                                                                           nullptr));

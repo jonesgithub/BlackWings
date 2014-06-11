@@ -12,14 +12,14 @@
 #include "cocos2d.h"
 #include "ui/CocosGUI.h"
 
-typedef std::function<void(cocos2d::Ref*)> CDEndCallback;
+//typedef std::function<void(int index)> CDEndCallback;
 
 class CDItem : public cocos2d::Node
 {
 public:
-    static CDItem* create(int index, const CDEndCallback& callback);
+    static CDItem* create(int index);
     
-    virtual bool init(int index, const CDEndCallback& callback);
+    virtual bool init(int index);
   
     void update(float dt);
     
@@ -28,7 +28,7 @@ public:
     
 private:
     
-    CDEndCallback _onFinish;
+    //CDEndCallback _onFinish;
     
     int _index;
     

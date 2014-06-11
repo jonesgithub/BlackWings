@@ -903,7 +903,7 @@ void Base::buyWeapon(Ref *sender)
         }
         else
         {
-            addChild(NoGemLayer::create());
+            addChild(NoGemLayer::create(),100);
         }
     }
 }

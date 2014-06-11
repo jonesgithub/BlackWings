@@ -15,6 +15,7 @@
 #include "Configuration.h"
 #include "NotificationLayer.h"
 #include "NoGemLayer.h"
+#include "MedalChecker.h"
 
 USING_NS_CC;
 USING_NS_CC_EXT;
@@ -560,6 +561,7 @@ void UpgradeUILayer::menuCallbackUpgrade(Ref *sender)
                 break;
         }
         
+        MedalChecker::getInstance()->check();
         s_gameConfig.saveConfig();
         _eventDispatcher->dispatchCustomEvent(GameConfig::eventUpdateBaseData,(void*)_needgem);
         this->removeFromParent();
@@ -573,7 +575,7 @@ void UpgradeUILayer::menuCallbackUpgrade(Ref *sender)
         }
         else
         {
-            getParent()->addChild(NoGemLayer::create());
+            getParent()->addChild(NoGemLayer::create(),100);
             this->removeFromParent();
         }
     }

@@ -27,6 +27,11 @@ void MedalChecker::check()
     check_unlockallfighter();
     check_stagevictory();
     check_fightermaxlevel();
+    
+    //show tips
+    
+    //save data
+    s_gameConfig.saveConfig();
 }
 
 void MedalChecker::check_firstkill()
