@@ -37,6 +37,10 @@ bool Medal::init()
     _cellSize.width = 546;
     _cellSize.height = 140;
     
+    //add to sprite frame
+    auto sp = Sprite::create("medal_minibox_1.png");
+    SpriteFrameCache::getInstance()->addSpriteFrame(SpriteFrame::createWithTexture(sp->getTexture(), sp->getTextureRect()), "medal_minibox_1.png");
+    
     _panel = Scale9Sprite::create("windowBox.png");
     _panel->setAnchorPoint(Point::ANCHOR_MIDDLE_TOP);
     _panel->setPosition(Point(s_visibleRect.center.x,s_visibleRect.top.y + panelSize.height));
@@ -94,7 +98,7 @@ bool Medal::init()
     medal_data_bk->addChild(label_num4);
     
     //tabview
-    auto tableView = TableView::create(this, Size(panelSize.width, panelSize.height - 150));
+    tableView = TableView::create(this, Size(panelSize.width, panelSize.height - 150));
     tableView->setDirection(ScrollView::Direction::VERTICAL);
     tableView->setVerticalFillOrder(TableView::VerticalFillOrder::TOP_DOWN);
     tableView->setPosition(Point(50,20));
@@ -114,16 +118,52 @@ bool Medal::init()
     menu->setPosition(Point::ZERO);
     _panel->addChild(menu,3);
     
+    tableView->setContentOffset(Point(0, 0));
+    auto fun1 = CallFunc::create([=](){
+                         tableView->setContentOffsetInDuration(tableView->getContentOffset() - Point(0,_cellSize.height*19.7), 0.5f);
+                      });
+    
+    this->runAction(Sequence::create(fun1, NULL));
     
     //test
     for (int i=0; i<MEDAL_MAX; ++i) {
-        s_playerConfig.medallocked[i] = false;
-        s_playerConfig.medalget[i] = true;
+//        s_playerConfig.medallocked[i] = false;
+//        s_playerConfig.medalget[i] = true;
+        CCLOG("medal status: %d, %d, %d", i, s_playerConfig.medallocked[i], s_playerConfig.medalget[i]);
     }
-    s_playerConfig.medallocked[5]=true;
-    s_playerConfig.medalget[5]=false;
+//    s_playerConfig.medallocked[5]=true;
+//    s_playerConfig.medalget[5]=false;
     
     return true;
+}
+
+void Medal::onEnter()
+{
+    Layer::onEnter();
+    
+    auto fun2 = CallFunc::create([=](){
+        for (int i=0; i<25; i++) {
+            tableView->updateCellAtIndex(0);
+        }
+    });
+    this->runAction(Sequence::create(DelayTime::create(1), fun2, nullptr));
+    
+    _count = 0;
+    this->scheduleUpdate();
+}
+
+void Medal::update(float delta)
+{
+    _count ++;
+    if (_count % 100 == 0) {
+        auto fun2 = CallFunc::create([=](){
+            for (int i=0; i<25; i++) {
+                tableView->updateCellAtIndex(0);
+            }
+        });
+        this->runAction(Sequence::create(DelayTime::create(1), fun2, nullptr));
+        _count = 0;
+    }
 }
 
 cocos2d::extension::TableViewCell* Medal::tableCellAtIndex(cocos2d::extension::TableView *table, ssize_t idx)
@@ -146,7 +186,7 @@ cocos2d::extension::TableViewCell* Medal::tableCellAtIndex(cocos2d::extension::T
         auto item_bk = (Sprite*)cell->getChildByTag(10)->getChildByTag(20);
         if (item_bk) {
             if (s_playerConfig.medallocked[idx]) {
-                item_bk->setSpriteFrame("medal_minibox_0.png");
+                item_bk->setSpriteFrame("medal_minibox_1.png");
             }
             else{
                 item_bk->setSpriteFrame("medal_minibox_0.png");
@@ -165,7 +205,12 @@ cocos2d::extension::TableViewCell* Medal::tableCellAtIndex(cocos2d::extension::T
         if (icon)
         {
             char iconFileName[30];
-            sprintf(iconFileName,"icon_medal_%d.png",idx+1);
+            if (s_playerConfig.medallocked[idx]) {
+                sprintf(iconFileName,"icon_medal_%ld_0.png", idx+1);
+            }
+            else{
+                sprintf(iconFileName,"icon_medal_%ld.png", idx+1);
+            }
             icon->setSpriteFrame(iconFileName);
         }
         
@@ -179,6 +224,31 @@ cocos2d::extension::TableViewCell* Medal::tableCellAtIndex(cocos2d::extension::T
         auto label_dscr = (TextSprite*)cell->getChildByTag(10)->getChildByTag(60);
         if (label_dscr) {
             label_dscr->setText(s_gameStrings.medalInfo->medaldscr[idx]);
+        }
+        
+        //btn
+        auto btnGetBonus = (MenuItemImageLabel*)cell->getChildByTag(10)->getChildByTag(110);
+        auto item_got_icon = (Sprite*)cell->getChildByTag(10)->getChildByTag(120);
+        if (btnGetBonus && item_got_icon) {
+            btnGetBonus->setVisible(true);
+            btnGetBonus->unselected();
+            btnGetBonus->setTextColor(Color3B::BLACK);
+            item_got_icon->setVisible(false);
+            if (s_playerConfig.medallocked[idx]) {
+            }
+            else{
+                //get bonus
+                if (s_playerConfig.medalget[idx]) {
+                    btnGetBonus->selected();
+                    btnGetBonus->setTextColor(Color3B::BLUE);
+                }
+                else{
+                    btnGetBonus->setVisible(false);
+                    btnGetBonus->setEnabled(false);
+                    item_got_icon->setVisible(true);
+                }
+            }
+            
         }
     }
     
@@ -199,8 +269,12 @@ void Medal::tableCellTouched(extension::TableView* table, extension::TableViewCe
                                                s_medalRewards[cell->getIdx()][2],
                                                s_medalRewards[cell->getIdx()][3]);
         this->addChild(layer,4);
+        
+        tableView->updateCellAtIndex(cell->getIdx());
+        
+        //save
+        s_gameConfig.saveConfig();
     }
-    
 }
 
 cocos2d::Size Medal::tableCellSizeForIndex(cocos2d::extension::TableView *table, ssize_t idx)
@@ -235,9 +309,9 @@ Node* Medal::getItemNode(int i)
 	item_bk->setAnchorPoint(Point::ANCHOR_BOTTOM_LEFT);
 	item->addChild(item_bk,0,20);
     
-    auto menu = Menu::create();
-    item->addChild(menu);
-    menu->setPosition(0, 0);
+//    auto menu = Menu::create();
+//    item->addChild(menu, 0, 100);
+//    menu->setPosition(0, 0);
     
     CCLOG("will get item node:%d.", i);
     if (i == 5){
@@ -246,26 +320,29 @@ Node* Medal::getItemNode(int i)
     
     Sprite* item_image_bk = nullptr;
     auto callback = nullptr;
-    MenuItemImageLabel* btnGetBonus = MenuItemImageLabel::createWithFrameName("btD_0.png", "bt_buy_gem_0.png", callback, "领取奖励");
-    btnGetBonus->setPosition(432, 45);
-    menu->addChild(btnGetBonus);
+    MenuItemImageLabel* btnGetBonus = MenuItemImageLabel::createWithFrameName("bt_buy_gem_4.png", "bt_buy_gem_0.png", callback, "领取奖励");
+    btnGetBonus->setPosition(453, 45);
+    btnGetBonus->setTextColor(Color3B::BLACK);
+    item->addChild(btnGetBonus, 0, 110);
+//    if (s_playerConfig.medalget[i] && !s_playerConfig.medallocked[i]) {
+//        btnGetBonus->selected();
+//        btnGetBonus->setTextColor(Color3B::BLUE);
+//    }
+    
+    //
     if (s_playerConfig.medallocked[i]) {
         item_image_bk = Sprite::createWithSpriteFrameName("icon_medal_box_1.png");
-        btnGetBonus->setEnabled(false);
     }
     else{
         item_image_bk = Sprite::createWithSpriteFrameName("icon_medal_box_0.png");
-        btnGetBonus->setEnabled(true);
     }
     
     //get bonus
     if (s_playerConfig.medalget[i]) {
-        btnGetBonus->selected();
     }
     else{
-        btnGetBonus->setVisible(false);
         Sprite* item_got_icon = Sprite::createWithSpriteFrameName("icon_get.png");
-        item->addChild(item_got_icon);
+        item->addChild(item_got_icon, 0, 120);
         item_got_icon->setPosition(476, 30);
     }
     //
