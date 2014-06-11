@@ -81,35 +81,42 @@ bool Fighter::initFighter(Attacker attacker,int type,int level /* = 0 */)
     switch (attacker)
     {
         case Attacker::ENEMY:
+        {
             sprintf(fileName,"enemy_%d_lv_%d.png",type + 1,level + 1);
             enemyConfig = s_enemyConfigs[type][level];
             _curlife = _maxlife = enemyConfig.life;
             potInRadar = Sprite::createWithSpriteFrameName("map_enemy.png");
             potInRadar->retain();
+        }
             break;
         case Attacker::BOSS:
+        {
             sprintf(fileName,"boos_%d.png",level + 1);
             bossConfig = s_bossConfig[level];
             _curlife = _maxlife = bossConfig.life;
             potInRadar = Sprite::createWithSpriteFrameName("map_enemy.png");
             potInRadar->retain();
+        }
             break;
         case Attacker::TOWER:
+        {
             sprintf(fileName,"fixed_enemy_%d.png",level + 1);
             towerConfig = s_towerConfig[level];
             _curlife = _maxlife = towerConfig.life;
             potInRadar = Sprite::createWithSpriteFrameName("map_enemy.png");
             potInRadar->retain();
+        }
             break;
         case Attacker::PLAIN:
+        {
             level = s_playerConfig.fighterslevel[type];
             sprintf(fileName,"plain_%d_lv_%d.png",type + 1,level + 1);
             plainConfig = s_plainConfigs[type][level];
             _curlife = _maxlife = plainConfig.life;
             potInRadar = Sprite::createWithSpriteFrameName("map_plain.png");
             potInRadar->retain();
+        }
             break;
-            
         default:
             break;
     }
@@ -119,6 +126,20 @@ bool Fighter::initFighter(Attacker attacker,int type,int level /* = 0 */)
     _fighterIcon->setPosition(Point(iconSize.width/2, iconSize.height/2));
     this->setContentSize(_fighterIcon->getContentSize());
     this->addChild(_fighterIcon);
+    
+    if (attacker == Attacker::PLAIN) {
+        
+        auto plainfire = Sprite::createWithSpriteFrameName("plainFire_0.png");
+        plainfire->setAnchorPoint(Point::ANCHOR_MIDDLE);
+        plainfire->setPosition(_fighterIcon->getPosition().x,0);
+        this->addChild(plainfire,-1);
+        
+        auto plainfireanimation = Animation::create();
+        plainfireanimation->addSpriteFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName("plainFire_0.png"));
+        plainfireanimation->addSpriteFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName("plainFire_1.png"));
+        plainfireanimation->setDelayPerUnit(0.3f);
+        plainfire->runAction(RepeatForever::create(Animate::create(plainfireanimation)));
+    }
     
     if (attacker == Attacker::ENEMY || attacker == Attacker::BOSS || attacker == Attacker::TOWER )
     {
@@ -267,6 +288,7 @@ void Fighter::fire(float dt)
     }
 }
 
+//简单的受伤判断方式
 void Fighter::hurt(int ATK)
 {
     switch (_attacker)

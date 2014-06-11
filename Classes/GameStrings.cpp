@@ -335,8 +335,12 @@ void GSBattleInfo(GameLanguage language)
         s_gameStrings.battleInfo->gameoverkill = dict["gameoverkill"].asString();
         s_gameStrings.battleInfo->gameoverloss = dict["gameoverloss"].asString();
         s_gameStrings.battleInfo->gameoverreward = dict["gameoverreward"].asString();
+        s_gameStrings.battleInfo->gameovernewflight = dict["gameovernewflight"].asString();
         s_gameStrings.battleInfo->returnbase = dict["returnbase"].asString();
         s_gameStrings.battleInfo->nextstage = dict["nextstage"].asString();
         s_gameStrings.battleInfo->restartstage = dict["restartstage"].asString();
+        s_gameStrings.battleInfo->gotosee = dict["gotosee"].asString();
+        s_gameStrings.battleInfo->choosepos = dict["choosepos"].asString();
+        
     }
 }

@@ -59,9 +59,39 @@ void MainMenu::createBg(Ref *sender)
         MoveBy::create(3.0f,Point(0,-20)),nullptr) );
     logo->runAction(action);
 
-    auto vanishing = ParticleSystemQuad::create("vanishingPoint.plist");
+    auto vanishing = ParticleSystemQuad::create("main_effect2.plist");
     vanishing->setPosition(s_visibleRect.center);
     this->addChild(vanishing);
+    
+    //主菜单点状效果
+//    auto xxx = ParticleSystemQuad::create("main_effect2.plist");
+//    xxx->setPosition(s_visibleRect.center);
+//    this->addChild(xxx);
+    
+    //base横条
+//    auto xxx2 = ParticleSystemQuad::create("home_fire.plist");
+//    xxx2->setPosition(s_visibleRect.center);
+//    this->addChild(xxx2);
+
+//    //base横条
+//    auto xxx2 = ParticleSystemQuad::create("homeFire.plist");
+//    xxx2->setPosition(s_visibleRect.center);
+//    this->addChild(xxx2);
+    
+    //mission
+//    auto xxx2 = ParticleSystemQuad::create("missionList_effect.plist");
+//    xxx2->setPosition(s_visibleRect.center);
+//    this->addChild(xxx2);
+    
+    //子弹升级效果
+//    auto xxx2 = ParticleSystemQuad::create("upgrade_bt_effect.plist");
+//    xxx2->setPosition(s_visibleRect.center);
+//    this->addChild(xxx2);
+    
+//    子弹升级效果
+//    auto xxx2 = ParticleSystemQuad::create("upgrade_plain_effect.plist");
+//    xxx2->setPosition(s_visibleRect.center);
+//    this->addChild(xxx2);
     
     createMenu();
 }
@@ -112,8 +142,6 @@ void MainMenu::createMenu()
     });
 
     _eventDispatcher->addEventListenerWithFixedPriority(listener, 1);
-    
-    
 }
 
 void MainMenu::menuCallbackPlay(Ref *sender)
