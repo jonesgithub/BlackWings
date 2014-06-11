@@ -31,6 +31,9 @@ public:
     void check_unlockallfighter();
     void check_stagevictory();
     void check_fightermaxlevel();
+    
+    void showTip();
+    std::vector<int> new_medal_indexs;
 private:
     
     MedalChecker();

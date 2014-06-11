@@ -286,6 +286,7 @@ void GSMedalInfo(GameLanguage language)
         s_gameStrings.medalInfo->medalusedspcweapon = dict["usedspcweapon"].asString();
         s_gameStrings.medalInfo->medalkillenemy = dict["killenemy"].asString();
         s_gameStrings.medalInfo->medalkillbigenemy = dict["killbigenemy"].asString();
+        s_gameStrings.medalInfo->newmedal = dict["newmedal"].asString();
     }
 }
 
