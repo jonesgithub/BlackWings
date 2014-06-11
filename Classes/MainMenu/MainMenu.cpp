@@ -112,6 +112,8 @@ void MainMenu::createMenu()
     });
 
     _eventDispatcher->addEventListenerWithFixedPriority(listener, 1);
+    
+    
 }
 
 void MainMenu::menuCallbackPlay(Ref *sender)
