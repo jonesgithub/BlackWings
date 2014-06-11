@@ -50,4 +50,7 @@ private:
     
     bool _isLocked;
     bool _isInProgress;
+    
+    Sprite* fighter;
+    Sprite* weapon;
 };

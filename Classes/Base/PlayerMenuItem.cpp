@@ -68,7 +68,7 @@ bool PlayerMenuItem::init(Type playerType,int index)
                 Node::addChild(stoneformake_text,3);
                 _isLocked = false;
             }
-            auto fighter = Sprite::createWithSpriteFrameName(iconFileName);
+            fighter = Sprite::createWithSpriteFrameName(iconFileName);
             fighter->setPosition(Point(44,76));
             Node::addChild(fighter,1,0);
         }
@@ -92,7 +92,7 @@ bool PlayerMenuItem::init(Type playerType,int index)
         {
             char iconFileName[25];
             sprintf(iconFileName,"bomb_%d_%d.png",index + 1,s_playerConfig.weaponslevel[index] + 1);
-            auto weapon = Sprite::createWithSpriteFrameName(iconFileName);
+            weapon = Sprite::createWithSpriteFrameName(iconFileName);
             weapon->setPosition(Point(size.width/2,76));
             weapon->setRotation(90);
             Node::addChild(weapon,1,0);
@@ -241,6 +241,10 @@ void PlayerMenuItem::updateFlightData(EventCustom* event)
         if (_type == Type::Fighter)
         {
             stoneformake_text->setText(Value(s_plainConfigs[index][s_playerConfig.fighterslevel[index]].sparForMake).asString().c_str());
+            
+            char iconFileName[30];
+            sprintf(iconFileName,"plain_%d_lv_%d.png",index + 1,s_playerConfig.fighterslevel[index] + 1);
+            fighter->setSpriteFrame(iconFileName);
         }
 
     }
@@ -255,6 +259,9 @@ void PlayerMenuItem::updateWeaponData(EventCustom* event)
         {
             countNum->setString(Value(s_playerConfig.weaponCount[index]).asString());
             stoneTatalNum->setString(Value(s_weaponConfigs[index][s_playerConfig.weaponslevel[index]].capacity).asString());
+            char iconFileName[25];
+            sprintf(iconFileName,"bomb_%d_%d.png",index + 1,s_playerConfig.weaponslevel[index] + 1);
+            weapon->setSpriteFrame(iconFileName);
         }
     }
 }

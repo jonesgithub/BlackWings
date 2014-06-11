@@ -14,9 +14,9 @@
 class GameOverLayer : public cocos2d::Layer
 {
 public:
-    static GameOverLayer* create(bool win, int stage, int time, int kill, int loss);
+    static GameOverLayer* create(bool win, int stage, int time, int kill, int loss, int newFlight);
     
-    virtual bool init(bool win, int stage, int time, int kill, int loss);
+    virtual bool init(bool win, int stage, int time, int kill, int loss, int newFlight);
     
     void returnBase_callback(cocos2d::Ref* pSender);
     

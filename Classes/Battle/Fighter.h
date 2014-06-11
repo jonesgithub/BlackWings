@@ -46,7 +46,9 @@ public:
     
     Sprite* potInRadar;
     Sprite* gun;
+    cocos2d::ui::LoadingBar* _bloodbar;
 
+    
 private:
     Fighter();
     ~Fighter();
@@ -61,7 +63,6 @@ private:
     int _fighterType;
     int _fighterLevel;
     
-    cocos2d::ui::LoadingBar* _bloodbar;
     int _maxlife;
     int _curlife;
 

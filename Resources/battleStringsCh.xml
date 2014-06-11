@@ -13,10 +13,17 @@
     <string>损失数量：</string>
     <key>gameoverreward</key>
     <string>- - - - - - - - - - - - - - - - - 奖励 - - - - - - - - - - - - - - - - -</string>
+    <key>gameovernewflight</key>
+    <string>- - - - - - - - - - - - - - - - 新的飞机 - - - - - - - - - - - - - - - -</string>
     <key>returnbase</key>
     <string>返回空间站</string>
     <key>nextstage</key>
     <string>下一关</string>
     <key>restartstage</key>
     <string>重新挑战</string>
+    <key>gotosee</key>
+    <string>去看看</string>
+    
+    <key>choosepos</key>
+    <string>在屏幕中选择投放位置</string>
 </dict>

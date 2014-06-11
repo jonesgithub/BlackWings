@@ -34,10 +34,10 @@ void GameConfig::lazyInit()
     
     isInBattle = false;
     
-    //readConfig();
+    readConfig();
     //ByJacky
-    initConfig();
-    GSInitLanguage((GameLanguage)s_playerConfig.language);
+//    initConfig();
+//    GSInitLanguage((GameLanguage)s_playerConfig.language);
 }
 
 void GameConfig::readConfig()
@@ -176,11 +176,11 @@ void GameConfig::initConfig()
     s_playerConfig.stone = 200;
     s_playerConfig.stoneMax = 1000;
     s_playerConfig.gem = 1000000;
-    s_playerConfig.weaponCount[0] = 0;
-    s_playerConfig.weaponCount[1] = 0;
-    s_playerConfig.weaponCount[2] = 0;
+    s_playerConfig.weaponCount[0] = 20;
+    s_playerConfig.weaponCount[1] = 20;
+    s_playerConfig.weaponCount[2] = 20;
     s_playerConfig.usedweapon = 0;
-    s_playerConfig.overstage = -1;
+    s_playerConfig.overstage = 0;
     s_playerConfig.killbigenemy = 0;
     s_playerConfig.firstkill = false;
     s_playerConfig.unlockallfighter = false;
@@ -188,11 +188,11 @@ void GameConfig::initConfig()
     s_playerConfig.stonecapacitylevel = 18;
     
     s_playerConfig.fighterslocked[0] = false;
-    s_playerConfig.fighterslocked[1] = true;
-    s_playerConfig.fighterslocked[2] = true;
-    s_playerConfig.fighterslocked[3] = true;
-    s_playerConfig.fighterslocked[4] = true;
-    s_playerConfig.fighterslocked[5] = true;
+    s_playerConfig.fighterslocked[1] = false;
+    s_playerConfig.fighterslocked[2] = false;
+    s_playerConfig.fighterslocked[3] = false;
+    s_playerConfig.fighterslocked[4] = false;
+    s_playerConfig.fighterslocked[5] = false;
 
     s_playerConfig.fighterslevel[0] = 13;
     s_playerConfig.fighterslevel[1] = 0;
@@ -706,17 +706,17 @@ WeaponConfig s_weaponConfigs[WEAPON_MAX][WEAPON_LEVEL_MAX] = {
         {100,100,  100,100,100,100,1}
     },
     {////黑洞，购买所需宝石，升级所需宝石，攻击，持续时间（0.1s为单位），携带上限，攻击范围
-        {100,100,  100,100,100,100,1},
-        {100,100,  100,100,100,100,1},
-        {100,100,  100,100,100,100,1},
-        {100,100,  100,100,100,100,1},
-        {100,100,  100,100,100,100,1},
+        {100,100,  999999,100,100,100,1},
+        {100,100,  999999,100,100,100,1},
+        {100,100,  999999,100,100,100,1},
+        {100,100,  999999,100,100,100,1},
+        {100,100,  999999,100,100,100,1},
 
-        {100,100,  100,100,100,100,1},
-        {100,100,  100,100,100,100,1},
-        {100,100,  100,100,100,100,1},
-        {100,100,  100,100,100,100,1},
-        {100,100,  100,100,100,100,1}
+        {100,100,  999999,100,100,100,1},
+        {100,100,  999999,100,100,100,1},
+        {100,100,  999999,100,100,100,1},
+        {100,100,  999999,100,100,100,1},
+        {100,100,  999999,100,100,100,1}
     }
 };
 
@@ -855,8 +855,8 @@ BattleNormalEnemyConfig s_battleNormalEnemyConfig_0[STAGE_ENEMY_WAVES_00] =
 
 BattleNormalEnemyConfig s_battleNormalEnemyConfig_1[STAGE_ENEMY_WAVES_01] =
 {
-    {8,1,2,2},
-    {12,3,2,3}
+    {8,1,2,1},
+    //{12,3,2,3}
 };
 
 BattleNormalEnemyConfig s_battleNormalEnemyConfig_2[STAGE_ENEMY_WAVES_02] =

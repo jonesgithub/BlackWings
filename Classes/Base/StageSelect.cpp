@@ -16,8 +16,12 @@ bool StageSelect::init()
     if (Layer::init())
     {
         selected_cell = nullptr;
+        
+        s_playerConfig.overstage =10;
+        
         _selectItem = s_playerConfig.overstage+1;
         _noTouch = true ;
+        isCloseClick = true;
         
         auto listener = EventListenerTouchOneByOne::create();
         listener->setSwallowTouches(true);
@@ -64,12 +68,20 @@ bool StageSelect::init()
                                             left_door->runAction(ScaleTo::create(0.5, 0, 0.9f));
                                             auto move1 = move->reverse();
                                             right_door->runAction(move1);
-                                            right_door->runAction(ScaleTo::create(0.5, 0, 0.9f));
+                                            right_door->runAction(Sequence::create(ScaleTo::create(0.5, 0, 0.9f),
+                                                                                   CallFunc::create([=]()
+                                                                                                    {
+                                                                                                        isCloseClick = false;
+                                                                                                        if(s_playerConfig.overstage>0 && s_playerConfig.overstage<47)
+                                                                                                        tableView->setContentOffsetInDuration(tableView->getContentOffset() + Point(0,_cellSize.height*(s_playerConfig.overstage-1)),s_playerConfig.overstage*0.02f);
+                                                                                                        
+                                                                                                    }),
+                                                                                   nullptr));
                                         });
         _panel->runAction(Sequence::create(MoveTo::create(0.15f,s_visibleRect.top),
                                            actionmovedone,nullptr));
 
-        auto tableView = TableView::create(this, Size(panelSize.width, panelSize.height - 335));
+        tableView = TableView::create(this, Size(panelSize.width, panelSize.height - 335));
         tableView->setDirection(ScrollView::Direction::VERTICAL);
         tableView->setVerticalFillOrder(TableView::VerticalFillOrder::TOP_DOWN);
         tableView->setPosition(Point(0,132));
@@ -91,9 +103,9 @@ bool StageSelect::init()
         menu->setPosition(Point::ZERO);
         _panel->addChild(menu);
         
-        auto ball = RotateBall::createWithIdx(13);
-        addChild(ball);
-        ball->setPosition(120, 120);
+//        auto ball = RotateBall::createWithIdx(13);
+//        addChild(ball);
+//        ball->setPosition(120, 120);
 
         return true;
     }
@@ -138,18 +150,23 @@ cocos2d::extension::TableViewCell* StageSelect::tableCellAtIndex(cocos2d::extens
         else
             stage_text->setColor(Color3B(80,80,80));
         
-//        if (<#condition#>) {
-//            <#statements#>
-//        }
-        
         if(_selectItem == idx)
             cell->getChildByTag(10)->getChildByTag(30)->setVisible(true);
         else
             cell->getChildByTag(10)->getChildByTag(30)->setVisible(false);
         
         if(_noTouch && idx==_selectItem)
-        {selected_cell = cell;
-            cell->getChildByTag(10)->getChildByTag(30)->setVisible(true);}
+        {
+            selected_cell = cell;
+            cell->getChildByTag(10)->getChildByTag(30)->setVisible(true);
+        }
+        
+        if (s_playerConfig.overstage +1 == idx) {
+            cell->getChildByTag(10)->getChildByTag(50)->setVisible(true);
+        }
+        else{
+            cell->getChildByTag(10)->getChildByTag(50)->setVisible(false);
+        }
         
     }
 
@@ -214,33 +231,39 @@ ssize_t StageSelect::numberOfCellsInTableView(cocos2d::extension::TableView *tab
 
 void StageSelect::menuCallbackClosed(Ref *sender)
 {
-    this->runAction(FadeTo::create(0.15f,0));
-    
-    auto actionmovedone = CallFunc::create(
-                                           [=](){
-                                               auto size = left_door->getContentSize();
-                                               auto move = MoveBy::create(0.5, Point((size.width+20), 0));
-                                               left_door->runAction(move);
-                                               left_door->runAction(ScaleTo::create(0.5, 1.08, 0.9f));
-                                               auto move1 = move->reverse();
-                                               right_door->runAction(move1);
-                                               right_door->runAction(ScaleTo::create(0.5, 1.08, 0.9f));
-                                           });
-    auto action = Sequence::create(
-        actionmovedone,
-        DelayTime::create(0.6),
-        MoveBy::create(0.15f, Point(0,s_visibleRect.visibleHeight * 0.8f)),
-        CallFunc::create(
-        [&](){
-            _eventDispatcher->dispatchCustomEvent(StageSelect::eventBack);
-
-            this->removeFromParentAndCleanup(true);
-    }  ),nullptr);
-    _panel->runAction(action);
+    if(!isCloseClick)
+    {
+        isCloseClick = true;
+        
+        this->runAction(FadeTo::create(0.15f,0));
+        
+        auto actionmovedone = CallFunc::create(
+                                               [=](){
+                                                   auto size = left_door->getContentSize();
+                                                   auto move = MoveBy::create(0.5, Point((size.width+20), 0));
+                                                   left_door->runAction(move);
+                                                   left_door->runAction(ScaleTo::create(0.5, 1.08, 0.9f));
+                                                   auto move1 = move->reverse();
+                                                   right_door->runAction(move1);
+                                                   right_door->runAction(ScaleTo::create(0.5, 1.08, 0.9f));
+                                               });
+        auto action = Sequence::create(
+                                       actionmovedone,
+                                       DelayTime::create(0.6),
+                                       MoveBy::create(0.15f, Point(0,s_visibleRect.visibleHeight * 0.8f)),
+                                       CallFunc::create(
+                                                        [&](){
+                                                            _eventDispatcher->dispatchCustomEvent(StageSelect::eventBack);
+                                                            
+                                                            this->removeFromParentAndCleanup(true);
+                                                        }  ),nullptr);
+        _panel->runAction(action);
+    }
 }
 
 Node* StageSelect::getItemNode(int i)
 {
+    log("fuckme.....%d",i);
     auto item = Node::create();
     Sprite* item_bk = nullptr;
     if(i<=s_playerConfig.overstage+1)
@@ -278,18 +301,21 @@ Node* StageSelect::getItemNode(int i)
     stage_text->setTag(40);
     item->addChild(stage_text);
     
-    //set new state
-//    CCLOG("--stage is: %d, idx: %d.", s_playerConfig.overstage, i);
-    if (s_playerConfig.overstage != i) {
-        auto sp_new = Sprite::createWithSpriteFrameName("icon_new.png");
-        addChild(sp_new);
-        sp_new->setPosition(400, 36);
+    auto sp_new = Sprite::createWithSpriteFrameName("icon_new.png");
+    sp_new->setAnchorPoint(Point::ANCHOR_MIDDLE);
+    sp_new->setPosition(Point(_cellSize.width/2+150,_cellSize.height/2));
+    sp_new->setTag(50);
+    sp_new->setVisible(false);
+    item->addChild(sp_new);
+    
+    if (s_playerConfig.overstage +1 == i) {
+        sp_new->setVisible(true);
     }
     
     //
-    auto ball = RotateBall::createWithIdx(13);
-    addChild(ball);
-    ball->setPosition(20, 20);
+//    auto ball = RotateBall::createWithIdx(13);
+//    addChild(ball);
+//    ball->setPosition(20, 20);
 
     return item;
 }
