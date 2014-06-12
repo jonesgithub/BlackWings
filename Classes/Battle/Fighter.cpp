@@ -17,6 +17,7 @@ Fighter* Fighter::createPlain(int type)
     return nullptr;
 }
 
+//特别要同时传入类型和等级
 Fighter* Fighter::createEnemy(int type,int level)
 {
     auto ret = new (std::nothrow) Fighter;
@@ -33,7 +34,7 @@ Fighter* Fighter::createEnemy(int type,int level)
 Fighter* Fighter::createBoss(int level)
 {
     auto ret = new (std::nothrow) Fighter;
-    if (ret && ret->initFighter(Attacker::BOSS,9,level))
+    if (ret && ret->initFighter(Attacker::BOSS,9,level))//9会被忽略
     {
         ret->autorelease();
         return ret;
@@ -46,7 +47,7 @@ Fighter* Fighter::createBoss(int level)
 Fighter* Fighter::createTower(int level)
 {
     auto ret = new (std::nothrow) Fighter;
-    if (ret && ret->initFighter(Attacker::TOWER,9,level))
+    if (ret && ret->initFighter(Attacker::TOWER,9,level))//9会被忽略
     {
         ret->autorelease();
         return ret;
@@ -128,6 +129,7 @@ bool Fighter::initFighter(Attacker attacker,int type,int level /* = 0 */)
     this->setContentSize(_fighterIcon->getContentSize());
     this->addChild(_fighterIcon);
     
+    //飞机尾部带火
     if (attacker == Attacker::PLAIN) {
         
         auto plainfire = Sprite::createWithSpriteFrameName("plainFire_0.png");
@@ -142,6 +144,7 @@ bool Fighter::initFighter(Attacker attacker,int type,int level /* = 0 */)
         plainfire->runAction(RepeatForever::create(Animate::create(plainfireanimation)));
     }
     
+    //血条
     if (attacker == Attacker::ENEMY || attacker == Attacker::BOSS || attacker == Attacker::TOWER )
     {
         _bloodbar = ui::LoadingBar::create("battle_life_enemy.png");
@@ -159,6 +162,7 @@ bool Fighter::initFighter(Attacker attacker,int type,int level /* = 0 */)
         _bloodbar->setScale(0.3f);
     }
     
+    //守卫塔带炮
     if(_attacker == Attacker::TOWER)
     {
         sprintf(fileName,"fixed_enemy_%d_gun.png",level + 1);
@@ -174,6 +178,7 @@ bool Fighter::initFighter(Attacker attacker,int type,int level /* = 0 */)
     _fighterType = type;
     _fighterLevel = level;
 
+    //攻击对象死亡，停止射击
     auto listener = EventListenerCustom::create(GameConfig::eventPlayerDestroy, [=](EventCustom* event){
         if (_attTarget == event->getUserData())
         {
@@ -189,6 +194,7 @@ bool Fighter::initFighter(Attacker attacker,int type,int level /* = 0 */)
     return ret;
 }
 
+//taget为nullptr代表对方基地
 void Fighter::moveTo(Point& pos,Player* target)
 {
     state = FighterState::MOVE;
@@ -216,7 +222,7 @@ void Fighter::moveTo(Point& pos,Player* target)
                                                                                                                state = FighterState::IDLE;
                                                                                                            }  ),nullptr));
             break;
-        case Attacker::TOWER:
+        case Attacker::TOWER://守卫塔无法移动，speed是无效的
             break;
         default:
             break;
@@ -231,20 +237,29 @@ void Fighter::attackLocations(Point& pos,Player* target)
 
     this->stopAllActions();
 
-    this->unschedule(schedule_selector(Fighter::fire));
-    fire(0.0f);
-    this->schedule(schedule_selector(Fighter::fire),3.0f);
-
-    //this->runAction(RotateTo::create(0.2f,_position.getAngle(_attTargetPos) * 180));
-//    log("ang:%f",_position.getAngle(_attTargetPos) * 180);
-    
-    if(_attacker == Attacker::TOWER && gun)
+    if(_attacker != Attacker::TOWER)
     {
-        gun->setRotation((_position.getAngle(_attTargetPos)) * 180+180);
+        this->unschedule(schedule_selector(Fighter::fire));
+        fire(0.0f);
+        this->schedule(schedule_selector(Fighter::fire),3.0f);
+    }
+    else //守卫塔需要先将炮头转过来再射击，时间要重新算，角度也没算对
+    {
+        log("(_position.getAngle(_attTargetPos)) * 180 is %f",(_position.getAngle(_attTargetPos)) * 180);
+        gun->runAction(Sequence::create(RotateTo::create(0.3f, (_position.getAngle(_attTargetPos)) * 180+180),
+                                        CallFunc::create([=]()
+                                                         {
+                                                             this->unschedule(schedule_selector(Fighter::fire));
+                                                             fire(0.0f);
+                                                             this->schedule(schedule_selector(Fighter::fire),3.0f);
+                                                         }),
+                                        nullptr));
+        //gun->setRotation((_position.getAngle(_attTargetPos)) * 180+180);
     }
     
 }
 
+//开火允许_attTarget为nullptr
 void Fighter::fire(float dt)
 {
     switch (_attacker)
@@ -278,6 +293,7 @@ void Fighter::fire(float dt)
             break;
         case Attacker::PLAIN:
         {
+            log("Attacker::PLAIN::fire....");
             auto bullet = Bullet::createBullet(Attacker::PLAIN,_fighterType,_fighterLevel);
             bullet->setPosition(_position);
             _parent->addChild(bullet);
@@ -327,8 +343,11 @@ void Fighter::hurt(int ATK)
     }
     else
     {
+        //判断是否是在黑洞中
         state = FighterState::DESTROY;
         this->unschedule(schedule_selector(Fighter::fire));
+        if(state == FighterState::MOVE)
+            this->stopAllActions();
         if(isInBlackhole)
         {
             this->runAction(Sequence::create(Spawn::create(MoveBy::create(0.3f, offsetWithBlackhole),
@@ -356,6 +375,7 @@ void Fighter::hurt(int ATK)
     }
 }
 
+//守卫塔idle时旋转炮塔
 void Fighter::update(float dt)
 {
     if(_attacker == Attacker::TOWER && gun)
