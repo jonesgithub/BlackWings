@@ -64,7 +64,8 @@ Fighter::Fighter()
 gun(nullptr),
 _bloodbar(nullptr),
 _maxlife(0),
-_curlife(0)
+_curlife(0),
+isInBlackhole(false)
 {
 }
 
@@ -327,12 +328,31 @@ void Fighter::hurt(int ATK)
     else
     {
         state = FighterState::DESTROY;
-        _bloodbar->setPercent(0);
-        potInRadar->removeFromParent();
-        CC_SAFE_RELEASE(potInRadar);
         this->unschedule(schedule_selector(Fighter::fire));
-        _eventDispatcher->dispatchCustomEvent(GameConfig::eventPlayerDestroy,this);
-        this->removeFromParentAndCleanup(true);
+        if(isInBlackhole)
+        {
+            this->runAction(Sequence::create(Spawn::create(MoveBy::create(0.3f, offsetWithBlackhole),
+                                                           ScaleTo::create(0.3f, 0.2f),
+                                                           RotateTo::create(0.3f, 90),
+                                                           nullptr),
+                                             CallFunc::create([=]()
+            {
+                _bloodbar->setPercent(0);
+                potInRadar->removeFromParent();
+                CC_SAFE_RELEASE(potInRadar);
+                _eventDispatcher->dispatchCustomEvent(GameConfig::eventPlayerDestroy,this);
+                this->removeFromParentAndCleanup(true);
+            }),
+                                             NULL));
+        }
+        else
+        {
+            _bloodbar->setPercent(0);
+            potInRadar->removeFromParent();
+            CC_SAFE_RELEASE(potInRadar);
+            _eventDispatcher->dispatchCustomEvent(GameConfig::eventPlayerDestroy,this);
+            this->removeFromParentAndCleanup(true);
+        }
     }
 }
 

@@ -12,6 +12,7 @@
 #include "UpgradeUILayer.h"
 #include "NotificationLayer.h"
 #include "NoGemLayer.h"
+#include "MedalChecker.h"
 
 USING_NS_CC;
 USING_NS_CC_EXT;
@@ -962,6 +963,7 @@ void Base::upgradeWeapon(Ref* sender)
 
 void Base::buyWeapon(Ref *sender)
 {
+    MedalChecker::getInstance()->showTip();
     int cost = s_weaponConfigs[_curSeletedIndex-FIGHTER_MAX][s_playerConfig.weaponslevel[_curSeletedIndex-FIGHTER_MAX]].costGem;
     if (cost <= s_playerConfig.gem) {
         if(s_playerConfig.weaponCount[_curSeletedIndex-FIGHTER_MAX] < s_weaponConfigs[_curSeletedIndex-FIGHTER_MAX][s_playerConfig.weaponslevel[_curSeletedIndex-FIGHTER_MAX]].capacity)
@@ -989,11 +991,11 @@ void Base::buyWeapon(Ref *sender)
     {
         if(s_playerConfig.overstage < STAGEOFCANBUYGEM)
         {
-            addChild(NotificationLayer::create(s_gameStrings.base->nogemcannotbuy));
+            addChild(NotificationLayer::create(s_gameStrings.base->nogemcannotbuy),100);
         }
         else
         {
-            addChild(NoGemLayer::create());
+            addChild(NoGemLayer::create(),100);
         }
     }
 }

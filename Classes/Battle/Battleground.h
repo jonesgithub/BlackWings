@@ -82,11 +82,12 @@ public:
     void add_gem(int gem);
     bool reduce_gem(int gem);
     
+    void createFlight(int index);
+    
     BattleData _battledata;
     
 private:
     void createBattleground(Ref *sender);
-    void createFlight(Ref* sender);
 
     void createFlightBase();
     void createHealthBar();

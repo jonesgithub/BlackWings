@@ -8,13 +8,16 @@
 
 #include "CDItem.h"
 #include "Configuration.h"
+#include "Battleground.h"
 
 USING_NS_CC;
 
-CDItem* CDItem::create(int index, const CDEndCallback& callback)
+extern Battleground* s_battleground;
+
+CDItem* CDItem::create(int index)
 {
     auto ret = new CDItem;
-    if (ret && ret->init(index, callback))
+    if (ret && ret->init(index))
     {
         ret->autorelease();
         return ret;
@@ -24,11 +27,11 @@ CDItem* CDItem::create(int index, const CDEndCallback& callback)
     return nullptr;
 }
 
-bool CDItem::init(int index, const CDEndCallback& callback)
+bool CDItem::init(int index)
 {
     bool ret =false;
     
-    _onFinish = callback;
+//    _onFinish = callback;
     _index = index;
     _cdtime = s_plainConfigs[_index][s_playerConfig.fighterslevel[_index]].buildtime*60;
     _curcdtime = 0;
@@ -69,7 +72,8 @@ void CDItem::update(float dt)
     else
     {
         _cdBar->setPercent(0);
-        _onFinish(this);
+//        _onFinish(_index);
+        s_battleground->createFlight(_index);
         removeFromParent();
         _eventDispatcher->dispatchCustomEvent(GameConfig::eventResortCDItems,this);
     }
