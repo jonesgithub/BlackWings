@@ -198,6 +198,7 @@ void Medal::tableCellTouched(extension::TableView* table, extension::TableViewCe
                                                s_medalRewards[cell->getIdx()][1],
                                                s_medalRewards[cell->getIdx()][2],
                                                s_medalRewards[cell->getIdx()][3]);
+        s_gameConfig.saveConfig();
         this->addChild(layer,4);
     }
     

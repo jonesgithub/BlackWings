@@ -48,7 +48,8 @@ public:
     Sprite* gun;
     cocos2d::ui::LoadingBar* _bloodbar;
 
-    
+    bool isInBlackhole;
+    Point offsetWithBlackhole;
 private:
     Fighter();
     ~Fighter();

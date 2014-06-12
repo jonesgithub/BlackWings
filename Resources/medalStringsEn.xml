@@ -118,4 +118,7 @@
     <key>killbigenemy</key>
     <string>消灭大型敌人</string>
     
+    <key>newmedal</key>
+    <string>新的成就</string>
+    
 </dict>
