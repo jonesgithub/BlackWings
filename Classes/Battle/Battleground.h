@@ -99,7 +99,7 @@ private:
     void enemyFindTarget();
     void bossFindTarget();
     void towerFindTarget();
-    void weaponFindTarget();
+    void weaponFindTarget(float dt);
     void starbombFindTarget();
     void laserFindTarget();
     void blackholeFindTarget();

@@ -142,6 +142,10 @@
 		857F14041944D109000DE4E7 /* missileFlare.plist in Resources */ = {isa = PBXBuildFile; fileRef = 857F14021944D109000DE4E7 /* missileFlare.plist */; };
 		857F14091944D408000DE4E7 /* vanishingPoint.plist in Resources */ = {isa = PBXBuildFile; fileRef = 857F14081944D408000DE4E7 /* vanishingPoint.plist */; };
 		857F140A1944D408000DE4E7 /* vanishingPoint.plist in Resources */ = {isa = PBXBuildFile; fileRef = 857F14081944D408000DE4E7 /* vanishingPoint.plist */; };
+		859703C7194F333C00BE068D /* bomb_2_effect.plist in Resources */ = {isa = PBXBuildFile; fileRef = 859703C5194F333C00BE068D /* bomb_2_effect.plist */; };
+		859703C8194F333C00BE068D /* bomb_2_effect.plist in Resources */ = {isa = PBXBuildFile; fileRef = 859703C5194F333C00BE068D /* bomb_2_effect.plist */; };
+		859703C9194F333C00BE068D /* bomb_2_effectB.plist in Resources */ = {isa = PBXBuildFile; fileRef = 859703C6194F333C00BE068D /* bomb_2_effectB.plist */; };
+		859703CA194F333C00BE068D /* bomb_2_effectB.plist in Resources */ = {isa = PBXBuildFile; fileRef = 859703C6194F333C00BE068D /* bomb_2_effectB.plist */; };
 		8598E77D1933804500E72CDE /* baseStringsCh.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8598E7281933804500E72CDE /* baseStringsCh.xml */; };
 		8598E77E1933804500E72CDE /* baseStringsCh.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8598E7281933804500E72CDE /* baseStringsCh.xml */; };
 		8598E77F1933804500E72CDE /* baseStringsEn.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8598E7291933804500E72CDE /* baseStringsEn.xml */; };
@@ -300,10 +304,6 @@
 		8598E81A1933804500E72CDE /* stringsEn.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8598E77C1933804500E72CDE /* stringsEn.xml */; };
 		85A116D419461FC200128549 /* bomb_1_effectB.plist in Resources */ = {isa = PBXBuildFile; fileRef = 85A116BD19461FC100128549 /* bomb_1_effectB.plist */; };
 		85A116D519461FC200128549 /* bomb_1_effectB.plist in Resources */ = {isa = PBXBuildFile; fileRef = 85A116BD19461FC100128549 /* bomb_1_effectB.plist */; };
-		85A116D619461FC200128549 /* bomb_2_effect.plist in Resources */ = {isa = PBXBuildFile; fileRef = 85A116BE19461FC100128549 /* bomb_2_effect.plist */; };
-		85A116D719461FC200128549 /* bomb_2_effect.plist in Resources */ = {isa = PBXBuildFile; fileRef = 85A116BE19461FC100128549 /* bomb_2_effect.plist */; };
-		85A116D819461FC200128549 /* bomb_2_effectB.plist in Resources */ = {isa = PBXBuildFile; fileRef = 85A116BF19461FC100128549 /* bomb_2_effectB.plist */; };
-		85A116D919461FC200128549 /* bomb_2_effectB.plist in Resources */ = {isa = PBXBuildFile; fileRef = 85A116BF19461FC100128549 /* bomb_2_effectB.plist */; };
 		85A116DA19461FC200128549 /* bomb_3_effect.plist in Resources */ = {isa = PBXBuildFile; fileRef = 85A116C019461FC100128549 /* bomb_3_effect.plist */; };
 		85A116DB19461FC200128549 /* bomb_3_effect.plist in Resources */ = {isa = PBXBuildFile; fileRef = 85A116C019461FC100128549 /* bomb_3_effect.plist */; };
 		85A116DC19461FC200128549 /* bomb_explode_1.plist in Resources */ = {isa = PBXBuildFile; fileRef = 85A116C119461FC100128549 /* bomb_explode_1.plist */; };
@@ -616,6 +616,8 @@
 		857F13FD19438A9F000DE4E7 /* NoGemLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoGemLayer.h; sourceTree = "<group>"; };
 		857F14021944D109000DE4E7 /* missileFlare.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = missileFlare.plist; path = battle/missileFlare.plist; sourceTree = "<group>"; };
 		857F14081944D408000DE4E7 /* vanishingPoint.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = vanishingPoint.plist; sourceTree = "<group>"; };
+		859703C5194F333C00BE068D /* bomb_2_effect.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = bomb_2_effect.plist; sourceTree = "<group>"; };
+		859703C6194F333C00BE068D /* bomb_2_effectB.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = bomb_2_effectB.plist; sourceTree = "<group>"; };
 		8598E7281933804500E72CDE /* baseStringsCh.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = baseStringsCh.xml; sourceTree = "<group>"; };
 		8598E7291933804500E72CDE /* baseStringsEn.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = baseStringsEn.xml; sourceTree = "<group>"; };
 		8598E72A1933804500E72CDE /* CloseNormal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CloseNormal.png; sourceTree = "<group>"; };
@@ -695,8 +697,6 @@
 		8598E77B1933804500E72CDE /* stringsCh.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = stringsCh.xml; sourceTree = "<group>"; };
 		8598E77C1933804500E72CDE /* stringsEn.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = stringsEn.xml; sourceTree = "<group>"; };
 		85A116BD19461FC100128549 /* bomb_1_effectB.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = bomb_1_effectB.plist; sourceTree = "<group>"; };
-		85A116BE19461FC100128549 /* bomb_2_effect.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = bomb_2_effect.plist; sourceTree = "<group>"; };
-		85A116BF19461FC100128549 /* bomb_2_effectB.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = bomb_2_effectB.plist; sourceTree = "<group>"; };
 		85A116C019461FC100128549 /* bomb_3_effect.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = bomb_3_effect.plist; sourceTree = "<group>"; };
 		85A116C119461FC100128549 /* bomb_explode_1.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = bomb_explode_1.plist; sourceTree = "<group>"; };
 		85A116C219461FC100128549 /* bomb_explode_2.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = bomb_explode_2.plist; sourceTree = "<group>"; };
@@ -1174,9 +1174,9 @@
 		85A116BC19461FC100128549 /* plist */ = {
 			isa = PBXGroup;
 			children = (
+				859703C5194F333C00BE068D /* bomb_2_effect.plist */,
+				859703C6194F333C00BE068D /* bomb_2_effectB.plist */,
 				85A116BD19461FC100128549 /* bomb_1_effectB.plist */,
-				85A116BE19461FC100128549 /* bomb_2_effect.plist */,
-				85A116BF19461FC100128549 /* bomb_2_effectB.plist */,
 				85A116C019461FC100128549 /* bomb_3_effect.plist */,
 				85A116C119461FC100128549 /* bomb_explode_1.plist */,
 				85A116C219461FC100128549 /* bomb_explode_2.plist */,
@@ -1390,7 +1390,6 @@
 				50EF629917ECD46A001EB2F8 /* Icon-100.png in Resources */,
 				85A116FE19461FC200128549 /* upgrade_bt_effect.plist in Resources */,
 				5087E78317EB970100C73F5D /* Icon-152.png in Resources */,
-				85A116D819461FC200128549 /* bomb_2_effectB.plist in Resources */,
 				8598E8191933804500E72CDE /* stringsEn.xml in Resources */,
 				85A116F419461FC200128549 /* main_effect2.plist in Resources */,
 				85A116EA19461FC200128549 /* fire.plist in Resources */,
@@ -1398,10 +1397,10 @@
 				8598E8091933804500E72CDE /* upgrade.plist in Resources */,
 				8598E7971933804500E72CDE /* createBombTip_box.png in Resources */,
 				8598E8011933804500E72CDE /* door_r.png in Resources */,
+				859703C7194F333C00BE068D /* bomb_2_effect.plist in Resources */,
 				8598E7B71933804500E72CDE /* bombs.png in Resources */,
 				8598E7CD1933804500E72CDE /* logo_monster.png in Resources */,
 				8598E7E31933804500E72CDE /* map_5.plist in Resources */,
-				85A116D619461FC200128549 /* bomb_2_effect.plist in Resources */,
 				8527812F1934FAA700A0DEA5 /* medalStringsCh.xml in Resources */,
 				8598E7A11933804500E72CDE /* explode_A.plist in Resources */,
 				85A116E419461FC200128549 /* effect_bomb_1.plist in Resources */,
@@ -1434,6 +1433,7 @@
 				855E133C1934D0EB00683F21 /* battle_life_plain.png in Resources */,
 				8598E7871933804500E72CDE /* Marker Felt.ttf in Resources */,
 				8598E7EF1933804500E72CDE /* medal-hd.plist in Resources */,
+				859703C9194F333C00BE068D /* bomb_2_effectB.plist in Resources */,
 				85A116F619461FC200128549 /* missionList_effect.plist in Resources */,
 				8598E7D31933804500E72CDE /* map_1.plist in Resources */,
 				50EF62A317ECD613001EB2F8 /* Icon-50.png in Resources */,
@@ -1513,6 +1513,7 @@
 				85A116DD19461FC200128549 /* bomb_explode_1.plist in Resources */,
 				8598E7961933804500E72CDE /* battle.png in Resources */,
 				8598E7E01933804500E72CDE /* map_4.plist in Resources */,
+				859703C8194F333C00BE068D /* bomb_2_effect.plist in Resources */,
 				8598E80A1933804500E72CDE /* upgrade.plist in Resources */,
 				8598E7FC1933804500E72CDE /* playerBag.plist in Resources */,
 				8598E81A1933804500E72CDE /* stringsEn.xml in Resources */,
@@ -1540,7 +1541,6 @@
 				8598E7B21933804500E72CDE /* plainFire.plist in Resources */,
 				8598E7A81933804500E72CDE /* explode_B.png in Resources */,
 				85A116ED19461FC200128549 /* home_fire.plist in Resources */,
-				85A116D919461FC200128549 /* bomb_2_effectB.plist in Resources */,
 				8598E7BA1933804500E72CDE /* DL.png in Resources */,
 				8598E7F61933804500E72CDE /* newMedalTip_box.png in Resources */,
 				8598E7AE1933804500E72CDE /* p_bullets.plist in Resources */,
@@ -1555,6 +1555,7 @@
 				852781301934FAA700A0DEA5 /* medalStringsCh.xml in Resources */,
 				8598E7E81933804500E72CDE /* map_6.plist in Resources */,
 				8598E80C1933804500E72CDE /* upgrade.png in Resources */,
+				859703CA194F333C00BE068D /* bomb_2_effectB.plist in Resources */,
 				8598E79C1933804500E72CDE /* e_bullets.png in Resources */,
 				85A116F719461FC200128549 /* missionList_effect.plist in Resources */,
 				8598E8021933804500E72CDE /* door_r.png in Resources */,
@@ -1612,7 +1613,6 @@
 				85A116DF19461FC200128549 /* bomb_explode_2.plist in Resources */,
 				503AE0F817EB97AB00D1A890 /* Icon.icns in Resources */,
 				85A116EB19461FC200128549 /* fire.plist in Resources */,
-				85A116D719461FC200128549 /* bomb_2_effect.plist in Resources */,
 				8598E7A41933804500E72CDE /* explode_A.png in Resources */,
 				85A116E919461FC200128549 /* effect_hit_1.plist in Resources */,
 				85A116F519461FC200128549 /* main_effect2.plist in Resources */,

@@ -83,6 +83,7 @@ void Weapon::createWeapon()
         {
             sprintf(fileName,"bomb_1_%d.png",s_playerConfig.weaponslevel[0]+1);
             _weaponConfig = s_weaponConfigs[0][s_playerConfig.weaponslevel[0]];
+            _weaponConfig.duration = _weaponConfig.duration*60;
             auto starbomb = Sprite::createWithSpriteFrameName(fileName);
             starbomb->setAnchorPoint(Point::ANCHOR_MIDDLE);
             starbomb->setPosition(Point(_pos.x, -100));
@@ -93,7 +94,7 @@ void Weapon::createWeapon()
                                                                   {
                                                                       //显示粒子特效
                                                                       auto bomb_1_effectB = ParticleSystemQuad::create("bomb_1_effectB.plist");
-                                                                      bomb_1_effectB->setLife(_weaponConfig.duration/10);
+                                                                      bomb_1_effectB->setLife(_weaponConfig.duration/60);
                                                                       bomb_1_effectB->setAutoRemoveOnFinish(true);
                                                                       bomb_1_effectB->setPosition(_pos);
                                                                       this->addChild(bomb_1_effectB);
@@ -108,6 +109,7 @@ void Weapon::createWeapon()
         {
             sprintf(fileName,"bomb_2_%d.png",s_playerConfig.weaponslevel[1]+1);
             _weaponConfig = s_weaponConfigs[1][s_playerConfig.weaponslevel[1]];
+            _weaponConfig.duration = _weaponConfig.duration*60;
             auto laser = Sprite::createWithSpriteFrameName(fileName);
             laser->setAnchorPoint(Point::ANCHOR_MIDDLE);
             laser->setPosition(Point(_pos.x, -100));
@@ -130,11 +132,18 @@ void Weapon::createWeapon()
                                                                                                                         nullptr),
                                                                                                           CallFunc::create([&]()
                                                                       {
-                                                                          auto bomb_2_effectB = ParticleSystemQuad::create("bomb_2_effect.plist");
+                                                                          auto bomb_2_effect = ParticleSystemQuad::create("bomb_2_effect.plist");
+                                                                          bomb_2_effect->setPositionType(ParticleSystem::PositionType::GROUPED);
+                                                                          bomb_2_effect->setPosition(Point(s_visibleRect.visibleWidth/2,_pos.y));
+                                                                          getParent()->addChild(bomb_2_effect);
+                                                                          
+                                                                          auto bomb_2_effectB = ParticleSystemQuad::create("bomb_2_effectB.plist");
                                                                           bomb_2_effectB->setPositionType(ParticleSystem::PositionType::GROUPED);
                                                                           bomb_2_effectB->setPosition(Point(s_visibleRect.visibleWidth/2,_pos.y));
                                                                           getParent()->addChild(bomb_2_effectB);
-                                                                          log("weapon config ....duration is %f",_weaponConfig.duration/10);                                                                          bomb_2_effectB->runAction(Sequence::create(DelayTime::create(_weaponConfig.duration/10), RemoveSelf::create(), nullptr));
+                                                                          log("weapon config ....duration is %f",_weaponConfig.duration/10);
+                                                                          bomb_2_effect->runAction(Sequence::create(DelayTime::create(_weaponConfig.duration/60), RemoveSelf::create(), nullptr));
+                                                                          bomb_2_effectB->runAction(Sequence::create(DelayTime::create(_weaponConfig.duration/60), RemoveSelf::create(), nullptr));
                                                                           _eventDispatcher->dispatchCustomEvent(GameConfig::eventLaserHurt,this);
                                                                       }),
                                                                                                           nullptr));
@@ -161,6 +170,7 @@ void Weapon::createWeapon()
         {
             sprintf(fileName,"bomb_3_%d.png",s_playerConfig.weaponslevel[2]+1);
             _weaponConfig = s_weaponConfigs[2][s_playerConfig.weaponslevel[2]];
+            _weaponConfig.duration = _weaponConfig.duration*60;
             auto blackhole = Sprite::createWithSpriteFrameName(fileName);
             blackhole->setAnchorPoint(Point::ANCHOR_MIDDLE);
             blackhole->setPosition(Point(_pos.x, -100));

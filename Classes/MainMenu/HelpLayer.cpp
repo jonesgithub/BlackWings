@@ -146,9 +146,9 @@ extension::TableViewCell* HelpLayer::tableCellAtIndex(extension::TableView *tabl
         icon->setPosition(Point(50,_cellSize.height /2));
         cell->addChild(icon,0,10);
         
-        auto infoSprite = TextSprite::create(text,GameConfig::defaultFontName,25,
-            Size(_cellSize.width - 200,_cellSize.height - 50),TextHAlignment::LEFT,TextVAlignment::CENTER);
-        infoSprite->setPosition(Point(_cellSize.width /2,_cellSize.height /2));
+        auto infoSprite = TextSprite::create(text,GameConfig::defaultFontName,20,
+            Size(_cellSize.width - 160,_cellSize.height - 50),TextHAlignment::LEFT,TextVAlignment::CENTER);
+        infoSprite->setPosition(Point(_cellSize.width /2+20 ,_cellSize.height /2));
         cell->addChild(infoSprite,0,20);
         infoSprite->setColor(textColor);
     }

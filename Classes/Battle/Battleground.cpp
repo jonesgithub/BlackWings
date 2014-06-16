@@ -251,6 +251,7 @@ void Battleground::createBattleground(Ref *sender)
                                                                          
                                                                          this->schedule(schedule_selector(Battleground::battleLoop), 0.1f);
                                                                          this->schedule(schedule_selector(Battleground::updateMenuItemStatus), 0.01f);
+                                                                         this->schedule(schedule_selector(Battleground::weaponFindTarget));
                                                                          
                                                                          createListener();
                                                                          
@@ -337,7 +338,7 @@ void Battleground::battleLoop(float dt)
         
         towerFindTarget();
         
-        weaponFindTarget();
+        //weaponFindTarget();
         
         _battledata.time++;
         if(_battledata.time%10 == 0)
@@ -526,7 +527,7 @@ void Battleground::towerFindTarget()
     }
 }
 
-void Battleground::weaponFindTarget()
+void Battleground::weaponFindTarget(float dt)
 {
     starbombFindTarget();
     laserFindTarget();
@@ -545,7 +546,7 @@ void Battleground::starbombFindTarget()
     
     for (auto & starbomb : s_Starbombs) {
         starbomb->_weaponConfig.duration--;
-        log(".....%f",starbomb->_weaponConfig.duration);
+        log(".....%d",starbomb->_weaponConfig.duration);
         
         for (auto enemy : s_enemys)
         {
@@ -588,7 +589,7 @@ void Battleground::laserFindTarget()
     
     for (auto & laser : s_Lasers) {
         laser->_weaponConfig.duration--;
-        log(".....%f",laser->_weaponConfig.duration);
+        log(".....%d",laser->_weaponConfig.duration);
         
         for (auto enemy : s_enemys)
         {
@@ -1011,6 +1012,7 @@ void Battleground::createHealthBar()
     bar->addChild(_playerBkBar);
     
     _playerBloodBar = ui::LoadingBar::create("battle_life_plain.png");
+    _playerBloodBar->setPercent(100);
     _playerBloodBar->setAnchorPoint(Point::ANCHOR_BOTTOM_LEFT);
     _playerBloodBar->setPositionY(3);
     _playerBkBar->addChild(_playerBloodBar);
@@ -1020,6 +1022,7 @@ void Battleground::createHealthBar()
     bar->addChild(_enmeyBkBar);
     
     _enemyBloodBar = ui::LoadingBar::create("battle_life_enemy.png");
+    _enemyBloodBar->setPercent(100);
     _enemyBloodBar->setPositionY(3);
     _enemyBloodBar->setAnchorPoint(Point::ANCHOR_BOTTOM_LEFT);
     _enmeyBkBar->addChild(_enemyBloodBar);
