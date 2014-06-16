@@ -135,8 +135,9 @@ bool Fighter::initFighter(Attacker attacker,int type,int level /* = 0 */)
     if (attacker == Attacker::PLAIN) {
         
         auto plainfire = Sprite::createWithSpriteFrameName("plainFire_0.png");
+        plainfire->setScale(0.8f);
         plainfire->setAnchorPoint(Point::ANCHOR_MIDDLE);
-        plainfire->setPosition(_fighterIcon->getPosition().x,0);
+        plainfire->setPosition(_fighterIcon->getPosition().x,5);
         this->addChild(plainfire,-1);
         
         auto plainfireanimation = Animation::create();
