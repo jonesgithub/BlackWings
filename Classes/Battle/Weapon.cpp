@@ -93,9 +93,11 @@ void Weapon::createWeapon()
                                                                   {
                                                                       //显示粒子特效
                                                                       auto bomb_1_effectB = ParticleSystemQuad::create("bomb_1_effectB.plist");
+                                                                      bomb_1_effectB->setLife(_weaponConfig.duration/10);
+                                                                      bomb_1_effectB->setAutoRemoveOnFinish(true);
                                                                       bomb_1_effectB->setPosition(_pos);
                                                                       this->addChild(bomb_1_effectB);
-                                                                      bomb_1_effectB->runAction(Sequence::create(DelayTime::create(3.0f), RemoveSelf::create(), nullptr));
+//                                                                      bomb_1_effectB->runAction(Sequence::create(DelayTime::create(3.0f), RemoveSelf::create(), nullptr));
                                                                       bomb_1_effectB->setPositionType(ParticleSystem::PositionType::GROUPED);
                                                                       _eventDispatcher->dispatchCustomEvent(GameConfig::eventStarbombHurt,this);
                                                                   }),

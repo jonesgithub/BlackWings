@@ -634,7 +634,7 @@ void MenuSettings::menuCallbackHelp(Ref *sender)
     this->removeFromParentAndCleanup(true);
 
     auto helpLayer = HelpLayer::create();
-    Director::getInstance()->getRunningScene()->addChild(helpLayer);
+    Director::getInstance()->getRunningScene()->addChild(helpLayer,999);
 }
 
 void MenuSettings::menuCallbackMainMenu(Ref *sender)

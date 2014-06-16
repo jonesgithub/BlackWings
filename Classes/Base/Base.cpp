@@ -79,15 +79,23 @@ void Base::createBase(Ref *sender)
         char name[30];
         sprintf(name,"plain_%d_lv_%d.png",1,s_playerConfig.fighterslevel[0]+1);
         
-        auto flight = Sprite::createWithSpriteFrameName(name);
-        flight->setPosition(player->getPosition()+Point(0,50));
-        _bottomPanel->addChild(flight);
+        auto flightNode = Node::create();
+        _bottomPanel->addChild(flightNode);
+        flightNode->setPosition(player->getPosition()+Point(0,50));
         
-        _curSelectedFlight = flight;
+        auto flight = Sprite::createWithSpriteFrameName(name);
+        flightNode->addChild(flight,1,1);
+        auto flightpar = ParticleSystemQuad::create("plain_effect_1.plist");
+        flightpar->setAnchorPoint(Point::ANCHOR_MIDDLE);
+        flightpar->setScale(0.5f);
+        flightpar->setPosition(Point::ZERO - Point(0,20));
+        flightNode->addChild(flightpar);
+        
+        _curSelectedFlight = flightNode;
         _curSeletedIndex = 0;
         
         auto move = MoveTo::create(1.0, Point(123,370));
-        flight->runAction(move);
+        flightNode->runAction(move);
     }
 
 }
@@ -127,15 +135,23 @@ void Base::onEnter()
                                                             char name[30];
                                                             sprintf(name,"plain_%d_lv_%d.png",index+1,s_playerConfig.fighterslevel[index]+1);
                                                             
-                                                            auto flight = Sprite::createWithSpriteFrameName(name);
-                                                            flight->setPosition(_playerBag->_playerMenu->getChildByTag(1000+i)->getPosition()+Point(0,50));
-                                                            _bottomPanel->addChild(flight,2);
+                                                            auto flightNode = Node::create();
+                                                            _bottomPanel->addChild(flightNode);
+                                                            flightNode->setPosition(_playerBag->_playerMenu->getChildByTag(1000+i)->getPosition()+Point(0,50));
                                                             
-                                                            _curSelectedFlight = flight;
+                                                            auto flight = Sprite::createWithSpriteFrameName(name);
+                                                            flightNode->addChild(flight,1,1);
+                                                            auto flightpar = ParticleSystemQuad::create("plain_effect_1.plist");
+                                                            flightpar->setAnchorPoint(Point::ANCHOR_MIDDLE);
+                                                            flightpar->setScale(0.5f);
+                                                            flightpar->setPosition(Point::ZERO - Point(0,20));
+                                                            flightNode->addChild(flightpar);
+                                                            
+                                                            _curSelectedFlight = flightNode;
                                                             _curSeletedIndex = i;
                                                             
                                                             auto move = MoveTo::create(1.0f, Point(123,370));
-                                                            flight->runAction(move);
+                                                            flightNode->runAction(move);
                                                         }
                                                         
                                                     }
@@ -148,15 +164,23 @@ void Base::onEnter()
                                                             char name[30];
                                                             sprintf(name,"bomb_%d_%d.png",index-FIGHTER_MAX+1,s_playerConfig.weaponslevel[index-FIGHTER_MAX]+1);
                                                             
-                                                            auto flight = Sprite::createWithSpriteFrameName(name);
-                                                            flight->setPosition(_playerBag->_playerMenu->getChildByTag(1000+i)->getPosition()-Point(s_visibleRect.visibleWidth, 0)+Point(0,50));
-                                                            _bottomPanel->addChild(flight,2);
+                                                            auto flightNode = Node::create();
+                                                            _bottomPanel->addChild(flightNode);
+                                                            flightNode->setPosition(_playerBag->_playerMenu->getChildByTag(1000+i)->getPosition()-Point(s_visibleRect.visibleWidth, 0)+Point(0,50));
                                                             
-                                                            _curSelectedFlight = flight;
+                                                            auto flight = Sprite::createWithSpriteFrameName(name);
+                                                            flightNode->addChild(flight,1,1);
+                                                            auto flightpar = ParticleSystemQuad::create("plain_effect_1.plist");
+                                                            flightpar->setAnchorPoint(Point::ANCHOR_MIDDLE);
+                                                            flightpar->setScale(0.5f);
+                                                            flightpar->setPosition(Point::ZERO - Point(0,20));
+                                                            flightNode->addChild(flightpar);
+                                                            
+                                                            _curSelectedFlight = flightNode;
                                                             _curSeletedIndex = i;
                                                             
                                                             auto move = MoveTo::create(1.0f, Point(123,370));
-                                                            flight->runAction(move);
+                                                            flightNode->runAction(move);
                                                         }
                                                         
                                                     }
@@ -200,7 +224,7 @@ void Base::onEnter()
             
             char iconFileName[25];
             sprintf(iconFileName,"plain_%d_lv_%d.png",_curSeletedIndex + 1,s_playerConfig.fighterslevel[_curSeletedIndex] + 1);
-            _curSelectedFlight->setSpriteFrame(iconFileName);
+            ((Sprite*)(_curSelectedFlight->getChildByTag(1)))->setSpriteFrame(iconFileName);
         }
         else
         {
@@ -209,7 +233,7 @@ void Base::onEnter()
             
             char iconFileName[25];
             sprintf(iconFileName,"bomb_%d_%d.png",_curSeletedIndex - FIGHTER_MAX + 1,s_playerConfig.weaponslevel[_curSeletedIndex - FIGHTER_MAX] + 1);
-            _curSelectedFlight->setSpriteFrame(iconFileName);
+            ((Sprite*)(_curSelectedFlight->getChildByTag(1)))->setSpriteFrame(iconFileName);
         }
         
         if(_playerBag)

@@ -60,7 +60,7 @@ private:
     
     bool _isInFilghtUpgradeUI;
     
-    cocos2d::Sprite* _curSelectedFlight;
+    cocos2d::Node* _curSelectedFlight;
     int _curSeletedIndex;
     
     cocos2d::extension::Scale9Sprite* upgradeFighter;

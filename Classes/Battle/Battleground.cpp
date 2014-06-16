@@ -318,9 +318,9 @@ void Battleground::createListener()
 
 void Battleground::initEnemyDispatcher()
 {
-    initNormalEnemy();
+    //initNormalEnemy();
     initTowerEnemy();
-    initBossEnemy();
+    //initBossEnemy();
 }
 
 void Battleground::battleLoop(float dt)
@@ -408,12 +408,13 @@ void Battleground::plainFindTarget()
                 }
             }
             
-            if (player->state == FighterState::IDLE)
+            if (player->state == FighterState::IDLE)//idle
             {
                 player->moveTo(plainTargetPos,attTarget);
             }
-            else if(nearestDistance < player->plainConfig.range * 2)
+            else if(nearestDistance < player->plainConfig.range * 2)//move
             {
+                log("player->attackLocations");
                 player->attackLocations(plainTargetPos,attTarget);
             }
         }
@@ -544,7 +545,7 @@ void Battleground::starbombFindTarget()
     
     for (auto & starbomb : s_Starbombs) {
         starbomb->_weaponConfig.duration--;
-        //log(".....%f",starbomb->_weaponConfig.duration);
+        log(".....%f",starbomb->_weaponConfig.duration);
         
         for (auto enemy : s_enemys)
         {
