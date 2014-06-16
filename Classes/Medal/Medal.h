@@ -23,6 +23,8 @@ public:
     CREATE_FUNC(Medal);
     
     virtual bool init();
+    void onEnter();
+    void update(float delta);
     
     void menuCallbackClosed(Ref *sender);
     
@@ -38,6 +40,8 @@ public:
 private:
     Node* _panel;
     Size _cellSize;
+    TableView* tableView;
+    int _count;
 };
 
 #endif /* defined(__BlackWings__Medal__) */
