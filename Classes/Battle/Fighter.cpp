@@ -4,6 +4,8 @@
 
 USING_NS_CC;
 
+const float PI = 3.1415926;
+
 Fighter* Fighter::createPlain(int type)
 {
     auto ret = new (std::nothrow) Fighter;
@@ -170,6 +172,7 @@ bool Fighter::initFighter(Attacker attacker,int type,int level /* = 0 */)
         gun->setAnchorPoint(Point::ANCHOR_MIDDLE);
         gun->setPosition(_fighterIcon->getContentSize().width/2,_fighterIcon->getContentSize().height/2);
         _fighterIcon->addChild(gun);
+        gun->setRotation(90);
         this->scheduleUpdate();
     }
 
@@ -243,10 +246,11 @@ void Fighter::attackLocations(Point& pos,Player* target)
         fire(0.0f);
         this->schedule(schedule_selector(Fighter::fire),3.0f);
     }
-    else //守卫塔需要先将炮头转过来再射击，时间要重新算，角度也没算对
+    else //守卫塔需要先将炮头转过来再射击，时间要重新算
     {
-        log("(_position.getAngle(_attTargetPos)) * 180 is %f",(_position.getAngle(_attTargetPos)) * 180);
-        gun->runAction(Sequence::create(RotateTo::create(0.3f, (_position.getAngle(_attTargetPos)) * 180+180),
+        auto targetdelta = atanf((_position.x-target->getPosition().x)/(_position.y-target->getPosition().y))*180/PI+180;
+        //targetdelta = targetdelta >180 ? targetdelta-20:targetdelta+20;
+        gun->runAction(Sequence::create(RotateTo::create(0.3f, targetdelta),
                                         CallFunc::create([=]()
                                                          {
                                                              this->unschedule(schedule_selector(Fighter::fire));

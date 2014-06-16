@@ -139,6 +139,12 @@ void GSHelpInfoInit(GameLanguage language)
         s_gameStrings.helpInfo->weapon[1] = dict["weapon2"].asString();
         s_gameStrings.helpInfo->weapon[2] = dict["weapon3"].asString();
         s_gameStrings.helpInfo->weaponLocked = dict["weaponLocked"].asString();
+        
+        s_gameStrings.helpInfo->helptips[0] = dict["helptip_0"].asString();
+        s_gameStrings.helpInfo->helptips[1] = dict["helptip_1"].asString();
+        s_gameStrings.helpInfo->helptips[2] = dict["helptip_2"].asString();
+        s_gameStrings.helpInfo->helptips[3] = dict["helptip_3"].asString();
+        s_gameStrings.helpInfo->helptips[4] = dict["helptip_4"].asString();
     }
 }
 

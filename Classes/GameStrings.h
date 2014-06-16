@@ -51,6 +51,8 @@ typedef struct _helpInfoStrings{
 
     std::string weapon[3];
     std::string weaponLocked;
+    
+    std::string helptips[5];
 }HelpInfoStrings;
 
 typedef struct _baseStrings{

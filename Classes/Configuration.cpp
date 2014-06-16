@@ -882,7 +882,7 @@ BattleTowerEnemyConfig s_battleTowerEnemyConfig_0[STAGE_TOWER_COUNTS_00] =
 
 BattleTowerEnemyConfig s_battleTowerEnemyConfig_1[STAGE_TOWER_COUNTS_01] =
 {
-    {0,400,400}
+    {0,400,900}
 };
 
 BattleTowerEnemyConfig s_battleTowerEnemyConfig_2[STAGE_TOWER_COUNTS_02] =

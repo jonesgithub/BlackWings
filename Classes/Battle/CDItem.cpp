@@ -44,6 +44,7 @@ bool CDItem::init(int index)
     _cdBar = ui::LoadingBar::create("plain_progress.png");
     _cdBar->setPosition(Point(item_bk->getContentSize().width/2,30));
     _cdBar->setAnchorPoint(Point::ANCHOR_MIDDLE);
+    _cdBar->setPercent(0);
     item_bk->addChild(_cdBar);
 
     char fileName[30];
@@ -67,7 +68,7 @@ void CDItem::update(float dt)
 {
     _curcdtime++;
     if (_curcdtime < _cdtime) {
-        _cdBar->setPercent(float(_cdtime-_curcdtime)*100/_cdtime);
+        _cdBar->setPercent(float(_curcdtime)*100/_cdtime);
     }
     else
     {

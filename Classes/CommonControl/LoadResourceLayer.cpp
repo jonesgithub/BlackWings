@@ -48,7 +48,8 @@ bool LoadResourceLayer::init(const LoadResourceCallback& callback)
         _loadingBar->setPosition(s_visibleRect.center);
         this->addChild(_loadingBar);
 
-        auto helpfulTips = TextSprite::create("helpful tips");
+        srand((unsigned)time(NULL));
+        auto helpfulTips = TextSprite::create(s_gameStrings.helpInfo->helptips[rand()%5]);
         helpfulTips->setPosition(Point(s_visibleRect.center.x,s_visibleRect.center.y - 80));
         this->addChild(helpfulTips);
 
