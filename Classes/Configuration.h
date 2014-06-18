@@ -110,6 +110,7 @@ public:
     const static std::string eventUpdateMenuItemData;
     const static std::string eventUpdateMenuItemFlightData;
     const static std::string eventUpdateMenuItemWeaponData;
+    const static std::string eventUpdateGem;
     const static std::string eventShowWeaponMenu;
     const static std::string eventShowHideMedalLogo;
     const static std::string eventFlightAvaliable;

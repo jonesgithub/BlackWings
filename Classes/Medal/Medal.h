@@ -23,8 +23,6 @@ public:
     CREATE_FUNC(Medal);
     
     virtual bool init();
-    void onEnter();
-    void update(float delta);
     
     void menuCallbackClosed(Ref *sender);
     

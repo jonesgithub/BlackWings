@@ -22,6 +22,7 @@ const std::string GameConfig::eventunseletedall = "eventunseletedall";
 const std::string GameConfig::eventUpdateBaseData = "eventUpdateBaseData";
 const std::string GameConfig::eventUpdateMenuItemFlightData = "eventUpdateMenuItemFlightData";
 const std::string GameConfig::eventUpdateMenuItemWeaponData = "eventUpdateMenuItemWeaponData";
+const std::string GameConfig::eventUpdateGem = "eventUpdateGem";
 const std::string GameConfig::eventShowWeaponMenu = "eventShowWeaponMenu";
 const std::string GameConfig::eventShowHideMedalLogo = "eventShowHideMedalLogo";
 const std::string GameConfig::eventFlightAvaliable = "eventFlightAvaliable";

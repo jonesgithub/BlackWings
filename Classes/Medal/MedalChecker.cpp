@@ -39,7 +39,7 @@ void MedalChecker::check()
 
 void MedalChecker::check_firstkill()
 {
-    if (!s_playerConfig.firstkill & s_playerConfig.medallocked[0]) {
+    if (s_playerConfig.firstkill & s_playerConfig.medallocked[0]) {
         s_playerConfig.medallocked[0] = false;
         s_playerConfig.medalget[0] = true;
         new_medal_indexs.push_back(0);
@@ -161,32 +161,32 @@ void MedalChecker::check_stagevictory()
 }
 void MedalChecker::check_fightermaxlevel()
 {
-    if (s_playerConfig.fighterslevel[0] == FIGHTER_LEVEL_MAX && s_playerConfig.medallocked[19]) {
+    if (s_playerConfig.fighterslevel[0] == FIGHTER_LEVEL_MAX-1 && s_playerConfig.medallocked[19]) {
         s_playerConfig.medallocked[19] = false;
         s_playerConfig.medalget[19] = true;
         new_medal_indexs.push_back(19);
     }
-    if (s_playerConfig.fighterslevel[1] == FIGHTER_LEVEL_MAX && s_playerConfig.medallocked[20]) {
+    if (s_playerConfig.fighterslevel[1] == FIGHTER_LEVEL_MAX-1 && s_playerConfig.medallocked[20]) {
         s_playerConfig.medallocked[20] = false;
         s_playerConfig.medalget[20] = true;
         new_medal_indexs.push_back(20);
     }
-    if (s_playerConfig.fighterslevel[2] == FIGHTER_LEVEL_MAX && s_playerConfig.medallocked[21]) {
+    if (s_playerConfig.fighterslevel[2] == FIGHTER_LEVEL_MAX-1 && s_playerConfig.medallocked[21]) {
         s_playerConfig.medallocked[21] = false;
         s_playerConfig.medalget[21] = true;
         new_medal_indexs.push_back(21);
     }
-    if (s_playerConfig.fighterslevel[3] == FIGHTER_LEVEL_MAX && s_playerConfig.medallocked[22]) {
+    if (s_playerConfig.fighterslevel[3] == FIGHTER_LEVEL_MAX-1 && s_playerConfig.medallocked[22]) {
         s_playerConfig.medallocked[22] = false;
         s_playerConfig.medalget[22] = true;
         new_medal_indexs.push_back(22);
     }
-    if (s_playerConfig.fighterslevel[4] == FIGHTER_LEVEL_MAX && s_playerConfig.medallocked[23]) {
+    if (s_playerConfig.fighterslevel[4] == FIGHTER_LEVEL_MAX-1 && s_playerConfig.medallocked[23]) {
         s_playerConfig.medallocked[23] = false;
         s_playerConfig.medalget[23] = true;
         new_medal_indexs.push_back(23);
     }
-    if (s_playerConfig.fighterslevel[5] == FIGHTER_LEVEL_MAX && s_playerConfig.medallocked[24]) {
+    if (s_playerConfig.fighterslevel[5] == FIGHTER_LEVEL_MAX-1 && s_playerConfig.medallocked[24]) {
         s_playerConfig.medallocked[24] = false;
         s_playerConfig.medalget[24] = true;
         new_medal_indexs.push_back(24);

@@ -6,6 +6,7 @@
 #include "MenuItemImageLabel.h"
 #include "PlayerMenuItem.h"
 #include "PersonalApi.h"
+#include "MedalChecker.h"
 
 USING_NS_CC_EXT;
 
@@ -151,6 +152,10 @@ bool PlayerBar::init()
                                                     }
                                                 });
     _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
+    
+    
+    auto updategemlistener = EventListenerCustom::create(GameConfig::eventUpdateGem, [=](EventCustom* event){setGem(s_playerConfig.gem);});
+    _eventDispatcher->addEventListenerWithSceneGraphPriority(updategemlistener, this);
 
     return true;
 }
@@ -184,6 +189,7 @@ void PlayerBar::setStoneMax(int num)
 void PlayerBar::setGem(int num)
 {
     sparNum->setString(Value(num).asString().c_str());
+    MedalChecker::getInstance()->check();
 }
 
 void PlayerBar::getmoregem(Ref *sender)

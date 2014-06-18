@@ -564,6 +564,7 @@ void UpgradeUILayer::menuCallbackUpgrade(Ref *sender)
         MedalChecker::getInstance()->check();
         s_gameConfig.saveConfig();
         _eventDispatcher->dispatchCustomEvent(GameConfig::eventUpdateBaseData,(void*)_needgem);
+        _eventDispatcher->dispatchCustomEvent(GameConfig::eventShowHideMedalLogo);
         this->removeFromParent();
     }
     else
