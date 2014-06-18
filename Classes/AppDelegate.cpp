@@ -13,7 +13,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
         //glview = GLView::create("BlackWings");
         director->setOpenGLView(glview);
     }
-    
+    director->setProjection(ccDirectorProjection::_2D);
     auto frameSize = glview->getFrameSize();
 
     int width = frameSize.width;

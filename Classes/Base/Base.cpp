@@ -929,6 +929,7 @@ void Base::createTopPanel()
                                                 {
                                                     medalItem->setText(s_gameStrings.base->topBarMedal);
                                                     battleItem->setText(s_gameStrings.base->topBarBattle);
+                                                    s_gameConfig.saveConfig();
                                                    
                                                 });
     _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);

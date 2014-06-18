@@ -45,11 +45,12 @@ void GameConfig::readConfig()
     //todo
     
     auto userDef = UserDefault::getInstance();
+    
     s_playerConfig.musicVolume = userDef->getFloatForKey("music",1.0f);
     s_playerConfig.sfxVolume = userDef->getFloatForKey("sfx",1.0f);
     s_playerConfig.language = userDef->getIntegerForKey("language",int(GameLanguage::English));
     
-    
+ 
     // initConfig();
     
     auto data = userDef->getDataForKey("bw",Data::Null);
@@ -101,6 +102,7 @@ void GameConfig::readConfig()
                     break;
                 case 2:
                     s_playerConfig.language = importantData[otherDataIndex+index];
+                    log("%d",s_playerConfig.language);
                     break;
                 case 3:
                     s_playerConfig.stone = importantData[otherDataIndex+index];
@@ -151,6 +153,9 @@ void GameConfig::readConfig()
             
         }
     }
+    
+
+ 
     
     CocosDenshion::SimpleAudioEngine::getInstance()->setEffectsVolume(s_playerConfig.musicVolume);
     CocosDenshion::SimpleAudioEngine::getInstance()->setEffectsVolume(s_playerConfig.sfxVolume);
@@ -218,9 +223,12 @@ void GameConfig::initConfig()
 void GameConfig::saveConfig()
 {
     auto userDef = UserDefault::getInstance();
+    
     userDef->setFloatForKey("music",s_playerConfig.musicVolume);
     userDef->setFloatForKey("sfx",s_playerConfig.sfxVolume);
+
     userDef->setIntegerForKey("language",int(s_playerConfig.language));
+    
     
     auto importantDataSize = sizeof(unsigned char) * (FIGHTER_MAX * 2 + WEAPON_MAX + MEDAL_MAX * 2 + OTHER_DATA) * 2;
     auto importantData = (unsigned char*)malloc(importantDataSize);
@@ -271,6 +279,7 @@ void GameConfig::saveConfig()
                 importantData[otherDataIndex + index + 1] = rand();
                 break;
             case 2:
+                log("%d",s_playerConfig.language);
                 importantData[otherDataIndex + index] = s_playerConfig.language;
                 importantData[otherDataIndex + index + 1] = rand();
                 break;
