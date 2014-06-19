@@ -13,6 +13,7 @@
 #include "NotificationLayer.h"
 #include "NoGemLayer.h"
 #include "MedalChecker.h"
+#include "ConfigManager.h"
 
 USING_NS_CC;
 USING_NS_CC_EXT;
@@ -927,7 +928,7 @@ void Base::createTopPanel()
                                                 {
                                                     medalItem->setText(s_gameStrings.base->topBarMedal);
                                                     battleItem->setText(s_gameStrings.base->topBarBattle);
-                                                    s_gameConfig.saveConfig();
+                                                    ConfigManager::getInstance()->saveConfig();
                                                    
                                                 });
     _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
@@ -1003,7 +1004,7 @@ void Base::buyWeapon(Ref *sender)
             _eventDispatcher->dispatchCustomEvent(GameConfig::eventUpdateMenuItemWeaponData,(void*)(_curSeletedIndex-FIGHTER_MAX));
             _eventDispatcher->dispatchCustomEvent(GameConfig::eventShowWeaponMenu);//菜单动画
             
-            s_gameConfig.saveConfig();
+            ConfigManager::getInstance()->saveConfig();
         }
         else
         {

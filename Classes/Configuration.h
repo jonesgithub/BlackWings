@@ -118,13 +118,12 @@ public:
     
     void lazyInit();
     
-    void readConfig();
-    void initConfig();
-    void saveConfig();
+//    void readConfig();
+//    void initConfig();
+//    void saveConfig();
 
     void setMusicVolume(float volume);
     void setSFXVolume(float volume);
-    void setLanguage(GameLanguage languag);
     void GSInitLanguage(GameLanguage language);
     
     //global var

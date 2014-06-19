@@ -14,6 +14,7 @@
 #include "Configuration.h"
 #include "MedalRewardsLayer.h"
 #include "PlayerBar.h"
+#include "ConfigManager.h"
 
 USING_NS_CC;
 
@@ -264,7 +265,7 @@ void Medal::tableCellTouched(extension::TableView* table, extension::TableViewCe
         this->addChild(layer,4);
         
         //save
-        s_gameConfig.saveConfig();
+        ConfigManager::getInstance()->saveConfig();
         
         //update weaponcount
         _eventDispatcher->dispatchCustomEvent(GameConfig::eventUpdateMenuItemWeaponData,(void*)0);

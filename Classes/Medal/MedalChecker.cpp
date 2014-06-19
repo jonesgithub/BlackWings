@@ -11,6 +11,7 @@
 #include "TextSprite.h"
 #include "GameStrings.h"
 #include "VisibleRect.h"
+#include "ConfigManager.h"
 
 MedalChecker* MedalChecker::m_pInstance=NULL;
 MedalChecker::CGarbo MedalChecker::m_garbo;
@@ -34,7 +35,7 @@ void MedalChecker::check()
     //show tips
     showTip();
     //save data
-    s_gameConfig.saveConfig();
+    ConfigManager::getInstance()->saveConfig();
 }
 
 void MedalChecker::check_firstkill()

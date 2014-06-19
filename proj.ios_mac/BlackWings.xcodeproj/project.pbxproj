@@ -345,6 +345,8 @@
 		85A1170019461FC200128549 /* upgrade_plain_effect.plist in Resources */ = {isa = PBXBuildFile; fileRef = 85A116D319461FC200128549 /* upgrade_plain_effect.plist */; };
 		85A1170119461FC200128549 /* upgrade_plain_effect.plist in Resources */ = {isa = PBXBuildFile; fileRef = 85A116D319461FC200128549 /* upgrade_plain_effect.plist */; };
 		85E9CB66193CBE9700A995D3 /* RotateBall.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D70949EF193A0B4E003D197E /* RotateBall.cpp */; };
+		85F441F1195322D000E41176 /* ConfigManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 85F441EF195322D000E41176 /* ConfigManager.cpp */; };
+		85F441F2195322D000E41176 /* ConfigManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 85F441EF195322D000E41176 /* ConfigManager.cpp */; };
 		BF171245129291EC00B8313A /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB012928DE900B8313A /* OpenGLES.framework */; };
 		BF1712471292920000B8313A /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB412928DE900B8313A /* libz.dylib */; };
 		BF1C47F01293687400B63C5D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF1C47EA1293683800B63C5D /* QuartzCore.framework */; };
@@ -717,6 +719,8 @@
 		85A116D119461FC200128549 /* streak.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = streak.png; sourceTree = "<group>"; };
 		85A116D219461FC200128549 /* upgrade_bt_effect.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = upgrade_bt_effect.plist; sourceTree = "<group>"; };
 		85A116D319461FC200128549 /* upgrade_plain_effect.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = upgrade_plain_effect.plist; sourceTree = "<group>"; };
+		85F441EF195322D000E41176 /* ConfigManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ConfigManager.cpp; sourceTree = "<group>"; };
+		85F441F0195322D000E41176 /* ConfigManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfigManager.h; sourceTree = "<group>"; };
 		BF170DB012928DE900B8313A /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		BF170DB412928DE900B8313A /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		BF1C47EA1293683800B63C5D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -797,6 +801,8 @@
 		15AA9C4015B7EC450033D6C2 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				85F441EF195322D000E41176 /* ConfigManager.cpp */,
+				85F441F0195322D000E41176 /* ConfigManager.h */,
 				6896E006193C49E0009282C5 /* PersonalApi.cpp */,
 				6896E007193C49E0009282C5 /* PersonalApi.h */,
 				855E13421934D8D000683F21 /* Medal */,
@@ -1636,6 +1642,7 @@
 				857F13FE19438A9F000DE4E7 /* NoGemLayer.cpp in Sources */,
 				8528F15019362B8C00EF967E /* MedalChecker.cpp in Sources */,
 				856EFA4A19434E95004AEE2B /* UpgradeUILayer.cpp in Sources */,
+				85F441F1195322D000E41176 /* ConfigManager.cpp in Sources */,
 				266ACB0B19323E2A004DF401 /* NotificationLayer.cpp in Sources */,
 				8555022F193C679800DEAF12 /* Weapon.cpp in Sources */,
 				85550223193B8FAE00DEAF12 /* GameOverLayer.cpp in Sources */,
@@ -1687,6 +1694,7 @@
 				266ACB0A19323E2A004DF401 /* MenuItemImageLabel.cpp in Sources */,
 				8528F15119362B8C00EF967E /* MedalChecker.cpp in Sources */,
 				266ACB1019323E2A004DF401 /* Configuration.cpp in Sources */,
+				85F441F2195322D000E41176 /* ConfigManager.cpp in Sources */,
 				266ACAFE19323E2A004DF401 /* StageSelect.cpp in Sources */,
 				266ACAF819323E2A004DF401 /* Base.cpp in Sources */,
 				266ACB1619323E2A004DF401 /* HelpLayer.cpp in Sources */,

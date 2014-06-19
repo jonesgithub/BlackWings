@@ -9,6 +9,7 @@
 #include "Bullet.h"
 #include "GameOverLayer.h"
 #include "MedalChecker.h"
+#include "ConfigManager.h"
 
 USING_NS_CC;
 
@@ -319,9 +320,9 @@ void Battleground::createListener()
 
 void Battleground::initEnemyDispatcher()
 {
-    //initNormalEnemy();
+    initNormalEnemy();
     initTowerEnemy();
-    //initBossEnemy();
+    initBossEnemy();
 }
 
 void Battleground::battleLoop(float dt)
@@ -1403,7 +1404,7 @@ void Battleground::win()
         
         MedalChecker::getInstance()->check();
         
-        s_gameConfig.saveConfig();
+        ConfigManager::getInstance()->saveConfig();
         
         auto go = GameOverLayer::create(true, _battledata.stage, _battledata.time, _battledata.enemydead+_battledata.bossdead, _battledata.flightdead, new_flight_index);
         this->addChild(go,99);
@@ -1444,7 +1445,7 @@ void Battleground::lost()
         
         MedalChecker::getInstance()->check();
         
-        s_gameConfig.saveConfig();
+        ConfigManager::getInstance()->saveConfig();
         
         auto go = GameOverLayer::create(false, _battledata.stage, _battledata.time, _battledata.enemydead+_battledata.bossdead, _battledata.flightdead, 0);
         this->addChild(go,99);

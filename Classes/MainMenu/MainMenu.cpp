@@ -8,6 +8,7 @@
 #include "HelpLayer.h"
 #include "AboutLayer.h"
 #include "Base.h"
+#include "ConfigManager.h"
 
 USING_NS_CC;
 
@@ -139,7 +140,7 @@ void MainMenu::createMenu()
         itemHelp->setText(s_gameStrings.mainMenu->help);
         itemSettings->setText(s_gameStrings.mainMenu->settings);
         itemAbout->setText(s_gameStrings.mainMenu->about);
-        s_gameConfig.saveConfig();
+        ConfigManager::getInstance()->saveConfig();
     });
 
     _eventDispatcher->addEventListenerWithFixedPriority(listener, 1);
