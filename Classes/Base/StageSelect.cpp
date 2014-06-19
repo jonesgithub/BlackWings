@@ -74,7 +74,6 @@ bool StageSelect::init()
                                                                                                         isCloseClick = false;
                                                                                                         if(s_playerConfig.overstage>0 && s_playerConfig.overstage<47)
                                                                                                         tableView->setContentOffsetInDuration(tableView->getContentOffset() + Point(0,_cellSize.height*(s_playerConfig.overstage-1)),s_playerConfig.overstage*0.02f);
-                                                                                                        
                                                                                                     }),
                                                                                    nullptr));
                                         });
@@ -88,6 +87,8 @@ bool StageSelect::init()
         tableView->setDelegate(this);
         tableView->reloadData();
         _panel->addChild(tableView);
+        tableView->setTouchEnabled(false);
+        runAction(Sequence::create(DelayTime::create(1.0f),CallFunc::create([=](){tableView->setTouchEnabled(true);}), nullptr));
         
         auto itemClosed = MenuItemImageLabel::createWithFrameName("back_0.png","back_1.png",
             CC_CALLBACK_1(StageSelect::menuCallbackClosed,this));
@@ -236,6 +237,7 @@ void StageSelect::menuCallbackClosed(Ref *sender)
         isCloseClick = true;
         
         this->runAction(FadeTo::create(0.15f,0));
+        tableView->setTouchEnabled(false);
         
         auto actionmovedone = CallFunc::create(
                                                [=](){
