@@ -571,7 +571,7 @@ void UpgradeUILayer::menuCallbackUpgrade(Ref *sender)
     {
         if(s_playerConfig.overstage < STAGEOFCANBUYGEM)
         {
-            getParent()->addChild(NotificationLayer::create(s_gameStrings.base->nogemcannotbuy));
+            getParent()->addChild(NotificationLayer::create(s_gameStrings.base->nogemcannotbuy),100);
             this->removeFromParent();
         }
         else
