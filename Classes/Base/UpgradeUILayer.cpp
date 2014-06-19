@@ -16,6 +16,7 @@
 #include "NotificationLayer.h"
 #include "NoGemLayer.h"
 #include "MedalChecker.h"
+#include "ConfigManager.h"
 
 USING_NS_CC;
 USING_NS_CC_EXT;
@@ -562,15 +563,16 @@ void UpgradeUILayer::menuCallbackUpgrade(Ref *sender)
         }
         
         MedalChecker::getInstance()->check();
-        s_gameConfig.saveConfig();
+        ConfigManager::getInstance()->saveConfig();
         _eventDispatcher->dispatchCustomEvent(GameConfig::eventUpdateBaseData,(void*)_needgem);
+        _eventDispatcher->dispatchCustomEvent(GameConfig::eventShowHideMedalLogo);
         this->removeFromParent();
     }
     else
     {
         if(s_playerConfig.overstage < STAGEOFCANBUYGEM)
         {
-            getParent()->addChild(NotificationLayer::create(s_gameStrings.base->nogemcannotbuy));
+            getParent()->addChild(NotificationLayer::create(s_gameStrings.base->nogemcannotbuy),100);
             this->removeFromParent();
         }
         else

@@ -174,7 +174,6 @@ bool Fighter::initFighter(Attacker attacker,int type,int level /* = 0 */)
         gun->setPosition(_fighterIcon->getContentSize().width/2,_fighterIcon->getContentSize().height/2);
         _fighterIcon->addChild(gun);
         gun->setRotation(90);
-        this->scheduleUpdate();
     }
 
     ret = true;
@@ -195,6 +194,8 @@ bool Fighter::initFighter(Attacker attacker,int type,int level /* = 0 */)
 
     _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
 
+    this->scheduleUpdate();
+
     return ret;
 }
 
@@ -203,6 +204,7 @@ void Fighter::moveTo(Point& pos,Player* target)
 {
     state = FighterState::MOVE;
     _attTarget = target;
+    _attTargetPos = pos;
     float dx = _position.x - pos.x;
     float dy = _position.y - pos.y;
     auto dis = sqrtf(dx*dx + dy*dy);
@@ -390,5 +392,12 @@ void Fighter::update(float dt)
             int curangel = (int)gun->getRotation();
             gun->setRotation(++curangel%360);
         }
+    }
+    else
+    {
+        float dx = _position.x - _attTargetPos.x;
+        float dy = _position.y - _attTargetPos.y;
+        float delta = atan(dx/dy)*180/PI;
+        this->setRotation(delta);
     }
 }

@@ -13,6 +13,7 @@
 #include "NotificationLayer.h"
 #include "NoGemLayer.h"
 #include "MedalChecker.h"
+#include "ConfigManager.h"
 
 USING_NS_CC;
 USING_NS_CC_EXT;
@@ -54,8 +55,6 @@ void Base::createBase(Ref *sender)
     this->addChild(flare,1);
     
     //************ adds vanishing ****************
-//    auto fileUtil = FileUtils::getInstance();
-//    auto plistData = fileUtil->getValueMapFromFile("vanishingPoint.plist");
     auto vanishing = ParticleSystemQuad::create("vanishingPoint.plist");
     vanishing->setPosition(s_visibleRect.center);
     this->addChild(vanishing);
@@ -929,7 +928,7 @@ void Base::createTopPanel()
                                                 {
                                                     medalItem->setText(s_gameStrings.base->topBarMedal);
                                                     battleItem->setText(s_gameStrings.base->topBarBattle);
-                                                    s_gameConfig.saveConfig();
+                                                    ConfigManager::getInstance()->saveConfig();
                                                    
                                                 });
     _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
@@ -1003,9 +1002,9 @@ void Base::buyWeapon(Ref *sender)
             }
             
             _eventDispatcher->dispatchCustomEvent(GameConfig::eventUpdateMenuItemWeaponData,(void*)(_curSeletedIndex-FIGHTER_MAX));
-            _eventDispatcher->dispatchCustomEvent(GameConfig::eventShowWeaponMenu);
+            _eventDispatcher->dispatchCustomEvent(GameConfig::eventShowWeaponMenu);//菜单动画
             
-            s_gameConfig.saveConfig();
+            ConfigManager::getInstance()->saveConfig();
         }
         else
         {
@@ -1081,7 +1080,7 @@ void Base::showOrHideMedalLogo(EventCustom* event)
 {
     bool isNewButNoGet = false;
     for (int i=0; i<25; ++i) {
-        if (s_playerConfig.medallocked[i] && !s_playerConfig.medalget[i]) {
+        if (!s_playerConfig.medallocked[i] && s_playerConfig.medalget[i]) {
             isNewButNoGet = true;
         }
     }

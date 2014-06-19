@@ -6,6 +6,7 @@
 USING_NS_CC;
 
 extern Battleground* s_battleground;
+const float PI = 3.1415926;
 
 Bullet* Bullet::createBullet(Attacker attacker,int type,int level)
 {
@@ -122,6 +123,11 @@ void Bullet::attackLocations(Point& pos,Player* target)
     }
     
     _attTarget = target;
+    
+    float dx = _position.x - _attTargetPos.x;
+    float dy = _position.y - _attTargetPos.y;
+    float delta = atan(dx/dy)*180/PI;
+    this->setRotation(delta);
     
     auto action = Sequence::create(MoveTo::create(0.3f,_attTargetPos),CallFuncN::create(
         [&](Node* node){

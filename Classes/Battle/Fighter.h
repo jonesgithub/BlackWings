@@ -66,5 +66,4 @@ private:
     
     int _maxlife;
     int _curlife;
-
 };

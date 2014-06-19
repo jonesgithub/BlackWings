@@ -13,6 +13,8 @@
 #include "GameStrings.h"
 #include "Configuration.h"
 #include "MedalRewardsLayer.h"
+#include "PlayerBar.h"
+#include "ConfigManager.h"
 
 USING_NS_CC;
 
@@ -97,6 +99,16 @@ bool Medal::init()
     medal_data_bk->addChild(label_num3);
     medal_data_bk->addChild(label_num4);
     
+    //test
+//    for (int i=0; i<MEDAL_MAX; ++i) {
+//        s_playerConfig.medallocked[i] = true;
+//        s_playerConfig.medalget[i] = false;
+//        CCLOG("medal status: %d, %d, %d", i, s_playerConfig.medallocked[i], s_playerConfig.medalget[i]);
+//    }
+//    s_playerConfig.medallocked[5]=false;
+//    s_playerConfig.medallocked[2]=false;
+//    s_playerConfig.medalget[2]=true;
+    
     //tabview
     tableView = TableView::create(this, Size(panelSize.width, panelSize.height - 150));
     tableView->setDirection(ScrollView::Direction::VERTICAL);
@@ -118,53 +130,20 @@ bool Medal::init()
     menu->setPosition(Point::ZERO);
     _panel->addChild(menu,3);
     
-    tableView->setContentOffset(Point(0, 0));
-    auto fun1 = CallFunc::create([=](){
-                         tableView->setContentOffsetInDuration(tableView->getContentOffset() - Point(0,_cellSize.height*19.7), 0.5f);
-                      });
+//    tableView->setContentOffset(Point(0, 0));
+//    auto fun1 = CallFunc::create([=](){
+//                         tableView->setContentOffsetInDuration(tableView->getContentOffset() - Point(0,_cellSize.height*19.7), 0.5f);
+//                      });
+//    
+//    this->runAction(Sequence::create(fun1, NULL));
     
-    this->runAction(Sequence::create(fun1, NULL));
-    
-    //test
-    for (int i=0; i<MEDAL_MAX; ++i) {
-//        s_playerConfig.medallocked[i] = false;
-//        s_playerConfig.medalget[i] = true;
-        CCLOG("medal status: %d, %d, %d", i, s_playerConfig.medallocked[i], s_playerConfig.medalget[i]);
-    }
+
 //    s_playerConfig.medallocked[5]=true;
 //    s_playerConfig.medalget[5]=false;
     
     return true;
 }
 
-void Medal::onEnter()
-{
-    Layer::onEnter();
-    
-    auto fun2 = CallFunc::create([=](){
-        for (int i=0; i<25; i++) {
-            tableView->updateCellAtIndex(0);
-        }
-    });
-    this->runAction(Sequence::create(DelayTime::create(1), fun2, nullptr));
-    
-    _count = 0;
-    this->scheduleUpdate();
-}
-
-void Medal::update(float delta)
-{
-    _count ++;
-    if (_count % 100 == 0) {
-        auto fun2 = CallFunc::create([=](){
-            for (int i=0; i<25; i++) {
-                tableView->updateCellAtIndex(0);
-            }
-        });
-        this->runAction(Sequence::create(DelayTime::create(1), fun2, nullptr));
-        _count = 0;
-    }
-}
 
 cocos2d::extension::TableViewCell* Medal::tableCellAtIndex(cocos2d::extension::TableView *table, ssize_t idx)
 {
@@ -218,7 +197,12 @@ cocos2d::extension::TableViewCell* Medal::tableCellAtIndex(cocos2d::extension::T
         if (label_name)
         {
             label_name->setText(s_gameStrings.medalInfo->medalname[idx]);
-            //label->setColor(textColor);
+            if (s_playerConfig.medallocked[idx]) {
+                label_name->setColor(Color3B(240, 240, 240));
+            }
+            else{
+                label_name->setColor(Color3B::YELLOW);
+            }
         }
         
         auto label_dscr = (TextSprite*)cell->getChildByTag(10)->getChildByTag(60);
@@ -231,16 +215,14 @@ cocos2d::extension::TableViewCell* Medal::tableCellAtIndex(cocos2d::extension::T
         auto item_got_icon = (Sprite*)cell->getChildByTag(10)->getChildByTag(120);
         if (btnGetBonus && item_got_icon) {
             btnGetBonus->setVisible(true);
-            btnGetBonus->unselected();
-            btnGetBonus->setTextColor(Color3B::BLACK);
+            btnGetBonus->selected();
             item_got_icon->setVisible(false);
             if (s_playerConfig.medallocked[idx]) {
             }
             else{
                 //get bonus
                 if (s_playerConfig.medalget[idx]) {
-                    btnGetBonus->selected();
-                    btnGetBonus->setTextColor(Color3B::BLUE);
+                    btnGetBonus->unselected();
                 }
                 else{
                     btnGetBonus->setVisible(false);
@@ -261,20 +243,40 @@ void Medal::tableCellTouched(extension::TableView* table, extension::TableViewCe
         //s_gameConfig.medal_reward_callbacks[cell->getIdx()]();
         s_playerConfig.gem+=s_medalRewards[cell->getIdx()][0];
         s_playerConfig.weaponCount[0]+=s_medalRewards[cell->getIdx()][1];
+        
+        s_playerConfig.weaponCount[0] = s_playerConfig.weaponCount[0] < s_weaponConfigs[0][s_playerConfig.weaponslevel[0]].capacity ?
+        s_playerConfig.weaponCount[0] : s_weaponConfigs[0][s_playerConfig.weaponslevel[0]].capacity;
+
         s_playerConfig.weaponCount[1]+=s_medalRewards[cell->getIdx()][2];
+        
+        s_playerConfig.weaponCount[1] = s_playerConfig.weaponCount[1] < s_weaponConfigs[1][s_playerConfig.weaponslevel[1]].capacity ?
+        s_playerConfig.weaponCount[1] : s_weaponConfigs[1][s_playerConfig.weaponslevel[1]].capacity;
+        
         s_playerConfig.weaponCount[2]+=s_medalRewards[cell->getIdx()][3];
+        
+        s_playerConfig.weaponCount[2] = s_playerConfig.weaponCount[2] < s_weaponConfigs[2][s_playerConfig.weaponslevel[2]].capacity ?
+        s_playerConfig.weaponCount[2] : s_weaponConfigs[2][s_playerConfig.weaponslevel[2]].capacity;
+        
         s_playerConfig.medalget[cell->getIdx()] = false;
         auto layer = MedalRewardsLayer::create(s_medalRewards[cell->getIdx()][0],
                                                s_medalRewards[cell->getIdx()][1],
                                                s_medalRewards[cell->getIdx()][2],
                                                s_medalRewards[cell->getIdx()][3]);
-        s_gameConfig.saveConfig();
         this->addChild(layer,4);
         
-        tableView->updateCellAtIndex(cell->getIdx());
-        
         //save
-        s_gameConfig.saveConfig();
+        ConfigManager::getInstance()->saveConfig();
+        
+        //update weaponcount
+        _eventDispatcher->dispatchCustomEvent(GameConfig::eventUpdateMenuItemWeaponData,(void*)0);
+        _eventDispatcher->dispatchCustomEvent(GameConfig::eventUpdateMenuItemWeaponData,(void*)1);
+        _eventDispatcher->dispatchCustomEvent(GameConfig::eventUpdateMenuItemWeaponData,(void*)2);
+        
+        //update gem
+        _eventDispatcher->dispatchCustomEvent(GameConfig::eventUpdateGem);
+        
+        for(int i = 0; i<25;++i)
+            tableView->updateCellAtIndex(i);
     }
 }
 
@@ -306,53 +308,58 @@ void Medal::menuCallbackClosed(Ref *sender)
 Node* Medal::getItemNode(int i)
 {
 	auto item = Node::create();
-	auto item_bk = Sprite::createWithSpriteFrameName("medal_minibox_0.png");
-	item_bk->setAnchorPoint(Point::ANCHOR_BOTTOM_LEFT);
+	Sprite* item_bk =nullptr;
+    if(s_playerConfig.medallocked[i])
+        item_bk = Sprite::create("medal_minibox_1.png");
+	else
+        item_bk = Sprite::createWithSpriteFrameName("medal_minibox_0.png");
+    item_bk->setAnchorPoint(Point::ANCHOR_BOTTOM_LEFT);
 	item->addChild(item_bk,0,20);
     
-//    auto menu = Menu::create();
-//    item->addChild(menu, 0, 100);
-//    menu->setPosition(0, 0);
-    
-    CCLOG("will get item node:%d.", i);
-    if (i == 5){
-        CCLOG("lock:%d,get:%d.", s_playerConfig.medallocked[i], s_playerConfig.medalget[i]);
-    }
-    
     Sprite* item_image_bk = nullptr;
-    auto callback = nullptr;
-    MenuItemImageLabel* btnGetBonus = MenuItemImageLabel::createWithFrameName("bt_buy_gem_4.png", "bt_buy_gem_0.png", callback, "领取奖励");
-    btnGetBonus->setPosition(453, 45);
-    btnGetBonus->setTextColor(Color3B::BLACK);
-    item->addChild(btnGetBonus, 0, 110);
-//    if (s_playerConfig.medalget[i] && !s_playerConfig.medallocked[i]) {
-//        btnGetBonus->selected();
-//        btnGetBonus->setTextColor(Color3B::BLUE);
-//    }
-    
-    //
     if (s_playerConfig.medallocked[i]) {
         item_image_bk = Sprite::createWithSpriteFrameName("icon_medal_box_1.png");
     }
     else{
         item_image_bk = Sprite::createWithSpriteFrameName("icon_medal_box_0.png");
     }
-    
-    //get bonus
-    if (s_playerConfig.medalget[i]) {
-    }
-    else{
-        Sprite* item_got_icon = Sprite::createWithSpriteFrameName("icon_get.png");
-        item->addChild(item_got_icon, 0, 120);
-        item_got_icon->setPosition(476, 30);
-    }
-    //
     item_image_bk->setAnchorPoint(Point::ANCHOR_MIDDLE);
 	item_image_bk->setPosition(Point(70,_cellSize.height/2-10));
 	item->addChild(item_image_bk,0,30);
     
+    
+    auto callback = nullptr;
+    MenuItemImageLabel* btnGetBonus = MenuItemImageLabel::createWithFrameName("bt_buy_gem_0.png", "bt_buy_gem_4.png", callback, "领取奖励");
+    btnGetBonus->setPosition(453, 45);
+    btnGetBonus->setTextColor(Color3B::YELLOW,Color3B::BLACK);
+    item->addChild(btnGetBonus, 0, 110);
+    
+    
+    Sprite* item_got_icon = Sprite::createWithSpriteFrameName("icon_get.png");
+    item->addChild(item_got_icon, 0, 120);
+    item_got_icon->setPosition(476, 35);
+    
+    if(s_playerConfig.medallocked[i])
+    {
+        btnGetBonus->selected();
+        item_got_icon->setVisible(false);
+    }
+    else
+    {
+        if (s_playerConfig.medalget[i]) {
+            item_got_icon->setVisible(false);
+        }
+        else
+        {
+            btnGetBonus->setVisible(false);
+        }
+    }
+    
     char iconFileName[30];
-    sprintf(iconFileName,"icon_medal_%d.png",i+1);
+    if(s_playerConfig.medallocked[i])
+        sprintf(iconFileName,"icon_medal_%d_0.png",i+1);
+    else
+        sprintf(iconFileName,"icon_medal_%d.png",i+1);
 
 	auto item_image=Sprite::createWithSpriteFrameName(iconFileName);
 	item_image->setAnchorPoint(Point::ANCHOR_MIDDLE);
@@ -362,7 +369,10 @@ Node* Medal::getItemNode(int i)
     auto infoSprite_1 = TextSprite::create(s_gameStrings.medalInfo->medalname[i],GameConfig::defaultFontName,25,
                                          Size(_cellSize.width - 200,_cellSize.height - 30),TextHAlignment::LEFT,TextVAlignment::CENTER);
     infoSprite_1->setPosition(Point(_cellSize.width /2+50,_cellSize.height /2+30));
-    infoSprite_1->setColor(Color3B(255, 255, 0));
+    if(s_playerConfig.medallocked[i])
+        infoSprite_1->setColor(Color3B(240, 240, 240));
+    else
+        infoSprite_1->setColor(Color3B(255, 255, 0));
     item->addChild(infoSprite_1,0,50);
     
     auto infoSprite_2 = TextSprite::create(s_gameStrings.medalInfo->medaldscr[i],GameConfig::defaultFontName,20,

@@ -110,6 +110,7 @@ public:
     const static std::string eventUpdateMenuItemData;
     const static std::string eventUpdateMenuItemFlightData;
     const static std::string eventUpdateMenuItemWeaponData;
+    const static std::string eventUpdateGem;
     const static std::string eventShowWeaponMenu;
     const static std::string eventShowHideMedalLogo;
     const static std::string eventFlightAvaliable;
@@ -117,13 +118,12 @@ public:
     
     void lazyInit();
     
-    void readConfig();
-    void initConfig();
-    void saveConfig();
+//    void readConfig();
+//    void initConfig();
+//    void saveConfig();
 
     void setMusicVolume(float volume);
     void setSFXVolume(float volume);
-    void setLanguage(GameLanguage languag);
     void GSInitLanguage(GameLanguage language);
     
     //global var

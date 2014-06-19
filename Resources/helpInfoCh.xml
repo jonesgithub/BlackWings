@@ -21,7 +21,7 @@
 	<string>•黑色之翼•</string>
 	
 	<key>fighterLocked</key>
-	<string>Fighter Locked</string>
+	<string>还未解锁该战机，暂时没有信息。</string>
 	
 	<key>weapon1</key>
 	<string>星际炸弹</string>
@@ -31,7 +31,7 @@
 	<string>黑洞</string>
 	
 	<key>weaponLocked</key>
-	<string>Weapon locked.</string>
+	<string>还未解锁该特殊武器，暂时没有信息</string>
     
     <key>helptip_0</key>
     <string>随机小提示0</string>
