@@ -659,6 +659,7 @@ void Medal::menuCallbackClosed(Ref *sender)
 {
     _eventDispatcher->dispatchCustomEvent(GameConfig::eventShowHideMedalLogo);
     this->runAction(FadeTo::create(0.15f,0));
+    listView->scrollToBottom(1.0f, false);
     auto action = Sequence::create(
                                    MoveBy::create(0.15f, Point(0,s_visibleRect.visibleHeight * 0.8f)),
                                    CallFunc::create(
