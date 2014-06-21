@@ -53,6 +53,8 @@ private:
     
     void showOrHideMedalLogo(EventCustom* event);
     
+    Color4F getPlainParticleEffectColor(int i);
+    
     PlayerBar* _playerBag;
     Node* _upgradePanel;
     Node* _topPanel;

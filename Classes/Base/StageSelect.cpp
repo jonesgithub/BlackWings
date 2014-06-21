@@ -78,6 +78,7 @@ bool StageSelect::init()
                                                                                    nullptr));
                                         });
         _panel->runAction(Sequence::create(MoveTo::create(0.15f,s_visibleRect.top),
+                                           DelayTime::create(0.3f),
                                            actionmovedone,nullptr));
 
         tableView = TableView::create(this, Size(panelSize.width, panelSize.height - 335));

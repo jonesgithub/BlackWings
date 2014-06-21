@@ -53,7 +53,7 @@ void ConfigManager::readConfig()
         }
         
         //weapon
-        s_playerConfig.weaponlocked = true;
+        s_playerConfig.weaponlocked = UserDefault::getInstance()->getBoolForKey("weaponlocked");
         for(int i = 0; i < WEAPON_MAX; ++i){
             char name[30];
             sprintf(name, "weaponslevel_%d",i);
@@ -94,7 +94,7 @@ void ConfigManager::initConfig()
     s_playerConfig.fighterslocked[0] = false;
     s_playerConfig.fighterslocked[1] = false;
     s_playerConfig.fighterslocked[2] = false;
-    s_playerConfig.fighterslocked[3] = false;
+    s_playerConfig.fighterslocked[3] = true;
     s_playerConfig.fighterslocked[4] = true;
     s_playerConfig.fighterslocked[5] = true;
     
@@ -105,7 +105,7 @@ void ConfigManager::initConfig()
     s_playerConfig.fighterslevel[4] = 0;
     s_playerConfig.fighterslevel[5] = 0;
     
-    s_playerConfig.weaponlocked = true;
+    s_playerConfig.weaponlocked = false;
     s_playerConfig.weaponslevel[0] = 0;
     s_playerConfig.weaponslevel[1] = 8;
     s_playerConfig.weaponslevel[2] = 0;
@@ -151,7 +151,7 @@ void ConfigManager::saveConfig()
     }
     
     //weapon
-    s_playerConfig.weaponlocked = true;
+    UserDefault::getInstance()->setBoolForKey("weaponlocked",s_playerConfig.weaponlocked);
     for(int i = 0; i < WEAPON_MAX; ++i){
         char name[30];
         sprintf(name, "weaponslevel_%d",i);
