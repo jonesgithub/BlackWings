@@ -52,6 +52,7 @@ void Base::createBase(Ref *sender)
     //************ adds emission flare ****************
     auto flare = ParticleSystemQuad::create("homeFire.plist");
     flare->setPosition(s_visibleRect.center + Point(0,355));
+    flare->setScaleX(2.0f);
     this->addChild(flare,1);
     
     //************ adds vanishing ****************
@@ -85,6 +86,7 @@ void Base::createBase(Ref *sender)
         auto flight = Sprite::createWithSpriteFrameName(name);
         flightNode->addChild(flight,1,1);
         auto flightpar = ParticleSystemQuad::create("plain_effect_1.plist");
+        flightpar->setStartColor(getPlainParticleEffectColor(0));
         flightpar->setAnchorPoint(Point::ANCHOR_MIDDLE);
         flightpar->setScale(0.5f);
         flightpar->setPosition(Point::ZERO - Point(0,20));
@@ -93,7 +95,7 @@ void Base::createBase(Ref *sender)
         _curSelectedFlight = flightNode;
         _curSeletedIndex = 0;
         
-        auto move = MoveTo::create(1.0, Point(123,370));
+        auto move = MoveTo::create(0.5f, Point(123,370));
         flightNode->runAction(move);
     }
 
@@ -144,12 +146,13 @@ void Base::onEnter()
                                                             flightpar->setAnchorPoint(Point::ANCHOR_MIDDLE);
                                                             flightpar->setScale(0.5f);
                                                             flightpar->setPosition(Point::ZERO - Point(0,20));
+                                                            flightpar->setStartColor(getPlainParticleEffectColor(i));
                                                             flightNode->addChild(flightpar);
                                                             
                                                             _curSelectedFlight = flightNode;
                                                             _curSeletedIndex = i;
                                                             
-                                                            auto move = MoveTo::create(1.0f, Point(123,370));
+                                                            auto move = MoveTo::create(0.5f, Point(123,370));
                                                             flightNode->runAction(move);
                                                         }
                                                         
@@ -169,16 +172,16 @@ void Base::onEnter()
                                                             
                                                             auto flight = Sprite::createWithSpriteFrameName(name);
                                                             flightNode->addChild(flight,1,1);
-                                                            auto flightpar = ParticleSystemQuad::create("plain_effect_1.plist");
-                                                            flightpar->setAnchorPoint(Point::ANCHOR_MIDDLE);
-                                                            flightpar->setScale(0.5f);
-                                                            flightpar->setPosition(Point::ZERO - Point(0,20));
-                                                            flightNode->addChild(flightpar);
+//                                                            auto flightpar = ParticleSystemQuad::create("plain_effect_1.plist");
+//                                                            flightpar->setAnchorPoint(Point::ANCHOR_MIDDLE);
+//                                                            flightpar->setScale(0.5f);
+//                                                            flightpar->setPosition(Point::ZERO - Point(0,20));
+//                                                            flightNode->addChild(flightpar);
                                                             
                                                             _curSelectedFlight = flightNode;
                                                             _curSeletedIndex = i;
                                                             
-                                                            auto move = MoveTo::create(1.0f, Point(123,370));
+                                                            auto move = MoveTo::create(0.5f, Point(123,370));
                                                             flightNode->runAction(move);
                                                         }
                                                         
@@ -678,6 +681,12 @@ void Base::createFighterMiddleInfo(Node* panel)
     auto pos = Point(200,panelSize.height * 0.85f);
     
     {
+        auto stoneicon = Sprite::createWithSpriteFrameName("icon_stone.png");
+        stoneicon->setScale(0.8f);
+        stoneicon->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
+        stoneicon->setPosition(pos-Point(50,0));
+        panel->addChild(stoneicon);
+        
         auto levelText = TextSprite::create(s_gameStrings.base->upgradeLevel,GameConfig::defaultFontName,fontSize);
         levelText->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
         levelText->setPosition(pos);
@@ -790,6 +799,12 @@ void Base::createFighterTopInfo(Node* panel)
     auto pos = Point(200,panelSize.height * 0.85f);
     
     {
+        auto stoneicon = Sprite::createWithSpriteFrameName("icon_stone.png");
+        stoneicon->setScale(0.8f);
+        stoneicon->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
+        stoneicon->setPosition(pos-Point(50,0));
+        panel->addChild(stoneicon);
+        
         auto levelText = TextSprite::create(s_gameStrings.base->upgradeLevel,GameConfig::defaultFontName,fontSize);
         levelText->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
         levelText->setPosition(pos);
@@ -1099,4 +1114,32 @@ void Base::showOrHideMedalLogo(EventCustom* event)
             medalLogo = nullptr;
         }
     }
+}
+
+//飞机尾部粒子效果颜色设置
+Color4F Base::getPlainParticleEffectColor(int i)
+{
+    Color4F parEffColor;
+    switch (i) {
+        case 0:
+            parEffColor = Color4F(0.0f, 0.0f, 1.0f, 0.5f);//r,g,b,a
+            break;
+        case 1:
+            parEffColor = Color4F(0.0f, 1.0f, 0.0f, 0.5f);
+            break;
+        case 2:
+            parEffColor = Color4F(1.0f, 0.0f, 0.0f, 0.5f);
+            break;
+        case 3:
+            parEffColor = Color4F(0.0f, 1.0f, 1.0f, 0.5f);
+            break;
+        case 4:
+            parEffColor = Color4F(1.0f, 0.0f, 1.0f, 0.5f);
+            break;
+        case 5:
+        default:
+            parEffColor = Color4F(1.0f, 1.0f, 0.0f, 0.5f);
+            break;
+    }
+    return parEffColor;
 }
