@@ -12,6 +12,7 @@
 #include "Battleground.h"
 #include "Base.h"
 #include "ConfigManager.h"
+#include "PromtWindow.h"
 
 USING_NS_CC;
 USING_NS_CC_EXT;
@@ -155,37 +156,40 @@ bool MenuSettings::init(GameInterface face)
 
                 itemY -= bashY;
                 _retryGameItem = MenuItemImageLabel::createWithFrameName("bt_main_0.png","bt_main_1.png",
-                    [](Ref *sender){
-                        if (Director::getInstance()->isPaused()) {
-                            Director::getInstance()->resume();
-                        }
-                        ConfigManager::getInstance()->saveConfig();
-                        auto bettle = Battleground::create(s_battleground->_battledata.stage);
-                        Director::getInstance()->replaceScene(bettle);
+                    [=](Ref *sender){
+//                        if (Director::getInstance()->isPaused()) {
+//                            Director::getInstance()->resume();
+//                        }
+//                        ConfigManager::getInstance()->saveConfig();
+//                        auto bettle = Battleground::create(s_battleground->_battledata.stage);
+//                        Director::getInstance()->replaceScene(bettle);
+                        this->addChild(PromtWindow::create(ForWhat::Restart), 300);
                 },s_gameStrings.mainMenu->settingRetry);
                 _retryGameItem->setPosition(centerX,itemY);
 
                 itemY -= bashY;
                 _backToBaseItem = MenuItemImageLabel::createWithFrameName("bt_main_0.png","bt_main_1.png",
-                    [](Ref *sender){
-                        if (Director::getInstance()->isPaused()) {
-                            Director::getInstance()->resume();
-                        }
-                        ConfigManager::getInstance()->saveConfig();
-                        auto base = Base::create();
-                        Director::getInstance()->replaceScene(base);
+                    [=](Ref *sender){
+//                        if (Director::getInstance()->isPaused()) {
+//                            Director::getInstance()->resume();
+//                        }
+//                        ConfigManager::getInstance()->saveConfig();
+//                        auto base = Base::create();
+//                        Director::getInstance()->replaceScene(base);
+                        this->addChild(PromtWindow::create(ForWhat::BackToBase),300);
                 },s_gameStrings.mainMenu->settingBackToBase);
                 _backToBaseItem->setPosition(centerX,itemY);
 
                 itemY -= bashY;
                 _backToMainMenuItem = MenuItemImageLabel::createWithFrameName("bt_main_0.png","bt_main_1.png",
-                    [](Ref *sender){
-                        if (Director::getInstance()->isPaused()) {
-                            Director::getInstance()->resume();
-                        }
-                        ConfigManager::getInstance()->saveConfig();
-                        auto mainMenu = MainMenu::create();
-                        Director::getInstance()->replaceScene(mainMenu);
+                    [=](Ref *sender){
+//                        if (Director::getInstance()->isPaused()) {
+//                            Director::getInstance()->resume();
+//                        }
+//                        ConfigManager::getInstance()->saveConfig();
+//                        auto mainMenu = MainMenu::create();
+//                        Director::getInstance()->replaceScene(mainMenu);
+                        this->addChild(PromtWindow::create(ForWhat::BACKToMainMenu),300);
                 },s_gameStrings.base->topBarMainMenu);
                 _backToMainMenuItem->setPosition(centerX,itemY);
 

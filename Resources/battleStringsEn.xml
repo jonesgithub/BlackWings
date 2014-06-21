@@ -27,4 +27,13 @@
     <key>choosepos</key>
     <string>Choose Position</string>
     
+    <key>tips</key>
+    <string>Tip：</string>
+    <key>comfirmrestartgame</key>
+    <string>Will have to restart the game, are you sure?</string>
+    <key>comfirmreturntobase</key>
+    <string>确定要返回空间站吗？</string>
+    <key>comfirmreturntomainmenu</key>
+    <string>确定要返回主菜单吗？</string>
+    
 </dict>

@@ -116,6 +116,8 @@
 		8539BFAC1947721400CA75B6 /* medal_icons_0.png in Resources */ = {isa = PBXBuildFile; fileRef = 8539BFA71947721400CA75B6 /* medal_icons_0.png */; };
 		8539BFAD1947721400CA75B6 /* medal_minibox_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 8539BFA81947721400CA75B6 /* medal_minibox_1.png */; };
 		8539BFAE1947721400CA75B6 /* medal_minibox_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 8539BFA81947721400CA75B6 /* medal_minibox_1.png */; };
+		85456D01195564C400D0E941 /* PromtWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 85456CFF195564C400D0E941 /* PromtWindow.cpp */; };
+		85456D02195564C400D0E941 /* PromtWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 85456CFF195564C400D0E941 /* PromtWindow.cpp */; };
 		8555021C193B2BD300DEAF12 /* CDItem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8555021A193B2BD300DEAF12 /* CDItem.cpp */; };
 		8555021D193B2BD300DEAF12 /* CDItem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8555021A193B2BD300DEAF12 /* CDItem.cpp */; };
 		8555021F193B514700DEAF12 /* plain_progress.png in Resources */ = {isa = PBXBuildFile; fileRef = 8555021E193B514700DEAF12 /* plain_progress.png */; };
@@ -599,6 +601,8 @@
 		8539BFA61947721400CA75B6 /* medal_icons_0.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = medal_icons_0.plist; sourceTree = "<group>"; };
 		8539BFA71947721400CA75B6 /* medal_icons_0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = medal_icons_0.png; sourceTree = "<group>"; };
 		8539BFA81947721400CA75B6 /* medal_minibox_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = medal_minibox_1.png; sourceTree = "<group>"; };
+		85456CFF195564C400D0E941 /* PromtWindow.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PromtWindow.cpp; sourceTree = "<group>"; };
+		85456D00195564C400D0E941 /* PromtWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PromtWindow.h; sourceTree = "<group>"; };
 		8555021A193B2BD300DEAF12 /* CDItem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CDItem.cpp; sourceTree = "<group>"; };
 		8555021B193B2BD300DEAF12 /* CDItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDItem.h; sourceTree = "<group>"; };
 		8555021E193B514700DEAF12 /* plain_progress.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plain_progress.png; sourceTree = "<group>"; };
@@ -891,6 +895,8 @@
 				85550222193B8FAE00DEAF12 /* GameOverLayer.h */,
 				8555022D193C679800DEAF12 /* Weapon.cpp */,
 				8555022E193C679800DEAF12 /* Weapon.h */,
+				85456CFF195564C400D0E941 /* PromtWindow.cpp */,
+				85456D00195564C400D0E941 /* PromtWindow.h */,
 			);
 			name = Battle;
 			path = ../Classes/Battle;
@@ -1635,6 +1641,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				266ACAF919323E2A004DF401 /* PlayerBar.cpp in Sources */,
+				85456D01195564C400D0E941 /* PromtWindow.cpp in Sources */,
 				266ACAFF19323E2A004DF401 /* Battleground.cpp in Sources */,
 				266ACB0919323E2A004DF401 /* MenuItemImageLabel.cpp in Sources */,
 				266ACAFB19323E2A004DF401 /* PlayerMenuItem.cpp in Sources */,
@@ -1713,6 +1720,7 @@
 				8555021D193B2BD300DEAF12 /* CDItem.cpp in Sources */,
 				8528F15519363F5200EF967E /* MedalRewardsLayer.cpp in Sources */,
 				266ACB1A19323E2A004DF401 /* MenuSettings.cpp in Sources */,
+				85456D02195564C400D0E941 /* PromtWindow.cpp in Sources */,
 				6896E009193C49E0009282C5 /* PersonalApi.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
