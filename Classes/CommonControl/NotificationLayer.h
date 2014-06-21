@@ -12,7 +12,7 @@ public:
     virtual bool init(const std::string& notificationMsg,const Size& size);
 
     void menuCallbackClosed(Ref *sender);
-
+    
 private:
 
 };

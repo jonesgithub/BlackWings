@@ -5,6 +5,7 @@
 #include "GameStrings.h"
 #include "MenuItemImageLabel.h"
 #include "NotificationLayer.h"
+#include "ConfigManager.h"
 
 USING_NS_CC_EXT;
 
@@ -75,4 +76,7 @@ void ResetGameLayer::menuCallbackConfirm(Ref *sender)
 
     auto notificationLayer = NotificationLayer::create(s_gameStrings.mainMenu->settingResetNotification);
     Director::getInstance()->getRunningScene()->addChild(notificationLayer);
+    
+    ConfigManager::getInstance()->initConfig();
+    ConfigManager::getInstance()->saveConfig();
 }
