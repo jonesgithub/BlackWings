@@ -130,7 +130,7 @@ void Base::onEnter()
                                                     {
                                                         if(index == i && _curSeletedIndex!=i)
                                                         {
-                                                            _curSelectedFlight->runAction(Sequence::create(FadeOut::create(0.5f),
+                                                            _curSelectedFlight->runAction(Sequence::create(FadeOut::create(0.3f),
                                                                                                            RemoveSelf::create(),
                                                                                                            nullptr));
                                                             char name[30];
@@ -160,7 +160,7 @@ void Base::onEnter()
                                                     for (int i=FIGHTER_MAX; i<FIGHTER_MAX + WEAPON_MAX; ++i) {
                                                         if(index == i && _curSeletedIndex!=i)
                                                         {
-                                                            _curSelectedFlight->runAction(Sequence::create(FadeOut::create(0.5f),
+                                                            _curSelectedFlight->runAction(Sequence::create(FadeOut::create(0.3f),
                                                                                                            RemoveSelf::create(),
                                                                                                            nullptr));
                                                             char name[30];

@@ -1494,7 +1494,7 @@ void Battleground::showStoneAndGem(Point pos, int stoneCount, int gemCount, int 
         stone_sprite->setAnchorPoint(Point::ANCHOR_MIDDLE);
         stone_sprite->setPosition(pos);
         _battleParallaxNode->addChild(stone_sprite);
-        stone_sprite->runAction(Sequence::create(MoveBy::create(0.5f, offsetPos), DelayTime::create(0.5f), MoveTo::create(1.0f, StonePos-offset), RemoveSelf::create(), nullptr));
+        stone_sprite->runAction(Sequence::create(MoveBy::create(0.5f, offsetPos), RotateTo::create(0.5f,120), MoveTo::create(1.0f, StonePos-offset), RemoveSelf::create(), nullptr));
     }
     for(int i = 0; i < gemCount; ++i)
     {
@@ -1504,7 +1504,7 @@ void Battleground::showStoneAndGem(Point pos, int stoneCount, int gemCount, int 
         gem_sprite->setAnchorPoint(Point::ANCHOR_MIDDLE);
         gem_sprite->setPosition(pos);
         _battleParallaxNode->addChild(gem_sprite);
-        gem_sprite->runAction(Sequence::create(MoveBy::create(0.5f, offsetPos), DelayTime::create(0.5f), MoveTo::create(1.0f, GemPos-offset), RemoveSelf::create(), nullptr));
+        gem_sprite->runAction(Sequence::create(MoveBy::create(0.5f, offsetPos), RotateTo::create(0.5f,120), MoveTo::create(1.0f, GemPos-offset), RemoveSelf::create(), nullptr));
     }
     this->runAction(Sequence::create(DelayTime::create(2.1f), CallFunc::create([=](){
         auto stone_text_bk = Sprite::createWithSpriteFrameName("gemTip_box.png");
