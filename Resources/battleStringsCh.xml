@@ -26,4 +26,14 @@
     
     <key>choosepos</key>
     <string>在屏幕中选择投放位置</string>
+    
+    <key>tips</key>
+    <string>提示：</string>
+    <key>comfirmrestartgame</key>
+    <string>确定要重新开始游戏吗？</string>
+    <key>comfirmreturntobase</key>
+    <string>确定要返回空间站吗？</string>
+    <key>comfirmreturntomainmenu</key>
+    <string>确定要返回主菜单吗？</string>
+    
 </dict>

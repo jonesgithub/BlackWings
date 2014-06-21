@@ -118,6 +118,11 @@ typedef struct _battleStrings{
     std::string restartstage;
     std::string gotosee;
     std::string choosepos;
+    
+    std::string tips;
+    std::string comfirmrestartgame;
+    std::string comfirmreturntobase;
+    std::string comfirmreturntomainmenu;
 }BattleStrings;
 
 typedef struct _gameStrings

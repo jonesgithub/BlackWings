@@ -349,5 +349,9 @@ void GSBattleInfo(GameLanguage language)
         s_gameStrings.battleInfo->gotosee = dict["gotosee"].asString();
         s_gameStrings.battleInfo->choosepos = dict["choosepos"].asString();
         
+        s_gameStrings.battleInfo->tips = dict["tips"].asString();
+        s_gameStrings.battleInfo->comfirmrestartgame = dict["comfirmrestartgame"].asString();
+        s_gameStrings.battleInfo->comfirmreturntobase = dict["comfirmreturntobase"].asString();
+        s_gameStrings.battleInfo->comfirmreturntomainmenu = dict["comfirmreturntomainmenu"].asString();
     }
 }
