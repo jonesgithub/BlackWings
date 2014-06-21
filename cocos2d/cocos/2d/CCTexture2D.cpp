@@ -1140,11 +1140,14 @@ bool Texture2D::initWithString(const char *text, const FontDefinition& textDefin
     {
         free(outTempData);
     }
+    /*
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID) || (CC_TARGET_PLATFORM == CC_PLATFORM_LINUX)
     _hasPremultipliedAlpha = true;
 #else
     _hasPremultipliedAlpha = false;
 #endif
+     */
+    _hasPremultipliedAlpha = true;
     return ret;
 }
 

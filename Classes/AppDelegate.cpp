@@ -21,7 +21,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     glview->setDesignResolutionSize(640, 960, ResolutionPolicy::SHOW_ALL);
     
     director->setDisplayStats(true);
-
+    
     /*
     if (width > 320)
     {
