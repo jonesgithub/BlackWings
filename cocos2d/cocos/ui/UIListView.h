@@ -174,6 +174,8 @@ public:
     
     void requestRefreshView();
     void refreshView();
+    
+    void scrollToBottom(float time, bool attenuated);
 
 CC_CONSTRUCTOR_ACCESS:
     virtual bool init() override;

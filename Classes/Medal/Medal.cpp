@@ -143,14 +143,22 @@ bool Medal::init()
     listView->setItemsMargin(2.0f);
     
     //scorll
-    listView->jumpToTop();
+//    listView->jumpToTop();
+    auto call1 = CallFunc::create([=](){
+                listView->scrollToBottom(0.1f, false);
+                              });
+    
+    auto call2 = CallFunc::create([=](){
+        listView->scrollToTop(2.0f, false);
+    });
+    runAction(Sequence::create(call1, DelayTime::create(0.1), call2, NULL));
+    
     
     //closebtn
     auto itemClosed = MenuItemImageLabel::createWithFrameName("back_0.png","back_1.png",
                                                               CC_CALLBACK_1(Medal::menuCallbackClosed,this));
     itemClosed->setAnchorPoint(Point::ANCHOR_TOP_RIGHT);
     itemClosed->setPosition((s_visibleRect.visibleWidth + panelSize.width)/2,panelSize.height);
-    
     
     auto menu = Menu::create( itemClosed, nullptr);
     menu->setPosition(Point::ZERO);

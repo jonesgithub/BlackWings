@@ -488,6 +488,11 @@ void ListView::copySpecialProperties(Widget *widget)
         setGravity(listViewEx->_gravity);
     }
 }
+    
+    void ListView::scrollToBottom(float time, bool attenuated)
+    {
+        startAutoScrollChildrenWithDestination(Point(_innerContainer->getPosition().x, 4600.0f), time, attenuated);
+    }
 
 }
 NS_CC_END
