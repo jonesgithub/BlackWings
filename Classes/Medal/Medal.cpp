@@ -149,7 +149,7 @@ bool Medal::init()
                               });
     
     auto call2 = CallFunc::create([=](){
-        listView->scrollToTop(2.0f, false);
+        listView->scrollToTop(1.0f, true);
     });
     runAction(Sequence::create(call1, DelayTime::create(0.1), call2, NULL));
     
