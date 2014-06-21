@@ -142,6 +142,8 @@ bool Medal::init()
     // set items margin
     listView->setItemsMargin(2.0f);
     
+    listView->_allContentSize = Size(listView->getContentSize().width, MEDAL_MAX*_cellSize.height);
+    
     //scorll
 //    listView->jumpToTop();
     auto call1 = CallFunc::create([=](){
