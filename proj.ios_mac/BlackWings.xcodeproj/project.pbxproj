@@ -120,6 +120,8 @@
 		8539BFAE1947721400CA75B6 /* medal_minibox_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 8539BFA81947721400CA75B6 /* medal_minibox_1.png */; };
 		85456D01195564C400D0E941 /* PromtWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 85456CFF195564C400D0E941 /* PromtWindow.cpp */; };
 		85456D02195564C400D0E941 /* PromtWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 85456CFF195564C400D0E941 /* PromtWindow.cpp */; };
+		85456D1519568B4400D0E941 /* bomb_3_effect.plist in Resources */ = {isa = PBXBuildFile; fileRef = 85456D1419568B4400D0E941 /* bomb_3_effect.plist */; };
+		85456D1619568B4400D0E941 /* bomb_3_effect.plist in Resources */ = {isa = PBXBuildFile; fileRef = 85456D1419568B4400D0E941 /* bomb_3_effect.plist */; };
 		8555021C193B2BD300DEAF12 /* CDItem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8555021A193B2BD300DEAF12 /* CDItem.cpp */; };
 		8555021D193B2BD300DEAF12 /* CDItem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8555021A193B2BD300DEAF12 /* CDItem.cpp */; };
 		8555021F193B514700DEAF12 /* plain_progress.png in Resources */ = {isa = PBXBuildFile; fileRef = 8555021E193B514700DEAF12 /* plain_progress.png */; };
@@ -308,8 +310,6 @@
 		8598E81A1933804500E72CDE /* stringsEn.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8598E77C1933804500E72CDE /* stringsEn.xml */; };
 		85A116D419461FC200128549 /* bomb_1_effectB.plist in Resources */ = {isa = PBXBuildFile; fileRef = 85A116BD19461FC100128549 /* bomb_1_effectB.plist */; };
 		85A116D519461FC200128549 /* bomb_1_effectB.plist in Resources */ = {isa = PBXBuildFile; fileRef = 85A116BD19461FC100128549 /* bomb_1_effectB.plist */; };
-		85A116DA19461FC200128549 /* bomb_3_effect.plist in Resources */ = {isa = PBXBuildFile; fileRef = 85A116C019461FC100128549 /* bomb_3_effect.plist */; };
-		85A116DB19461FC200128549 /* bomb_3_effect.plist in Resources */ = {isa = PBXBuildFile; fileRef = 85A116C019461FC100128549 /* bomb_3_effect.plist */; };
 		85A116DC19461FC200128549 /* bomb_explode_1.plist in Resources */ = {isa = PBXBuildFile; fileRef = 85A116C119461FC100128549 /* bomb_explode_1.plist */; };
 		85A116DD19461FC200128549 /* bomb_explode_1.plist in Resources */ = {isa = PBXBuildFile; fileRef = 85A116C119461FC100128549 /* bomb_explode_1.plist */; };
 		85A116DE19461FC200128549 /* bomb_explode_2.plist in Resources */ = {isa = PBXBuildFile; fileRef = 85A116C219461FC100128549 /* bomb_explode_2.plist */; };
@@ -606,6 +606,7 @@
 		8539BFA81947721400CA75B6 /* medal_minibox_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = medal_minibox_1.png; sourceTree = "<group>"; };
 		85456CFF195564C400D0E941 /* PromtWindow.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PromtWindow.cpp; sourceTree = "<group>"; };
 		85456D00195564C400D0E941 /* PromtWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PromtWindow.h; sourceTree = "<group>"; };
+		85456D1419568B4400D0E941 /* bomb_3_effect.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = bomb_3_effect.plist; sourceTree = "<group>"; };
 		8555021A193B2BD300DEAF12 /* CDItem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CDItem.cpp; sourceTree = "<group>"; };
 		8555021B193B2BD300DEAF12 /* CDItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDItem.h; sourceTree = "<group>"; };
 		8555021E193B514700DEAF12 /* plain_progress.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plain_progress.png; sourceTree = "<group>"; };
@@ -706,7 +707,6 @@
 		8598E77B1933804500E72CDE /* stringsCh.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = stringsCh.xml; sourceTree = "<group>"; };
 		8598E77C1933804500E72CDE /* stringsEn.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = stringsEn.xml; sourceTree = "<group>"; };
 		85A116BD19461FC100128549 /* bomb_1_effectB.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = bomb_1_effectB.plist; sourceTree = "<group>"; };
-		85A116C019461FC100128549 /* bomb_3_effect.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = bomb_3_effect.plist; sourceTree = "<group>"; };
 		85A116C119461FC100128549 /* bomb_explode_1.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = bomb_explode_1.plist; sourceTree = "<group>"; };
 		85A116C219461FC100128549 /* bomb_explode_2.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = bomb_explode_2.plist; sourceTree = "<group>"; };
 		85A116C319461FC100128549 /* bomb_explode_3.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = bomb_explode_3.plist; sourceTree = "<group>"; };
@@ -1190,10 +1190,10 @@
 		85A116BC19461FC100128549 /* plist */ = {
 			isa = PBXGroup;
 			children = (
+				85456D1419568B4400D0E941 /* bomb_3_effect.plist */,
 				859703C5194F333C00BE068D /* bomb_2_effect.plist */,
 				859703C6194F333C00BE068D /* bomb_2_effectB.plist */,
 				85A116BD19461FC100128549 /* bomb_1_effectB.plist */,
-				85A116C019461FC100128549 /* bomb_3_effect.plist */,
 				85A116C119461FC100128549 /* bomb_explode_1.plist */,
 				85A116C219461FC100128549 /* bomb_explode_2.plist */,
 				85A116C319461FC100128549 /* bomb_explode_3.plist */,
@@ -1391,6 +1391,7 @@
 				5087E78617EB970100C73F5D /* Icon-76.png in Resources */,
 				8598E7CB1933804500E72CDE /* logo.png in Resources */,
 				8598E7D71933804500E72CDE /* map_2.plist in Resources */,
+				85456D1519568B4400D0E941 /* bomb_3_effect.plist in Resources */,
 				8598E7AB1933804500E72CDE /* explode_C.png in Resources */,
 				8598E77D1933804500E72CDE /* baseStringsCh.xml in Resources */,
 				8598E79F1933804500E72CDE /* enemys.png in Resources */,
@@ -1430,7 +1431,6 @@
 				85A116EC19461FC200128549 /* home_fire.plist in Resources */,
 				8598E7B91933804500E72CDE /* DL.png in Resources */,
 				85A116DE19461FC200128549 /* bomb_explode_2.plist in Resources */,
-				85A116DA19461FC200128549 /* bomb_3_effect.plist in Resources */,
 				85A116E019461FC200128549 /* bomb_explode_3.plist in Resources */,
 				8598E7911933804500E72CDE /* bases.png in Resources */,
 				8598E7F71933804500E72CDE /* plains.plist in Resources */,
@@ -1539,6 +1539,7 @@
 				8598E7E21933804500E72CDE /* map_4.png in Resources */,
 				8598E8081933804500E72CDE /* mission_icons.png in Resources */,
 				8598E7CC1933804500E72CDE /* logo.png in Resources */,
+				85456D1619568B4400D0E941 /* bomb_3_effect.plist in Resources */,
 				8598E7901933804500E72CDE /* bases.plist in Resources */,
 				85A116FB19461FC200128549 /* plain_effect_1.plist in Resources */,
 				85A116FF19461FC200128549 /* upgrade_bt_effect.plist in Resources */,
@@ -1594,7 +1595,6 @@
 				85550228193B964500DEAF12 /* battleStringsCh.xml in Resources */,
 				8598E7DA1933804500E72CDE /* map_2.png in Resources */,
 				8598E7F01933804500E72CDE /* medal-hd.plist in Resources */,
-				85A116DB19461FC200128549 /* bomb_3_effect.plist in Resources */,
 				8598E7F81933804500E72CDE /* plains.plist in Resources */,
 				8598E7AA1933804500E72CDE /* explode_C.plist in Resources */,
 				8598E7A21933804500E72CDE /* explode_A.plist in Resources */,

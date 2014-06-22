@@ -97,11 +97,11 @@ bool PlayerMenuItem::init(Type playerType,int index)
             weapon->setRotation(90);
             Node::addChild(weapon,1,0);
             
-            auto count_text = TextSprite::create(s_gameStrings.base->weaponQuantity.c_str(),GameConfig::defaultFontName,20);
+            count_text = TextSprite::create(s_gameStrings.base->weaponQuantity,GameConfig::defaultFontName,20);
             count_text->setPosition(Point(45,25));
             Node::addChild(count_text,1);
             
-            std::string fontFile = "DS-Digital.ttf";//"arial.ttf";
+            std::string fontFile = "arial.ttf";
             int fontSize = 20;
             
             auto slash = Label::createWithTTF("/",fontFile,fontSize);
@@ -149,6 +149,13 @@ bool PlayerMenuItem::init(Type playerType,int index)
     auto weaponAvaliableListener = EventListenerCustom::create(GameConfig::eventWeaponAvaliable,
                                                                 CC_CALLBACK_1(PlayerMenuItem::checkWeaponAvaliable,this));
     _eventDispatcher->addEventListenerWithSceneGraphPriority(weaponAvaliableListener, this);
+    
+    auto languagelistener = EventListenerCustom::create(GameConfig::eventLanguageChange, [=](EventCustom* event)
+                                                        {
+                                                            if (playerType == Type::Weapon)
+                                                                count_text->setText(s_gameStrings.base->weaponQuantity);
+                                                        });
+    _eventDispatcher->addEventListenerWithSceneGraphPriority(languagelistener, this);
     
     return ret;
 }

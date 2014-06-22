@@ -175,6 +175,7 @@ public:
     void requestRefreshView();
     void refreshView();
     
+    Size _allContentSize;
     void scrollToBottom(float time, bool attenuated);
 
 CC_CONSTRUCTOR_ACCESS:

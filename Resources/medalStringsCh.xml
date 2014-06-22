@@ -120,4 +120,6 @@
     
     <key>newmedal</key>
     <string>新的成就</string>
+    <key>getbonus</key>
+    <string>领取奖励</string>
 </dict>

@@ -68,7 +68,8 @@ gun(nullptr),
 _bloodbar(nullptr),
 _maxlife(0),
 _curlife(0),
-isInBlackhole(false)
+isInBlackhole(false),
+_isRotating(false)
 {
 }
 
@@ -129,7 +130,9 @@ bool Fighter::initFighter(Attacker attacker,int type,int level /* = 0 */)
     auto iconSize = _fighterIcon->getContentSize();
     _fighterIcon->setPosition(Point(iconSize.width/2, iconSize.height/2));
     this->setContentSize(_fighterIcon->getContentSize());
-    this->addChild(_fighterIcon);
+    this->addChild(_fighterIcon,1,1);
+    if(attacker != Attacker::PLAIN)
+        _fighterIcon->setRotation(180);
     
     //飞机尾部带火
     if (attacker == Attacker::PLAIN) {
@@ -138,7 +141,7 @@ bool Fighter::initFighter(Attacker attacker,int type,int level /* = 0 */)
         plainfire->setScale(0.8f);
         plainfire->setAnchorPoint(Point::ANCHOR_MIDDLE);
         plainfire->setPosition(_fighterIcon->getPosition().x,5);
-        this->addChild(plainfire,-1);
+        _fighterIcon->addChild(plainfire,-1,2);
         
         auto plainfireanimation = Animation::create();
         plainfireanimation->addSpriteFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName("plainFire_0.png"));
@@ -153,16 +156,18 @@ bool Fighter::initFighter(Attacker attacker,int type,int level /* = 0 */)
         _bloodbar = ui::LoadingBar::create("battle_life_enemy.png");
         _bloodbar->setAnchorPoint(Point::ANCHOR_MIDDLE);
         _bloodbar->setPosition(Point(_fighterIcon->getContentSize().width/2,_fighterIcon->getContentSize().height+10));
-        _fighterIcon->addChild(_bloodbar);
+        this->addChild(_bloodbar);
         _bloodbar->setScale(0.3f);
+        _bloodbar->setPercent(100);
     }
     else if(attacker == Attacker::PLAIN)
     {
         _bloodbar = ui::LoadingBar::create("battle_life_plain.png");
         _bloodbar->setAnchorPoint(Point::ANCHOR_MIDDLE);
         _bloodbar->setPosition(Point(_fighterIcon->getContentSize().width/2,-10));
-        _fighterIcon->addChild(_bloodbar);
+        this->addChild(_bloodbar);
         _bloodbar->setScale(0.3f);
+        _bloodbar->setPercent(100);
     }
     
     //守卫塔带炮
@@ -209,23 +214,31 @@ void Fighter::moveTo(Point& pos,Player* target)
     float dy = _position.y - pos.y;
     auto dis = sqrtf(dx*dx + dy*dy);
     
+    auto targetdelta = atanf((_position.x-_attTargetPos.x)/(_position.y-_attTargetPos.y))*180/PI;
+    if(_attacker != Attacker::PLAIN)
+        targetdelta += 180;
+    _isRotating = true;
+    
     switch (_attacker) {
         case Attacker::ENEMY:
-            this->runAction(Sequence::create(MoveTo::create(dis / enemyConfig.speed,pos), CallFunc::create(
+            this->runAction(Sequence::create(CallFunc::create([=](){this->getChildByTag(1)->runAction(RotateTo::create(0.8f, targetdelta));}), DelayTime::create(0.8f),MoveTo::create(dis / enemyConfig.speed,pos), CallFunc::create(
                                                                                                            [&](){
                                                                                                                state = FighterState::IDLE;
+                                                                                                               _isRotating = false;
                                                                                                            }  ),nullptr));
             break;
         case Attacker::BOSS:
-            this->runAction(Sequence::create(MoveTo::create(dis / bossConfig.speed,pos), CallFunc::create(
+            this->runAction(Sequence::create(CallFunc::create([=](){this->getChildByTag(1)->runAction(RotateTo::create(0.8f, targetdelta));}), DelayTime::create(0.8f), MoveTo::create(dis / bossConfig.speed,pos), CallFunc::create(
                                                                                                            [&](){
                                                                                                                state = FighterState::IDLE;
+                                                                                                               _isRotating = false;
                                                                                                            }  ),nullptr));
             break;
         case Attacker::PLAIN:
-            this->runAction(Sequence::create(MoveTo::create(dis / plainConfig.speed,pos), CallFunc::create(
+            this->runAction(Sequence::create(CallFunc::create([=](){this->getChildByTag(1)->runAction(RotateTo::create(0.8f, targetdelta));}), DelayTime::create(0.8f), MoveTo::create(dis / plainConfig.speed,pos), CallFunc::create(
                                                                                                            [&](){
                                                                                                                state = FighterState::IDLE;
+                                                                                                               _isRotating = false;
                                                                                                            }  ),nullptr));
             break;
         case Attacker::TOWER://守卫塔无法移动，speed是无效的
@@ -245,14 +258,23 @@ void Fighter::attackLocations(Point& pos,Player* target)
 
     if(_attacker != Attacker::TOWER)
     {
-        this->unschedule(schedule_selector(Fighter::fire));
-        fire(0.0f);
-        this->schedule(schedule_selector(Fighter::fire),3.0f);
+        auto targetdelta = atanf((_position.x-_attTargetPos.x)/(_position.y-_attTargetPos.y))*180/PI;
+        if(_attacker != Attacker::PLAIN)
+            targetdelta += 180;
+        _isRotating = true;
+        this->getChildByTag(1)->runAction(Sequence::create(RotateTo::create(0.8f, targetdelta),
+                                                           CallFunc::create([=]()
+                                                                            {
+                                                                                _isRotating = false;
+                                                                                this->unschedule(schedule_selector(Fighter::fire));
+                                                                                fire(0.0f);
+                                                                                this->schedule(schedule_selector(Fighter::fire),3.0f);
+                                                                            }),
+                                                           nullptr));
     }
     else //守卫塔需要先将炮头转过来再射击，时间要重新算
     {
-        auto targetdelta = atanf((_position.x-target->getPosition().x)/(_position.y-target->getPosition().y))*180/PI+180;
-        //targetdelta = targetdelta >180 ? targetdelta-20:targetdelta+20;
+        auto targetdelta = atanf((_position.x-_attTargetPos.x)/(_position.y-_attTargetPos.y))*180/PI+180;
         gun->runAction(Sequence::create(RotateTo::create(0.3f, targetdelta),
                                         CallFunc::create([=]()
                                                          {
@@ -261,7 +283,6 @@ void Fighter::attackLocations(Point& pos,Player* target)
                                                              this->schedule(schedule_selector(Fighter::fire),3.0f);
                                                          }),
                                         nullptr));
-        //gun->setRotation((_position.getAngle(_attTargetPos)) * 180+180);
     }
     
 }
@@ -351,18 +372,23 @@ void Fighter::hurt(int ATK)
     else
     {
         //判断是否是在黑洞中
-        state = FighterState::DESTROY;
-        this->unschedule(schedule_selector(Fighter::fire));
         if(state == FighterState::MOVE)
             this->stopAllActions();
+        this->unschedule(schedule_selector(Fighter::fire));
+        state = FighterState::DESTROY;
+
         if(isInBlackhole)
         {
+            //this->runAction(RotateTo::create(0.3f, 90));
+            log("before......%f",this->getRotation());
+            this->setRotation(this->getRotation()+360);
             this->runAction(Sequence::create(Spawn::create(MoveBy::create(0.3f, offsetWithBlackhole),
                                                            ScaleTo::create(0.3f, 0.2f),
-                                                           RotateTo::create(0.3f, 90),
+                                                           RotateBy::create(0.3f, 120),
                                                            nullptr),
                                              CallFunc::create([=]()
             {
+                log("after......%f",this->getRotation());
                 _bloodbar->setPercent(0);
                 potInRadar->removeFromParent();
                 CC_SAFE_RELEASE(potInRadar);
@@ -395,9 +421,16 @@ void Fighter::update(float dt)
     }
     else
     {
-        float dx = _position.x - _attTargetPos.x;
-        float dy = _position.y - _attTargetPos.y;
-        float delta = atan(dx/dy)*180/PI;
-        this->setRotation(delta);
+        if(state == FighterState::MOVE && !_isRotating)
+        {
+            float dx = _position.x - _attTargetPos.x;
+            float dy = _position.y - _attTargetPos.y;
+            float delta = atan(dx/dy)*180/PI;
+            if (_attacker != Attacker::PLAIN) {
+                delta += 180;
+            }
+            //this->setRotation(delta);
+            this->getChildByTag(1)->setRotation(delta);
+        }
     }
 }

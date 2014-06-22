@@ -66,4 +66,5 @@ private:
     
     int _maxlife;
     int _curlife;
+    bool _isRotating;
 };

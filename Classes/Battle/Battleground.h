@@ -6,6 +6,7 @@
 #include "CDItem.h"
 #include "Weapon.h"
 #include "PlayerBar.h"
+#include "TextSprite.h"
 
 USING_NS_CC;
 
@@ -188,6 +189,9 @@ private:
     //cd位置是否被占用
     bool isCDPosUsed[8];
     
+    //语言切换
+    MenuItemImageLabel* itemPause;
+    TextSprite* stageText;
 };
 
 #endif

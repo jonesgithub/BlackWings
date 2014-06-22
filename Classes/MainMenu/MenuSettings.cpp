@@ -274,7 +274,8 @@ void MenuSettings::menuCallbackLanguage(Ref *sender)
     default:
         break;
     }
-
+    
+    ConfigManager::getInstance()->saveLanguage(s_playerConfig.language);
     _eventDispatcher->dispatchCustomEvent(GameConfig::eventLanguageChange);
 }
 

@@ -45,5 +45,5 @@ public:
     
     void saveMusicVolume(float volume);
     void saveSFXVolume(float volume);
-    void saveLanguage(GameLanguage language);
+    void saveLanguage(int language);
 };

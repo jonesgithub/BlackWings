@@ -103,6 +103,7 @@ typedef struct _medalStrings{
     std::string medalkillenemy;
     std::string medalkillbigenemy;
     std::string newmedal;
+    std::string getbonus;
 }MedalStrings;
 
 typedef struct _battleStrings{

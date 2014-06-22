@@ -32,14 +32,14 @@
 	<string>Weapon locked.</string>
 	
     <key>helptip_0</key>
-    <string>随机小提示0</string>
+    <string>RandomTip0</string>
     <key>helptip_1</key>
-    <string>随机小提示1</string>
+    <string>RandomTip1</string>
     <key>helptip_2</key>
-    <string>随机小提示2</string>
+    <string>RandomTip2</string>
     <key>helptip_3</key>
-    <string>随机小提示3</string>
+    <string>RandomTip3</string>
     <key>helptip_4</key>
-    <string>随机小提示4</string>
+    <string>RandomTip4</string>
     
 </dict>
