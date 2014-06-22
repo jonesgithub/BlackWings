@@ -130,6 +130,8 @@ bool Fighter::initFighter(Attacker attacker,int type,int level /* = 0 */)
     _fighterIcon->setPosition(Point(iconSize.width/2, iconSize.height/2));
     this->setContentSize(_fighterIcon->getContentSize());
     this->addChild(_fighterIcon,1,1);
+    if(attacker != Attacker::PLAIN)
+        _fighterIcon->setRotation(180);
     
     //飞机尾部带火
     if (attacker == Attacker::PLAIN) {
@@ -247,14 +249,21 @@ void Fighter::attackLocations(Point& pos,Player* target)
 
     if(_attacker != Attacker::TOWER)
     {
-        this->unschedule(schedule_selector(Fighter::fire));
-        fire(0.0f);
-        this->schedule(schedule_selector(Fighter::fire),3.0f);
+        auto targetdelta = atanf((_position.x-_attTargetPos.x)/(_position.y-_attTargetPos.y))*180/PI;
+        if(_attacker != Attacker::PLAIN)
+            targetdelta += 180;
+        this->getChildByTag(1)->runAction(Sequence::create(RotateTo::create(1.3f, targetdelta),
+                                                           CallFunc::create([=]()
+                                                                            {
+                                                                                this->unschedule(schedule_selector(Fighter::fire));
+                                                                                fire(0.0f);
+                                                                                this->schedule(schedule_selector(Fighter::fire),3.0f);
+                                                                            }),
+                                                           nullptr));
     }
     else //守卫塔需要先将炮头转过来再射击，时间要重新算
     {
-        auto targetdelta = atanf((_position.x-target->getPosition().x)/(_position.y-target->getPosition().y))*180/PI+180;
-        //targetdelta = targetdelta >180 ? targetdelta-20:targetdelta+20;
+        auto targetdelta = atanf((_position.x-_attTargetPos.x)/(_position.y-_attTargetPos.y))*180/PI+180;
         gun->runAction(Sequence::create(RotateTo::create(0.3f, targetdelta),
                                         CallFunc::create([=]()
                                                          {
@@ -263,7 +272,6 @@ void Fighter::attackLocations(Point& pos,Player* target)
                                                              this->schedule(schedule_selector(Fighter::fire),3.0f);
                                                          }),
                                         nullptr));
-        //gun->setRotation((_position.getAngle(_attTargetPos)) * 180+180);
     }
     
 }
@@ -402,10 +410,16 @@ void Fighter::update(float dt)
     }
     else
     {
-        float dx = _position.x - _attTargetPos.x;
-        float dy = _position.y - _attTargetPos.y;
-        float delta = atan(dx/dy)*180/PI;
-        //this->setRotation(delta);
-        this->getChildByTag(1)->setRotation(delta);
+        if(state == FighterState::MOVE )
+        {
+            float dx = _position.x - _attTargetPos.x;
+            float dy = _position.y - _attTargetPos.y;
+            float delta = atan(dx/dy)*180/PI;
+            if (_attacker != Attacker::PLAIN) {
+                delta += 180;
+            }
+            //this->setRotation(delta);
+            this->getChildByTag(1)->setRotation(delta);
+        }
     }
 }

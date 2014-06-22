@@ -1,6 +1,7 @@
 #pragma once
 
 #include "cocos2d.h"
+#include "MenuItemImageLabel.h"
 
 USING_NS_CC;
 
@@ -33,4 +34,6 @@ private:
     Label* stoneNum;
     Label* stoneTatalNum;
     Label* sparNum;
+    
+    MenuItemImageLabel* menuitem_getmore;
 };

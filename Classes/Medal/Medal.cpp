@@ -71,10 +71,10 @@ bool Medal::init()
     label_2->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
     label_3->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
     label_4->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
-    label_1->setPosition(Point(130,70));
-    label_2->setPosition(Point(300,70));
-    label_3->setPosition(Point(130,30));
-    label_4->setPosition(Point(300,30));
+    label_1->setPosition(Point(120,70));
+    label_2->setPosition(Point(290,70));
+    label_3->setPosition(Point(120,30));
+    label_4->setPosition(Point(290,30));
     medal_data_bk->addChild(label_1);
     medal_data_bk->addChild(label_2);
     medal_data_bk->addChild(label_3);
@@ -101,15 +101,7 @@ bool Medal::init()
     medal_data_bk->addChild(label_num3);
     medal_data_bk->addChild(label_num4);
     
-    //test
-//    for (int i=0; i<MEDAL_MAX; ++i) {
-//        s_playerConfig.medallocked[i] = true;
-//        s_playerConfig.medalget[i] = false;
-//        CCLOG("medal status: %d, %d, %d", i, s_playerConfig.medallocked[i], s_playerConfig.medalget[i]);
-//    }
-//    s_playerConfig.medallocked[5]=false;
-//    s_playerConfig.medallocked[2]=false;
-//    s_playerConfig.medalget[2]=true;
+
     
     //listview
     listView = ListView::create();
@@ -117,8 +109,6 @@ bool Medal::init()
     listView->setDirection(SCROLLVIEW_DIR_VERTICAL);
     listView->setTouchEnabled(true);
     listView->setBounceEnabled(true);
-    //listView->setBackGroundImage("cocosui/green_edit.png");
-    //listView->setBackGroundImageScale9Enabled(true);
     listView->setSize(Size(panelSize.width, panelSize.height - 150));
     listView->setPosition(Point(0,20));
     listView->addEventListenerListView(this, listvieweventselector(Medal::selectedItemEvent));
@@ -134,7 +124,6 @@ bool Medal::init()
     listView->setItemsMargin(2.0f);
     
     //scorll
-//    listView->jumpToTop();
     auto call1 = CallFunc::create([=](){
                 listView->scrollToBottom(0.1f, false);
                               });
@@ -231,7 +220,7 @@ void Medal::initListviewItem()
             }
             
         };
-        MenuItemImageLabel* btnGetBonus = MenuItemImageLabel::createWithFrameName("bt_buy_gem_0.png", "bt_buy_gem_4.png", callback, "领取奖励");
+        MenuItemImageLabel* btnGetBonus = MenuItemImageLabel::createWithFrameName("bt_buy_gem_0.png", "bt_buy_gem_4.png", callback, s_gameStrings.medalInfo->getbonus, GameConfig::defaultFontName, 25);
         btnGetBonus->setPosition(453, 45);
         btnGetBonus->setTag(110);
         btnGetBonus->setTextColor(Color3B::YELLOW,Color3B::BLACK);

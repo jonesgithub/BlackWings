@@ -316,6 +316,15 @@ void Battleground::createListener()
     auto blackholeHurtListener = EventListenerCustom::create(GameConfig::eventBlackholeHurt,
                                                             CC_CALLBACK_1(Battleground::callbackBlackholeHurt,this));
     _eventDispatcher->addEventListenerWithSceneGraphPriority(blackholeHurtListener, this);
+    
+    auto languagelistener = EventListenerCustom::create(GameConfig::eventLanguageChange, [=](EventCustom* event)
+                                                {
+                                                    itemPause->setText(s_gameStrings.mainMenu->battle_pause);
+                                                    std::string str = s_gameStrings.mainMenu->stagetext + Value(_battledata.stage+1).asString();
+                                                    stageText->setText(str);
+                                                });
+    _eventDispatcher->addEventListenerWithSceneGraphPriority(languagelistener, this);
+    
 }
 
 void Battleground::initEnemyDispatcher()
@@ -360,7 +369,7 @@ void Battleground::plainFindTarget()
     
     for (auto player : s_players)
     {
-        Player* attTarget = nullptr;
+        Player* attTarget = nullptr;// 基地
         
         if ((player->state == FighterState::IDLE || player->state == FighterState::MOVE))
         {
@@ -416,7 +425,6 @@ void Battleground::plainFindTarget()
             }
             else if(nearestDistance < player->plainConfig.range * 2)//move
             {
-                log("player->attackLocations");
                 player->attackLocations(plainTargetPos,attTarget);
             }
         }
@@ -750,7 +758,7 @@ void Battleground::createHealthBar()
     this->addChild(bar);
     bar->runAction(MoveBy::create(0.5f, Point(0,-200)));
 
-    auto itemPause = MenuItemImageLabel::createWithFrameName("battle_pause_0.png","battle_pause_1.png",
+    itemPause = MenuItemImageLabel::createWithFrameName("battle_pause_0.png","battle_pause_1.png",
         CC_CALLBACK_1(Battleground::menuCallbackPause,this),s_gameStrings.mainMenu->battle_pause,
         "Arial",20);
     itemPause->setAnchorPoint(Point::ANCHOR_MIDDLE_TOP);
@@ -822,7 +830,7 @@ void Battleground::createRadarChart()
     this->addChild(stageTextBox);
     
     std::string str = s_gameStrings.mainMenu->stagetext + Value(_battledata.stage+1).asString();
-    auto stageText = TextSprite::create(str,GameConfig::defaultFontName,12);
+    stageText = TextSprite::create(str,GameConfig::defaultFontName,12);
     stageText->setAnchorPoint(Point::ANCHOR_MIDDLE);
     stageText->setPosition(Point(stageTextBox->getContentSize().width/2,stageTextBox->getContentSize().height/2));
     stageTextBox->addChild(stageText);

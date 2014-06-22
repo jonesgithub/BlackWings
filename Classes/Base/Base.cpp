@@ -253,6 +253,43 @@ void Base::onEnter()
     
     auto listenerShowHideMedalLogo = EventListenerCustom::create(GameConfig::eventShowHideMedalLogo, CC_CALLBACK_1(Base::showOrHideMedalLogo,this));
     _eventDispatcher->addEventListenerWithSceneGraphPriority(listenerShowHideMedalLogo, this);
+    
+    auto languagelistener = EventListenerCustom::create(GameConfig::eventLanguageChange, [=](EventCustom* event)
+                                                {
+                                                    if(_isInFilghtUpgradeUI)
+                                                    {
+                                                        fighter_levelText->setText(s_gameStrings.base->upgradeLevel);
+                                                        fighter_attText->setText(s_gameStrings.base->upgradeAtt);
+                                                        fighter_defText->setText(s_gameStrings.base->upgradeDef);
+                                                        fighter_lifeText->setText(s_gameStrings.base->upgradeLife);
+                                                        fighter_spdText->setText(s_gameStrings.base->upgradeSpd);
+                                                        fighter_rangeText->setText(s_gameStrings.base->upgradeRange);
+                                                        if (!fighter_maxlevel)
+                                                        {
+                                                            fighter_leveUpText->setText(s_gameStrings.base->upgrade);
+                                                        }
+                                                        else
+                                                        {
+                                                            fighter_maxlevel_text->setText(s_gameStrings.base->maxlevel);
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        weapon_levelText->setText(s_gameStrings.base->upgradeLevel);
+                                                        weapon_attText->setText(s_gameStrings.base->upgradeAtt);
+                                                        weapon_durationText->setText(s_gameStrings.base->upgradeDuration);
+                                                        if (!weapon_maxlevel)
+                                                        {
+                                                            weapon_leveUpText->setText(s_gameStrings.base->upgrade);
+                                                        }
+                                                        else
+                                                        {
+                                                            weapon_maxlevel_text->setText(s_gameStrings.base->maxlevel);
+                                                        }
+                                                        weapon_buy_text->setText(s_gameStrings.base->upgradeBuy);
+                                                    }
+                                                });
+    _eventDispatcher->addEventListenerWithSceneGraphPriority(languagelistener, this);
 }
 void Base::onExit()
 {
@@ -358,50 +395,48 @@ void Base::createFighterBottomInfo(Node* panel,int t_index)
     auto pos = Point(200,panelSize.height * 0.85f);
 
     {
-        auto levelText = TextSprite::create(s_gameStrings.base->upgradeLevel,GameConfig::defaultFontName,fontSize);
-        levelText->setAnchorPoint(Point::ANCHOR_TOP_LEFT);
-        levelText->setPosition(pos);
-        panel->addChild(levelText);
+        fighter_levelText = TextSprite::create(s_gameStrings.base->upgradeLevel,GameConfig::defaultFontName,fontSize);
+        fighter_levelText->setAnchorPoint(Point::ANCHOR_TOP_LEFT);
+        fighter_levelText->setPosition(pos);
+        panel->addChild(fighter_levelText);
 
         pos.y = panelSize.height * 0.67f;
-        auto attText = TextSprite::create(s_gameStrings.base->upgradeAtt,GameConfig::defaultFontName,fontSize);
-        attText->setAnchorPoint(Point::ANCHOR_TOP_LEFT);
-        attText->setPosition(pos);
-        panel->addChild(attText);
-        attText->setTag(3);
+        fighter_attText = TextSprite::create(s_gameStrings.base->upgradeAtt,GameConfig::defaultFontName,fontSize);
+        fighter_attText->setAnchorPoint(Point::ANCHOR_TOP_LEFT);
+        fighter_attText->setPosition(pos);
+        panel->addChild(fighter_attText);
+        fighter_attText->setTag(3);
 
         pos.y = panelSize.height * 0.5f;
-        auto defText = TextSprite::create(s_gameStrings.base->upgradeDef,GameConfig::defaultFontName,fontSize);
-        defText->setAnchorPoint(Point::ANCHOR_TOP_LEFT);
-        defText->setPosition(pos);
-        panel->addChild(defText);
-        defText->setTag(4);
+        fighter_defText = TextSprite::create(s_gameStrings.base->upgradeDef,GameConfig::defaultFontName,fontSize);
+        fighter_defText->setAnchorPoint(Point::ANCHOR_TOP_LEFT);
+        fighter_defText->setPosition(pos);
+        panel->addChild(fighter_defText);
+        fighter_defText->setTag(4);
 
         pos.x = 400;
         pos.y = panelSize.height * 0.85f;
-        auto lifeText = TextSprite::create(s_gameStrings.base->upgradeLife,GameConfig::defaultFontName,fontSize);
-        lifeText->setAnchorPoint(Point::ANCHOR_TOP_LEFT);
-        lifeText->setPosition(pos);
-        panel->addChild(lifeText);
-        lifeText->setTag(5);
+        fighter_lifeText = TextSprite::create(s_gameStrings.base->upgradeLife,GameConfig::defaultFontName,fontSize);
+        fighter_lifeText->setAnchorPoint(Point::ANCHOR_TOP_LEFT);
+        fighter_lifeText->setPosition(pos);
+        panel->addChild(fighter_lifeText);
+        fighter_lifeText->setTag(5);
 
         pos.y = panelSize.height * 0.67f;
-        auto spdText = TextSprite::create(s_gameStrings.base->upgradeSpd,GameConfig::defaultFontName,fontSize);
-        spdText->setAnchorPoint(Point::ANCHOR_TOP_LEFT);
-        spdText->setPosition(pos);
-        panel->addChild(spdText);
-        spdText->setTag(6);
+        fighter_spdText = TextSprite::create(s_gameStrings.base->upgradeSpd,GameConfig::defaultFontName,fontSize);
+        fighter_spdText->setAnchorPoint(Point::ANCHOR_TOP_LEFT);
+        fighter_spdText->setPosition(pos);
+        panel->addChild(fighter_spdText);
+        fighter_spdText->setTag(6);
 
         pos.y = panelSize.height * 0.5f;
-        auto rangeText = TextSprite::create(s_gameStrings.base->upgradeRange,GameConfig::defaultFontName,fontSize);
-        rangeText->setAnchorPoint(Point::ANCHOR_TOP_LEFT);
-        rangeText->setPosition(pos);
-        panel->addChild(rangeText);
-        rangeText->setTag(7);
+        fighter_rangeText = TextSprite::create(s_gameStrings.base->upgradeRange,GameConfig::defaultFontName,fontSize);
+        fighter_rangeText->setAnchorPoint(Point::ANCHOR_TOP_LEFT);
+        fighter_rangeText->setPosition(pos);
+        panel->addChild(fighter_rangeText);
+        fighter_rangeText->setTag(7);
         
-        TextSprite * leveUpText;
-        TextSprite * maxlevel_text;
-        bool tempBool = true;
+        fighter_maxlevel = false;
         if (s_playerConfig.fighterslevel[t_index] < FIGHTER_LEVEL_MAX-1)
         {
             spar = Sprite::createWithSpriteFrameName("icon_gem.png");
@@ -410,43 +445,24 @@ void Base::createFighterBottomInfo(Node* panel,int t_index)
             spar->setTag(2);
             
             pos.y = panelSize.height * 0.25f;
-            leveUpText = TextSprite::create(s_gameStrings.base->upgrade,GameConfig::defaultFontName,fontSize);
-            leveUpText->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
-            leveUpText->setPosition(pos-Point(40,0));
-            panel->addChild(leveUpText);
-            leveUpText->setTag(8);
+            fighter_leveUpText = TextSprite::create(s_gameStrings.base->upgrade,GameConfig::defaultFontName,fontSize);
+            fighter_leveUpText->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
+            fighter_leveUpText->setPosition(pos-Point(40,0));
+            panel->addChild(fighter_leveUpText);
+            fighter_leveUpText->setTag(8);
         }
         else
         {
             pos.x = panelSize.width/2;
             pos.y = panelSize.height * 0.25f;
-            maxlevel_text = TextSprite::create(s_gameStrings.base->maxlevel,GameConfig::defaultFontName,fontSize);
-            maxlevel_text->setColor(Color3B::YELLOW);
-            maxlevel_text->setAnchorPoint(Point::ANCHOR_MIDDLE);
-            maxlevel_text->setPosition(pos);
-            panel->addChild(maxlevel_text);
+            fighter_maxlevel_text = TextSprite::create(s_gameStrings.base->maxlevel,GameConfig::defaultFontName,fontSize);
+            fighter_maxlevel_text->setColor(Color3B::YELLOW);
+            fighter_maxlevel_text->setAnchorPoint(Point::ANCHOR_MIDDLE);
+            fighter_maxlevel_text->setPosition(pos);
+            panel->addChild(fighter_maxlevel_text);
             menu->setEnabled(false);
-            tempBool= false;
+            fighter_maxlevel= true;
         }
-        auto listener = EventListenerCustom::create(GameConfig::eventLanguageChange, [=](EventCustom* event)
-                                                    {
-                                                        levelText->setText(s_gameStrings.base->upgradeLevel);
-                                                        attText->setText(s_gameStrings.base->upgradeAtt);
-                                                        defText->setText(s_gameStrings.base->upgradeDef);
-                                                        lifeText->setText(s_gameStrings.base->upgradeLife);
-                                                        
-                                                        spdText->setText(s_gameStrings.base->upgradeSpd);
-                                                        rangeText->setText(s_gameStrings.base->upgradeRange);
-                                                        if (tempBool)
-                                                        {
-                                                            leveUpText->setText(s_gameStrings.base->upgrade);
-                                                        }
-                                                        else
-                                                        {
-                                                            maxlevel_text->setText(s_gameStrings.base->maxlevel);
-                                                        }
-                                                    });
-        _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
     }
 
     {
@@ -545,26 +561,24 @@ void Base::createWeaponBottomInfo(Node* panel, int t_index)
     auto pos = Point(200,panelSize.height * 0.85f);
     
     {
-        auto levelText = TextSprite::create(s_gameStrings.base->upgradeLevel,GameConfig::defaultFontName,fontSize);
-        levelText->setAnchorPoint(Point::ANCHOR_TOP_LEFT);
-        levelText->setPosition(pos);
-        panel->addChild(levelText);
+        weapon_levelText = TextSprite::create(s_gameStrings.base->upgradeLevel,GameConfig::defaultFontName,fontSize);
+        weapon_levelText->setAnchorPoint(Point::ANCHOR_TOP_LEFT);
+        weapon_levelText->setPosition(pos);
+        panel->addChild(weapon_levelText);
         
         pos.y = panelSize.height * 0.67f;
-        auto attText = TextSprite::create(s_gameStrings.base->upgradeAtt,GameConfig::defaultFontName,fontSize);
-        attText->setAnchorPoint(Point::ANCHOR_TOP_LEFT);
-        attText->setPosition(pos);
-        panel->addChild(attText);
+        weapon_attText = TextSprite::create(s_gameStrings.base->upgradeAtt,GameConfig::defaultFontName,fontSize);
+        weapon_attText->setAnchorPoint(Point::ANCHOR_TOP_LEFT);
+        weapon_attText->setPosition(pos);
+        panel->addChild(weapon_attText);
         
         pos.y = panelSize.height * 0.5f;
-        auto duartionText = TextSprite::create(s_gameStrings.base->upgradeDuration,GameConfig::defaultFontName,fontSize);
-        duartionText->setAnchorPoint(Point::ANCHOR_TOP_LEFT);
-        duartionText->setPosition(pos);
-        panel->addChild(duartionText);
+        weapon_durationText = TextSprite::create(s_gameStrings.base->upgradeDuration,GameConfig::defaultFontName,fontSize);
+        weapon_durationText->setAnchorPoint(Point::ANCHOR_TOP_LEFT);
+        weapon_durationText->setPosition(pos);
+        panel->addChild(weapon_durationText);
         
-        TextSprite * leveUpText;
-        TextSprite * maxlevel_text;
-        bool tempBool = true;
+        weapon_maxlevel = false;
         if(s_playerConfig.weaponslevel[t_index] < WEAPON_LEVEL_MAX-1)
         {
             spar = Sprite::createWithSpriteFrameName("icon_gem.png");
@@ -573,50 +587,32 @@ void Base::createWeaponBottomInfo(Node* panel, int t_index)
             
             pos.x = 400;
             pos.y = panelSize.height * 0.25f;
-            leveUpText = TextSprite::create(s_gameStrings.base->upgrade,GameConfig::defaultFontName,fontSize);
-            leveUpText->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
-            leveUpText->setPosition(pos-Point(40,0));
-            panel->addChild(leveUpText);
+            weapon_leveUpText = TextSprite::create(s_gameStrings.base->upgrade,GameConfig::defaultFontName,fontSize);
+            weapon_leveUpText->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
+            weapon_leveUpText->setPosition(pos-Point(40,0));
+            panel->addChild(weapon_leveUpText);
         }
         else
         {
             pos.x = panelSize.width/2;
             pos.y = panelSize.height * 0.25f;
-            maxlevel_text = TextSprite::create(s_gameStrings.base->maxlevel,GameConfig::defaultFontName,fontSize);
-            maxlevel_text->setColor(Color3B::YELLOW);
-            maxlevel_text->setAnchorPoint(Point::ANCHOR_MIDDLE);
-            maxlevel_text->setPosition(pos);
-            panel->addChild(maxlevel_text);
+            weapon_maxlevel_text = TextSprite::create(s_gameStrings.base->maxlevel,GameConfig::defaultFontName,fontSize);
+            weapon_maxlevel_text->setColor(Color3B::YELLOW);
+            weapon_maxlevel_text->setAnchorPoint(Point::ANCHOR_MIDDLE);
+            weapon_maxlevel_text->setPosition(pos);
+            panel->addChild(weapon_maxlevel_text);
             menu->setEnabled(false);
-            tempBool = false;
+            weapon_maxlevel = true;
         }
         
         auto stone_icon = Sprite::createWithSpriteFrameName("icon_gem.png");
         stone_icon->setPosition(Point(menuitembuy->getContentSize().width/2-35,menuitembuy->getContentSize().height/2+20));
         menuitembuy->addChild(stone_icon);
         
-        auto buy_text = TextSprite::create(s_gameStrings.base->upgradeBuy,GameConfig::defaultFontName,GameConfig::defaultFontSize);
-        buy_text->setColor(Color3B::BLUE);
-        buy_text->setPosition(Point(menuitembuy->getContentSize().width/2,menuitembuy->getContentSize().height/2-20));
-        menuitembuy->addChild(buy_text);
-        
-        auto listener = EventListenerCustom::create(GameConfig::eventLanguageChange, [=](EventCustom* event)
-                                                    {
-                                                        levelText->setText(s_gameStrings.base->upgradeLevel);
-                                                        attText->setText(s_gameStrings.base->upgradeAtt);
-                                                        leveUpText->setText(s_gameStrings.base->upgrade);
-                                                         maxlevel_text->setText(s_gameStrings.base->maxlevel);
-                                                        if (tempBool)
-                                                        {
-                                                            leveUpText->setText(s_gameStrings.base->upgrade);
-                                                        }
-                                                        else
-                                                        {
-                                                            maxlevel_text->setText(s_gameStrings.base->maxlevel);
-                                                        }
-                                                        buy_text->setText(s_gameStrings.base->upgradeBuy);
-                                                    });
-        _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
+        weapon_buy_text = TextSprite::create(s_gameStrings.base->upgradeBuy,GameConfig::defaultFontName,GameConfig::defaultFontSize);
+        weapon_buy_text->setColor(Color3B::BLUE);
+        weapon_buy_text->setPosition(Point(menuitembuy->getContentSize().width/2,menuitembuy->getContentSize().height/2-20));
+        menuitembuy->addChild(weapon_buy_text);
     }
     
     {
@@ -850,6 +846,7 @@ void Base::createFighterTopInfo(Node* panel)
                                                     {
                                                         levelText->setText(s_gameStrings.base->upgradeLevel);
                                                         sparRecoverRateText->setText(s_gameStrings.base->sparRecoverRate);
+                                                        top_second->setText(s_gameStrings.base->second);
                                                         if (tempBool)
                                                         {
                                                             leveUpText->setText(s_gameStrings.base->upgrade);
