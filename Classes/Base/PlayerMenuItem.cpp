@@ -101,7 +101,7 @@ bool PlayerMenuItem::init(Type playerType,int index)
             count_text->setPosition(Point(45,25));
             Node::addChild(count_text,1);
             
-            std::string fontFile = "arial.ttf";
+            std::string fontFile = "DS-Digital.ttf";//"arial.ttf";
             int fontSize = 20;
             
             auto slash = Label::createWithTTF("/",fontFile,fontSize);

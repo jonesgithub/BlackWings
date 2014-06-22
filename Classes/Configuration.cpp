@@ -7,7 +7,7 @@
 GameConfig s_gameConfig;
 PlayerConfig s_playerConfig;
 
-const std::string GameConfig::defaultFontName = "Arial";
+const std::string GameConfig::defaultFontName = "DS-Digital";//"Arial";
 const int GameConfig::defaultFontSize = 30;
 
 const std::string GameConfig::eventLanguageChange = "eventLanguageChange";

@@ -104,7 +104,7 @@ bool PlayerBar::init()
     gemIcon->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
     this->addChild(gemIcon,2);
     
-    std::string fontFile = "arial.ttf";
+    std::string fontFile = "DS-Digital.ttf";//"arial.ttf";
     int fontSize = 20;
     
     auto slash = Label::createWithTTF("/",fontFile,fontSize);
