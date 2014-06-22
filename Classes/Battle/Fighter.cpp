@@ -68,7 +68,8 @@ gun(nullptr),
 _bloodbar(nullptr),
 _maxlife(0),
 _curlife(0),
-isInBlackhole(false)
+isInBlackhole(false),
+_isRotating(false)
 {
 }
 
@@ -213,23 +214,31 @@ void Fighter::moveTo(Point& pos,Player* target)
     float dy = _position.y - pos.y;
     auto dis = sqrtf(dx*dx + dy*dy);
     
+    auto targetdelta = atanf((_position.x-_attTargetPos.x)/(_position.y-_attTargetPos.y))*180/PI;
+    if(_attacker != Attacker::PLAIN)
+        targetdelta += 180;
+    _isRotating = true;
+    
     switch (_attacker) {
         case Attacker::ENEMY:
-            this->runAction(Sequence::create(MoveTo::create(dis / enemyConfig.speed,pos), CallFunc::create(
+            this->runAction(Sequence::create(CallFunc::create([=](){this->getChildByTag(1)->runAction(RotateTo::create(0.8f, targetdelta));}), DelayTime::create(0.8f),MoveTo::create(dis / enemyConfig.speed,pos), CallFunc::create(
                                                                                                            [&](){
                                                                                                                state = FighterState::IDLE;
+                                                                                                               _isRotating = false;
                                                                                                            }  ),nullptr));
             break;
         case Attacker::BOSS:
-            this->runAction(Sequence::create(MoveTo::create(dis / bossConfig.speed,pos), CallFunc::create(
+            this->runAction(Sequence::create(CallFunc::create([=](){this->getChildByTag(1)->runAction(RotateTo::create(0.8f, targetdelta));}), DelayTime::create(0.8f), MoveTo::create(dis / bossConfig.speed,pos), CallFunc::create(
                                                                                                            [&](){
                                                                                                                state = FighterState::IDLE;
+                                                                                                               _isRotating = false;
                                                                                                            }  ),nullptr));
             break;
         case Attacker::PLAIN:
-            this->runAction(Sequence::create(MoveTo::create(dis / plainConfig.speed,pos), CallFunc::create(
+            this->runAction(Sequence::create(CallFunc::create([=](){this->getChildByTag(1)->runAction(RotateTo::create(0.8f, targetdelta));}), DelayTime::create(0.8f), MoveTo::create(dis / plainConfig.speed,pos), CallFunc::create(
                                                                                                            [&](){
                                                                                                                state = FighterState::IDLE;
+                                                                                                               _isRotating = false;
                                                                                                            }  ),nullptr));
             break;
         case Attacker::TOWER://守卫塔无法移动，speed是无效的
@@ -252,9 +261,11 @@ void Fighter::attackLocations(Point& pos,Player* target)
         auto targetdelta = atanf((_position.x-_attTargetPos.x)/(_position.y-_attTargetPos.y))*180/PI;
         if(_attacker != Attacker::PLAIN)
             targetdelta += 180;
-        this->getChildByTag(1)->runAction(Sequence::create(RotateTo::create(1.3f, targetdelta),
+        _isRotating = true;
+        this->getChildByTag(1)->runAction(Sequence::create(RotateTo::create(0.8f, targetdelta),
                                                            CallFunc::create([=]()
                                                                             {
+                                                                                _isRotating = false;
                                                                                 this->unschedule(schedule_selector(Fighter::fire));
                                                                                 fire(0.0f);
                                                                                 this->schedule(schedule_selector(Fighter::fire),3.0f);
@@ -410,7 +421,7 @@ void Fighter::update(float dt)
     }
     else
     {
-        if(state == FighterState::MOVE )
+        if(state == FighterState::MOVE && !_isRotating)
         {
             float dx = _position.x - _attTargetPos.x;
             float dy = _position.y - _attTargetPos.y;

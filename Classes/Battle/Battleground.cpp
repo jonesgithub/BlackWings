@@ -379,7 +379,6 @@ void Battleground::plainFindTarget()
             
             for (auto enemy : s_enemys)
             {
-//                if(enemy->state != FighterState::DESTROY)
                 {
                     distance = enemy->getPosition().getDistance(playerPos);
                     if (distance < nearestDistance)
@@ -393,7 +392,6 @@ void Battleground::plainFindTarget()
             
             for (auto boss : s_boss)
             {
-//              if(boss->state != FighterState::DESTROY)
                 {
                     distance = boss->getPosition().getDistance(playerPos);
                     if (distance < nearestDistance)
@@ -407,7 +405,6 @@ void Battleground::plainFindTarget()
             
             for (auto tower : s_towers)
             {
-//                if(tower->state != FighterState::DESTROY)
                 {
                     distance = tower->getPosition().getDistance(playerPos);
                     if (distance < nearestDistance)
