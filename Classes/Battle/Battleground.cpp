@@ -636,7 +636,7 @@ void Battleground::blackholeFindTarget()
         for (auto enemy : s_enemys)
         {
             auto distance = enemy->getPosition().getDistance(blackhole->_pos);
-            if (distance < blackhole->_weaponConfig.range)
+            if (distance < blackhole->_weaponConfig.range && !enemy->isInBlackhole)
             {
                 enemy->isInBlackhole = true;
                 enemy->offsetWithBlackhole = blackhole->_pos - enemy->getPosition();
@@ -647,7 +647,7 @@ void Battleground::blackholeFindTarget()
         for (auto boss : s_boss)
         {
             auto distance = boss->getPosition().getDistance(blackhole->_pos);
-            if (distance < blackhole->_weaponConfig.range)
+            if (distance < blackhole->_weaponConfig.range && !boss->isInBlackhole)
             {
                 boss->isInBlackhole = true;
                 boss->offsetWithBlackhole = blackhole->_pos - boss->getPosition();
@@ -658,7 +658,7 @@ void Battleground::blackholeFindTarget()
         for (auto tower : s_towers)
         {
             auto distance = tower->getPosition().getDistance(blackhole->_pos);
-            if (distance < blackhole->_weaponConfig.range)
+            if (distance < blackhole->_weaponConfig.range && !tower->isInBlackhole)
             {
                 tower->isInBlackhole = true;
                 tower->offsetWithBlackhole = blackhole->_pos - tower->getPosition();
@@ -669,7 +669,7 @@ void Battleground::blackholeFindTarget()
         for (auto player : s_players)
         {
             auto distance = player->getPosition().getDistance(blackhole->_pos);
-            if (distance < blackhole->_weaponConfig.range)
+            if (distance < blackhole->_weaponConfig.range && player->isInBlackhole)
             {
                 player->isInBlackhole = true;
                 player->offsetWithBlackhole = blackhole->_pos - player->getPosition();
@@ -677,245 +677,6 @@ void Battleground::blackholeFindTarget()
             }
         }
     }
-    
-    
-//    for (auto & blackhole : s_Blackholes) {
-//        blackhole->_weaponConfig.duration--;
-//        //log(".....%f",blackhole->_weaponConfig.duration);
-//        
-//        for (auto enemy : s_enemys)
-//        {
-//            auto distance = enemy->getPosition().getDistance(blackhole->_pos);
-//            if (distance < blackhole->_weaponConfig.range)
-//            {
-//                int get_stone = 0;
-//                int get_gem = 0;
-//                Point pos = blackhole->_pos;
-//                
-//                const auto& it = std::find(s_enemys.begin(),s_enemys.end(),enemy);
-//                if (it != s_enemys.end())
-//                {
-//                    s_enemys.erase(it);
-//                    _battledata.enemydead++;
-//                    s_playerConfig.killenemy++;
-//                    get_stone = enemy->enemyConfig.deadlossstone;
-//                    get_gem = enemy->enemyConfig.deadlossgem;
-//                    
-//                }
-//                
-//                if (enemy)
-//                {
-//                    enemy->stopAllActions();
-//                    enemy->unscheduleAllSelectors();
-//                    enemy->state = FighterState::DESTROY;
-//                    enemy->runAction(Sequence::create(Spawn::create(MoveTo::create(0.3f, blackhole->_pos),
-//                                                                   ScaleTo::create(0.3f, 0.2f),
-//                                                                   RotateTo::create(0.3f, 90),
-//                                                                   nullptr),
-//                                                     CallFunc::create([=]()
-//                                                                      {
-//                                                                          auto explode = Sprite::create();
-//                                                                          auto action = Sequence::create(Animate::create(s_battleground->explode_C),
-//                                                                                                         CallFuncN::create([=](Node* sender){
-//                                                                              if(get_stone || get_gem)
-//                                                                              {
-//                                                                                  this->showStoneAndGem(pos, 2, 2, get_stone, get_gem);
-//                                                                              }
-//                                                                              _eventDispatcher->dispatchCustomEvent(GameConfig::eventPlayerDestroy,enemy);
-//                                                                              if (enemy) {
-//                                                                                  if(enemy->_bloodbar)
-//                                                                                      enemy->_bloodbar->setPercent(0);
-//                                                                                  if(enemy->potInRadar)
-//                                                                                  {
-//                                                                                      enemy->potInRadar->removeFromParent();
-//                                                                                      CC_SAFE_RELEASE(enemy->potInRadar);
-//                                                                                  }
-//                                                                                  enemy->removeFromParentAndCleanup(true);
-//                                                                              }
-//                                                                          }),nullptr);
-//                                                                          explode->runAction(action);
-//                                                                          explode->setPosition(pos);
-//                                                                          _battleParallaxNode->addChild(explode);
-//                                                                      }),
-//                                                     nullptr));
-//                }
-//            }
-//        }
-//        
-//        for (auto boss : s_boss)
-//        {
-//            auto distance = boss->getPosition().getDistance(blackhole->_pos);
-//            if (distance < blackhole->_weaponConfig.range)
-//            {
-//                int get_stone = 0;
-//                int get_gem = 0;
-//                Point pos = blackhole->_pos;
-//                
-//                const auto& it = std::find(s_boss.begin(),s_boss.end(),boss);
-//                if (it != s_boss.end())
-//                {
-//                    s_boss.erase(it);
-//                    _battledata.enemydead++;
-//                    s_playerConfig.killbigenemy++;
-//                    get_stone = boss->bossConfig.deadlossstone;
-//                    get_gem = boss->bossConfig.deadlossgem;
-//                    
-//                }
-//                
-//                if (boss)
-//                {
-//                    boss->stopAllActions();
-//                    boss->unscheduleAllSelectors();
-//                    boss->state = FighterState::DESTROY;
-//                    boss->runAction(Sequence::create(Spawn::create(MoveTo::create(0.3f, blackhole->_pos),
-//                                                                    ScaleTo::create(0.3f, 0.2f),
-//                                                                    RotateTo::create(0.3f, 90),
-//                                                                    nullptr),
-//                                                      CallFunc::create([=]()
-//                                                                       {
-//                                                                           auto explode = Sprite::create();
-//                                                                           auto action = Sequence::create(Animate::create(s_battleground->explode_C),
-//                                                                                                          CallFuncN::create([=](Node* sender){
-//                                                                               if(get_stone || get_gem)
-//                                                                               {
-//                                                                                   this->showStoneAndGem(pos, 2, 2, get_stone, get_gem);
-//                                                                               }
-//                                                                               _eventDispatcher->dispatchCustomEvent(GameConfig::eventPlayerDestroy,boss);
-//                                                                               if(boss)
-//                                                                               {
-//                                                                                   if(boss->_bloodbar)
-//                                                                                       boss->_bloodbar->setPercent(0);
-//                                                                                   if(boss->potInRadar)
-//                                                                                   {
-//                                                                                       boss->potInRadar->removeFromParent();
-//                                                                                       CC_SAFE_RELEASE(boss->potInRadar);
-//                                                                                   }
-//                                                                                   boss->removeFromParentAndCleanup(true);
-//                                                                               }
-//                                                                           }),nullptr);
-//                                                                           explode->runAction(action);
-//                                                                           explode->setPosition(pos);
-//                                                                           _battleParallaxNode->addChild(explode);
-//                                                                       }),
-//                                                      nullptr));
-//                }
-//            }
-//        }
-//        
-//        for (auto tower : s_towers)
-//        {
-//            auto distance = tower->getPosition().getDistance(blackhole->_pos);
-//            if (distance < blackhole->_weaponConfig.range)
-//            {
-//                int get_stone = 0;
-//                int get_gem = 0;
-//                Point pos = blackhole->_pos;
-//                
-//                const auto& it = std::find(s_towers.begin(),s_towers.end(),tower);
-//                if (it != s_towers.end())
-//                {
-//                    s_towers.erase(it);
-//                    _battledata.enemydead++;
-//                    s_playerConfig.killenemy++;
-//                    get_stone = tower->towerConfig.deadlossstone;
-//                    get_gem = tower->towerConfig.deadlossgem;
-//                    
-//                }
-//                
-//                if (tower)
-//                {
-//                    tower->stopAllActions();
-//                    tower->unscheduleAllSelectors();
-//                    tower->state = FighterState::DESTROY;
-//                    tower->runAction(Sequence::create(Spawn::create(MoveTo::create(0.3f, blackhole->_pos),
-//                                                                   ScaleTo::create(0.3f, 0.2f),
-//                                                                   RotateTo::create(0.3f, 90),
-//                                                                   nullptr),
-//                                                     CallFunc::create([=]()
-//                                                                      {
-//                                                                          auto explode = Sprite::create();
-//                                                                          auto action = Sequence::create(Animate::create(s_battleground->explode_C),
-//                                                                                                         CallFuncN::create([=](Node* sender){
-//                                                                              if(get_stone || get_gem)
-//                                                                              {
-//                                                                                  this->showStoneAndGem(pos, 2, 2, get_stone, get_gem);
-//                                                                              }
-//                                                                              _eventDispatcher->dispatchCustomEvent(GameConfig::eventPlayerDestroy,tower);
-//                                                                              
-//                                                                              if (tower) {
-//                                                                                  if(tower->_bloodbar)
-//                                                                                      tower->_bloodbar->setPercent(0);
-//                                                                                  if(tower->potInRadar)
-//                                                                                  {
-//                                                                                      tower->potInRadar->removeFromParent();
-//                                                                                      CC_SAFE_RELEASE(tower->potInRadar);
-//                                                                                  }
-//                                                                                  tower->removeFromParentAndCleanup(true);
-//                                                                              }
-//                                                                          }),nullptr);
-//                                                                          explode->runAction(action);
-//                                                                          explode->setPosition(pos);
-//                                                                          _battleParallaxNode->addChild(explode);
-//                                                                      }),
-//                                                     nullptr));
-//                }
-//
-//            }
-//        }
-//        
-//        for (auto player : s_players)
-//        {
-//            auto distance = player->getPosition().getDistance(blackhole->_pos);
-//            if (distance < blackhole->_weaponConfig.range)
-//            {
-//
-//                Point pos = blackhole->_pos;
-//                
-//                const auto& it = std::find(s_players.begin(),s_players.end(),player);
-//                if (it != s_players.end())
-//                {
-//                    s_players.erase(it);
-//                    _battledata.flightdead++;
-//                    
-//                }
-//                
-//                if (player)
-//                {
-//                    player->stopAllActions();
-//                    player->unscheduleAllSelectors();
-//                    player->state = FighterState::DESTROY;
-//                    player->runAction(Sequence::create(Spawn::create(MoveTo::create(0.3f, blackhole->_pos),
-//                                                                    ScaleTo::create(0.3f, 0.2f),
-//                                                                    RotateTo::create(0.3f, 90),
-//                                                                    nullptr),
-//                                                      CallFunc::create([=]()
-//                                                                       {
-//                                                                           auto explode = Sprite::create();
-//                                                                           auto action = Sequence::create(Animate::create(s_battleground->explode_C),
-//                                                                                                          CallFuncN::create([=](Node* sender){
-//                                                                               if(player)
-//                                                                               {
-//                                                                                   if(player->_bloodbar)
-//                                                                                       player->_bloodbar->setPercent(0);
-//                                                                                   if(player->potInRadar)
-//                                                                                   {
-//                                                                                       player->potInRadar->removeFromParent();
-//                                                                                       CC_SAFE_RELEASE(player->potInRadar);
-//                                                                                   }
-//                                                                                   _eventDispatcher->dispatchCustomEvent(GameConfig::eventPlayerDestroy,player);
-//
-//                                                                                   player->removeFromParentAndCleanup(true);
-//                                                                               }
-//                                                                           }),nullptr);
-//                                                                           explode->runAction(action);
-//                                                                           explode->setPosition(pos);
-//                                                                           _battleParallaxNode->addChild(explode);
-//                                                                       }),
-//                                                      nullptr));
-//                }
-//            }
-//        }
-//    }
 }
 
 void Battleground::createFlightBase()
