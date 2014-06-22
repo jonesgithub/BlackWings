@@ -38,6 +38,7 @@ bool LoadResourceLayer::init(const LoadResourceCallback& callback)
 {
     if (LayerColor::initWithColor(Color4B(60,60,60,255)))
     {
+        STOP_ALL_MUSIC;
         _onFinish = callback;
         this->scheduleUpdateWithPriority(0);
 

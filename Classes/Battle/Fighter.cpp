@@ -380,7 +380,6 @@ void Fighter::hurt(int ATK)
         if(isInBlackhole)
         {
             //this->runAction(RotateTo::create(0.3f, 90));
-            log("before......%f",this->getRotation());
             this->setRotation(this->getRotation()+360);
             this->runAction(Sequence::create(Spawn::create(MoveBy::create(0.3f, offsetWithBlackhole),
                                                            ScaleTo::create(0.3f, 0.2f),
@@ -388,7 +387,6 @@ void Fighter::hurt(int ATK)
                                                            nullptr),
                                              CallFunc::create([=]()
             {
-                log("after......%f",this->getRotation());
                 _bloodbar->setPercent(0);
                 potInRadar->removeFromParent();
                 CC_SAFE_RELEASE(potInRadar);

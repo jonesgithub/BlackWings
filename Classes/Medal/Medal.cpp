@@ -182,6 +182,7 @@ void Medal::initListviewItem()
         auto callback = [=](Ref* ref){
             log("callback is %d", i);
             if (s_playerConfig.medalget[i]) {
+                PLAY_GETGEM_EFFECT;
                 //s_gameConfig.medal_reward_callbacks[cell->getIdx()]();
                 s_playerConfig.gem+=s_medalRewards[i][0];
                 s_playerConfig.weaponCount[0]+=s_medalRewards[i][1];

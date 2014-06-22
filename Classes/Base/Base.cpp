@@ -45,6 +45,7 @@ bool Base::init()
 
 void Base::createBase(Ref *sender)
 {
+    PLAY_BASE_MUSIC;
     auto bg = Sprite::create("mainBackground.png");
     bg->setPosition(s_visibleRect.center);
     addChild(bg);
@@ -73,6 +74,7 @@ void Base::createBase(Ref *sender)
     
     //enter,default 1st flight
     {
+        PLAY_TOUCH_ITEM_EFFECT;
         auto player = (PlayerMenuItem*)_playerBag->_playerMenu->getChildByTag(1000);
         player->selected();
         
@@ -130,6 +132,7 @@ void Base::onEnter()
                                                     {
                                                         if(index == i && _curSeletedIndex!=i)
                                                         {
+                                                            PLAY_TOUCH_ITEM_EFFECT;
                                                             _curSelectedFlight->runAction(Sequence::create(FadeOut::create(0.3f),
                                                                                                            RemoveSelf::create(),
                                                                                                            nullptr));
@@ -160,6 +163,7 @@ void Base::onEnter()
                                                     for (int i=FIGHTER_MAX; i<FIGHTER_MAX + WEAPON_MAX; ++i) {
                                                         if(index == i && _curSeletedIndex!=i)
                                                         {
+                                                            PLAY_TOUCH_ITEM_EFFECT;
                                                             _curSelectedFlight->runAction(Sequence::create(FadeOut::create(0.3f),
                                                                                                            RemoveSelf::create(),
                                                                                                            nullptr));
@@ -172,11 +176,6 @@ void Base::onEnter()
                                                             
                                                             auto flight = Sprite::createWithSpriteFrameName(name);
                                                             flightNode->addChild(flight,1,1);
-//                                                            auto flightpar = ParticleSystemQuad::create("plain_effect_1.plist");
-//                                                            flightpar->setAnchorPoint(Point::ANCHOR_MIDDLE);
-//                                                            flightpar->setScale(0.5f);
-//                                                            flightpar->setPosition(Point::ZERO - Point(0,20));
-//                                                            flightNode->addChild(flightpar);
                                                             
                                                             _curSelectedFlight = flightNode;
                                                             _curSeletedIndex = i;

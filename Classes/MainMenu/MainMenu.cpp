@@ -32,6 +32,7 @@ bool MainMenu::init()
 
 void MainMenu::createBg(Ref *sender)
 {
+    PLAY_MAIN_MUSIC;
     this->removeChild((LoadResourceLayer*)sender,true);
 
     auto frameCache = SpriteFrameCache::getInstance();

@@ -4,7 +4,6 @@
 #include "Configuration.h"
 #include "GameStrings.h"
 #include "PlayerMenuItem.h"
-#include "PersonalApi.h"
 #include "MedalChecker.h"
 
 USING_NS_CC_EXT;
@@ -15,6 +14,8 @@ bool PlayerBar::init()
 {
     bool weaponEnable = true;
     _showFighter = true;
+    _isStoneShaking = false;
+    _isGemShaking = false;
 
     auto leftBar = Sprite::createWithSpriteFrameName("dijia.png");
     leftBar->getTexture()->setAliasTexParameters();
@@ -88,7 +89,7 @@ bool PlayerBar::init()
     rightSidebar->setPosition(s_visibleRect.rightBottom);
     this->addChild(rightSidebar,2);
 
-    auto stoneIcon = Sprite::createWithSpriteFrameName("icon_stone.png");
+    stoneIcon = Sprite::createWithSpriteFrameName("icon_stone.png");
     stoneIcon->setPosition(Point(s_visibleRect.center.x - 282,s_visibleRect.visibleOriginY + 165));
     stoneIcon->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
     this->addChild(stoneIcon,2);
@@ -98,7 +99,7 @@ bool PlayerBar::init()
     numBg->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
     this->addChild(numBg,2);
 
-    auto gemIcon = Sprite::createWithSpriteFrameName("icon_gem.png");
+    gemIcon = Sprite::createWithSpriteFrameName("icon_gem.png");
     gemIcon->setPosition(Point(s_visibleRect.center.x - 43,s_visibleRect.visibleOriginY + 165));
     gemIcon->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
     this->addChild(gemIcon,2);
@@ -112,18 +113,18 @@ bool PlayerBar::init()
     slash->setColor(Color3B(169,169,169));
     numBg->addChild(slash);
     
-    stoneNum = Label::createWithTTF(PersonalApi::convertIntToString(s_stoneCapacity[s_playerConfig.stonecapacitylevel].initstone).c_str(),fontFile,fontSize);
+    stoneNum = Label::createWithTTF(Value(s_stoneCapacity[s_playerConfig.stonecapacitylevel].initstone).asString(),fontFile,fontSize);
     stoneNum->setAnchorPoint(Point::ANCHOR_BOTTOM_RIGHT);
     stoneNum->setPosition(Point(slash->getPositionX()-10,slash->getPositionY()));
     numBg->addChild(stoneNum);
     
-    stoneTatalNum = Label::createWithTTF(PersonalApi::convertIntToString(s_stoneCapacity[s_playerConfig.stonecapacitylevel].maxstone).c_str(),fontFile,fontSize);
+    stoneTatalNum = Label::createWithTTF(Value(s_stoneCapacity[s_playerConfig.stonecapacitylevel].maxstone).asString(),fontFile,fontSize);
     stoneTatalNum->setAnchorPoint(Point::ANCHOR_BOTTOM_LEFT);
     stoneTatalNum->setPosition(Point(slash->getPositionX()+10,slash->getPositionY()));
     stoneTatalNum->setColor(Color3B(169,169,169));
     numBg->addChild(stoneTatalNum);
     
-    sparNum = Label::createWithTTF(PersonalApi::convertIntToString(s_playerConfig.gem).c_str(),fontFile,fontSize);
+    sparNum = Label::createWithTTF(Value(s_playerConfig.gem).asString(),fontFile,fontSize);
     sparNum->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
     sparNum->setPosition(Point(gemIcon->getPositionX()+gemIcon->getContentSize().width+5,gemIcon->getPositionY()));
     sparNum->setColor(Color3B(255,255,0));
@@ -167,7 +168,7 @@ bool PlayerBar::init()
 
 void PlayerBar::menuCallbackArrow(Ref *sender)
 {
-    PLAY_BUTTON_EFFECT;
+    PLAY_TOUCH_ARROW_EFFECT;
     if (_showFighter)
     {
         _showFighter = false;
@@ -196,6 +197,34 @@ void PlayerBar::setGem(int num)
 {
     sparNum->setString(Value(num).asString().c_str());
     MedalChecker::getInstance()->check();
+}
+
+void PlayerBar::shakeStone()
+{
+    if(!_isStoneShaking)
+    {
+        _isStoneShaking = true;
+        stoneIcon->runAction(Sequence::create(MoveBy::create(0.2f, Point(0,15)),
+                                              MoveBy::create(0.2f, Point(0,-15)),
+                                              MoveBy::create(0.2f, Point(0,15)),
+                                              MoveBy::create(0.2f, Point(0,-15)),
+                                              CallFunc::create([=](){_isStoneShaking = false;}),
+                                              nullptr));
+    }
+}
+
+void PlayerBar::shakeGem()
+{
+    if(!_isGemShaking)
+    {
+        _isGemShaking = true;
+        gemIcon->runAction(Sequence::create(MoveBy::create(0.2f, Point(0,15)),
+                                              MoveBy::create(0.2f, Point(0,-15)),
+                                              MoveBy::create(0.2f, Point(0,15)),
+                                              MoveBy::create(0.2f, Point(0,-15)),
+                                              CallFunc::create([=](){_isGemShaking = false;}),
+                                              nullptr));
+    }
 }
 
 void PlayerBar::getmoregem(Ref *sender)

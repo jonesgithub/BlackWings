@@ -168,6 +168,7 @@ void Bullet::attackLocations(Point& pos,Player* target)
     }  ),nullptr);
 
     this->runAction(action);
+    PLAY_NORMALBULLET_EFFECT;
 }
 
 void Bullet::onEnter()
