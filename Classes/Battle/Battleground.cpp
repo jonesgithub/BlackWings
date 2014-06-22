@@ -797,6 +797,7 @@ void Battleground::createHealthBar()
 
 void Battleground::menuCallbackPause(Ref *sender)
 {
+    PLAY_BUTTON_EFFECT;
     auto settingLayer = MenuSettings::create(GameInterface::Battle);
     addChild(settingLayer,99);
 }

@@ -167,6 +167,7 @@ bool PlayerBar::init()
 
 void PlayerBar::menuCallbackArrow(Ref *sender)
 {
+    PLAY_BUTTON_EFFECT;
     if (_showFighter)
     {
         _showFighter = false;
@@ -199,5 +200,6 @@ void PlayerBar::setGem(int num)
 
 void PlayerBar::getmoregem(Ref *sender)
 {
+    PLAY_BUTTON_EFFECT;
     //enter buy gem ui.
 }

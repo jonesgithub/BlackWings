@@ -5,6 +5,7 @@
 #include <functional>
 #include "GameStrings.h"
 #include "cocos2d.h"
+#include "SimpleAudioEngine.h"
 
 #define FIGHTER_MAX 6
 #define FIGHTER_LEVEL_MAX 15
@@ -27,7 +28,7 @@
 
 #define STAGE_COUNT 50
 
-#define STAGEOFCANBUYGEM 1
+#define STAGEOFCANBUYGEM -2
 
 #define STAGE_ENEMY_WAVES_00 1
 #define STAGE_ENEMY_WAVES_01 1
@@ -38,6 +39,8 @@
 #define STAGE_TOWER_COUNTS_01 1
 #define STAGE_TOWER_COUNTS_02 2
 
+//music
+#define PLAY_BUTTON_EFFECT CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("btSound_1.mp3",false);//按键声音
 
 enum class Attacker
 {

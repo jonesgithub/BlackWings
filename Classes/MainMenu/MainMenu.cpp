@@ -148,6 +148,7 @@ void MainMenu::createMenu()
 
 void MainMenu::menuCallbackPlay(Ref *sender)
 {
+    PLAY_BUTTON_EFFECT;
     _eventDispatcher->removeCustomEventListeners(GameConfig::eventLanguageChange);
 
     auto base = Base::create();
@@ -156,18 +157,21 @@ void MainMenu::menuCallbackPlay(Ref *sender)
 
 void MainMenu::menuCallbackHelp(Ref *sender)
 {
+    PLAY_BUTTON_EFFECT;
     auto helpLayer = HelpLayer::create();
     addChild(helpLayer);
 }
 
 void MainMenu::menuCallbackSettings(Ref *sender)
 {
+    PLAY_BUTTON_EFFECT;
     auto settingLayer = MenuSettings::create();
     addChild(settingLayer);
 }
 
 void MainMenu::menuCallbackAbout(Ref *sender)
 {
+    PLAY_BUTTON_EFFECT;
     auto aboutLayer = AboutLayer::create();
     addChild(aboutLayer);
 }

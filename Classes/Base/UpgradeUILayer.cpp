@@ -539,6 +539,7 @@ void UpgradeUILayer::createWeaponUI()
 
 void UpgradeUILayer::menuCallbackUpgrade(Ref *sender)
 {
+    PLAY_BUTTON_EFFECT;
     //判断并发送通知
     if (_needgem<=s_playerConfig.gem) {
         s_playerConfig.gem = s_playerConfig.gem - _needgem;
@@ -585,5 +586,6 @@ void UpgradeUILayer::menuCallbackUpgrade(Ref *sender)
 
 void UpgradeUILayer::menuCallbackClosed(cocos2d::Ref *sender)
 {
+    PLAY_BUTTON_EFFECT;
     this->removeFromParent();
 }

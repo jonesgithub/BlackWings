@@ -61,10 +61,11 @@ bool RedeemLayer::init()
 
 void RedeemLayer::menuCallbackClosed(Ref *sender)
 {
+    PLAY_BUTTON_EFFECT;
     this->removeFromParentAndCleanup(true);
 }
 
 void RedeemLayer::menuCallbackRedeem(Ref *sender)
 {
-
+    PLAY_BUTTON_EFFECT;
 }

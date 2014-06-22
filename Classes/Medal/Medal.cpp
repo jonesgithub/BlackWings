@@ -359,6 +359,7 @@ void Medal::selectedItemEvent(Ref *pSender, ui::ListViewEventType type)
 
 void Medal::menuCallbackClosed(Ref *sender)
 {
+    PLAY_BUTTON_EFFECT;
     _eventDispatcher->dispatchCustomEvent(GameConfig::eventShowHideMedalLogo);
     listView->scrollToBottom(0.5f, false);
     this->runAction(FadeTo::create(0.15f,0));

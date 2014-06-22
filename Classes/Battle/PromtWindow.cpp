@@ -122,11 +122,13 @@ bool PromtWindow::init(ForWhat forwhat)
 
 void PromtWindow::menuCallbackClosed(Ref *sender)
 {
+    PLAY_BUTTON_EFFECT;
     this->removeFromParentAndCleanup(true);
 }
 
 void PromtWindow::menuCallbackConfirm(Ref *sender)
 {
+    PLAY_BUTTON_EFFECT;
     this->getParent()->removeFromParentAndCleanup(true);
     
     switch (_forWhat) {

@@ -157,12 +157,7 @@ bool MenuSettings::init(GameInterface face)
                 itemY -= bashY;
                 _retryGameItem = MenuItemImageLabel::createWithFrameName("bt_main_0.png","bt_main_1.png",
                     [=](Ref *sender){
-//                        if (Director::getInstance()->isPaused()) {
-//                            Director::getInstance()->resume();
-//                        }
-//                        ConfigManager::getInstance()->saveConfig();
-//                        auto bettle = Battleground::create(s_battleground->_battledata.stage);
-//                        Director::getInstance()->replaceScene(bettle);
+                        PLAY_BUTTON_EFFECT;
                         this->addChild(PromtWindow::create(ForWhat::Restart), 300);
                 },s_gameStrings.mainMenu->settingRetry);
                 _retryGameItem->setPosition(centerX,itemY);
@@ -170,12 +165,7 @@ bool MenuSettings::init(GameInterface face)
                 itemY -= bashY;
                 _backToBaseItem = MenuItemImageLabel::createWithFrameName("bt_main_0.png","bt_main_1.png",
                     [=](Ref *sender){
-//                        if (Director::getInstance()->isPaused()) {
-//                            Director::getInstance()->resume();
-//                        }
-//                        ConfigManager::getInstance()->saveConfig();
-//                        auto base = Base::create();
-//                        Director::getInstance()->replaceScene(base);
+                        PLAY_BUTTON_EFFECT;
                         this->addChild(PromtWindow::create(ForWhat::BackToBase),300);
                 },s_gameStrings.mainMenu->settingBackToBase);
                 _backToBaseItem->setPosition(centerX,itemY);
@@ -183,12 +173,7 @@ bool MenuSettings::init(GameInterface face)
                 itemY -= bashY;
                 _backToMainMenuItem = MenuItemImageLabel::createWithFrameName("bt_main_0.png","bt_main_1.png",
                     [=](Ref *sender){
-//                        if (Director::getInstance()->isPaused()) {
-//                            Director::getInstance()->resume();
-//                        }
-//                        ConfigManager::getInstance()->saveConfig();
-//                        auto mainMenu = MainMenu::create();
-//                        Director::getInstance()->replaceScene(mainMenu);
+                        PLAY_BUTTON_EFFECT;
                         this->addChild(PromtWindow::create(ForWhat::BACKToMainMenu),300);
                 },s_gameStrings.base->topBarMainMenu);
                 _backToMainMenuItem->setPosition(centerX,itemY);
@@ -212,8 +197,7 @@ bool MenuSettings::init(GameInterface face)
 
 void MenuSettings::menuCallbackClosed(Ref *sender)
 {
-//    s_gameConfig.saveConfig();
-    
+    PLAY_BUTTON_EFFECT;
     if (Director::getInstance()->isPaused()) {
         Director::getInstance()->resume();
     }
@@ -230,6 +214,7 @@ void MenuSettings::menuCallbackClosed(Ref *sender)
 
 void MenuSettings::menuCallbackLanguage(Ref *sender)
 {
+    PLAY_BUTTON_EFFECT;
     if (s_playerConfig.language == (int)GameLanguage::English)
     {
         s_playerConfig.language = (int)GameLanguage::Chinese;
@@ -281,18 +266,21 @@ void MenuSettings::menuCallbackLanguage(Ref *sender)
 
 void MenuSettings::menuCallbackReset(Ref *sender)
 {
+    PLAY_BUTTON_EFFECT;
     auto resetLayer = ResetGameLayer::create();
     this->addChild(resetLayer);
 }
 
 void MenuSettings::menuCallbackRedeemCode(Ref *sender)
 {
+    PLAY_BUTTON_EFFECT;
     auto redeemLayer = RedeemLayer::create();
     this->addChild(redeemLayer);
 }
 
 void MenuSettings::menuCallbackHelp(Ref *sender)
 {
+    PLAY_BUTTON_EFFECT;
     this->removeFromParentAndCleanup(true);
 
     auto helpLayer = HelpLayer::create();
@@ -301,6 +289,7 @@ void MenuSettings::menuCallbackHelp(Ref *sender)
 
 void MenuSettings::menuCallbackMainMenu(Ref *sender)
 {
+    PLAY_BUTTON_EFFECT;
     Director::getInstance()->replaceScene(MainMenu::create());
 }
 
@@ -342,5 +331,4 @@ void MenuSettings::sfxSliderEvent(Ref *sender, ui::SliderEventType type)
 void MenuSettings::pausegame(float dt)
 {
     Director::getInstance()->pause();
-//>>>>>>> b7961c15838d94e685ab7767b6be34f2781f6a40
 }

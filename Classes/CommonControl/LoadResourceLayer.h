@@ -5,6 +5,40 @@
 
 USING_NS_CC;
 
+
+const std::string allmusic[]=
+{
+    "music_battle.mp3",
+    "music_home.mp3",
+    "music_main.mp3",
+    "bomb_bomb.wav",
+    "bomb2_start.mp3",
+    "boos_warning.mp3",
+    "btBuild.wav",
+    "btSelect.wav",
+    "btSound_1.mp3",
+    "btSound_3.wav",
+    "bullet_5_light.mp3",
+    "bullet_5_start.mp3",
+    "bullet_6_end.mp3",
+    "bullet_6_start.mp3",
+    "bullet_light_enemy.mp3",
+    "bullet_light.wav",
+    "bullet_missile_bomb_enemy.mp3",
+    "bullet_missile_bomb.mp3",
+    "bullet_missile_enemy_start.mp3",
+    "bullet_missile_plain_start.mp3",
+    "bullet_normal.mp3",
+    "createBomb.wav",
+    "doolOpen.wav",
+    "getGem.wav",
+    "getSpar.mp3",
+    "missionList.wav",
+    "plain_bomb.wav",
+    "readyBomb.wav",
+    "upgrade.wav"
+};
+
 typedef std::function<void(Ref*)> LoadResourceCallback;
 
 class LoadResourceLayer : public LayerColor
@@ -25,6 +59,8 @@ public:
 
     void loadPlists();
     
+    static bool preloadmusic;
+            
 private:
     LoadResourceLayer();
 

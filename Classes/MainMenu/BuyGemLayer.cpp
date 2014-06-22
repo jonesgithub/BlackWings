@@ -9,6 +9,7 @@
 #include "BuyGemLayer.h"
 #include "VisibleRect.h"
 #include "MenuItemImageLabel.h"
+#include "Configuration.h"
 #include <stdlib.h>
 #include <stdio.h>
 
@@ -94,6 +95,7 @@ bool BuyGemLayer::init()
 
 void BuyGemLayer::menuCallbackClosed(Ref *sender)
 {
+    PLAY_BUTTON_EFFECT;
     this->removeFromParentAndCleanup(true);
     
 }

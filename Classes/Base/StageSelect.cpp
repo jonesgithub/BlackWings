@@ -217,6 +217,7 @@ void StageSelect::tableCellTouched(extension::TableView* table, extension::Table
 
 void StageSelect::menuCallbackFight(Ref *sender)
 {
+    PLAY_BUTTON_EFFECT;
     auto battle = Battleground::create(_selectItem);
     Director::getInstance()->replaceScene(battle);
 }
@@ -235,6 +236,7 @@ void StageSelect::menuCallbackClosed(Ref *sender)
 {
     if(!isCloseClick)
     {
+        PLAY_BUTTON_EFFECT;
         isCloseClick = true;
         
         this->runAction(FadeTo::create(0.15f,0));

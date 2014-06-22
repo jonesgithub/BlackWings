@@ -4,6 +4,11 @@
 #include "VisibleRect.h"
 #include "GameStrings.h"
 #include "TextSprite.h"
+#include "SimpleAudioEngine.h"
+
+using namespace CocosDenshion;
+
+bool LoadResourceLayer::preloadmusic = true;
 
 LoadResourceLayer* LoadResourceLayer::create(const LoadResourceCallback& callback)
 {
@@ -74,7 +79,18 @@ void LoadResourceLayer::update(float delta)
         this->unscheduleUpdate();
         if (_onFinish)
         {
+            preloadmusic = false;
             _onFinish(this);
+        }
+    }
+    
+    if(preloadmusic)
+    {
+        for (int i=0; i<3; ++i) {
+            SimpleAudioEngine::getInstance()->preloadBackgroundMusic(allmusic[i].c_str());
+        }
+        for (int i=3; i<29; ++i) {
+            SimpleAudioEngine::getInstance()->preloadEffect(allmusic[i].c_str());
         }
     }
 }

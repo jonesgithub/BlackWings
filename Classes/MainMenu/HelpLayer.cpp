@@ -71,6 +71,7 @@ bool HelpLayer::init()
 
 void HelpLayer::menuCallbackClosed(Ref *sender)
 {
+    PLAY_BUTTON_EFFECT;
     this->removeFromParentAndCleanup(true);
 }
 
