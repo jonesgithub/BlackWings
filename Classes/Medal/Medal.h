@@ -33,23 +33,12 @@ public:
     
     void refreshAllItems();
     
-//    virtual void scrollViewDidScroll(extension::ScrollView* view) {}
-//    virtual void scrollViewDidZoom(extension::ScrollView* view) {}
-//    virtual void tableCellTouched(extension::TableView* table, extension::TableViewCell* cell);
-//    virtual Size tableCellSizeForIndex(extension::TableView *table, ssize_t idx);
-//    virtual extension::TableViewCell* tableCellAtIndex(extension::TableView *table, ssize_t idx);
-//    virtual ssize_t numberOfCellsInTableView(extension::TableView *table);
-//    
-//    Node* getItemNode(int i);
-    
 private:
     
     ui::ListView* listView;
     
     Node* _panel;
     Size _cellSize;
-    TableView* tableView;
-    int _count;
 };
 
 #endif /* defined(__BlackWings__Medal__) */

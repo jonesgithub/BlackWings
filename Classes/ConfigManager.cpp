@@ -177,16 +177,19 @@ void ConfigManager::saveMusicVolume(float volume)
 {
     s_playerConfig.musicVolume = volume;
     UserDefault::getInstance()->setFloatForKey("musicVolume", volume);
+    UserDefault::getInstance()->flush();
 }
 
 void ConfigManager::saveSFXVolume(float volume)
 {
     s_playerConfig.sfxVolume = volume;
     UserDefault::getInstance()->setFloatForKey("sfxVolume", volume);
+    UserDefault::getInstance()->flush();
 }
 
-void ConfigManager::saveLanguage(GameLanguage language)
+void ConfigManager::saveLanguage(int language)
 {
-    s_playerConfig.language = (int)language;
-    UserDefault::getInstance()->setFloatForKey("language", (int)language);
+    s_playerConfig.language = language;
+    UserDefault::getInstance()->setFloatForKey("language", language);
+    UserDefault::getInstance()->flush();
 }

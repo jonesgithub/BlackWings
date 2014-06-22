@@ -53,4 +53,6 @@ private:
     
     Sprite* fighter;
     Sprite* weapon;
+    
+    TextSprite* count_text;
 };

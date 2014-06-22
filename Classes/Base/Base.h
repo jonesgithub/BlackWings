@@ -101,4 +101,21 @@ private:
     cocos2d::Label* _weapon_costgem_label;
     TextSprite* _buy_gem;
 
+    TextSprite* fighter_levelText;
+    TextSprite* fighter_attText;
+    TextSprite* fighter_defText;
+    TextSprite* fighter_lifeText;
+    TextSprite* fighter_spdText;
+    TextSprite* fighter_rangeText;
+    TextSprite* fighter_leveUpText;
+    TextSprite* fighter_maxlevel_text;
+    bool fighter_maxlevel;
+
+    TextSprite* weapon_levelText;
+    TextSprite* weapon_attText;
+    TextSprite* weapon_durationText;
+    TextSprite* weapon_leveUpText;
+    TextSprite* weapon_maxlevel_text;
+    TextSprite* weapon_buy_text;
+    bool weapon_maxlevel;
 };

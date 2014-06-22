@@ -22,7 +22,7 @@
 	<key>settingReset</key>
 	<string>RESET GAME</string>
 	<key>settingRedeemCode</key>
-	<string>兑换码</string>
+	<string>DuiHuanMa</string>
 	<key>settingRedeem</key>
 	<string>兑换</string>
 	<key>settingRedeemHintText</key>
@@ -61,7 +61,7 @@
 	
     <!-- 关卡菜单 -->
 	<key>stage_select</key>
-    <string>关卡选择</string>
+    <string>STAGE SELECT</string>
     <key>stage_text</key>
     <string>STAGE</string>
     <key>stage_fight</key>

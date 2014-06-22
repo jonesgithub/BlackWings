@@ -41,7 +41,7 @@
 	<key>gravityy</key>
 	<real>0</real>
 	<key>maxParticles</key>
-	<integer>300</integer>
+	<integer>650</integer>
 	<key>maxRadius</key>
 	<integer>100</integer>
 	<key>maxRadiusVariance</key>
@@ -69,7 +69,7 @@
 	<key>rotationStartVariance</key>
 	<real>0</real>
 	<key>sourcePositionVariancex</key>
-	<integer>500</integer>
+	<integer>270</integer>
 	<key>sourcePositionVariancey</key>
 	<integer>0</integer>
 	<key>speed</key>

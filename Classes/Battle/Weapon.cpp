@@ -184,7 +184,9 @@ void Weapon::createWeapon()
                                                                       bomb_3_effectB->setPositionType(ParticleSystem::PositionType::GROUPED);
                                                                       bomb_3_effectB->setPosition(_pos);
                                                                       this->addChild(bomb_3_effectB);
-                                                                      bomb_3_effectB->runAction(Sequence::create(DelayTime::create(3.0f), RemoveSelf::create(), nullptr));
+                                                                      bomb_3_effectB->setDuration(_weaponConfig.duration/60);
+                                                                      bomb_3_effectB->setAutoRemoveOnFinish(true);
+                                                                      //bomb_3_effectB->runAction(Sequence::create(DelayTime::create(_weaponConfig.duration/60), RemoveSelf::create(), nullptr));
                                                                       _eventDispatcher->dispatchCustomEvent(GameConfig::eventBlackholeHurt,this);
                                                                   }),
                                                  nullptr));
