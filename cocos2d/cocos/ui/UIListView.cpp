@@ -491,7 +491,7 @@ void ListView::copySpecialProperties(Widget *widget)
     
     void ListView::scrollToBottom(float time, bool attenuated)
     {
-        startAutoScrollChildrenWithDestination(Point(_innerContainer->getPosition().x, 4600.0f), time, attenuated);
+        startAutoScrollChildrenWithDestination(Point(_innerContainer->getPosition().x, _allContentSize.height), time, attenuated);
     }
 
 }

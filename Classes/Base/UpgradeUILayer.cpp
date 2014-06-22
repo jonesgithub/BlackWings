@@ -42,7 +42,7 @@ bool UpgradeUILayer::init(BasePanel basePanel, int index)
     if(!Layer::init())
         return false;
     
-    std::string fontFile = "arial.ttf";
+    std::string fontFile = "DS-Digital.ttf";//"arial.ttf";
     int fontSize = 20;
     
     auto listener = EventListenerTouchOneByOne::create();
@@ -167,7 +167,7 @@ bool UpgradeUILayer::init(BasePanel basePanel, int index)
 
 void UpgradeUILayer::createStoneSpeedUI()
 {
-    std::string fontFile = "arial.ttf";
+    std::string fontFile = "DS-Digital.ttf";//"arial.ttf";
     int fontSize = 25;
     
     auto bk = Scale9Sprite::create("helpCellBG.png");
@@ -220,7 +220,7 @@ void UpgradeUILayer::createStoneSpeedUI()
 
 void UpgradeUILayer::createStoneMaxUI()
 {
-    std::string fontFile = "arial.ttf";
+    std::string fontFile = "DS-Digital.ttf";//"arial.ttf";
     int fontSize = 25;
     
     auto bk = Scale9Sprite::create("helpCellBG.png");
@@ -291,7 +291,7 @@ void UpgradeUILayer::createStoneMaxUI()
 
 void UpgradeUILayer::createFlightUI()
 {
-    std::string fontFile = "arial.ttf";
+    std::string fontFile = "DS-Digital.ttf";//"arial.ttf";
     int fontSize = 25;
     
     auto bk = Scale9Sprite::create("helpCellBG.png");
@@ -429,7 +429,7 @@ void UpgradeUILayer::createFlightUI()
 
 void UpgradeUILayer::createWeaponUI()
 {
-    std::string fontFile = "arial.ttf";
+    std::string fontFile = "DS-Digital.ttf";//"arial.ttf";
     int fontSize = 25;
     
     auto bk = Scale9Sprite::create("helpCellBG.png");

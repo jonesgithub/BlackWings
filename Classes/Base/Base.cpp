@@ -371,7 +371,7 @@ void Base::createFighterBottomInfo(Node* panel,int t_index)
 {
     _isInFilghtUpgradeUI = true;
     auto panelSize = panel->getContentSize();
-    std::string fontFile = "arial.ttf";
+    std::string fontFile = "DS-Digital.ttf";//"arial.ttf";
     int fontSize = 20;
     auto infoColor = Color4B(153,217,234,255);
     
@@ -532,7 +532,7 @@ void Base::createWeaponBottomInfo(Node* panel, int t_index)
 {
     _isInFilghtUpgradeUI = false;
     auto panelSize = panel->getContentSize();
-    std::string fontFile = "arial.ttf";
+    std::string fontFile = "DS-Digital.ttf";//"arial.ttf";
     int fontSize = 20;
     auto infoColor = Color4B(153,217,234,255);
     
@@ -661,7 +661,7 @@ void Base::createWeaponBottomInfo(Node* panel, int t_index)
 void Base::createFighterMiddleInfo(Node* panel)
 {
     auto panelSize = panel->getContentSize();
-    std::string fontFile = "arial.ttf";
+    std::string fontFile = "DS-Digital.ttf";//"arial.ttf";
     int fontSize = 20;
     auto infoColor = Color4B(153,217,234,255);
     
@@ -779,7 +779,7 @@ void Base::createFighterMiddleInfo(Node* panel)
 void Base::createFighterTopInfo(Node* panel)
 {
     auto panelSize = panel->getContentSize();
-    std::string fontFile = "arial.ttf";
+    std::string fontFile = "DS-Digital.ttf";//"arial.ttf";
     int fontSize = 20;
     auto infoColor = Color4B(153,217,234,255);
     
