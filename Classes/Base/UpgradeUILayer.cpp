@@ -541,6 +541,7 @@ void UpgradeUILayer::menuCallbackUpgrade(Ref *sender)
 {
     //判断并发送通知
     if (_needgem<=s_playerConfig.gem) {
+        PLAY_UPGRADE_EFFECT;
         s_playerConfig.gem = s_playerConfig.gem - _needgem;
         
         switch (_basePanel) {
@@ -570,6 +571,7 @@ void UpgradeUILayer::menuCallbackUpgrade(Ref *sender)
     }
     else
     {
+        PLAY_BUTTON_EFFECT;
         if(s_playerConfig.overstage < STAGEOFCANBUYGEM)
         {
             getParent()->addChild(NotificationLayer::create(s_gameStrings.base->nogemcannotbuy),100);
@@ -585,5 +587,6 @@ void UpgradeUILayer::menuCallbackUpgrade(Ref *sender)
 
 void UpgradeUILayer::menuCallbackClosed(cocos2d::Ref *sender)
 {
+    PLAY_BUTTON_EFFECT;
     this->removeFromParent();
 }

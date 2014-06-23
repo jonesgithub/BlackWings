@@ -32,6 +32,7 @@ bool MainMenu::init()
 
 void MainMenu::createBg(Ref *sender)
 {
+    PLAY_MAIN_MUSIC;
     this->removeChild((LoadResourceLayer*)sender,true);
 
     auto frameCache = SpriteFrameCache::getInstance();
@@ -148,6 +149,7 @@ void MainMenu::createMenu()
 
 void MainMenu::menuCallbackPlay(Ref *sender)
 {
+    PLAY_BUTTON_EFFECT;
     _eventDispatcher->removeCustomEventListeners(GameConfig::eventLanguageChange);
 
     auto base = Base::create();
@@ -156,18 +158,21 @@ void MainMenu::menuCallbackPlay(Ref *sender)
 
 void MainMenu::menuCallbackHelp(Ref *sender)
 {
+    PLAY_BUTTON_EFFECT;
     auto helpLayer = HelpLayer::create();
     addChild(helpLayer);
 }
 
 void MainMenu::menuCallbackSettings(Ref *sender)
 {
+    PLAY_BUTTON_EFFECT;
     auto settingLayer = MenuSettings::create();
     addChild(settingLayer);
 }
 
 void MainMenu::menuCallbackAbout(Ref *sender)
 {
+    PLAY_BUTTON_EFFECT;
     auto aboutLayer = AboutLayer::create();
     addChild(aboutLayer);
 }

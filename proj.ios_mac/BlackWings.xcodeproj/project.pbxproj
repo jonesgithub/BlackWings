@@ -100,8 +100,6 @@
 		50EF62A317ECD613001EB2F8 /* Icon-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 50EF62A117ECD613001EB2F8 /* Icon-50.png */; };
 		6838524C19570729007B0E6A /* DS-Digital.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6838524B19570729007B0E6A /* DS-Digital.ttf */; };
 		6838524D19570729007B0E6A /* DS-Digital.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6838524B19570729007B0E6A /* DS-Digital.ttf */; };
-		6896E008193C49E0009282C5 /* PersonalApi.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6896E006193C49E0009282C5 /* PersonalApi.cpp */; };
-		6896E009193C49E0009282C5 /* PersonalApi.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6896E006193C49E0009282C5 /* PersonalApi.cpp */; };
 		8527812F1934FAA700A0DEA5 /* medalStringsCh.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8527812D1934FAA700A0DEA5 /* medalStringsCh.xml */; };
 		852781301934FAA700A0DEA5 /* medalStringsCh.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8527812D1934FAA700A0DEA5 /* medalStringsCh.xml */; };
 		852781311934FAA700A0DEA5 /* medalStringsEn.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8527812E1934FAA700A0DEA5 /* medalStringsEn.xml */; };
@@ -122,6 +120,64 @@
 		85456D02195564C400D0E941 /* PromtWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 85456CFF195564C400D0E941 /* PromtWindow.cpp */; };
 		85456D1519568B4400D0E941 /* bomb_3_effect.plist in Resources */ = {isa = PBXBuildFile; fileRef = 85456D1419568B4400D0E941 /* bomb_3_effect.plist */; };
 		85456D1619568B4400D0E941 /* bomb_3_effect.plist in Resources */ = {isa = PBXBuildFile; fileRef = 85456D1419568B4400D0E941 /* bomb_3_effect.plist */; };
+		85456D35195712AD00D0E941 /* bomb2_start.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 85456D18195712AC00D0E941 /* bomb2_start.mp3 */; };
+		85456D36195712AD00D0E941 /* bomb2_start.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 85456D18195712AC00D0E941 /* bomb2_start.mp3 */; };
+		85456D37195712AD00D0E941 /* bomb_bomb.wav in Resources */ = {isa = PBXBuildFile; fileRef = 85456D19195712AC00D0E941 /* bomb_bomb.wav */; };
+		85456D38195712AD00D0E941 /* bomb_bomb.wav in Resources */ = {isa = PBXBuildFile; fileRef = 85456D19195712AC00D0E941 /* bomb_bomb.wav */; };
+		85456D39195712AD00D0E941 /* boos_warning.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 85456D1A195712AC00D0E941 /* boos_warning.mp3 */; };
+		85456D3A195712AD00D0E941 /* boos_warning.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 85456D1A195712AC00D0E941 /* boos_warning.mp3 */; };
+		85456D3B195712AD00D0E941 /* btBuild.wav in Resources */ = {isa = PBXBuildFile; fileRef = 85456D1B195712AC00D0E941 /* btBuild.wav */; };
+		85456D3C195712AD00D0E941 /* btBuild.wav in Resources */ = {isa = PBXBuildFile; fileRef = 85456D1B195712AC00D0E941 /* btBuild.wav */; };
+		85456D3D195712AD00D0E941 /* btSelect.wav in Resources */ = {isa = PBXBuildFile; fileRef = 85456D1C195712AC00D0E941 /* btSelect.wav */; };
+		85456D3E195712AD00D0E941 /* btSelect.wav in Resources */ = {isa = PBXBuildFile; fileRef = 85456D1C195712AC00D0E941 /* btSelect.wav */; };
+		85456D3F195712AD00D0E941 /* btSound_1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 85456D1D195712AC00D0E941 /* btSound_1.mp3 */; };
+		85456D40195712AD00D0E941 /* btSound_1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 85456D1D195712AC00D0E941 /* btSound_1.mp3 */; };
+		85456D41195712AD00D0E941 /* btSound_3.wav in Resources */ = {isa = PBXBuildFile; fileRef = 85456D1E195712AC00D0E941 /* btSound_3.wav */; };
+		85456D42195712AD00D0E941 /* btSound_3.wav in Resources */ = {isa = PBXBuildFile; fileRef = 85456D1E195712AC00D0E941 /* btSound_3.wav */; };
+		85456D43195712AD00D0E941 /* bullet_5_light.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 85456D1F195712AC00D0E941 /* bullet_5_light.mp3 */; };
+		85456D44195712AD00D0E941 /* bullet_5_light.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 85456D1F195712AC00D0E941 /* bullet_5_light.mp3 */; };
+		85456D45195712AD00D0E941 /* bullet_5_start.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 85456D20195712AC00D0E941 /* bullet_5_start.mp3 */; };
+		85456D46195712AD00D0E941 /* bullet_5_start.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 85456D20195712AC00D0E941 /* bullet_5_start.mp3 */; };
+		85456D47195712AD00D0E941 /* bullet_6_end.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 85456D21195712AC00D0E941 /* bullet_6_end.mp3 */; };
+		85456D48195712AD00D0E941 /* bullet_6_end.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 85456D21195712AC00D0E941 /* bullet_6_end.mp3 */; };
+		85456D49195712AD00D0E941 /* bullet_6_start.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 85456D22195712AC00D0E941 /* bullet_6_start.mp3 */; };
+		85456D4A195712AD00D0E941 /* bullet_6_start.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 85456D22195712AC00D0E941 /* bullet_6_start.mp3 */; };
+		85456D4B195712AD00D0E941 /* bullet_light.wav in Resources */ = {isa = PBXBuildFile; fileRef = 85456D23195712AC00D0E941 /* bullet_light.wav */; };
+		85456D4C195712AD00D0E941 /* bullet_light.wav in Resources */ = {isa = PBXBuildFile; fileRef = 85456D23195712AC00D0E941 /* bullet_light.wav */; };
+		85456D4D195712AD00D0E941 /* bullet_light_enemy.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 85456D24195712AC00D0E941 /* bullet_light_enemy.mp3 */; };
+		85456D4E195712AD00D0E941 /* bullet_light_enemy.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 85456D24195712AC00D0E941 /* bullet_light_enemy.mp3 */; };
+		85456D4F195712AD00D0E941 /* bullet_missile_bomb.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 85456D25195712AC00D0E941 /* bullet_missile_bomb.mp3 */; };
+		85456D50195712AD00D0E941 /* bullet_missile_bomb.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 85456D25195712AC00D0E941 /* bullet_missile_bomb.mp3 */; };
+		85456D51195712AD00D0E941 /* bullet_missile_bomb_enemy.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 85456D26195712AC00D0E941 /* bullet_missile_bomb_enemy.mp3 */; };
+		85456D52195712AD00D0E941 /* bullet_missile_bomb_enemy.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 85456D26195712AC00D0E941 /* bullet_missile_bomb_enemy.mp3 */; };
+		85456D53195712AD00D0E941 /* bullet_missile_enemy_start.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 85456D27195712AC00D0E941 /* bullet_missile_enemy_start.mp3 */; };
+		85456D54195712AD00D0E941 /* bullet_missile_enemy_start.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 85456D27195712AC00D0E941 /* bullet_missile_enemy_start.mp3 */; };
+		85456D55195712AD00D0E941 /* bullet_missile_plain_start.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 85456D28195712AC00D0E941 /* bullet_missile_plain_start.mp3 */; };
+		85456D56195712AD00D0E941 /* bullet_missile_plain_start.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 85456D28195712AC00D0E941 /* bullet_missile_plain_start.mp3 */; };
+		85456D57195712AD00D0E941 /* bullet_normal.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 85456D29195712AC00D0E941 /* bullet_normal.mp3 */; };
+		85456D58195712AD00D0E941 /* bullet_normal.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 85456D29195712AC00D0E941 /* bullet_normal.mp3 */; };
+		85456D59195712AD00D0E941 /* createBomb.wav in Resources */ = {isa = PBXBuildFile; fileRef = 85456D2A195712AC00D0E941 /* createBomb.wav */; };
+		85456D5A195712AD00D0E941 /* createBomb.wav in Resources */ = {isa = PBXBuildFile; fileRef = 85456D2A195712AC00D0E941 /* createBomb.wav */; };
+		85456D5B195712AD00D0E941 /* doolOpen.wav in Resources */ = {isa = PBXBuildFile; fileRef = 85456D2B195712AC00D0E941 /* doolOpen.wav */; };
+		85456D5C195712AD00D0E941 /* doolOpen.wav in Resources */ = {isa = PBXBuildFile; fileRef = 85456D2B195712AC00D0E941 /* doolOpen.wav */; };
+		85456D5D195712AD00D0E941 /* getGem.wav in Resources */ = {isa = PBXBuildFile; fileRef = 85456D2C195712AC00D0E941 /* getGem.wav */; };
+		85456D5E195712AD00D0E941 /* getGem.wav in Resources */ = {isa = PBXBuildFile; fileRef = 85456D2C195712AC00D0E941 /* getGem.wav */; };
+		85456D5F195712AD00D0E941 /* getSpar.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 85456D2D195712AC00D0E941 /* getSpar.mp3 */; };
+		85456D60195712AD00D0E941 /* getSpar.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 85456D2D195712AC00D0E941 /* getSpar.mp3 */; };
+		85456D61195712AD00D0E941 /* missionList.wav in Resources */ = {isa = PBXBuildFile; fileRef = 85456D2E195712AC00D0E941 /* missionList.wav */; };
+		85456D62195712AD00D0E941 /* missionList.wav in Resources */ = {isa = PBXBuildFile; fileRef = 85456D2E195712AC00D0E941 /* missionList.wav */; };
+		85456D63195712AD00D0E941 /* music_battle.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 85456D2F195712AC00D0E941 /* music_battle.mp3 */; };
+		85456D64195712AD00D0E941 /* music_battle.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 85456D2F195712AC00D0E941 /* music_battle.mp3 */; };
+		85456D65195712AD00D0E941 /* music_home.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 85456D30195712AC00D0E941 /* music_home.mp3 */; };
+		85456D66195712AD00D0E941 /* music_home.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 85456D30195712AC00D0E941 /* music_home.mp3 */; };
+		85456D67195712AD00D0E941 /* music_main.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 85456D31195712AC00D0E941 /* music_main.mp3 */; };
+		85456D68195712AD00D0E941 /* music_main.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 85456D31195712AC00D0E941 /* music_main.mp3 */; };
+		85456D69195712AD00D0E941 /* plain_bomb.wav in Resources */ = {isa = PBXBuildFile; fileRef = 85456D32195712AC00D0E941 /* plain_bomb.wav */; };
+		85456D6A195712AD00D0E941 /* plain_bomb.wav in Resources */ = {isa = PBXBuildFile; fileRef = 85456D32195712AC00D0E941 /* plain_bomb.wav */; };
+		85456D6B195712AD00D0E941 /* readyBomb.wav in Resources */ = {isa = PBXBuildFile; fileRef = 85456D33195712AC00D0E941 /* readyBomb.wav */; };
+		85456D6C195712AD00D0E941 /* readyBomb.wav in Resources */ = {isa = PBXBuildFile; fileRef = 85456D33195712AC00D0E941 /* readyBomb.wav */; };
+		85456D6D195712AD00D0E941 /* upgrade.wav in Resources */ = {isa = PBXBuildFile; fileRef = 85456D34195712AC00D0E941 /* upgrade.wav */; };
+		85456D6E195712AD00D0E941 /* upgrade.wav in Resources */ = {isa = PBXBuildFile; fileRef = 85456D34195712AC00D0E941 /* upgrade.wav */; };
 		8555021C193B2BD300DEAF12 /* CDItem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8555021A193B2BD300DEAF12 /* CDItem.cpp */; };
 		8555021D193B2BD300DEAF12 /* CDItem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8555021A193B2BD300DEAF12 /* CDItem.cpp */; };
 		8555021F193B514700DEAF12 /* plain_progress.png in Resources */ = {isa = PBXBuildFile; fileRef = 8555021E193B514700DEAF12 /* plain_progress.png */; };
@@ -156,10 +212,6 @@
 		8598E77E1933804500E72CDE /* baseStringsCh.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8598E7281933804500E72CDE /* baseStringsCh.xml */; };
 		8598E77F1933804500E72CDE /* baseStringsEn.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8598E7291933804500E72CDE /* baseStringsEn.xml */; };
 		8598E7801933804500E72CDE /* baseStringsEn.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8598E7291933804500E72CDE /* baseStringsEn.xml */; };
-		8598E7811933804500E72CDE /* CloseNormal.png in Resources */ = {isa = PBXBuildFile; fileRef = 8598E72A1933804500E72CDE /* CloseNormal.png */; };
-		8598E7821933804500E72CDE /* CloseNormal.png in Resources */ = {isa = PBXBuildFile; fileRef = 8598E72A1933804500E72CDE /* CloseNormal.png */; };
-		8598E7831933804500E72CDE /* CloseSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = 8598E72B1933804500E72CDE /* CloseSelected.png */; };
-		8598E7841933804500E72CDE /* CloseSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = 8598E72B1933804500E72CDE /* CloseSelected.png */; };
 		8598E7851933804500E72CDE /* arial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8598E72D1933804500E72CDE /* arial.ttf */; };
 		8598E7861933804500E72CDE /* arial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8598E72D1933804500E72CDE /* arial.ttf */; };
 		8598E7871933804500E72CDE /* Marker Felt.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8598E72E1933804500E72CDE /* Marker Felt.ttf */; };
@@ -296,8 +348,6 @@
 		8598E80C1933804500E72CDE /* upgrade.png in Resources */ = {isa = PBXBuildFile; fileRef = 8598E7751933804500E72CDE /* upgrade.png */; };
 		8598E80D1933804500E72CDE /* windowBox.png in Resources */ = {isa = PBXBuildFile; fileRef = 8598E7761933804500E72CDE /* windowBox.png */; };
 		8598E80E1933804500E72CDE /* windowBox.png in Resources */ = {isa = PBXBuildFile; fileRef = 8598E7761933804500E72CDE /* windowBox.png */; };
-		8598E80F1933804500E72CDE /* HelloWorld.png in Resources */ = {isa = PBXBuildFile; fileRef = 8598E7771933804500E72CDE /* HelloWorld.png */; };
-		8598E8101933804500E72CDE /* HelloWorld.png in Resources */ = {isa = PBXBuildFile; fileRef = 8598E7771933804500E72CDE /* HelloWorld.png */; };
 		8598E8111933804500E72CDE /* helpInfoCh.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8598E7781933804500E72CDE /* helpInfoCh.xml */; };
 		8598E8121933804500E72CDE /* helpInfoCh.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8598E7781933804500E72CDE /* helpInfoCh.xml */; };
 		8598E8131933804500E72CDE /* helpInfoEn.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8598E7791933804500E72CDE /* helpInfoEn.xml */; };
@@ -592,8 +642,6 @@
 		50EF62A017ECD613001EB2F8 /* Icon-29.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-29.png"; sourceTree = "<group>"; };
 		50EF62A117ECD613001EB2F8 /* Icon-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-50.png"; sourceTree = "<group>"; };
 		6838524B19570729007B0E6A /* DS-Digital.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DS-Digital.ttf"; sourceTree = "<group>"; };
-		6896E006193C49E0009282C5 /* PersonalApi.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PersonalApi.cpp; sourceTree = "<group>"; };
-		6896E007193C49E0009282C5 /* PersonalApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonalApi.h; sourceTree = "<group>"; };
 		8527812D1934FAA700A0DEA5 /* medalStringsCh.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = medalStringsCh.xml; sourceTree = "<group>"; };
 		8527812E1934FAA700A0DEA5 /* medalStringsEn.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = medalStringsEn.xml; sourceTree = "<group>"; };
 		8528F14E19362B8C00EF967E /* MedalChecker.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MedalChecker.cpp; sourceTree = "<group>"; };
@@ -607,6 +655,35 @@
 		85456CFF195564C400D0E941 /* PromtWindow.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PromtWindow.cpp; sourceTree = "<group>"; };
 		85456D00195564C400D0E941 /* PromtWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PromtWindow.h; sourceTree = "<group>"; };
 		85456D1419568B4400D0E941 /* bomb_3_effect.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = bomb_3_effect.plist; sourceTree = "<group>"; };
+		85456D18195712AC00D0E941 /* bomb2_start.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bomb2_start.mp3; sourceTree = "<group>"; };
+		85456D19195712AC00D0E941 /* bomb_bomb.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = bomb_bomb.wav; sourceTree = "<group>"; };
+		85456D1A195712AC00D0E941 /* boos_warning.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = boos_warning.mp3; sourceTree = "<group>"; };
+		85456D1B195712AC00D0E941 /* btBuild.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = btBuild.wav; sourceTree = "<group>"; };
+		85456D1C195712AC00D0E941 /* btSelect.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = btSelect.wav; sourceTree = "<group>"; };
+		85456D1D195712AC00D0E941 /* btSound_1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = btSound_1.mp3; sourceTree = "<group>"; };
+		85456D1E195712AC00D0E941 /* btSound_3.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = btSound_3.wav; sourceTree = "<group>"; };
+		85456D1F195712AC00D0E941 /* bullet_5_light.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bullet_5_light.mp3; sourceTree = "<group>"; };
+		85456D20195712AC00D0E941 /* bullet_5_start.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bullet_5_start.mp3; sourceTree = "<group>"; };
+		85456D21195712AC00D0E941 /* bullet_6_end.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bullet_6_end.mp3; sourceTree = "<group>"; };
+		85456D22195712AC00D0E941 /* bullet_6_start.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bullet_6_start.mp3; sourceTree = "<group>"; };
+		85456D23195712AC00D0E941 /* bullet_light.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = bullet_light.wav; sourceTree = "<group>"; };
+		85456D24195712AC00D0E941 /* bullet_light_enemy.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bullet_light_enemy.mp3; sourceTree = "<group>"; };
+		85456D25195712AC00D0E941 /* bullet_missile_bomb.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bullet_missile_bomb.mp3; sourceTree = "<group>"; };
+		85456D26195712AC00D0E941 /* bullet_missile_bomb_enemy.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bullet_missile_bomb_enemy.mp3; sourceTree = "<group>"; };
+		85456D27195712AC00D0E941 /* bullet_missile_enemy_start.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bullet_missile_enemy_start.mp3; sourceTree = "<group>"; };
+		85456D28195712AC00D0E941 /* bullet_missile_plain_start.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bullet_missile_plain_start.mp3; sourceTree = "<group>"; };
+		85456D29195712AC00D0E941 /* bullet_normal.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bullet_normal.mp3; sourceTree = "<group>"; };
+		85456D2A195712AC00D0E941 /* createBomb.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = createBomb.wav; sourceTree = "<group>"; };
+		85456D2B195712AC00D0E941 /* doolOpen.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = doolOpen.wav; sourceTree = "<group>"; };
+		85456D2C195712AC00D0E941 /* getGem.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = getGem.wav; sourceTree = "<group>"; };
+		85456D2D195712AC00D0E941 /* getSpar.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = getSpar.mp3; sourceTree = "<group>"; };
+		85456D2E195712AC00D0E941 /* missionList.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = missionList.wav; sourceTree = "<group>"; };
+		85456D2F195712AC00D0E941 /* music_battle.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = music_battle.mp3; sourceTree = "<group>"; };
+		85456D30195712AC00D0E941 /* music_home.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = music_home.mp3; sourceTree = "<group>"; };
+		85456D31195712AC00D0E941 /* music_main.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = music_main.mp3; sourceTree = "<group>"; };
+		85456D32195712AC00D0E941 /* plain_bomb.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = plain_bomb.wav; sourceTree = "<group>"; };
+		85456D33195712AC00D0E941 /* readyBomb.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = readyBomb.wav; sourceTree = "<group>"; };
+		85456D34195712AC00D0E941 /* upgrade.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = upgrade.wav; sourceTree = "<group>"; };
 		8555021A193B2BD300DEAF12 /* CDItem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CDItem.cpp; sourceTree = "<group>"; };
 		8555021B193B2BD300DEAF12 /* CDItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDItem.h; sourceTree = "<group>"; };
 		8555021E193B514700DEAF12 /* plain_progress.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plain_progress.png; sourceTree = "<group>"; };
@@ -630,8 +707,6 @@
 		859703C6194F333C00BE068D /* bomb_2_effectB.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = bomb_2_effectB.plist; sourceTree = "<group>"; };
 		8598E7281933804500E72CDE /* baseStringsCh.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = baseStringsCh.xml; sourceTree = "<group>"; };
 		8598E7291933804500E72CDE /* baseStringsEn.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = baseStringsEn.xml; sourceTree = "<group>"; };
-		8598E72A1933804500E72CDE /* CloseNormal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CloseNormal.png; sourceTree = "<group>"; };
-		8598E72B1933804500E72CDE /* CloseSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CloseSelected.png; sourceTree = "<group>"; };
 		8598E72D1933804500E72CDE /* arial.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = arial.ttf; sourceTree = "<group>"; };
 		8598E72E1933804500E72CDE /* Marker Felt.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Marker Felt.ttf"; sourceTree = "<group>"; };
 		8598E7301933804500E72CDE /* allBt.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = allBt.plist; sourceTree = "<group>"; };
@@ -700,10 +775,9 @@
 		8598E7741933804500E72CDE /* upgrade.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = upgrade.plist; sourceTree = "<group>"; };
 		8598E7751933804500E72CDE /* upgrade.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = upgrade.png; sourceTree = "<group>"; };
 		8598E7761933804500E72CDE /* windowBox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = windowBox.png; sourceTree = "<group>"; };
-		8598E7771933804500E72CDE /* HelloWorld.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = HelloWorld.png; sourceTree = "<group>"; };
 		8598E7781933804500E72CDE /* helpInfoCh.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = helpInfoCh.xml; sourceTree = "<group>"; };
 		8598E7791933804500E72CDE /* helpInfoEn.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = helpInfoEn.xml; sourceTree = "<group>"; };
-		8598E77A1933804500E72CDE /* particleTexture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = particleTexture.png; sourceTree = "<group>"; };
+		8598E77A1933804500E72CDE /* particleTexture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = particleTexture.png; path = ../../particleTexture.png; sourceTree = "<group>"; };
 		8598E77B1933804500E72CDE /* stringsCh.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = stringsCh.xml; sourceTree = "<group>"; };
 		8598E77C1933804500E72CDE /* stringsEn.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = stringsEn.xml; sourceTree = "<group>"; };
 		85A116BD19461FC100128549 /* bomb_1_effectB.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = bomb_1_effectB.plist; sourceTree = "<group>"; };
@@ -808,26 +882,15 @@
 		15AA9C4015B7EC450033D6C2 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				85F441EF195322D000E41176 /* ConfigManager.cpp */,
-				85F441F0195322D000E41176 /* ConfigManager.h */,
-				6896E006193C49E0009282C5 /* PersonalApi.cpp */,
-				6896E007193C49E0009282C5 /* PersonalApi.h */,
+				85456D731957326300D0E941 /* Global */,
 				855E13421934D8D000683F21 /* Medal */,
-				266ACBA819336AD5004DF401 /* xxtea.cpp */,
-				266ACBA919336AD5004DF401 /* xxtea.h */,
 				266ACAC419323E2A004DF401 /* AppDelegate.cpp */,
 				266ACAC519323E2A004DF401 /* AppDelegate.h */,
 				266ACAC619323E2A004DF401 /* AppMacros.h */,
 				266ACAC719323E2A004DF401 /* Base */,
 				266ACAD019323E2A004DF401 /* Battle */,
 				266ACAD919323E2A004DF401 /* CommonControl */,
-				266ACAE219323E2A004DF401 /* Configuration.cpp */,
-				266ACAE319323E2A004DF401 /* Configuration.h */,
-				266ACAE419323E2A004DF401 /* GameStrings.cpp */,
-				266ACAE519323E2A004DF401 /* GameStrings.h */,
 				266ACAE619323E2A004DF401 /* MainMenu */,
-				266ACAF319323E2A004DF401 /* VisibleRect.cpp */,
-				266ACAF419323E2A004DF401 /* VisibleRect.h */,
 			);
 			name = Classes;
 			path = ../classes;
@@ -891,8 +954,8 @@
 				266ACAD519323E2A004DF401 /* Fighter.cpp */,
 				266ACAD619323E2A004DF401 /* Fighter.h */,
 				266ACAD819323E2A004DF401 /* Player.h */,
-				8555021A193B2BD300DEAF12 /* CDItem.cpp */,
 				266ACAD719323E2A004DF401 /* Player.cpp */,
+				8555021A193B2BD300DEAF12 /* CDItem.cpp */,
 				8555021B193B2BD300DEAF12 /* CDItem.h */,
 				85550221193B8FAE00DEAF12 /* GameOverLayer.cpp */,
 				85550222193B8FAE00DEAF12 /* GameOverLayer.h */,
@@ -1027,26 +1090,84 @@
 		78C7DDAA14EBA5050085D0C2 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				85456D6F195712B900D0E941 /* strings */,
+				85456D17195712AC00D0E941 /* sound */,
 				85A116BC19461FC100128549 /* plist */,
+				8598E72C1933804500E72CDE /* fonts */,
+				8598E72F1933804500E72CDE /* hd */,
+			);
+			name = Resources;
+			path = ../Resources;
+			sourceTree = "<group>";
+		};
+		85456D17195712AC00D0E941 /* sound */ = {
+			isa = PBXGroup;
+			children = (
+				85456D18195712AC00D0E941 /* bomb2_start.mp3 */,
+				85456D19195712AC00D0E941 /* bomb_bomb.wav */,
+				85456D1A195712AC00D0E941 /* boos_warning.mp3 */,
+				85456D1B195712AC00D0E941 /* btBuild.wav */,
+				85456D1C195712AC00D0E941 /* btSelect.wav */,
+				85456D1D195712AC00D0E941 /* btSound_1.mp3 */,
+				85456D1E195712AC00D0E941 /* btSound_3.wav */,
+				85456D1F195712AC00D0E941 /* bullet_5_light.mp3 */,
+				85456D20195712AC00D0E941 /* bullet_5_start.mp3 */,
+				85456D21195712AC00D0E941 /* bullet_6_end.mp3 */,
+				85456D22195712AC00D0E941 /* bullet_6_start.mp3 */,
+				85456D23195712AC00D0E941 /* bullet_light.wav */,
+				85456D24195712AC00D0E941 /* bullet_light_enemy.mp3 */,
+				85456D25195712AC00D0E941 /* bullet_missile_bomb.mp3 */,
+				85456D26195712AC00D0E941 /* bullet_missile_bomb_enemy.mp3 */,
+				85456D27195712AC00D0E941 /* bullet_missile_enemy_start.mp3 */,
+				85456D28195712AC00D0E941 /* bullet_missile_plain_start.mp3 */,
+				85456D29195712AC00D0E941 /* bullet_normal.mp3 */,
+				85456D2A195712AC00D0E941 /* createBomb.wav */,
+				85456D2B195712AC00D0E941 /* doolOpen.wav */,
+				85456D2C195712AC00D0E941 /* getGem.wav */,
+				85456D2D195712AC00D0E941 /* getSpar.mp3 */,
+				85456D2E195712AC00D0E941 /* missionList.wav */,
+				85456D2F195712AC00D0E941 /* music_battle.mp3 */,
+				85456D30195712AC00D0E941 /* music_home.mp3 */,
+				85456D31195712AC00D0E941 /* music_main.mp3 */,
+				85456D32195712AC00D0E941 /* plain_bomb.wav */,
+				85456D33195712AC00D0E941 /* readyBomb.wav */,
+				85456D34195712AC00D0E941 /* upgrade.wav */,
+			);
+			path = sound;
+			sourceTree = "<group>";
+		};
+		85456D6F195712B900D0E941 /* strings */ = {
+			isa = PBXGroup;
+			children = (
+				8598E7781933804500E72CDE /* helpInfoCh.xml */,
+				8598E7791933804500E72CDE /* helpInfoEn.xml */,
+				8598E77B1933804500E72CDE /* stringsCh.xml */,
+				8598E77C1933804500E72CDE /* stringsEn.xml */,
 				85550225193B964500DEAF12 /* battleStringsCh.xml */,
 				85550226193B964500DEAF12 /* battleStringsEn.xml */,
 				8527812D1934FAA700A0DEA5 /* medalStringsCh.xml */,
 				8527812E1934FAA700A0DEA5 /* medalStringsEn.xml */,
 				8598E7281933804500E72CDE /* baseStringsCh.xml */,
 				8598E7291933804500E72CDE /* baseStringsEn.xml */,
-				8598E72A1933804500E72CDE /* CloseNormal.png */,
-				8598E72B1933804500E72CDE /* CloseSelected.png */,
-				8598E72C1933804500E72CDE /* fonts */,
-				8598E72F1933804500E72CDE /* hd */,
-				8598E7771933804500E72CDE /* HelloWorld.png */,
-				8598E7781933804500E72CDE /* helpInfoCh.xml */,
-				8598E7791933804500E72CDE /* helpInfoEn.xml */,
-				8598E77A1933804500E72CDE /* particleTexture.png */,
-				8598E77B1933804500E72CDE /* stringsCh.xml */,
-				8598E77C1933804500E72CDE /* stringsEn.xml */,
 			);
-			name = Resources;
-			path = ../Resources;
+			name = strings;
+			sourceTree = "<group>";
+		};
+		85456D731957326300D0E941 /* Global */ = {
+			isa = PBXGroup;
+			children = (
+				266ACBA819336AD5004DF401 /* xxtea.cpp */,
+				266ACBA919336AD5004DF401 /* xxtea.h */,
+				266ACAF319323E2A004DF401 /* VisibleRect.cpp */,
+				266ACAF419323E2A004DF401 /* VisibleRect.h */,
+				266ACAE219323E2A004DF401 /* Configuration.cpp */,
+				266ACAE319323E2A004DF401 /* Configuration.h */,
+				266ACAE419323E2A004DF401 /* GameStrings.cpp */,
+				266ACAE519323E2A004DF401 /* GameStrings.h */,
+				85F441EF195322D000E41176 /* ConfigManager.cpp */,
+				85F441F0195322D000E41176 /* ConfigManager.h */,
+			);
+			name = Global;
 			sourceTree = "<group>";
 		};
 		855E13421934D8D000683F21 /* Medal */ = {
@@ -1190,6 +1311,7 @@
 		85A116BC19461FC100128549 /* plist */ = {
 			isa = PBXGroup;
 			children = (
+				8598E77A1933804500E72CDE /* particleTexture.png */,
 				85456D1419568B4400D0E941 /* bomb_3_effect.plist */,
 				859703C5194F333C00BE068D /* bomb_2_effect.plist */,
 				859703C6194F333C00BE068D /* bomb_2_effectB.plist */,
@@ -1396,13 +1518,16 @@
 				8598E77D1933804500E72CDE /* baseStringsCh.xml in Resources */,
 				8598E79F1933804500E72CDE /* enemys.png in Resources */,
 				85A116F219461FC200128549 /* main_effect.plist in Resources */,
+				85456D59195712AD00D0E941 /* createBomb.wav in Resources */,
 				8598E7F51933804500E72CDE /* newMedalTip_box.png in Resources */,
 				8598E7A31933804500E72CDE /* explode_A.png in Resources */,
 				5087E77F17EB970100C73F5D /* Default@2x.png in Resources */,
 				85A116EE19461FC200128549 /* homeFire.plist in Resources */,
 				8598E77F1933804500E72CDE /* baseStringsEn.xml in Resources */,
 				85A116FA19461FC200128549 /* plain_effect_1.plist in Resources */,
-				8598E80F1933804500E72CDE /* HelloWorld.png in Resources */,
+				85456D65195712AD00D0E941 /* music_home.mp3 in Resources */,
+				85456D3B195712AD00D0E941 /* btBuild.wav in Resources */,
+				85456D69195712AD00D0E941 /* plain_bomb.wav in Resources */,
 				8598E7D11933804500E72CDE /* mainBackground_bg.png in Resources */,
 				50EF629917ECD46A001EB2F8 /* Icon-100.png in Resources */,
 				85A116FE19461FC200128549 /* upgrade_bt_effect.plist in Resources */,
@@ -1410,10 +1535,13 @@
 				8598E8191933804500E72CDE /* stringsEn.xml in Resources */,
 				85A116F419461FC200128549 /* main_effect2.plist in Resources */,
 				85A116EA19461FC200128549 /* fire.plist in Resources */,
+				85456D41195712AD00D0E941 /* btSound_3.wav in Resources */,
 				8598E7EB1933804500E72CDE /* map_clouds.plist in Resources */,
 				8598E8091933804500E72CDE /* upgrade.plist in Resources */,
+				85456D5B195712AD00D0E941 /* doolOpen.wav in Resources */,
 				8598E7971933804500E72CDE /* createBombTip_box.png in Resources */,
 				8598E8011933804500E72CDE /* door_r.png in Resources */,
+				85456D5D195712AD00D0E941 /* getGem.wav in Resources */,
 				859703C7194F333C00BE068D /* bomb_2_effect.plist in Resources */,
 				8598E7B71933804500E72CDE /* bombs.png in Resources */,
 				8598E7CD1933804500E72CDE /* logo_monster.png in Resources */,
@@ -1424,10 +1552,11 @@
 				8598E8171933804500E72CDE /* stringsCh.xml in Resources */,
 				8598E80D1933804500E72CDE /* windowBox.png in Resources */,
 				8598E8071933804500E72CDE /* mission_icons.png in Resources */,
-				8598E7831933804500E72CDE /* CloseSelected.png in Resources */,
 				85A1170019461FC200128549 /* upgrade_plain_effect.plist in Resources */,
+				85456D53195712AD00D0E941 /* bullet_missile_enemy_start.mp3 in Resources */,
 				5087E77D17EB970100C73F5D /* Default-568h@2x.png in Resources */,
 				8598E7C31933804500E72CDE /* icons.plist in Resources */,
+				85456D35195712AD00D0E941 /* bomb2_start.mp3 in Resources */,
 				85A116EC19461FC200128549 /* home_fire.plist in Resources */,
 				8598E7B91933804500E72CDE /* DL.png in Resources */,
 				85A116DE19461FC200128549 /* bomb_explode_2.plist in Resources */,
@@ -1436,32 +1565,46 @@
 				8598E7F71933804500E72CDE /* plains.plist in Resources */,
 				8598E7891933804500E72CDE /* allBt.plist in Resources */,
 				8598E7FB1933804500E72CDE /* playerBag.plist in Resources */,
+				85456D3D195712AD00D0E941 /* btSelect.wav in Resources */,
 				85A116FC19461FC200128549 /* streak.png in Resources */,
+				85456D61195712AD00D0E941 /* missionList.wav in Resources */,
 				8598E7A51933804500E72CDE /* explode_B.plist in Resources */,
 				8598E7CF1933804500E72CDE /* mainBackground.png in Resources */,
 				8598E79D1933804500E72CDE /* enemys.plist in Resources */,
 				5087E78517EB970100C73F5D /* Icon-72.png in Resources */,
+				85456D4B195712AD00D0E941 /* bullet_light.wav in Resources */,
+				85456D39195712AD00D0E941 /* boos_warning.mp3 in Resources */,
 				85A116DC19461FC200128549 /* bomb_explode_1.plist in Resources */,
 				8598E7C11933804500E72CDE /* home.png in Resources */,
 				8598E7F91933804500E72CDE /* plains.png in Resources */,
 				8598E78B1933804500E72CDE /* allBt.png in Resources */,
 				8598E8051933804500E72CDE /* mission_icons.plist in Resources */,
 				855E133C1934D0EB00683F21 /* battle_life_plain.png in Resources */,
+				85456D57195712AD00D0E941 /* bullet_normal.mp3 in Resources */,
 				8598E7871933804500E72CDE /* Marker Felt.ttf in Resources */,
 				8598E7EF1933804500E72CDE /* medal-hd.plist in Resources */,
+				85456D5F195712AD00D0E941 /* getSpar.mp3 in Resources */,
 				859703C9194F333C00BE068D /* bomb_2_effectB.plist in Resources */,
+				85456D67195712AD00D0E941 /* music_main.mp3 in Resources */,
 				85A116F619461FC200128549 /* missionList_effect.plist in Resources */,
 				8598E7D31933804500E72CDE /* map_1.plist in Resources */,
 				50EF62A317ECD613001EB2F8 /* Icon-50.png in Resources */,
 				5087E78017EB970100C73F5D /* Icon-114.png in Resources */,
+				85456D51195712AD00D0E941 /* bullet_missile_bomb_enemy.mp3 in Resources */,
 				857F14091944D408000DE4E7 /* vanishingPoint.plist in Resources */,
+				85456D37195712AD00D0E941 /* bomb_bomb.wav in Resources */,
 				50EF62A217ECD613001EB2F8 /* Icon-29.png in Resources */,
+				85456D3F195712AD00D0E941 /* btSound_1.mp3 in Resources */,
 				8598E7851933804500E72CDE /* arial.ttf in Resources */,
 				852781311934FAA700A0DEA5 /* medalStringsEn.xml in Resources */,
+				85456D45195712AD00D0E941 /* bullet_5_start.mp3 in Resources */,
 				8598E78D1933804500E72CDE /* allBt.pvr.ccz in Resources */,
 				8598E7951933804500E72CDE /* battle.png in Resources */,
 				8598E7A91933804500E72CDE /* explode_C.plist in Resources */,
 				8598E7C91933804500E72CDE /* loading_bar_b.png in Resources */,
+				85456D49195712AD00D0E941 /* bullet_6_start.mp3 in Resources */,
+				85456D47195712AD00D0E941 /* bullet_6_end.mp3 in Resources */,
+				85456D43195712AD00D0E941 /* bullet_5_light.mp3 in Resources */,
 				50EF629617ECD46A001EB2F8 /* Icon-40.png in Resources */,
 				8598E7AF1933804500E72CDE /* p_bullets.png in Resources */,
 				8598E7E71933804500E72CDE /* map_6.plist in Resources */,
@@ -1471,6 +1614,7 @@
 				8598E7BB1933804500E72CDE /* helpCellBG.png in Resources */,
 				8598E7AD1933804500E72CDE /* p_bullets.plist in Resources */,
 				50EF629817ECD46A001EB2F8 /* Icon-80.png in Resources */,
+				85456D6B195712AD00D0E941 /* readyBomb.wav in Resources */,
 				85A116E219461FC200128549 /* bomb_fire.plist in Resources */,
 				5087E78417EB970100C73F5D /* Icon-57.png in Resources */,
 				5087E77E17EB970100C73F5D /* Default.png in Resources */,
@@ -1484,12 +1628,14 @@
 				8598E80B1933804500E72CDE /* upgrade.png in Resources */,
 				8598E8131933804500E72CDE /* helpInfoEn.xml in Resources */,
 				8598E7FF1933804500E72CDE /* door_l.png in Resources */,
+				85456D4F195712AD00D0E941 /* bullet_missile_bomb.mp3 in Resources */,
+				85456D4D195712AD00D0E941 /* bullet_light_enemy.mp3 in Resources */,
 				8555021F193B514700DEAF12 /* plain_progress.png in Resources */,
 				8598E7F11933804500E72CDE /* medal_icons.plist in Resources */,
 				8598E7DB1933804500E72CDE /* map_3.plist in Resources */,
 				857F14031944D109000DE4E7 /* missileFlare.plist in Resources */,
-				8598E7811933804500E72CDE /* CloseNormal.png in Resources */,
 				8598E8151933804500E72CDE /* particleTexture.png in Resources */,
+				85456D55195712AD00D0E941 /* bullet_missile_plain_start.mp3 in Resources */,
 				8598E7C51933804500E72CDE /* icons.png in Resources */,
 				85550227193B964500DEAF12 /* battleStringsCh.xml in Resources */,
 				8598E8031933804500E72CDE /* mission.png in Resources */,
@@ -1497,6 +1643,7 @@
 				8598E7BF1933804500E72CDE /* home.plist in Resources */,
 				85A116F819461FC200128549 /* particleTexture.png in Resources */,
 				8598E7BD1933804500E72CDE /* helpTitleBG.png in Resources */,
+				85456D63195712AD00D0E941 /* music_battle.mp3 in Resources */,
 				85A116E619461FC200128549 /* effect_broken_1.plist in Resources */,
 				8598E7B51933804500E72CDE /* bombs.plist in Resources */,
 				8598E7931933804500E72CDE /* battle.plist in Resources */,
@@ -1508,6 +1655,7 @@
 				8539BFA91947721400CA75B6 /* medal_icons_0.plist in Resources */,
 				8598E7ED1933804500E72CDE /* map_clouds.png in Resources */,
 				8598E7C71933804500E72CDE /* loading_bar_a.png in Resources */,
+				85456D6D195712AD00D0E941 /* upgrade.wav in Resources */,
 				85A116D419461FC200128549 /* bomb_1_effectB.plist in Resources */,
 				8539BFAB1947721400CA75B6 /* medal_icons_0.png in Resources */,
 				8598E79B1933804500E72CDE /* e_bullets.png in Resources */,
@@ -1521,6 +1669,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8598E7E61933804500E72CDE /* map_5.png in Resources */,
+				85456D50195712AD00D0E941 /* bullet_missile_bomb.mp3 in Resources */,
 				8539BFAE1947721400CA75B6 /* medal_minibox_1.png in Resources */,
 				8598E77E1933804500E72CDE /* baseStringsCh.xml in Resources */,
 				8598E7C81933804500E72CDE /* loading_bar_a.png in Resources */,
@@ -1532,32 +1681,37 @@
 				8598E7E01933804500E72CDE /* map_4.plist in Resources */,
 				859703C8194F333C00BE068D /* bomb_2_effect.plist in Resources */,
 				8598E80A1933804500E72CDE /* upgrade.plist in Resources */,
+				85456D40195712AD00D0E941 /* btSound_1.mp3 in Resources */,
 				8598E7FC1933804500E72CDE /* playerBag.plist in Resources */,
 				8598E81A1933804500E72CDE /* stringsEn.xml in Resources */,
 				8598E8161933804500E72CDE /* particleTexture.png in Resources */,
 				85A116D519461FC200128549 /* bomb_1_effectB.plist in Resources */,
 				8598E7E21933804500E72CDE /* map_4.png in Resources */,
 				8598E8081933804500E72CDE /* mission_icons.png in Resources */,
+				85456D4C195712AD00D0E941 /* bullet_light.wav in Resources */,
 				8598E7CC1933804500E72CDE /* logo.png in Resources */,
 				85456D1619568B4400D0E941 /* bomb_3_effect.plist in Resources */,
 				8598E7901933804500E72CDE /* bases.plist in Resources */,
+				85456D3C195712AD00D0E941 /* btBuild.wav in Resources */,
 				85A116FB19461FC200128549 /* plain_effect_1.plist in Resources */,
+				85456D42195712AD00D0E941 /* btSound_3.wav in Resources */,
 				85A116FF19461FC200128549 /* upgrade_bt_effect.plist in Resources */,
 				85A116E719461FC200128549 /* effect_broken_1.plist in Resources */,
 				85A116F119461FC200128549 /* light_bullet.plist in Resources */,
-				8598E7821933804500E72CDE /* CloseNormal.png in Resources */,
+				85456D5A195712AD00D0E941 /* createBomb.wav in Resources */,
 				857F140A1944D408000DE4E7 /* vanishingPoint.plist in Resources */,
-				8598E8101933804500E72CDE /* HelloWorld.png in Resources */,
 				8598E78E1933804500E72CDE /* allBt.pvr.ccz in Resources */,
 				8598E7D61933804500E72CDE /* map_1.png in Resources */,
 				85A1170119461FC200128549 /* upgrade_plain_effect.plist in Resources */,
 				8598E7B01933804500E72CDE /* p_bullets.png in Resources */,
+				85456D5E195712AD00D0E941 /* getGem.wav in Resources */,
 				852781321934FAA700A0DEA5 /* medalStringsEn.xml in Resources */,
 				85550220193B514700DEAF12 /* plain_progress.png in Resources */,
 				8598E7D81933804500E72CDE /* map_2.plist in Resources */,
 				855E133D1934D0EB00683F21 /* battle_life_plain.png in Resources */,
 				8598E7B21933804500E72CDE /* plainFire.plist in Resources */,
 				8598E7A81933804500E72CDE /* explode_B.png in Resources */,
+				85456D6E195712AD00D0E941 /* upgrade.wav in Resources */,
 				85A116ED19461FC200128549 /* home_fire.plist in Resources */,
 				8598E7BA1933804500E72CDE /* DL.png in Resources */,
 				8598E7F61933804500E72CDE /* newMedalTip_box.png in Resources */,
@@ -1575,55 +1729,73 @@
 				8598E80C1933804500E72CDE /* upgrade.png in Resources */,
 				859703CA194F333C00BE068D /* bomb_2_effectB.plist in Resources */,
 				8598E79C1933804500E72CDE /* e_bullets.png in Resources */,
+				85456D4E195712AD00D0E941 /* bullet_light_enemy.mp3 in Resources */,
 				85A116F719461FC200128549 /* missionList_effect.plist in Resources */,
 				8598E8021933804500E72CDE /* door_r.png in Resources */,
 				85A116F919461FC200128549 /* particleTexture.png in Resources */,
 				85A116E319461FC200128549 /* bomb_fire.plist in Resources */,
+				85456D68195712AD00D0E941 /* music_main.mp3 in Resources */,
 				8598E7AC1933804500E72CDE /* explode_C.png in Resources */,
 				8598E7A61933804500E72CDE /* explode_B.plist in Resources */,
+				85456D58195712AD00D0E941 /* bullet_normal.mp3 in Resources */,
 				8598E78C1933804500E72CDE /* allBt.png in Resources */,
 				855E133B1934D0EB00683F21 /* battle_life_enemy.png in Resources */,
+				85456D54195712AD00D0E941 /* bullet_missile_enemy_start.mp3 in Resources */,
 				8598E7881933804500E72CDE /* Marker Felt.ttf in Resources */,
 				8598E7981933804500E72CDE /* createBombTip_box.png in Resources */,
 				8598E8001933804500E72CDE /* door_l.png in Resources */,
 				8598E7DC1933804500E72CDE /* map_3.plist in Resources */,
 				8598E8181933804500E72CDE /* stringsCh.xml in Resources */,
+				85456D36195712AD00D0E941 /* bomb2_start.mp3 in Resources */,
 				8598E7CE1933804500E72CDE /* logo_monster.png in Resources */,
 				8598E7B41933804500E72CDE /* plainFire.png in Resources */,
 				85A116EF19461FC200128549 /* homeFire.plist in Resources */,
+				85456D46195712AD00D0E941 /* bullet_5_start.mp3 in Resources */,
 				8598E7C21933804500E72CDE /* home.png in Resources */,
+				85456D56195712AD00D0E941 /* bullet_missile_plain_start.mp3 in Resources */,
 				85550228193B964500DEAF12 /* battleStringsCh.xml in Resources */,
 				8598E7DA1933804500E72CDE /* map_2.png in Resources */,
 				8598E7F01933804500E72CDE /* medal-hd.plist in Resources */,
 				8598E7F81933804500E72CDE /* plains.plist in Resources */,
 				8598E7AA1933804500E72CDE /* explode_C.plist in Resources */,
 				8598E7A21933804500E72CDE /* explode_A.plist in Resources */,
+				85456D6C195712AD00D0E941 /* readyBomb.wav in Resources */,
 				8598E8061933804500E72CDE /* mission_icons.plist in Resources */,
 				85A116F319461FC200128549 /* main_effect.plist in Resources */,
+				85456D48195712AD00D0E941 /* bullet_6_end.mp3 in Resources */,
 				8598E79A1933804500E72CDE /* e_bullets.plist in Resources */,
+				85456D3E195712AD00D0E941 /* btSelect.wav in Resources */,
 				8598E7DE1933804500E72CDE /* map_3.png in Resources */,
 				8598E7E41933804500E72CDE /* map_5.plist in Resources */,
 				8598E7C01933804500E72CDE /* home.plist in Resources */,
 				8598E7921933804500E72CDE /* bases.png in Resources */,
+				85456D38195712AD00D0E941 /* bomb_bomb.wav in Resources */,
 				8598E8041933804500E72CDE /* mission.png in Resources */,
 				8598E8121933804500E72CDE /* helpInfoCh.xml in Resources */,
 				8598E7941933804500E72CDE /* battle.plist in Resources */,
 				8598E7D41933804500E72CDE /* map_1.plist in Resources */,
 				8598E7F21933804500E72CDE /* medal_icons.plist in Resources */,
+				85456D6A195712AD00D0E941 /* plain_bomb.wav in Resources */,
 				8598E80E1933804500E72CDE /* windowBox.png in Resources */,
+				85456D5C195712AD00D0E941 /* doolOpen.wav in Resources */,
+				85456D62195712AD00D0E941 /* missionList.wav in Resources */,
 				8555022A193B964500DEAF12 /* battleStringsEn.xml in Resources */,
-				8598E7841933804500E72CDE /* CloseSelected.png in Resources */,
 				8598E7BE1933804500E72CDE /* helpTitleBG.png in Resources */,
 				85A116E119461FC200128549 /* bomb_explode_3.plist in Resources */,
 				8598E7A01933804500E72CDE /* enemys.png in Resources */,
 				8598E78A1933804500E72CDE /* allBt.plist in Resources */,
 				85A116FD19461FC200128549 /* streak.png in Resources */,
 				8598E7801933804500E72CDE /* baseStringsEn.xml in Resources */,
+				85456D60195712AD00D0E941 /* getSpar.mp3 in Resources */,
+				85456D66195712AD00D0E941 /* music_home.mp3 in Resources */,
+				85456D4A195712AD00D0E941 /* bullet_6_start.mp3 in Resources */,
 				8598E7EA1933804500E72CDE /* map_6.png in Resources */,
 				8598E7C61933804500E72CDE /* icons.png in Resources */,
 				8539BFAC1947721400CA75B6 /* medal_icons_0.png in Resources */,
 				8598E8141933804500E72CDE /* helpInfoEn.xml in Resources */,
+				85456D52195712AD00D0E941 /* bullet_missile_bomb_enemy.mp3 in Resources */,
 				8598E7861933804500E72CDE /* arial.ttf in Resources */,
+				85456D3A195712AD00D0E941 /* boos_warning.mp3 in Resources */,
 				8539BFAA1947721400CA75B6 /* medal_icons_0.plist in Resources */,
 				8598E7D01933804500E72CDE /* mainBackground.png in Resources */,
 				8598E7C41933804500E72CDE /* icons.plist in Resources */,
@@ -1631,6 +1803,8 @@
 				503AE0F817EB97AB00D1A890 /* Icon.icns in Resources */,
 				85A116EB19461FC200128549 /* fire.plist in Resources */,
 				8598E7A41933804500E72CDE /* explode_A.png in Resources */,
+				85456D64195712AD00D0E941 /* music_battle.mp3 in Resources */,
+				85456D44195712AD00D0E941 /* bullet_5_light.mp3 in Resources */,
 				85A116E919461FC200128549 /* effect_hit_1.plist in Resources */,
 				85A116F519461FC200128549 /* main_effect2.plist in Resources */,
 				8598E7B81933804500E72CDE /* bombs.png in Resources */,
@@ -1684,7 +1858,6 @@
 				D70949F8193AC706003D197E /* BuyGemLayer.cpp in Sources */,
 				266ACB1719323E2A004DF401 /* MainMenu.cpp in Sources */,
 				266ACAF719323E2A004DF401 /* Base.cpp in Sources */,
-				6896E008193C49E0009282C5 /* PersonalApi.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1727,7 +1900,6 @@
 				8528F15519363F5200EF967E /* MedalRewardsLayer.cpp in Sources */,
 				266ACB1A19323E2A004DF401 /* MenuSettings.cpp in Sources */,
 				85456D02195564C400D0E941 /* PromtWindow.cpp in Sources */,
-				6896E009193C49E0009282C5 /* PersonalApi.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

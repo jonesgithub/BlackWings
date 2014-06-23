@@ -128,7 +128,7 @@ void Battleground::eventCallbackPlayerSelect(EventCustom* event)
 
     if (index < 6)
     {
-        //is weapon touch?
+        PLAY_BUILDPLAIN_EFFECT;
         _readytouseWeapon = false;
         showuseweapontip(false);
         
@@ -223,6 +223,7 @@ void Battleground::createFlight(int index)
 //创建战场
 void Battleground::createBattleground(Ref *sender)
 {
+    PLAY_BATTLE_MUSIC;
     this->removeChild((LoadResourceLayer*)sender,true);
 
     _battlegroundHeight = s_visibleRect.visibleHeight * 3;
@@ -797,6 +798,7 @@ void Battleground::createHealthBar()
 
 void Battleground::menuCallbackPause(Ref *sender)
 {
+    PLAY_BUTTON_EFFECT;
     auto settingLayer = MenuSettings::create(GameInterface::Battle);
     addChild(settingLayer,99);
 }
@@ -868,6 +870,7 @@ void Battleground::onTouchEnded(Touch* touch, Event* event)
 {
     if(_readytouseWeapon && touch->getLocation().getDistance(_touchbegin)<30)
  {
+     PLAY_WEAPONCREATE_EFFECT;
      _readytouseWeapon = false;
      showuseweapontip(false);
      
@@ -955,6 +958,7 @@ void Battleground::callbackPlayerDestroy(EventCustom* event)
 
     if (player)
     {
+        PLAY_BOMB_EFFECT;
         auto explode = Sprite::create();
         auto action = Sequence::create(Animate::create(s_battleground->explode_C),
             CallFuncN::create([=](Node* sender){
@@ -1063,6 +1067,14 @@ void Battleground::dispatchBoss(float dt)
     
     boss->potInRadar->setPosition(Point(-100,-100));
     this->addChild(boss->potInRadar,88);
+    
+    auto warningicon = Sprite::createWithSpriteFrameName("icon_warning.png");
+    warningicon->setAnchorPoint(Point::ANCHOR_MIDDLE);
+    warningicon->setPosition(boss->getPositionX(),s_visibleRect.visibleHeight-80);
+    this->addChild(warningicon);
+    
+    PLAY_WARNING_EFFECT;
+    warningicon->runAction(Sequence::create(Blink::create(2.0f, 5), RemoveSelf::create(), nullptr));
     
     s_boss.push_back(boss);
 }
@@ -1302,7 +1314,11 @@ void Battleground::showStoneAndGem(Point pos, int stoneCount, int gemCount, int 
         gem_text_bk->runAction(Sequence::create(FadeIn::create(0.1f), DelayTime::create(0.3f), FadeOut::create(0.1f), RemoveSelf::create(), nullptr));
         
         add_gem(gem);
+        PLAY_GETSTONE_EFFECT;
+        playerBag->shakeStone();
         
+        PLAY_GETGEM_EFFECT;
+        playerBag->shakeGem();
         add_stone(stone);
         
     }), nullptr));
@@ -1310,6 +1326,7 @@ void Battleground::showStoneAndGem(Point pos, int stoneCount, int gemCount, int 
 
 void Battleground::readyToUseWeapon(WeaponType weapon)
 {
+    PLAY_WEAPONREADY_EFFECT;
     _readytouseWeapon = true;
     showuseweapontip(true);
     _choosedWeapon = weapon;
@@ -1420,11 +1437,13 @@ bool Battleground::reduce_stone(int stone)
         return true;
     }
 }
+
 void Battleground::add_gem(int gem)
 {
     s_playerConfig.gem += gem;
     playerBag->setGem(s_playerConfig.gem);
 }
+
 bool Battleground::reduce_gem(int gem)
 {
     if (gem>s_playerConfig.gem)

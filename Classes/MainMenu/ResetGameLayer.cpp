@@ -67,11 +67,13 @@ bool ResetGameLayer::init()
 
 void ResetGameLayer::menuCallbackClosed(Ref *sender)
 {
+    PLAY_BUTTON_EFFECT;
     this->removeFromParentAndCleanup(true);
 }
 
 void ResetGameLayer::menuCallbackConfirm(Ref *sender)
 {
+    PLAY_BUTTON_EFFECT;
     this->getParent()->removeFromParentAndCleanup(true);
 
     auto notificationLayer = NotificationLayer::create(s_gameStrings.mainMenu->settingResetNotification);

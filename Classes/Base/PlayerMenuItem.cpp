@@ -3,6 +3,7 @@
 #include "VisibleRect.h"
 #include "TextSprite.h"
 #include "PlayerBar.h"
+#include "Configuration.h"
 
 USING_NS_CC;
 USING_NS_CC_EXT;

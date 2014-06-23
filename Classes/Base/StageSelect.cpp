@@ -62,6 +62,7 @@ bool StageSelect::init()
         
         auto actionmovedone = CallFunc::create(
                                         [=](){
+                                            PLAY_OPENDOOR_EFFECT;
                                             auto size = left_door->getContentSize();
                                             auto move = MoveBy::create(0.5, Point(-(size.width+20), 0));
                                             left_door->runAction(move);
@@ -71,6 +72,7 @@ bool StageSelect::init()
                                             right_door->runAction(Sequence::create(ScaleTo::create(0.5, 0, 0.9f),
                                                                                    CallFunc::create([=]()
                                                                                                     {
+                                                                                                        PLAY_STAGELIST_EFFECT;
                                                                                                         isCloseClick = false;
                                                                                                         if(s_playerConfig.overstage>0 && s_playerConfig.overstage<47)
                                                                                                         tableView->setContentOffsetInDuration(tableView->getContentOffset() + Point(0,_cellSize.height*(s_playerConfig.overstage-1)),s_playerConfig.overstage*0.02f);
@@ -217,6 +219,7 @@ void StageSelect::tableCellTouched(extension::TableView* table, extension::Table
 
 void StageSelect::menuCallbackFight(Ref *sender)
 {
+    PLAY_BUTTON_EFFECT;
     auto battle = Battleground::create(_selectItem);
     Director::getInstance()->replaceScene(battle);
 }
@@ -235,6 +238,7 @@ void StageSelect::menuCallbackClosed(Ref *sender)
 {
     if(!isCloseClick)
     {
+        PLAY_BUTTON_EFFECT;
         isCloseClick = true;
         
         this->runAction(FadeTo::create(0.15f,0));
@@ -242,6 +246,7 @@ void StageSelect::menuCallbackClosed(Ref *sender)
         
         auto actionmovedone = CallFunc::create(
                                                [=](){
+                                                   PLAY_OPENDOOR_EFFECT;
                                                    auto size = left_door->getContentSize();
                                                    auto move = MoveBy::create(0.5, Point((size.width+20), 0));
                                                    left_door->runAction(move);
@@ -252,7 +257,7 @@ void StageSelect::menuCallbackClosed(Ref *sender)
                                                });
         auto action = Sequence::create(
                                        actionmovedone,
-                                       DelayTime::create(0.6),
+                                       DelayTime::create(0.6f),
                                        MoveBy::create(0.15f, Point(0,s_visibleRect.visibleHeight * 0.8f)),
                                        CallFunc::create(
                                                         [&](){

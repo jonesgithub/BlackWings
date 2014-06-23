@@ -93,12 +93,12 @@ void Weapon::createWeapon()
                                                  CallFunc::create([=]()
                                                                   {
                                                                       //显示粒子特效
+                                                                      PLAY_STARBOMB_EFFECT;
                                                                       auto bomb_1_effectB = ParticleSystemQuad::create("bomb_1_effectB.plist");
                                                                       bomb_1_effectB->setLife(_weaponConfig.duration/60);
                                                                       bomb_1_effectB->setAutoRemoveOnFinish(true);
                                                                       bomb_1_effectB->setPosition(_pos);
                                                                       this->addChild(bomb_1_effectB);
-//                                                                      bomb_1_effectB->runAction(Sequence::create(DelayTime::create(3.0f), RemoveSelf::create(), nullptr));
                                                                       bomb_1_effectB->setPositionType(ParticleSystem::PositionType::GROUPED);
                                                                       _eventDispatcher->dispatchCustomEvent(GameConfig::eventStarbombHurt,this);
                                                                   }),
@@ -132,6 +132,7 @@ void Weapon::createWeapon()
                                                                                                                         nullptr),
                                                                                                           CallFunc::create([&]()
                                                                       {
+                                                                          PLAY_LASER_EFFECT;
                                                                           auto bomb_2_effect = ParticleSystemQuad::create("bomb_2_effect.plist");
                                                                           bomb_2_effect->setPositionType(ParticleSystem::PositionType::GROUPED);
                                                                           bomb_2_effect->setPosition(Point(s_visibleRect.visibleWidth/2,_pos.y));

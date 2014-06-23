@@ -274,7 +274,7 @@ void GameOverLayer::returnBase_callback(cocos2d::Ref* pSender)
 //    if (Director::getInstance()->isPaused()) {
 //        Director::getInstance()->resume();
 //    }
-    
+    PLAY_BUTTON_EFFECT;
     auto base = Base::create();
     Director::getInstance()->replaceScene(base);
 }
@@ -284,7 +284,7 @@ void GameOverLayer::nextStage_callback(cocos2d::Ref* pSender)
 //    if (Director::getInstance()->isPaused()) {
 //    Director::getInstance()->resume();
 //    }
-    
+    PLAY_BUTTON_EFFECT;
     if(_stage < STAGE_COUNT)
     {
         auto battle = Battleground::create(_stage+1);
@@ -301,6 +301,7 @@ void GameOverLayer::restartStage_callback(cocos2d::Ref* pSender)
 //    if (Director::getInstance()->isPaused()) {
 //        Director::getInstance()->resume();
 //    }
+    PLAY_BUTTON_EFFECT;
     auto battle = Battleground::create(_stage);
     Director::getInstance()->replaceScene(battle);
 }

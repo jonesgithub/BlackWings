@@ -45,6 +45,7 @@ bool Base::init()
 
 void Base::createBase(Ref *sender)
 {
+    PLAY_BASE_MUSIC;
     auto bg = Sprite::create("mainBackground.png");
     bg->setPosition(s_visibleRect.center);
     addChild(bg);
@@ -73,6 +74,7 @@ void Base::createBase(Ref *sender)
     
     //enter,default 1st flight
     {
+        PLAY_TOUCH_ITEM_EFFECT;
         auto player = (PlayerMenuItem*)_playerBag->_playerMenu->getChildByTag(1000);
         player->selected();
         
@@ -130,6 +132,7 @@ void Base::onEnter()
                                                     {
                                                         if(index == i && _curSeletedIndex!=i)
                                                         {
+                                                            PLAY_TOUCH_ITEM_EFFECT;
                                                             _curSelectedFlight->runAction(Sequence::create(FadeOut::create(0.3f),
                                                                                                            RemoveSelf::create(),
                                                                                                            nullptr));
@@ -160,6 +163,7 @@ void Base::onEnter()
                                                     for (int i=FIGHTER_MAX; i<FIGHTER_MAX + WEAPON_MAX; ++i) {
                                                         if(index == i && _curSeletedIndex!=i)
                                                         {
+                                                            PLAY_TOUCH_ITEM_EFFECT;
                                                             _curSelectedFlight->runAction(Sequence::create(FadeOut::create(0.3f),
                                                                                                            RemoveSelf::create(),
                                                                                                            nullptr));
@@ -172,11 +176,6 @@ void Base::onEnter()
                                                             
                                                             auto flight = Sprite::createWithSpriteFrameName(name);
                                                             flightNode->addChild(flight,1,1);
-//                                                            auto flightpar = ParticleSystemQuad::create("plain_effect_1.plist");
-//                                                            flightpar->setAnchorPoint(Point::ANCHOR_MIDDLE);
-//                                                            flightpar->setScale(0.5f);
-//                                                            flightpar->setPosition(Point::ZERO - Point(0,20));
-//                                                            flightNode->addChild(flightpar);
                                                             
                                                             _curSelectedFlight = flightNode;
                                                             _curSeletedIndex = i;
@@ -948,7 +947,7 @@ void Base::createTopPanel()
 
 void Base::menuCallbackMedal(Ref *sender)
 {
-    log("menuCallbackMeadl");
+    PLAY_BUTTON_EFFECT;
     _topPanel->runAction(MoveBy::create(0.2f,Point(0,200)));
     _upgradePanel->runAction(MoveBy::create(0.2f,Point(0,-s_visibleRect.visibleHeight)));
     _bottomPanel->runAction(Sequence::create( MoveBy::create(0.15f,Point(0,-150)),
@@ -960,12 +959,14 @@ void Base::menuCallbackMedal(Ref *sender)
 
 void Base::menuCallbackSetting(Ref *sender)
 {
+    PLAY_BUTTON_EFFECT;
     auto settingLayer = MenuSettings::create(GameInterface::Base);
     addChild(settingLayer,4);
 }
 
 void Base::menuCallbackBattle(Ref *sender)
 {
+    PLAY_BUTTON_EFFECT;
     _topPanel->runAction(MoveBy::create(0.2f,Point(0,200)));
     _upgradePanel->runAction(MoveBy::create(0.2f,Point(0,-s_visibleRect.visibleHeight)));
     _bottomPanel->runAction(Sequence::create( MoveBy::create(0.15f,Point(0,-150)),
@@ -999,6 +1000,7 @@ void Base::upgradeWeapon(Ref* sender)
 
 void Base::buyWeapon(Ref *sender)
 {
+    PLAY_BUTTON_EFFECT;
     MedalChecker::getInstance()->showTip();
     int cost = s_weaponConfigs[_curSeletedIndex-FIGHTER_MAX][s_playerConfig.weaponslevel[_curSeletedIndex-FIGHTER_MAX]].costGem;
     if (cost <= s_playerConfig.gem) {
@@ -1038,6 +1040,7 @@ void Base::buyWeapon(Ref *sender)
 
 void Base::showUpgradeUI(BasePanel basePanel)
 {
+    PLAY_BUTTON_EFFECT;
     auto layer = UpgradeUILayer::create(basePanel, _curSeletedIndex);
     this->addChild(layer,4);
 }

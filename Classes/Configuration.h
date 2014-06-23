@@ -5,6 +5,7 @@
 #include <functional>
 #include "GameStrings.h"
 #include "cocos2d.h"
+#include "SimpleAudioEngine.h"
 
 #define FIGHTER_MAX 6
 #define FIGHTER_LEVEL_MAX 15
@@ -27,7 +28,7 @@
 
 #define STAGE_COUNT 50
 
-#define STAGEOFCANBUYGEM 1
+#define STAGEOFCANBUYGEM -2
 
 #define STAGE_ENEMY_WAVES_00 1
 #define STAGE_ENEMY_WAVES_01 1
@@ -37,6 +38,30 @@
 #define STAGE_TOWER_COUNTS_00 1
 #define STAGE_TOWER_COUNTS_01 1
 #define STAGE_TOWER_COUNTS_02 2
+
+//music
+#define STOP_ALL_MUSIC CocosDenshion::SimpleAudioEngine::getInstance()->stopBackgroundMusic();//停止所有背景音乐
+#define PLAY_MAIN_MUSIC CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("music_main.mp3",true);//菜单背景音乐
+#define PLAY_BASE_MUSIC CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("music_home.mp3",true);//基地背景音乐
+#define PLAY_BATTLE_MUSIC CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("music_battle.mp3",true);//战斗背景音乐
+//effect
+#define PLAY_BUTTON_EFFECT CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("btSound_1.mp3",false);//按键声音
+#define PLAY_TOUCH_ITEM_EFFECT CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("btSelect.wav",false);//Item声音
+#define PLAY_TOUCH_ARROW_EFFECT CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("btSound_3.wav",false);//arrow声音
+#define PLAY_UPGRADE_EFFECT CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("upgrade.wav",false);//arrow声音
+#define PLAY_GETGEM_EFFECT CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("getGem.wav",false);//获得宝石声音
+#define PLAY_GETSTONE_EFFECT CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("getSpar.mp3",false);//获得晶石声音
+#define PLAY_OPENDOOR_EFFECT CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("doolOpen.wav",false);//开关门声音
+#define PLAY_STAGELIST_EFFECT CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("missionList.wav",false);//关卡列表声音
+#define PLAY_BUILDPLAIN_EFFECT CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("btBuild.wav",false);//关卡列表声音
+#define PLAY_WEAPONREADY_EFFECT CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("readyBomb.wav",false);//武器已准备声音
+#define PLAY_WEAPONCREATE_EFFECT CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("createBomb.wav",false);//武器点击屏幕声音
+#define PLAY_STARBOMB_EFFECT CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("bomb_bomb.wav",false);//星际炸弹声音
+#define PLAY_LASER_EFFECT CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("bomb2_start.mp3",false);//镭射声音
+#define PLAY_NORMALBULLET_EFFECT CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("bullet_normal.mp3",false);//普通子弹声音
+#define PLAY_BOMB_EFFECT CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("plain_bomb.wav",false);//爆炸声音
+#define PLAY_WARNING_EFFECT CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("boos_warning.mp3",false);//boss警告声音
+
 
 
 enum class Attacker

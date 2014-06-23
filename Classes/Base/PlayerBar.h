@@ -22,6 +22,10 @@ public:
     
     void setGem(int num);
     
+    void shakeStone();
+    
+    void shakeGem();
+    
     Node* _playerMenu;
     
     cocos2d::MenuItemSprite * fighterCopy;
@@ -36,4 +40,10 @@ private:
     Label* sparNum;
     
     MenuItemImageLabel* menuitem_getmore;
+    
+    bool _isStoneShaking;
+    bool _isGemShaking;
+    
+    Sprite* stoneIcon;
+    Sprite* gemIcon;
 };

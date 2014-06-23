@@ -69,5 +69,6 @@ bool NotificationLayer::init(const std::string& notificationMsg,const Size& size
 
 void NotificationLayer::menuCallbackClosed(Ref *sender)
 {
+    PLAY_BUTTON_EFFECT;
     this->removeFromParentAndCleanup(true);
 }

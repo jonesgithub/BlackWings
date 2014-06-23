@@ -68,11 +68,13 @@ bool NoGemLayer::init()
 
 void NoGemLayer::menuCallbackClosed(Ref *sender)
 {
+    PLAY_BUTTON_EFFECT;
     this->removeFromParentAndCleanup(true);
 }
 
 void NoGemLayer::menuCallbackConfirm(Ref *sender)
 {
+    PLAY_BUTTON_EFFECT;
     this->getParent()->removeFromParentAndCleanup(true);
     
     //enter buy gem ui.

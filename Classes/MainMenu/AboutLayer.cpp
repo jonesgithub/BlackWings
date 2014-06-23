@@ -75,6 +75,7 @@ bool AboutLayer::init()
 
 void AboutLayer::menuCallbackClosed(Ref *sender)
 {
+    PLAY_BUTTON_EFFECT;
     //this->removeFromParentAndCleanup(true);
     this->runAction(FadeTo::create(0.15f,0));
     auto action = Sequence::create(
@@ -89,14 +90,17 @@ void AboutLayer::menuCallbackClosed(Ref *sender)
 void AboutLayer::menuCallbackMicroblog(Ref *sender)
 {
     //todo:openURL
+    PLAY_BUTTON_EFFECT;
 }
 
 void AboutLayer::menuCallbackEmail(Ref *sender)
 {
     //todo:openURL
+    PLAY_BUTTON_EFFECT;
 }
 
 void AboutLayer::menuCallbackRate(Ref *sender)
 {
     //todo:openURL
+    PLAY_BUTTON_EFFECT;
 }
