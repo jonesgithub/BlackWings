@@ -425,6 +425,44 @@ void Battleground::plainFindTarget()
             {
                 player->attackLocations(plainTargetPos,attTarget);
             }
+            
+            if (!player->_isDogging) {
+                for ( auto friendplain : s_players )
+                {
+                    if (player != friendplain && friendplain->_attacker == player->_attacker && player->_fighterType == friendplain->_fighterType) {
+                        distance = playerPos.getDistance(friendplain->getPosition());
+                        if (distance < 50 && playerPos.y<friendplain->getPositionY())
+                        {
+                            player->_isDogging = true;
+                            player->stopAllActions();
+                            Point new_pos;
+                            if(player->getPositionX() < friendplain->getPositionX())
+                            {
+                                new_pos = playerPos + Point(-10,25);
+                                player->moveTo(new_pos,nullptr);
+                                player->runAction(Sequence::create(DelayTime::create(0.8f),CallFunc::create([=]()
+                                {
+                                    if(player)
+                                        player->state = FighterState::IDLE;
+                                    player->_isDogging = false;
+                                }),nullptr));
+                            }
+                            else
+                            {
+                                new_pos = playerPos + Point(10,25);
+                                player->moveTo(new_pos,nullptr);
+                                player->runAction(Sequence::create(DelayTime::create(0.8f),CallFunc::create([=]()
+                                                                                                            {
+                                                                                                                if(player)
+                                                                                                                    player->state = FighterState::IDLE;
+                                                                                                                player->_isDogging = false;
+                                                                                                            }),nullptr));
+                            }
+                            break;
+                        }
+                    }
+                }
+            }
         }
     }
 }

@@ -69,7 +69,8 @@ _bloodbar(nullptr),
 _maxlife(0),
 _curlife(0),
 isInBlackhole(false),
-_isRotating(false)
+_isRotating(false),
+_isDogging(false)
 {
 }
 
@@ -219,21 +220,21 @@ void Fighter::moveTo(Point& pos,Player* target)
     
     switch (_attacker) {
         case Attacker::ENEMY:
-            this->runAction(Sequence::create(CallFunc::create([=](){this->getChildByTag(1)->runAction(RotateTo::create(0.8f, targetdelta));}), DelayTime::create(0.8f),MoveTo::create(dis / enemyConfig.speed,pos), CallFunc::create(
+            this->runAction(Sequence::create(CallFunc::create([=](){this->getChildByTag(1)->runAction(RotateTo::create(0.6f, targetdelta));}), DelayTime::create(0.6f),MoveTo::create(dis / enemyConfig.speed,pos), CallFunc::create(
                                                                                                            [&](){
                                                                                                                state = FighterState::IDLE;
                                                                                                                _isRotating = false;
                                                                                                            }  ),nullptr));
             break;
         case Attacker::BOSS:
-            this->runAction(Sequence::create(CallFunc::create([=](){this->getChildByTag(1)->runAction(RotateTo::create(0.8f, targetdelta));}), DelayTime::create(0.8f), MoveTo::create(dis / bossConfig.speed,pos), CallFunc::create(
+            this->runAction(Sequence::create(CallFunc::create([=](){this->getChildByTag(1)->runAction(RotateTo::create(0.6f, targetdelta));}), DelayTime::create(0.6f), MoveTo::create(dis / bossConfig.speed,pos), CallFunc::create(
                                                                                                            [&](){
                                                                                                                state = FighterState::IDLE;
                                                                                                                _isRotating = false;
                                                                                                            }  ),nullptr));
             break;
         case Attacker::PLAIN:
-            this->runAction(Sequence::create(CallFunc::create([=](){this->getChildByTag(1)->runAction(RotateTo::create(0.8f, targetdelta));}), DelayTime::create(0.8f), MoveTo::create(dis / plainConfig.speed,pos), CallFunc::create(
+            this->runAction(Sequence::create(CallFunc::create([=](){this->getChildByTag(1)->runAction(RotateTo::create(0.6f, targetdelta));}), DelayTime::create(0.6f), MoveTo::create(dis / plainConfig.speed,pos), CallFunc::create(
                                                                                                            [&](){
                                                                                                                state = FighterState::IDLE;
                                                                                                                _isRotating = false;
@@ -260,7 +261,7 @@ void Fighter::attackLocations(Point& pos,Player* target)
         if(_attacker != Attacker::PLAIN)
             targetdelta += 180;
         _isRotating = true;
-        this->getChildByTag(1)->runAction(Sequence::create(RotateTo::create(0.8f, targetdelta),
+        this->getChildByTag(1)->runAction(Sequence::create(RotateTo::create(0.6f, targetdelta),
                                                            CallFunc::create([=]()
                                                                             {
                                                                                 _isRotating = false;
