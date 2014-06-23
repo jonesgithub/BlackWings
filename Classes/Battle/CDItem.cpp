@@ -37,12 +37,12 @@ bool CDItem::init(int index)
     _curcdtime = 0;
     _isMove = true;
     
-    auto item_bk = Sprite::createWithSpriteFrameName("item_1.png");
+    auto item_bk = Sprite::createWithSpriteFrameName("plain_progress_box.png");
     item_bk->setAnchorPoint(Point::ANCHOR_MIDDLE);
     this->addChild(item_bk);
     
     _cdBar = ui::LoadingBar::create("plain_progress.png");
-    _cdBar->setPosition(Point(item_bk->getContentSize().width/2,30));
+    _cdBar->setPosition(Point(item_bk->getContentSize().width/2,13));
     _cdBar->setAnchorPoint(Point::ANCHOR_MIDDLE);
     _cdBar->setPercent(0);
     item_bk->addChild(_cdBar);
@@ -53,8 +53,9 @@ bool CDItem::init(int index)
 
     sprintf(fileName,"plain_%d_lv_%d.png",type + 1,level + 1);
     auto plain = Sprite::createWithSpriteFrameName(fileName);
+    plain->setScale(0.8f);
     plain->setAnchorPoint(Point::ANCHOR_MIDDLE);
-    plain->setPosition(Point(item_bk->getContentSize().width/2,item_bk->getContentSize().height-55));
+    plain->setPosition(Point(item_bk->getContentSize().width/2,item_bk->getContentSize().height/2+5));
     item_bk->addChild(plain);
     
     this->scheduleUpdate();

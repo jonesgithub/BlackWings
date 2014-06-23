@@ -290,7 +290,7 @@ void MenuSettings::menuCallbackHelp(Ref *sender)
 void MenuSettings::menuCallbackMainMenu(Ref *sender)
 {
     PLAY_BUTTON_EFFECT;
-    Director::getInstance()->replaceScene(MainMenu::create());
+    this->addChild(PromtWindow::create(ForWhat::BACKToMainMenu));
 }
 
 void MenuSettings::createSlider()

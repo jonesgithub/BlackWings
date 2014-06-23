@@ -144,7 +144,7 @@ bool GameOverLayer::init(bool win, int stage, int time, int kill, int loss, int 
             icon->setPosition(panelSize.width/2-50, panelSize.height/2);
             _panel->addChild(icon);
             
-            auto label = Label::createWithSystemFont(Value(_gem).asString().c_str(), s_gameConfig.defaultFontName, 20);
+            auto label = Label::createWithTTF(Value(_gem).asString().c_str(), s_gameConfig.defaultFontName, 20);
             label->setPosition(panelSize.width/2+50,panelSize.height/2);
             label->setColor(Color3B::YELLOW);
             _panel->addChild(label);
@@ -156,7 +156,7 @@ bool GameOverLayer::init(bool win, int stage, int time, int kill, int loss, int 
             icon1->setPosition(panelSize.width/2-130, panelSize.height/2);
             _panel->addChild(icon1);
             
-            auto label1 = Label::createWithSystemFont(Value(_gem).asString().c_str(), s_gameConfig.defaultFontName, 20);
+            auto label1 = Label::createWithTTF(Value(_gem).asString().c_str(), s_gameConfig.defaultFontName, 20);
             label1->setPosition(panelSize.width/2-80,panelSize.height/2);
             label1->setColor(Color3B::YELLOW);
             _panel->addChild(label1);
@@ -167,7 +167,7 @@ bool GameOverLayer::init(bool win, int stage, int time, int kill, int loss, int 
                 _panel->addChild(icon2);
                 
                 std::string str = "x" + Value(_starboom).asString();
-                auto label2 = Label::createWithSystemFont(str.c_str(), s_gameConfig.defaultFontName, 20);
+                auto label2 = Label::createWithTTF(str.c_str(), s_gameConfig.defaultFontName, 20);
                 label2->setPosition(panelSize.width/2+130,panelSize.height/2);
                 label2->setColor(Color3B::BLUE);
                 _panel->addChild(label2);
@@ -180,7 +180,7 @@ bool GameOverLayer::init(bool win, int stage, int time, int kill, int loss, int 
                 _panel->addChild(icon2);
                 
                 std::string str = "x" + Value(_laser).asString();
-                auto label2 = Label::createWithSystemFont(str.c_str(), s_gameConfig.defaultFontName, 20);
+                auto label2 = Label::createWithTTF(str.c_str(), s_gameConfig.defaultFontName, 20);
                 label2->setPosition(panelSize.width/2+50,panelSize.height/2);
                 label2->setColor(Color3B::BLUE);
                 _panel->addChild(label2);
@@ -193,7 +193,7 @@ bool GameOverLayer::init(bool win, int stage, int time, int kill, int loss, int 
                 _panel->addChild(icon2);
                 
                 std::string str = "x" + Value(_blackhole).asString();
-                auto label2 = Label::createWithSystemFont(str.c_str(), s_gameConfig.defaultFontName, 20);
+                auto label2 = Label::createWithTTF(str.c_str(), s_gameConfig.defaultFontName, 20);
                 label2->setPosition(panelSize.width/2+50,panelSize.height/2);
                 label2->setColor(Color3B::BLUE);
                 _panel->addChild(label2);

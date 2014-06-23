@@ -550,7 +550,7 @@ void Base::createWeaponBottomInfo(Node* panel, int t_index)
     
     auto menuitembuy = MenuItemImageLabel::createWithFrameName("btB_0.png","btB_1.png",CC_CALLBACK_1(Base::buyWeapon,this));
     menuitembuy->setScale(0.8f);
-    menuitembuy->setPosition(Point(panelSize.width / 2+200,panelSize.height/2+50));
+    menuitembuy->setPosition(Point(panelSize.width / 2+180,panelSize.height/2+30));
     auto menubuy = Menu::create(menuitembuy,nullptr);
     menubuy->setPosition(Point::ZERO);
     panel->addChild(menubuy);
@@ -615,7 +615,7 @@ void Base::createWeaponBottomInfo(Node* panel, int t_index)
     }
     
     {
-        pos.x = 290;
+        pos.x = 310;
         pos.y = panelSize.height * 0.85f;
         _weapon_level_label = Label::createWithTTF(Value(s_playerConfig.weaponslevel[t_index]+1).asString(),fontFile,fontSize);
         _weapon_level_label->setAnchorPoint(Point::ANCHOR_TOP_LEFT);

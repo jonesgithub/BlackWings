@@ -152,7 +152,7 @@ void Battleground::eventCallbackPlayerSelect(EventCustom* event)
         isCDPosUsed[t_pos] = true;
         
         auto movedone = CallFunc::create([=](){cditem->_isMove = false;});
-        auto show = Sequence::create(ScaleTo::create(0.2f, 0.7f), MoveTo::create(0.2f, CDItemsPos[t_pos]), movedone, nullptr);
+        auto show = Sequence::create( MoveTo::create(0.2f, CDItemsPos[t_pos]), movedone, nullptr);
         cditem->runAction(show);
         
         
@@ -675,7 +675,7 @@ void Battleground::blackholeFindTarget()
         for (auto player : s_players)
         {
             auto distance = player->getPosition().getDistance(blackhole->_pos);
-            if (distance < blackhole->_weaponConfig.range && player->isInBlackhole)
+            if (distance < blackhole->_weaponConfig.range && !player->isInBlackhole)
             {
                 player->isInBlackhole = true;
                 player->offsetWithBlackhole = blackhole->_pos - player->getPosition();

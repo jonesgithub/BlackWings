@@ -130,11 +130,11 @@ void MainMenu::createMenu()
     itemSettings->setScale(1.0f,0.0f);
     itemAbout->setScale(1.0f,0.0f);
 
-    auto scaleAction = ScaleTo::create(0.17f,1.0f,1.0f);
+    auto scaleAction = ScaleTo::create(0.25f,1.0f,1.0f);
     itemStart->runAction(scaleAction);
-    itemHelp->runAction(Sequence::create(DelayTime::create(0.17f),scaleAction->clone(),nullptr));
-    itemSettings->runAction(Sequence::create(DelayTime::create(0.34f),scaleAction->clone(),nullptr));
-    itemAbout->runAction(Sequence::create(DelayTime::create(0.51f),scaleAction->clone(),nullptr));
+    itemHelp->runAction(Sequence::create(DelayTime::create(0.25f),scaleAction->clone(),nullptr));
+    itemSettings->runAction(Sequence::create(DelayTime::create(0.5f),scaleAction->clone(),nullptr));
+    itemAbout->runAction(Sequence::create(DelayTime::create(0.75f),scaleAction->clone(),nullptr));
 
     auto listener = EventListenerCustom::create(GameConfig::eventLanguageChange, [=](EventCustom* event){
         itemStart->setText(s_gameStrings.mainMenu->play);
