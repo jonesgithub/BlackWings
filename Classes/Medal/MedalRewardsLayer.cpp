@@ -87,7 +87,7 @@ bool MedalRewardsLayer::init(int money, int starboom, int laser, int blackhole)
         icon->setPosition(panelSize.width/2-50, panelSize.height/2);
         _panel->addChild(icon);
         
-        auto label = Label::createWithSystemFont(Value(_money).asString().c_str(), s_gameConfig.defaultFontName, s_gameConfig.defaultFontSize);
+        auto label = Label::createWithTTF(Value(_money).asString().c_str(), s_gameConfig.defaultFontName, s_gameConfig.defaultFontSize);
         label->setPosition(panelSize.width/2+50,panelSize.height/2);
         label->setColor(Color3B(255, 255, 0));
         _panel->addChild(label);
@@ -98,7 +98,7 @@ bool MedalRewardsLayer::init(int money, int starboom, int laser, int blackhole)
         icon1->setPosition(panelSize.width/2-50, panelSize.height/2+20);
         _panel->addChild(icon1);
         
-        auto label1 = Label::createWithSystemFont(Value(_money).asString().c_str(), s_gameConfig.defaultFontName, s_gameConfig.defaultFontSize);
+        auto label1 = Label::createWithTTF(Value(_money).asString().c_str(), s_gameConfig.defaultFontName, s_gameConfig.defaultFontSize);
         label1->setPosition(panelSize.width/2+50,panelSize.height/2+20);
         label1->setColor(Color3B(255, 255, 0));
         _panel->addChild(label1);
@@ -108,7 +108,7 @@ bool MedalRewardsLayer::init(int money, int starboom, int laser, int blackhole)
             icon2->setPosition(panelSize.width/2-50, panelSize.height/2-40);
             _panel->addChild(icon2);
             
-            auto label2 = Label::createWithSystemFont(Value(_starboom).asString().c_str(), s_gameConfig.defaultFontName, s_gameConfig.defaultFontSize);
+            auto label2 = Label::createWithTTF(Value(_starboom).asString().c_str(), s_gameConfig.defaultFontName, s_gameConfig.defaultFontSize);
             label2->setPosition(panelSize.width/2+50,panelSize.height/2-40);
             label2->setColor(Color3B(255, 255, 0));
             _panel->addChild(label2);
@@ -120,7 +120,7 @@ bool MedalRewardsLayer::init(int money, int starboom, int laser, int blackhole)
             icon2->setPosition(panelSize.width/2-50, panelSize.height/2-40);
             _panel->addChild(icon2);
             
-            auto label2 = Label::createWithSystemFont(Value(_laser).asString().c_str(), s_gameConfig.defaultFontName, s_gameConfig.defaultFontSize);
+            auto label2 = Label::createWithTTF(Value(_laser).asString().c_str(), s_gameConfig.defaultFontName, s_gameConfig.defaultFontSize);
             label2->setPosition(panelSize.width/2+50,panelSize.height/2-40);
             label2->setColor(Color3B(255, 255, 0));
             _panel->addChild(label2);
@@ -132,7 +132,7 @@ bool MedalRewardsLayer::init(int money, int starboom, int laser, int blackhole)
             icon2->setPosition(panelSize.width/2-50, panelSize.height/2-40);
             _panel->addChild(icon2);
             
-            auto label2 = Label::createWithSystemFont(Value(_blackhole).asString().c_str(), s_gameConfig.defaultFontName, s_gameConfig.defaultFontSize);
+            auto label2 = Label::createWithTTF(Value(_blackhole).asString().c_str(), s_gameConfig.defaultFontName, s_gameConfig.defaultFontSize);
             label2->setPosition(panelSize.width/2+50,panelSize.height/2-40);
             label2->setColor(Color3B(255, 255, 0));
             _panel->addChild(label2);

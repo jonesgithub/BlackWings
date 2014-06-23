@@ -30,7 +30,7 @@ bool StageSelect::init()
         };
         _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
 
-        auto panelSize = Size(568,s_visibleRect.visibleHeight * 0.88f);//s_visibleRect.visibleWidth - 97
+        auto panelSize = Size(520,s_visibleRect.visibleHeight * 0.88f);//s_visibleRect.visibleWidth - 97
         auto panelCenterX = panelSize.width / 2.0f;
 
         _cellSize.width = panelSize.width;
@@ -50,12 +50,12 @@ bool StageSelect::init()
         //door effect.
         left_door = Sprite::create("door_l.png");
         right_door = Sprite::create("door_r.png");
-        left_door->setScale(1.08f, 0.9f);
-        right_door->setScale(1.08f, 0.9f);
+        left_door->setScale(1.0f, 0.9f);
+        right_door->setScale(1.0f, 0.9f);
         left_door->setAnchorPoint(Point::ANCHOR_MIDDLE_RIGHT);
         right_door->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
-        left_door->setPosition(Point(panelSize.width/2+20,panelSize.height/2-39));
-        right_door->setPosition(Point(panelSize.width/2-20,panelSize.height/2-39));
+        left_door->setPosition(Point(panelSize.width/2+25,panelSize.height/2-39));
+        right_door->setPosition(Point(panelSize.width/2-25,panelSize.height/2-39));
         _panel->addChild(left_door,2);
         _panel->addChild(right_door,2);
 
@@ -64,7 +64,7 @@ bool StageSelect::init()
                                         [=](){
                                             PLAY_OPENDOOR_EFFECT;
                                             auto size = left_door->getContentSize();
-                                            auto move = MoveBy::create(0.5, Point(-(size.width+20), 0));
+                                            auto move = MoveBy::create(0.5, Point(-(size.width), 0));
                                             left_door->runAction(move);
                                             left_door->runAction(ScaleTo::create(0.5, 0, 0.9f));
                                             auto move1 = move->reverse();

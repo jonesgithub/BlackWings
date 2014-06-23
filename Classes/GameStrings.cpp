@@ -145,6 +145,12 @@ void GSHelpInfoInit(GameLanguage language)
         s_gameStrings.helpInfo->helptips[2] = dict["helptip_2"].asString();
         s_gameStrings.helpInfo->helptips[3] = dict["helptip_3"].asString();
         s_gameStrings.helpInfo->helptips[4] = dict["helptip_4"].asString();
+        s_gameStrings.helpInfo->helptips[5] = dict["helptip_5"].asString();
+        s_gameStrings.helpInfo->helptips[6] = dict["helptip_6"].asString();
+        s_gameStrings.helpInfo->helptips[7] = dict["helptip_7"].asString();
+        s_gameStrings.helpInfo->helptips[8] = dict["helptip_8"].asString();
+        s_gameStrings.helpInfo->helptips[9] = dict["helptip_9"].asString();
+        s_gameStrings.helpInfo->helptips[10] = dict["helptip_10"].asString();
     }
 }
 

@@ -153,20 +153,18 @@ bool Fighter::initFighter(Attacker attacker,int type,int level /* = 0 */)
     //血条
     if (attacker == Attacker::ENEMY || attacker == Attacker::BOSS || attacker == Attacker::TOWER )
     {
-        _bloodbar = ui::LoadingBar::create("battle_life_enemy.png");
+        _bloodbar = ui::LoadingBar::create("enemy_life_pro.png");
         _bloodbar->setAnchorPoint(Point::ANCHOR_MIDDLE);
         _bloodbar->setPosition(Point(_fighterIcon->getContentSize().width/2,_fighterIcon->getContentSize().height+10));
         this->addChild(_bloodbar);
-        _bloodbar->setScale(0.3f);
         _bloodbar->setPercent(100);
     }
     else if(attacker == Attacker::PLAIN)
     {
-        _bloodbar = ui::LoadingBar::create("battle_life_plain.png");
+        _bloodbar = ui::LoadingBar::create("plain_life_pro.png");
         _bloodbar->setAnchorPoint(Point::ANCHOR_MIDDLE);
         _bloodbar->setPosition(Point(_fighterIcon->getContentSize().width/2,-10));
         this->addChild(_bloodbar);
-        _bloodbar->setScale(0.3f);
         _bloodbar->setPercent(100);
     }
     

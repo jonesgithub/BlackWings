@@ -80,14 +80,14 @@ bool PlayerBar::init()
     leftSidebar->getTexture()->setAliasTexParameters();
     leftSidebar->setAnchorPoint(Point::ANCHOR_BOTTOM_LEFT);
     leftSidebar->setPosition(s_visibleRect.leftBottom);
-    this->addChild(leftSidebar,2);
+    this->addChild(leftSidebar,4);
 
     auto rightSidebar = Sprite::createWithSpriteFrameName("dijia2.png");
     rightSidebar->getTexture()->setAliasTexParameters();
     rightSidebar->setFlippedX(true);
     rightSidebar->setAnchorPoint(Point::ANCHOR_BOTTOM_RIGHT);
     rightSidebar->setPosition(s_visibleRect.rightBottom);
-    this->addChild(rightSidebar,2);
+    this->addChild(rightSidebar,4);
 
     stoneIcon = Sprite::createWithSpriteFrameName("icon_stone.png");
     stoneIcon->setPosition(Point(s_visibleRect.center.x - 282,s_visibleRect.visibleOriginY + 165));

@@ -20,8 +20,8 @@ const int RADARSCREEN_UP = 310;
 //暂时设置最大的冷却项为8，差不多一排。
 const Point CDItemsPos[8]=
 {
-    Point(60,240),Point(120,240),Point(180,240),Point(240,240),
-    Point(300,240),Point(360,240),Point(420,240),Point(480,240)
+    Point(60,240),Point(130,240),Point(200,240),Point(270,240),
+    Point(340,240),Point(410,240),Point(480,240),Point(550,240)
 };
 
 //飞机坐标

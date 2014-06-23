@@ -32,14 +32,26 @@
 	<string>Weapon locked.</string>
 	
     <key>helptip_0</key>
-    <string>RandomTip0</string>
+    <string>让生命力顽强的飞机在前面是非常不错的战略。</string>
     <key>helptip_1</key>
-    <string>RandomTip1</string>
+    <string>如果打不过敌人，试着升级你的飞机。</string>
     <key>helptip_2</key>
-    <string>RandomTip2</string>
+    <string>让飞机互相配合才是最明智的，没有最强的个体。</string>
     <key>helptip_3</key>
-    <string>RandomTip3</string>
+    <string>更快的晶石恢复速度可以解决战争中难题。</string>
     <key>helptip_4</key>
-    <string>RandomTip4</string>
+    <string>有些飞机只有在提高等级后会有非常出色的表现。</string>
+    <key>helptip_5</key>
+    <string>升级特殊武器后，它的购买价格也会相应增加。</string>
+    <key>helptip_6</key>
+    <string>小心那些大型的敌人，它会搅乱你的作战计划！</string>
+    <key>helptip_7</key>
+    <string>重复攻打容易些的关卡是积累宝石的好办法！</string>
+    <key>helptip_8</key>
+    <string>使用炸弹等特殊武器，会让你的胜算更大一些。</string>
+    <key>helptip_9</key>
+    <string>提升晶石容量上限会让你在战争中取得先机。</string>
+    <key>helptip_10</key>
+    <string>提升晶石容量或恢复速度时，基地的生命值也会提高。</string>
     
 </dict>

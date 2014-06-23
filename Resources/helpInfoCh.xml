@@ -12,36 +12,47 @@
 	<string>•合金甲战机•拥有强大的生命力，坚固的外壳让它能抵御更多敌人的攻击。
 		“但我的炮管却小得可怜…”，一位合金战机的驾驶员这样抱怨。</string>
 	<key>fighter3</key>
-	<string>•导弹战机•</string>
+	<string>•导弹战机•可以向敌人发射追踪导弹，并且在导弹爆炸范围内的敌人都会受到伤害，缺点是携带过多易爆弹药，不单行动缓慢，还很容易被敌人击落。</string>
 	<key>fighter4</key>
-	<string>•光束战机•</string>
+	<string>•光束战机•可以在瞬间击中敌人，同时还有很快的飞行速度，可惜轻薄的机身仍然承受不了太多攻击。“速度！速度！”这是光束战机的口号。</string>
 	<key>fighter5</key>
-	<string>•磁力战机•</string>
+	<string>•磁力战机•是攻击领域的佼佼者，受到磁力战机攻击的敌人会继续把伤害传播给其他敌人，对付多个敌人的效果非常惊人，虽然造价昂贵但却物有所值。</string>
 	<key>fighter6</key>
-	<string>•黑色之翼•</string>
+	<string>•黑色之翼•传说中的幻影战机，幻影般的机身和幻影般的攻击，会在战场中对敌人发起狂野的攻击。“我的机翼为什么不是黑色？”这是所有黑色之翼驾驶员的疑问。</string>
 	
 	<key>fighterLocked</key>
 	<string>还未解锁该战机，暂时没有信息。</string>
 	
 	<key>weapon1</key>
-	<string>星际炸弹</string>
+	<string>•星际炸弹•在到达目标点后立刻产生大范围的爆炸伤害，是战争中缓解被动情况的常用武器。 在提升登记后可以大幅提升携带上限。</string>
 	<key>weapon2</key>
-	<string>激光发射器</string>
+	<string>•激光发射器•会在战场两端发射一道激光，所有经过的敌人都会受到持续性伤害。对付不会移动的敌人效果非常显著。提升等级会增加持续时间和携带上限。</string>
 	<key>weapon3</key>
-	<string>黑洞</string>
+	<string>•黑洞•使用这个武器请千万小心！黑洞可是不分敌我的，所有靠近它的战机都会被卷入另一个未知的空间。每提升三个等级增加一个携带上限。</string>
 	
 	<key>weaponLocked</key>
 	<string>还未解锁该特殊武器，暂时没有信息</string>
     
     <key>helptip_0</key>
-    <string>随机小提示0</string>
+    <string>让生命力顽强的飞机在前面是非常不错的战略。</string>
     <key>helptip_1</key>
-    <string>随机小提示1</string>
+    <string>如果打不过敌人，试着升级你的飞机。</string>
     <key>helptip_2</key>
-    <string>随机小提示2</string>
+    <string>让飞机互相配合才是最明智的，没有最强的个体。</string>
     <key>helptip_3</key>
-    <string>随机小提示3</string>
+    <string>更快的晶石恢复速度可以解决战争中难题。</string>
     <key>helptip_4</key>
-    <string>随机小提示4</string>
-	
+    <string>有些飞机只有在提高等级后会有非常出色的表现。</string>
+    <key>helptip_5</key>
+    <string>升级特殊武器后，它的购买价格也会相应增加。</string>
+    <key>helptip_6</key>
+    <string>小心那些大型的敌人，它会搅乱你的作战计划！</string>
+    <key>helptip_7</key>
+    <string>重复攻打容易些的关卡是积累宝石的好办法！</string>
+    <key>helptip_8</key>
+    <string>使用炸弹等特殊武器，会让你的胜算更大一些。</string>
+    <key>helptip_9</key>
+    <string>提升晶石容量上限会让你在战争中取得先机。</string>
+    <key>helptip_10</key>
+    <string>提升晶石容量或恢复速度时，基地的生命值也会提高。</string>
 </dict>
