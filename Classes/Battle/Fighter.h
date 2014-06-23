@@ -50,6 +50,10 @@ public:
 
     bool isInBlackhole;
     Point offsetWithBlackhole;
+    
+    bool _isDogging;
+    
+    int _fighterType;
 private:
     Fighter();
     ~Fighter();
@@ -61,7 +65,6 @@ private:
     Player* _attTarget;
     Point _attTargetPos;
 
-    int _fighterType;
     int _fighterLevel;
     
     int _maxlife;
