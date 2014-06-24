@@ -320,10 +320,9 @@ Node* StageSelect::getItemNode(int i)
         sp_new->setVisible(true);
     }
     
-    //
-//    auto ball = RotateBall::createWithIdx(13);
-//    addChild(ball);
-//    ball->setPosition(20, 20);
+    auto ball = RotateBall::createWithIdx(13);
+    item->addChild(ball);
+    ball->setPosition(50, 50);
 
     return item;
 }
