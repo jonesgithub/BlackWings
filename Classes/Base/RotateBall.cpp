@@ -22,7 +22,7 @@ bool RotateBall::initWithIdx(int idx)
 {
     Node::init();
     
-    _isRotate = true;
+    _isRotate = false;
     
     auto bk = Sprite::createWithSpriteFrameName("icon_planet_shadow.png");
     bk->setScale(1.1f);
