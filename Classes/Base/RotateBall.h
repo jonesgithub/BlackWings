@@ -20,6 +20,7 @@ class RotateBall : public Node
 public:
     CREATE_FUNC(RotateBall);
     static RotateBall* createWithIdx(int idx);
+    void resetIdx(int idx);
     void setRotate(bool rotate);
     virtual void update(float dt);
 private:

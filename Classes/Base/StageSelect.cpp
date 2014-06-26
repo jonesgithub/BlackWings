@@ -17,7 +17,7 @@ bool StageSelect::init()
     {
         selected_cell = nullptr;
         
-        s_playerConfig.overstage =10;
+        s_playerConfig.overstage =46;
         
         _selectItem = s_playerConfig.overstage+1;
         _noTouch = true ;
@@ -83,10 +83,10 @@ bool StageSelect::init()
                                            DelayTime::create(0.3f),
                                            actionmovedone,nullptr));
 
-        tableView = TableView::create(this, Size(panelSize.width, panelSize.height - 335));
+        tableView = TableView::create(this, Size(panelSize.width, panelSize.height - 345));
         tableView->setDirection(ScrollView::Direction::VERTICAL);
         tableView->setVerticalFillOrder(TableView::VerticalFillOrder::TOP_DOWN);
-        tableView->setPosition(Point(0,132));
+        tableView->setPosition(Point(0,135));
         tableView->setDelegate(this);
         tableView->reloadData();
         _panel->addChild(tableView);
@@ -120,7 +120,7 @@ bool StageSelect::init()
 cocos2d::extension::TableViewCell* StageSelect::tableCellAtIndex(cocos2d::extension::TableView *table, ssize_t idx)
 {
     auto cell = table->dequeueCell();
-
+    
     if (!cell)
     {
         cell = TableViewCell::create();
@@ -133,9 +133,12 @@ cocos2d::extension::TableViewCell* StageSelect::tableCellAtIndex(cocos2d::extens
         cell->addChild(cell_node,0,10);
         if(_noTouch && idx==_selectItem)
         {selected_cell = cell;}
+        
+        log("!cell.....%d",idx);
     }
     else
     {
+        log("cell.....%d",idx);
         auto item_bk = (Sprite*)cell->getChildByTag(10)->getChildByTag(20);
         if(idx <= s_playerConfig.overstage+1)
             item_bk->setSpriteFrame("bt_mission_0.png");
@@ -172,6 +175,7 @@ cocos2d::extension::TableViewCell* StageSelect::tableCellAtIndex(cocos2d::extens
             cell->getChildByTag(10)->getChildByTag(50)->setVisible(false);
         }
         
+        ((RotateBall*)cell->getChildByTag(10)->getChildByTag(60))->resetIdx(idx);
     }
 
     return cell;
@@ -271,7 +275,6 @@ void StageSelect::menuCallbackClosed(Ref *sender)
 
 Node* StageSelect::getItemNode(int i)
 {
-    log("fuckme.....%d",i);
     auto item = Node::create();
     Sprite* item_bk = nullptr;
     if(i<=s_playerConfig.overstage+1)
@@ -320,9 +323,13 @@ Node* StageSelect::getItemNode(int i)
         sp_new->setVisible(true);
     }
     
-    auto ball = RotateBall::createWithIdx(13);
-    item->addChild(ball);
-    ball->setPosition(50, 50);
 
+    auto ball = RotateBall::createWithIdx(i);
+    ball->setAnchorPoint(Point::ANCHOR_MIDDLE);
+    ball->setPosition(100, 50);
+    ball->setTag(60);
+    item->addChild(ball);
+    ball->setRotate(true);
+    
     return item;
 }
