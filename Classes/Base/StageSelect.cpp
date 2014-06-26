@@ -5,11 +5,8 @@
 #include "GameStrings.h"
 #include "MenuItemImageLabel.h"
 #include "Battleground.h"
-#include "RotateBall.h"
-
 
 USING_NS_CC_EXT;
-using namespace cocos2d::ui;
 
 const std::string StageSelect::eventBack = "eventStageSelsctBack";
 
@@ -17,10 +14,12 @@ bool StageSelect::init()
 {
     if (Layer::init())
     {
+        selected_cell = nullptr;
         
-        s_playerConfig.overstage =10;
+        s_playerConfig.overstage =46;
         
         _selectItem = s_playerConfig.overstage+1;
+        _noTouch = true ;
         isCloseClick = true;
         
         auto listener = EventListenerTouchOneByOne::create();
@@ -31,7 +30,6 @@ bool StageSelect::init()
         _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
 
         auto panelSize = Size(520,s_visibleRect.visibleHeight * 0.88f);//s_visibleRect.visibleWidth - 97
-        auto panelCenterX = panelSize.width / 2.0f;
 
         _cellSize.width = panelSize.width;
         _cellSize.height = 100;
@@ -74,34 +72,24 @@ bool StageSelect::init()
                                                                                                     {
                                                                                                         PLAY_STAGELIST_EFFECT;
                                                                                                         isCloseClick = false;
-//                                                                                                        if(s_playerConfig.overstage>0 && s_playerConfig.overstage<47)
-//                                                                                                        tableView->setContentOffsetInDuration(tableView->getContentOffset() + Point(0,_cellSize.height*(s_playerConfig.overstage-1)),s_playerConfig.overstage*0.02f);
+                                                                                                        if(s_playerConfig.overstage>0 && s_playerConfig.overstage<47)
+                                                                                                        tableView->setContentOffsetInDuration(tableView->getContentOffset() + Point(0,_cellSize.height*(s_playerConfig.overstage-1)),s_playerConfig.overstage*0.02f);
                                                                                                     }),
                                                                                    nullptr));
                                         });
         _panel->runAction(Sequence::create(MoveTo::create(0.15f,s_visibleRect.top),
                                            DelayTime::create(0.3f),
                                            actionmovedone,nullptr));
-        
-        //listview
-        listView = ListView::create();
-        listView->setDirection(SCROLLVIEW_DIR_VERTICAL);
-        listView->setTouchEnabled(true);
-        listView->setBounceEnabled(true);
-        listView->setSize(Size(panelSize.width, panelSize.height - 335));
-        listView->setPosition(Point(0,132));
-        listView->addEventListenerListView(this, listvieweventselector(StageSelect::selectedItemEvent));
-        _panel->addChild(listView);
-        
-        //init listview
-        initListviewItem();
-        
-        // set all items layout gravity
-        listView->setGravity(LISTVIEW_GRAVITY_CENTER_VERTICAL);
-        
-        // set items margin
-        listView->setItemsMargin(2.0f);
 
+        tableView = TableView::create(this, Size(panelSize.width, panelSize.height - 345));
+        tableView->setDirection(ScrollView::Direction::VERTICAL);
+        tableView->setVerticalFillOrder(TableView::VerticalFillOrder::TOP_DOWN);
+        tableView->setPosition(Point(0,135));
+        tableView->setDelegate(this);
+        tableView->reloadData();
+        _panel->addChild(tableView,0);
+        tableView->setTouchEnabled(false);
+        runAction(Sequence::create(DelayTime::create(1.0f),CallFunc::create([=](){tableView->setTouchEnabled(true);}), nullptr));
         
         auto itemClosed = MenuItemImageLabel::createWithFrameName("back_0.png","back_1.png",
             CC_CALLBACK_1(StageSelect::menuCallbackClosed,this));
@@ -116,6 +104,8 @@ bool StageSelect::init()
         auto menu = Menu::create( itemClosed, itemFight, nullptr);
         menu->setPosition(Point::ZERO);
         _panel->addChild(menu);
+        
+        addBall();
 
         return true;
     }
@@ -123,82 +113,91 @@ bool StageSelect::init()
     return false;
 }
 
-void StageSelect::initListviewItem()
+cocos2d::extension::TableViewCell* StageSelect::tableCellAtIndex(cocos2d::extension::TableView *table, ssize_t idx)
 {
-    for (int i = 0; i < STAGE_COUNT; ++i)
+    auto cell = table->dequeueCell();
+    
+    if (!cell)
     {
-        Layout *custom_item = Layout::create();
-        custom_item->setSize(_cellSize);
+        cell = TableViewCell::create();
+
+        /*auto icon = Sprite::createWithSpriteFrameName(iconFileName);
+        icon->setPosition(Point(50,_cellSize.height /2));
+        cell->addChild(icon,0,10);*/
+
+        auto cell_node = getItemNode(idx);
+        cell->addChild(cell_node,0,10);
+        if(_noTouch && idx==_selectItem)
+        {selected_cell = cell;}
         
-        Button* item_bk = nullptr;
-        if(i<=s_playerConfig.overstage+1)
-            item_bk = Button::create("bt_mission_00.png","bt_mission_00.png");
+        log("!cell.....%d",idx);
+    }
+    else
+    {
+        log("cell.....%d",idx);
+        auto item_bk = (Sprite*)cell->getChildByTag(10)->getChildByTag(20);
+        if(idx <= s_playerConfig.overstage+1)
+            item_bk->setSpriteFrame("bt_mission_0.png");
         else
-            item_bk = Button::create("bt_mission_01.png","bt_mission_01.png");
-        item_bk->setPosition(Point(_cellSize.width/2,_cellSize.height/2));
-        custom_item->addChild(item_bk,0,20);
+            item_bk->setSpriteFrame("bt_mission_1.png");
         
-        auto item_hl = Sprite::createWithSpriteFrameName("bt_mission_3.png");
-        item_hl->setAnchorPoint(Point::ANCHOR_MIDDLE);
-        item_hl->setPosition(Point(_cellSize.width/2,_cellSize.height/2));
-        item_hl->setVisible(false);
-        custom_item->addChild(item_hl,0,30);
+//        auto item_hl = (Sprite*)cell->getChildByTag(10)->getChildByTag(30);
+//        item_hl->setSpriteFrame("bt_mission_3.png");
+//        item_hl->setVisible(false);
         
-        if (_selectItem == i)
-            item_hl->setVisible(true);
-        else
-            item_hl->setVisible(false);
-        
-        
-        std::string stage_text_str = s_gameStrings.mainMenu->stagetext + " - " + Value(i+1).asString();
-        auto stage_text = TextSprite::create(stage_text_str,GameConfig::defaultFontName,GameConfig::defaultFontSize);
-        if(i<=s_playerConfig.overstage+1)
+        std::string stage_text_str = s_gameStrings.mainMenu->stagetext + " - " + Value((int)idx+1).asString();
+        auto stage_text = (TextSprite*)cell->getChildByTag(10)->getChildByTag(40);
+        stage_text->setText(stage_text_str);
+        if(idx<=s_playerConfig.overstage+1)
             stage_text->setColor(Color3B(230,230,230));
         else
             stage_text->setColor(Color3B(80,80,80));
-        stage_text->setAnchorPoint(Point::ANCHOR_MIDDLE);
-        stage_text->setPosition(Point(_cellSize.width/2,_cellSize.height/2));
-        stage_text->setTag(40);
-        custom_item->addChild(stage_text,0,40);
         
-        if (_selectItem == i) {
-            auto sp_new = Sprite::createWithSpriteFrameName("icon_new.png");
-            sp_new->setAnchorPoint(Point::ANCHOR_MIDDLE);
-            sp_new->setPosition(Point(_cellSize.width/2+150,_cellSize.height/2));
-            sp_new->setTag(50);
-            custom_item->addChild(sp_new,0,50);
+        if(_selectItem == idx)
+            cell->getChildByTag(10)->getChildByTag(30)->setVisible(true);
+        else
+            cell->getChildByTag(10)->getChildByTag(30)->setVisible(false);
+        
+        if(_noTouch && idx==_selectItem)
+        {
+            selected_cell = cell;
+            cell->getChildByTag(10)->getChildByTag(30)->setVisible(true);
         }
         
-        if (_selectItem == i) {
-        auto ball = RotateBall::createWithIdx(13);
-        ball->setAnchorPoint(Point::ANCHOR_MIDDLE);
-        ball->setPosition(Point(100,_cellSize.height/2));
-        custom_item->addChild(ball,0,60);
+        if (s_playerConfig.overstage +1 == idx) {
+            cell->getChildByTag(10)->getChildByTag(50)->setVisible(true);
         }
-        listView->pushBackCustomItem(custom_item);
+        else{
+            cell->getChildByTag(10)->getChildByTag(50)->setVisible(false);
+        }
+        
+        ((RotateBall*)cell->getChildByTag(10)->getChildByTag(60))->resetIdx(idx);
+        
+        if(idx<=s_playerConfig.overstage+1)
+            cell->getChildByTag(10)->getChildByTag(70)->setVisible(false);
+        else
+            cell->getChildByTag(10)->getChildByTag(70)->setVisible(true);
     }
+
+    return cell;
 }
 
-void StageSelect::selectedItemEvent(Ref *pSender, ui::ListViewEventType type)
+void StageSelect::tableCellTouched(extension::TableView* table, extension::TableViewCell* cell)
 {
-    switch (type)
+    _noTouch = false;
+    if(cell->getIdx()<=s_playerConfig.overstage+1)
     {
-        case cocos2d::ui::LISTVIEW_ONSELECTEDITEM_START:
+        if(selected_cell)
         {
-            
+            selected_cell->getChildByTag(10)->getChildByTag(30)->setVisible(false);
         }
-        case cocos2d::ui::LISTVIEW_ONSELECTEDITEM_END:
-        {
-            
-        }
-        default:
-            break;
-    }
-    int touchindex = listView->getCurSelectedIndex();
-    if (touchindex <= s_playerConfig.overstage+1 && touchindex != _selectItem) {
-        listView->getItem(_selectItem)->getChildByTag(30)->setVisible(false);
-        listView->getItem(touchindex)->getChildByTag(30)->setVisible(true);
-        _selectItem = touchindex;
+        _selectItem = cell->getIdx();
+        cell->getChildByTag(10)->getChildByTag(30)->setVisible(true);
+        selected_cell = cell;
+        log("====>%d",_selectItem);
+        rotateBall->resetIdx(_selectItem);
+        int posy = (STAGE_COUNT - _selectItem)*100-50;
+        rotateBall->setPositionY(posy);
     }
 }
 
@@ -209,15 +208,25 @@ void StageSelect::menuCallbackFight(Ref *sender)
     Director::getInstance()->replaceScene(battle);
 }
 
+cocos2d::Size StageSelect::tableCellSizeForIndex(cocos2d::extension::TableView *table, ssize_t idx)
+{
+    return _cellSize;
+}
+
+ssize_t StageSelect::numberOfCellsInTableView(cocos2d::extension::TableView *table)
+{
+    return 50;
+}
+
 void StageSelect::menuCallbackClosed(Ref *sender)
 {
     if(!isCloseClick)
     {
         PLAY_BUTTON_EFFECT;
         isCloseClick = true;
-        //listView->setTouchEnabled(false);
         
         this->runAction(FadeTo::create(0.15f,0));
+        tableView->setTouchEnabled(false);
         
         auto actionmovedone = CallFunc::create(
                                                [=](){
@@ -244,7 +253,86 @@ void StageSelect::menuCallbackClosed(Ref *sender)
     }
 }
 
-void StageSelect::update(float dt)
+Node* StageSelect::getItemNode(int i)
 {
+    auto item = Node::create();
+    Sprite* item_bk = nullptr;
+    if(i<=s_playerConfig.overstage+1)
+        item_bk = Sprite::createWithSpriteFrameName("bt_mission_0.png");
+    else
+        item_bk = Sprite::createWithSpriteFrameName("bt_mission_1.png");
+    item->setAnchorPoint(Point::ANCHOR_MIDDLE);
+    item_bk->setPosition(Point(_cellSize.width/2,_cellSize.height/2));
+    item_bk->setTag(20);
+    item->addChild(item_bk);
     
+    auto item_hl = Sprite::createWithSpriteFrameName("bt_mission_3.png");
+    item_hl->setAnchorPoint(Point::ANCHOR_MIDDLE);
+    item_hl->setPosition(Point(_cellSize.width/2,_cellSize.height/2));
+    item_hl->setTag(30);
+    item_hl->setVisible(false);
+    item->addChild(item_hl);
+    
+    if(i == _selectItem)
+        item_hl->setVisible(true);
+    else
+        item_hl->setVisible(false);
+    
+    if(_noTouch && i==_selectItem)
+        item_hl->setVisible(true);
+    
+    std::string stage_text_str = s_gameStrings.mainMenu->stagetext + " - " + Value(i+1).asString();
+    auto stage_text = TextSprite::create(stage_text_str,GameConfig::defaultFontName,GameConfig::defaultFontSize);
+    if(i<=s_playerConfig.overstage+1)
+        stage_text->setColor(Color3B(230,230,230));
+    else
+        stage_text->setColor(Color3B(80,80,80));
+    stage_text->setAnchorPoint(Point::ANCHOR_MIDDLE);
+    stage_text->setPosition(Point(_cellSize.width/2,_cellSize.height/2));
+    stage_text->setTag(40);
+    item->addChild(stage_text);
+    
+    auto sp_new = Sprite::createWithSpriteFrameName("icon_new.png");
+    sp_new->setAnchorPoint(Point::ANCHOR_MIDDLE);
+    sp_new->setPosition(Point(_cellSize.width/2+150,_cellSize.height/2));
+    sp_new->setTag(50);
+    sp_new->setVisible(false);
+    item->addChild(sp_new);
+    
+    if (s_playerConfig.overstage +1 == i) {
+        sp_new->setVisible(true);
+    }
+    
+
+    auto ball = RotateBall::createWithIdx(i);
+    ball->setAnchorPoint(Point::ANCHOR_MIDDLE);
+    ball->setPosition(100, 50);
+    ball->setTag(60);
+    item->addChild(ball);
+    ball->setRotate(true);
+    
+    auto ball_mask = Sprite::createWithSpriteFrameName("icon_planet_mask.png");
+    ball_mask->setOpacity(120);
+    ball_mask->setScale(0.8f);
+    ball_mask->setAnchorPoint(Point::ANCHOR_MIDDLE);
+    ball_mask->setPosition(100, 50);
+    ball_mask->setTag(70);
+    item->addChild(ball_mask);
+    if(i<=s_playerConfig.overstage+1)
+        ball_mask->setVisible(false);
+    else
+        ball_mask->setVisible(true);
+    
+    
+    return item;
+}
+
+void StageSelect::addBall()
+{
+    rotateBall = RotateBall::createWithIdx(_selectItem);
+    rotateBall->setAnchorPoint(Point::ANCHOR_MIDDLE);
+    int posy = (STAGE_COUNT - _selectItem)*100-50;
+    rotateBall->setPosition(Point(102,posy));
+    tableView->addChild(rotateBall,6);
+    rotateBall->setRotate(true);
 }
