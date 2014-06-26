@@ -15,26 +15,18 @@
 USING_NS_CC;
 USING_NS_CC_EXT;
 
-enum {
-	kTagTitleLabel = 1,
-	kTagSubtitleLabel = 2,
-	kTagStencilNode = 100,
-	kTagClipperNode = 101,
-	kTagContentNode = 102,
-};
-
 class RotateBall : public Node
 {
-private:
-    bool b_rotate;
-    Sprite* ball;
-    float b_w;
-    void update(float dt);
-    bool initWithIdx(int idx);
 public:
     CREATE_FUNC(RotateBall);
     static RotateBall* createWithIdx(int idx);
     void setRotate(bool rotate);
+    virtual void update(float dt);
+private:
+    bool initWithIdx(int idx);
+    bool _isRotate;
+    Sprite* ball1;
+    Sprite* ball2;
 };
 
 #endif /* defined(__BlackWings__RotateBall__) */
