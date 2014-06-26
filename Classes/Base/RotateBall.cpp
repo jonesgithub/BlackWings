@@ -24,10 +24,6 @@ bool RotateBall::initWithIdx(int idx)
     
     _isRotate = false;
     
-    auto bk = Sprite::createWithSpriteFrameName("icon_planet_shadow.png");
-    bk->setScale(1.1f);
-    this->addChild(bk);
-    
     ClippingNode* clip = ClippingNode::create();
     clip->setInverted(false);
     clip->setAlphaThreshold(0.0f);
@@ -49,6 +45,9 @@ bool RotateBall::initWithIdx(int idx)
     auto mask = Sprite::createWithSpriteFrameName("icon_planet_mask.png");
     clip->setStencil(mask);
     
+    auto bk = Sprite::createWithSpriteFrameName("icon_planet_shadow.png");
+    this->addChild(bk);
+    
     this->setScale(0.8f);
     
     this->scheduleUpdate();
@@ -60,7 +59,9 @@ void RotateBall::resetIdx(int idx)
     char name[30];
     sprintf(name, "icon_planet_%d.png",idx+1);
     ball1->setSpriteFrame(name);
+    ball1->setPosition(Point(0,0));
     ball2->setSpriteFrame(name);
+    ball2->setPosition(ball1->getPosition()-Point(ball1->getContentSize().width,0));
 }
 
 void RotateBall::setRotate(bool rotate)
