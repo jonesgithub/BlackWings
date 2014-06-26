@@ -2,6 +2,7 @@
 
 #include "cocos2d.h"
 #include "extensions/cocos-ext.h"
+#include "RotateBall.h"
 
 USING_NS_CC;
 USING_NS_CC_EXT;
@@ -27,6 +28,7 @@ public:
     virtual extension::TableViewCell* tableCellAtIndex(extension::TableView *table, ssize_t idx);
     virtual ssize_t numberOfCellsInTableView(extension::TableView *table);
 
+    void addBall();
 private:
     int _selectItem;
     
@@ -44,4 +46,6 @@ private:
     bool isCloseClick;
     
     TableView* tableView;
+    
+    RotateBall* rotateBall;
 };

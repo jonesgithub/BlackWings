@@ -5,7 +5,6 @@
 #include "GameStrings.h"
 #include "MenuItemImageLabel.h"
 #include "Battleground.h"
-#include "RotateBall.h"
 
 USING_NS_CC_EXT;
 
@@ -17,7 +16,7 @@ bool StageSelect::init()
     {
         selected_cell = nullptr;
         
-        s_playerConfig.overstage =10;
+        s_playerConfig.overstage =46;
         
         _selectItem = s_playerConfig.overstage+1;
         _noTouch = true ;
@@ -31,7 +30,6 @@ bool StageSelect::init()
         _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
 
         auto panelSize = Size(520,s_visibleRect.visibleHeight * 0.88f);//s_visibleRect.visibleWidth - 97
-        auto panelCenterX = panelSize.width / 2.0f;
 
         _cellSize.width = panelSize.width;
         _cellSize.height = 100;
@@ -83,13 +81,13 @@ bool StageSelect::init()
                                            DelayTime::create(0.3f),
                                            actionmovedone,nullptr));
 
-        tableView = TableView::create(this, Size(panelSize.width, panelSize.height - 335));
+        tableView = TableView::create(this, Size(panelSize.width, panelSize.height - 345));
         tableView->setDirection(ScrollView::Direction::VERTICAL);
         tableView->setVerticalFillOrder(TableView::VerticalFillOrder::TOP_DOWN);
-        tableView->setPosition(Point(0,132));
+        tableView->setPosition(Point(0,135));
         tableView->setDelegate(this);
         tableView->reloadData();
-        _panel->addChild(tableView);
+        _panel->addChild(tableView,0);
         tableView->setTouchEnabled(false);
         runAction(Sequence::create(DelayTime::create(1.0f),CallFunc::create([=](){tableView->setTouchEnabled(true);}), nullptr));
         
@@ -107,9 +105,7 @@ bool StageSelect::init()
         menu->setPosition(Point::ZERO);
         _panel->addChild(menu);
         
-//        auto ball = RotateBall::createWithIdx(13);
-//        addChild(ball);
-//        ball->setPosition(120, 120);
+        addBall();
 
         return true;
     }
@@ -120,7 +116,7 @@ bool StageSelect::init()
 cocos2d::extension::TableViewCell* StageSelect::tableCellAtIndex(cocos2d::extension::TableView *table, ssize_t idx)
 {
     auto cell = table->dequeueCell();
-
+    
     if (!cell)
     {
         cell = TableViewCell::create();
@@ -133,9 +129,12 @@ cocos2d::extension::TableViewCell* StageSelect::tableCellAtIndex(cocos2d::extens
         cell->addChild(cell_node,0,10);
         if(_noTouch && idx==_selectItem)
         {selected_cell = cell;}
+        
+        log("!cell.....%d",idx);
     }
     else
     {
+        log("cell.....%d",idx);
         auto item_bk = (Sprite*)cell->getChildByTag(10)->getChildByTag(20);
         if(idx <= s_playerConfig.overstage+1)
             item_bk->setSpriteFrame("bt_mission_0.png");
@@ -172,6 +171,12 @@ cocos2d::extension::TableViewCell* StageSelect::tableCellAtIndex(cocos2d::extens
             cell->getChildByTag(10)->getChildByTag(50)->setVisible(false);
         }
         
+        ((RotateBall*)cell->getChildByTag(10)->getChildByTag(60))->resetIdx(idx);
+        
+        if(idx<=s_playerConfig.overstage+1)
+            cell->getChildByTag(10)->getChildByTag(70)->setVisible(false);
+        else
+            cell->getChildByTag(10)->getChildByTag(70)->setVisible(true);
     }
 
     return cell;
@@ -185,37 +190,16 @@ void StageSelect::tableCellTouched(extension::TableView* table, extension::Table
         if(selected_cell)
         {
             selected_cell->getChildByTag(10)->getChildByTag(30)->setVisible(false);
-//            auto stage_text = (TextSprite*)cell->getChildByTag(10)->getChildByTag(40);
-//            stage_text->setColor(Color3B(230,230,230));
         }
         _selectItem = cell->getIdx();
         cell->getChildByTag(10)->getChildByTag(30)->setVisible(true);
-//        auto stage_text = (TextSprite*)cell->getChildByTag(10)->getChildByTag(40);
-//        stage_text->setColor(Color3B(0,0,255));
         selected_cell = cell;
         log("====>%d",_selectItem);
-        
+        rotateBall->resetIdx(_selectItem);
+        int posy = (STAGE_COUNT - _selectItem)*100-50;
+        rotateBall->setPositionY(posy);
     }
 }
-
-
-//void StageSelect::tableCellHighlight(extension::TableView* table, extension::TableViewCell* cell)
-//{
-//    if (cell->getIdx()<=s_gameConfig.treasure.overStage) {
-//        cell->getChildByTag(10)->getChildByTag(30)->setVisible(true);
-//        auto stage_text = (TextSprite*)cell->getChildByTag(10)->getChildByTag(40);
-//        stage_text->setColor(Color3B(0,0,255));
-//    }
-//}
-
-//void StageSelect::tableCellUnhighlight(extension::TableView* table, extension::TableViewCell* cell)
-//{
-//    if (cell->getIdx()<=s_gameConfig.treasure.overStage) {
-//    cell->getChildByTag(10)->getChildByTag(30)->setVisible(false);
-//    auto stage_text = (TextSprite*)cell->getChildByTag(10)->getChildByTag(40);
-//    stage_text->setColor(Color3B(230,230,230));
-//    }
-//}
 
 void StageSelect::menuCallbackFight(Ref *sender)
 {
@@ -271,7 +255,6 @@ void StageSelect::menuCallbackClosed(Ref *sender)
 
 Node* StageSelect::getItemNode(int i)
 {
-    log("fuckme.....%d",i);
     auto item = Node::create();
     Sprite* item_bk = nullptr;
     if(i<=s_playerConfig.overstage+1)
@@ -320,10 +303,36 @@ Node* StageSelect::getItemNode(int i)
         sp_new->setVisible(true);
     }
     
-    //
-//    auto ball = RotateBall::createWithIdx(13);
-//    addChild(ball);
-//    ball->setPosition(20, 20);
 
+    auto ball = RotateBall::createWithIdx(i);
+    ball->setAnchorPoint(Point::ANCHOR_MIDDLE);
+    ball->setPosition(100, 50);
+    ball->setTag(60);
+    item->addChild(ball);
+    ball->setRotate(true);
+    
+    auto ball_mask = Sprite::createWithSpriteFrameName("icon_planet_mask.png");
+    ball_mask->setOpacity(120);
+    ball_mask->setScale(0.8f);
+    ball_mask->setAnchorPoint(Point::ANCHOR_MIDDLE);
+    ball_mask->setPosition(100, 50);
+    ball_mask->setTag(70);
+    item->addChild(ball_mask);
+    if(i<=s_playerConfig.overstage+1)
+        ball_mask->setVisible(false);
+    else
+        ball_mask->setVisible(true);
+    
+    
     return item;
+}
+
+void StageSelect::addBall()
+{
+    rotateBall = RotateBall::createWithIdx(_selectItem);
+    rotateBall->setAnchorPoint(Point::ANCHOR_MIDDLE);
+    int posy = (STAGE_COUNT - _selectItem)*100-50;
+    rotateBall->setPosition(Point(102,posy));
+    tableView->addChild(rotateBall,6);
+    rotateBall->setRotate(true);
 }

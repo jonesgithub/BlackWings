@@ -1468,6 +1468,7 @@ void ScrollView::handleReleaseLogic(const Point &touchPoint)
 
 bool ScrollView::onTouchBegan(Touch *touch, Event *unusedEvent)
 {
+    log("before::pos.x = %f, pos.y = %f",touch->getLocation().x,touch->getLocation().y);
     bool pass = Layout::onTouchBegan(touch, unusedEvent);
     if (_hitted)
     {
@@ -1484,6 +1485,7 @@ void ScrollView::onTouchMoved(Touch *touch, Event *unusedEvent)
 
 void ScrollView::onTouchEnded(Touch *touch, Event *unusedEvent)
 {
+    log("After::pos.x = %f, pos.y = %f",touch->getLocation().x,touch->getLocation().y);
     Layout::onTouchEnded(touch, unusedEvent);
     handleReleaseLogic(_touchEndPos);
 }
