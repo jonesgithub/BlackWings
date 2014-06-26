@@ -33,7 +33,7 @@ bool CDItem::init(int index)
     
 //    _onFinish = callback;
     _index = index;
-    _cdtime = s_plainConfigs[_index][s_playerConfig.fighterslevel[_index]].buildtime*60;
+    _cdtime = 1000;//s_plainConfigs[_index][s_playerConfig.fighterslevel[_index]].buildtime*60;
     _curcdtime = 0;
     _isMove = true;
     
