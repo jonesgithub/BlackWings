@@ -282,7 +282,9 @@ void MenuSettings::menuCallbackHelp(Ref *sender)
 {
     PLAY_BUTTON_EFFECT;
     this->removeFromParentAndCleanup(true);
-
+    
+    if(Director::getInstance()->getInstance()->isPaused())
+        Director::getInstance()->resume();
     auto helpLayer = HelpLayer::create();
     Director::getInstance()->getRunningScene()->addChild(helpLayer,999);
 }
@@ -290,7 +292,7 @@ void MenuSettings::menuCallbackHelp(Ref *sender)
 void MenuSettings::menuCallbackMainMenu(Ref *sender)
 {
     PLAY_BUTTON_EFFECT;
-    this->addChild(PromtWindow::create(ForWhat::BACKToMainMenu));
+    Director::getInstance()->getRunningScene()->addChild(PromtWindow::create(ForWhat::BACKToMainMenu),999);
 }
 
 void MenuSettings::createSlider()

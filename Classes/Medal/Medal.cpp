@@ -131,9 +131,9 @@ bool Medal::init()
                               });
     
     auto call2 = CallFunc::create([=](){
-        listView->scrollToTop(1.0f, true);
+        listView->scrollToTop(0.6f, true);
     });
-    runAction(Sequence::create(call1, DelayTime::create(0.1), call2, NULL));
+    runAction(Sequence::create(call1, DelayTime::create(0.2f), call2, NULL));
     
     
     //closebtn
@@ -364,8 +364,8 @@ void Medal::menuCallbackClosed(Ref *sender)
 {
     PLAY_BUTTON_EFFECT;
     _eventDispatcher->dispatchCustomEvent(GameConfig::eventShowHideMedalLogo);
-    listView->scrollToBottom(0.5f, false);
-    this->runAction(FadeTo::create(0.15f,0));
+    //listView->scrollToBottom(0.5f, false);
+    //this->runAction(FadeTo::create(0.15f,0));
     listView->scrollToBottom(1.0f, false);
     auto action = Sequence::create(
                                    MoveBy::create(0.15f, Point(0,s_visibleRect.visibleHeight * 0.8f)),

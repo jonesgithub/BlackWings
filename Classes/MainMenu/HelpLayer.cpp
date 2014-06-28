@@ -52,6 +52,7 @@ bool HelpLayer::init()
 
         auto titleText = TextSprite::create(s_gameStrings.mainMenu->helpTitle);
         titleText->setPosition(_panelSize.width /2, _panelSize.height - 27);
+        titleText->setColor(Color3B::GRAY)
         panel->addChild(titleText);
 
         auto itemClosed = MenuItemImageLabel::createWithFrameName("back_0.png","back_1.png",

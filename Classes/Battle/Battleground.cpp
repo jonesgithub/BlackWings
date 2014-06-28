@@ -1171,6 +1171,7 @@ void Battleground::win()
         _isGameOver = true;
         _isWin = true;
         
+        this->unscheduleAllSelectors();
         this->schedule(schedule_selector(Battleground::showBombEffect), 0.3f);
         
         for (auto enemy : s_enemys)
@@ -1233,6 +1234,7 @@ void Battleground::lost()
         _isGameOver = true;
         _isWin = false;
         
+        this->unscheduleAllSelectors();
         this->schedule(schedule_selector(Battleground::showBombEffect), 0.3f);
         
         for (auto enemy : s_enemys)

@@ -180,12 +180,13 @@ void PlayerMenuItem::activate()
                 cd_sprite->setOpacity(200);
                 auto cd_progress = ProgressTimer::create(cd_sprite);
                 cd_progress->setType(ProgressTimer::Type::RADIAL);
+                cd_progress->setReverseProgress(true);
                 cd_progress->setMidpoint(Point(0.5f, 0.5f));
                 cd_progress->setBarChangeRate(Point(0, 1));
                 cd_progress->setPosition(offset);
                 Node::addChild(cd_progress,1,99);
                 _isInProgress = true;
-                cd_progress->runAction(Sequence::create(ProgressTo::create(cdtime, 100),
+                cd_progress->runAction(Sequence::create(ProgressFromTo::create(cdtime, 100, 0),
                                                         RemoveSelf::create(),
                                                         CallFunc::create([&]()
                                                                          {
@@ -218,12 +219,13 @@ void PlayerMenuItem::activeCD_callback(EventCustom* event)
                 cd_sprite->setOpacity(200);
                 auto cd_progress = ProgressTimer::create(cd_sprite);
                 cd_progress->setType(ProgressTimer::Type::RADIAL);
+                cd_progress->setReverseProgress(true);
                 cd_progress->setMidpoint(Point(0.5f, 0.5f));
                 cd_progress->setBarChangeRate(Point(0, 1));
                 cd_progress->setPosition(offset);
                 Node::addChild(cd_progress,1,0);
                 _isInProgress = true;
-                cd_progress->runAction(Sequence::create(ProgressTo::create(cdtime, 100),
+                cd_progress->runAction(Sequence::create(ProgressFromTo::create(cdtime, 100, 0),
                                                         RemoveSelf::create(),
                                                         CallFunc::create([&]()
                                                                          {

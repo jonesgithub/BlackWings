@@ -36,14 +36,15 @@ LoadResourceLayer::LoadResourceLayer()
 
 bool LoadResourceLayer::init(const LoadResourceCallback& callback)
 {
-    if (LayerColor::initWithColor(Color4B(60,60,60,255)))
+    if (LayerColor::initWithColor(Color4B(40,40,40,255)))
     {
         STOP_ALL_MUSIC;
         _onFinish = callback;
         this->scheduleUpdateWithPriority(0);
 
         auto logo = Sprite::create("logo.png");
-        logo->setPosition(Point(s_visibleRect.center.x,s_visibleRect.visibleOriginY + s_visibleRect.visibleHeight * 0.75f));
+        logo->setScale(0.65f);
+        logo->setPosition(Point(s_visibleRect.center.x,s_visibleRect.visibleOriginY + s_visibleRect.visibleHeight * 0.65f));
         this->addChild(logo);
 
         auto loadBg = Sprite::create("loading_bar_a.png");
