@@ -110,13 +110,13 @@
     
     <!--勋章顶部信息-->
     <key>overstage</key>
-    <string>通过关卡</string>
+    <string>通过关卡：</string>
     <key>usedspcweapon</key>
-    <string>使用特殊武器</string>
+    <string>使用特殊武器：</string>
     <key>killenemy</key>
-    <string>消灭敌人</string>
+    <string>消灭敌人：</string>
     <key>killbigenemy</key>
-    <string>消灭大型敌人</string>
+    <string>消灭大型敌人：</string>
     
     <key>newmedal</key>
     <string>新的成就</string>

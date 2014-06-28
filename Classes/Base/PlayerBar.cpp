@@ -105,7 +105,7 @@ bool PlayerBar::init()
     this->addChild(gemIcon,2);
     
     std::string fontFile = "DS-Digital.ttf";//"arial.ttf";
-    int fontSize = 20;
+    int fontSize = 27;
     
     auto slash = Label::createWithTTF("/",fontFile,fontSize);
     slash->setAnchorPoint(Point::ANCHOR_MIDDLE_BOTTOM);

@@ -67,6 +67,10 @@ bool Medal::init()
     auto label_2 = TextSprite::create(s_gameStrings.medalInfo->medalusedspcweapon, s_gameConfig.defaultFontName, 20);
     auto label_3 = TextSprite::create(s_gameStrings.medalInfo->medalkillenemy, s_gameConfig.defaultFontName, 20);
     auto label_4 = TextSprite::create(s_gameStrings.medalInfo->medalkillbigenemy, s_gameConfig.defaultFontName, 20);
+    label_1->setColor(DIY_COLOR_GRAY2);
+    label_2->setColor(DIY_COLOR_GRAY2);
+    label_3->setColor(DIY_COLOR_GRAY2);
+    label_4->setColor(DIY_COLOR_GRAY2);
     label_1->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
     label_2->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
     label_3->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
@@ -84,6 +88,10 @@ bool Medal::init()
     auto label_num2 = TextSprite::create(Value(s_playerConfig.usedweapon).asString().c_str(), s_gameConfig.defaultFontName, 20);
     auto label_num3 = TextSprite::create(Value(s_playerConfig.killenemy).asString().c_str(), s_gameConfig.defaultFontName, 20);
     auto label_num4 = TextSprite::create(Value(s_playerConfig.killbigenemy).asString().c_str(), s_gameConfig.defaultFontName, 20);
+    label_num1->setColor(DIY_COLOR_BLUE2);
+    label_num2->setColor(DIY_COLOR_BLUE2);
+    label_num3->setColor(DIY_COLOR_BLUE2);
+    label_num4->setColor(DIY_COLOR_BLUE2);
     label_num1->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
     label_num2->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
     label_num3->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
@@ -92,10 +100,6 @@ bool Medal::init()
     label_num2->setPosition(Point(440,70));
     label_num3->setPosition(Point(230,30));
     label_num4->setPosition(Point(440,30));
-    label_num1->setColor(Color3B(0, 0, 255));
-    label_num2->setColor(Color3B(0, 0, 255));
-    label_num3->setColor(Color3B(0, 0, 255));
-    label_num4->setColor(Color3B(0, 0, 255));
     medal_data_bk->addChild(label_num1);
     medal_data_bk->addChild(label_num2);
     medal_data_bk->addChild(label_num3);
@@ -226,7 +230,7 @@ void Medal::initListviewItem()
         MenuItemImageLabel* btnGetBonus = MenuItemImageLabel::createWithFrameName("bt_buy_gem_0.png", "bt_buy_gem_4.png", callback, s_gameStrings.medalInfo->getbonus, GameConfig::defaultFontName, 25);
         btnGetBonus->setPosition(453, 45);
         btnGetBonus->setTag(110);
-        btnGetBonus->setTextColor(Color3B::YELLOW,Color3B::BLACK);
+        btnGetBonus->setTextColor(DIY_COLOR_YELLOW3,Color3B::BLACK);
         auto menuGetBonus = Menu::create(btnGetBonus, nullptr);
         menuGetBonus->setPosition(Point::ZERO);
         custom_item->addChild(menuGetBonus, 0, 111);
@@ -267,18 +271,19 @@ void Medal::initListviewItem()
         item_image->setPosition(Point(70,_cellSize.height/2-5));
         custom_item->addChild(item_image,0,40);
         
-        auto infoSprite_1 = TextSprite::create(s_gameStrings.medalInfo->medalname[i],GameConfig::defaultFontName,25,
+        auto infoSprite_1 = TextSprite::create(s_gameStrings.medalInfo->medalname[i],GameConfig::defaultFontName,27,
                                                Size(_cellSize.width - 200,_cellSize.height - 30),TextHAlignment::LEFT,TextVAlignment::CENTER);
         infoSprite_1->setPosition(Point(_cellSize.width /2+50,_cellSize.height /2+30));
         if(s_playerConfig.medallocked[i])
-            infoSprite_1->setColor(Color3B(240, 240, 240));
+            infoSprite_1->setColor(DIY_COLOR_GRAY3);
         else
-            infoSprite_1->setColor(Color3B(255, 255, 0));
+            infoSprite_1->setColor(DIY_COLOR_YELLOW2);
         custom_item->addChild(infoSprite_1,0,50);
         
-        auto infoSprite_2 = TextSprite::create(s_gameStrings.medalInfo->medaldscr[i],GameConfig::defaultFontName,20,
+        auto infoSprite_2 = TextSprite::create(s_gameStrings.medalInfo->medaldscr[i],GameConfig::defaultFontName,22,
                                                Size(_cellSize.width - 200,_cellSize.height - 30),TextHAlignment::LEFT,TextVAlignment::CENTER);
         infoSprite_2->setPosition(Point(_cellSize.width /2+50,_cellSize.height /2-10));
+        infoSprite_2->setColor(DIY_COLOR_GRAY3);
         custom_item->addChild(infoSprite_2,0,60);
 
         
@@ -346,9 +351,9 @@ void Medal::refreshAllItems()
         
         auto infoSprite_1 = static_cast<TextSprite*>(custom_item->getChildByTag(50));
         if(s_playerConfig.medallocked[i])
-            infoSprite_1->setColor(Color3B(240, 240, 240));
+            infoSprite_1->setColor(DIY_COLOR_GRAY3);
         else
-            infoSprite_1->setColor(Color3B(255, 255, 0));
+            infoSprite_1->setColor(DIY_COLOR_YELLOW2);
         
         auto infoSprite_2 = static_cast<TextSprite*>(custom_item->getChildByTag(60));
         CC_UNUSED_PARAM(infoSprite_2);

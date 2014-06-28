@@ -62,7 +62,18 @@
 #define PLAY_BOMB_EFFECT CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("plain_bomb.wav",false);//爆炸声音
 #define PLAY_WARNING_EFFECT CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("boos_warning.mp3",false);//boss警告声音
 
+//TextColor
+#define DIY_COLOR_BLUE1 Color3B(99, 218, 208)
+#define DIY_COLOR_YELLOW1  Color3B(189, 189, 142)
+#define DIY_COLOR_GRAY1 Color3B(168, 168, 168)
 
+#define DIY_COLOR_GRAY2 Color3B(200, 200, 200)
+#define DIY_COLOR_BLUE2 Color3B(67, 207, 195)
+
+#define DIY_COLOR_YELLOW2 Color3B(210, 174, 78)
+#define DIY_COLOR_GRAY3 Color3B(173, 173, 173)
+
+#define DIY_COLOR_YELLOW3 Color3B(219, 227, 0)
 
 enum class Attacker
 {
@@ -112,8 +123,6 @@ typedef struct _playerconfig
 }PlayerConfig;
 
 extern PlayerConfig s_playerConfig;
-
-
 
 class GameConfig
 {
