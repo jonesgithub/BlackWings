@@ -298,8 +298,6 @@
 		85456F9E19586DFA00D0E941 /* medal_minibox_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 85456EF819586DFA00D0E941 /* medal_minibox_1.png */; };
 		85456F9F19586DFA00D0E941 /* newMedalTip_box.png in Resources */ = {isa = PBXBuildFile; fileRef = 85456EF919586DFA00D0E941 /* newMedalTip_box.png */; };
 		85456FA019586DFA00D0E941 /* newMedalTip_box.png in Resources */ = {isa = PBXBuildFile; fileRef = 85456EF919586DFA00D0E941 /* newMedalTip_box.png */; };
-		85456FA119586DFA00D0E941 /* Thumbs.db in Resources */ = {isa = PBXBuildFile; fileRef = 85456EFA19586DFA00D0E941 /* Thumbs.db */; };
-		85456FA219586DFA00D0E941 /* Thumbs.db in Resources */ = {isa = PBXBuildFile; fileRef = 85456EFA19586DFA00D0E941 /* Thumbs.db */; };
 		85456FA319586DFA00D0E941 /* plain_life_pro.png in Resources */ = {isa = PBXBuildFile; fileRef = 85456EFB19586DFA00D0E941 /* plain_life_pro.png */; };
 		85456FA419586DFA00D0E941 /* plain_life_pro.png in Resources */ = {isa = PBXBuildFile; fileRef = 85456EFB19586DFA00D0E941 /* plain_life_pro.png */; };
 		85456FA519586DFA00D0E941 /* plain_progress.png in Resources */ = {isa = PBXBuildFile; fileRef = 85456EFC19586DFA00D0E941 /* plain_progress.png */; };
@@ -368,8 +366,6 @@
 		85456FE419586DFA00D0E941 /* mission_icons.plist in Resources */ = {isa = PBXBuildFile; fileRef = 85456F1D19586DFA00D0E941 /* mission_icons.plist */; };
 		85456FE519586DFA00D0E941 /* mission_icons.png in Resources */ = {isa = PBXBuildFile; fileRef = 85456F1E19586DFA00D0E941 /* mission_icons.png */; };
 		85456FE619586DFA00D0E941 /* mission_icons.png in Resources */ = {isa = PBXBuildFile; fileRef = 85456F1E19586DFA00D0E941 /* mission_icons.png */; };
-		85456FE719586DFA00D0E941 /* Thumbs.db in Resources */ = {isa = PBXBuildFile; fileRef = 85456F1F19586DFA00D0E941 /* Thumbs.db */; };
-		85456FE819586DFA00D0E941 /* Thumbs.db in Resources */ = {isa = PBXBuildFile; fileRef = 85456F1F19586DFA00D0E941 /* Thumbs.db */; };
 		85456FE919586DFA00D0E941 /* upgrade.plist in Resources */ = {isa = PBXBuildFile; fileRef = 85456F2019586DFA00D0E941 /* upgrade.plist */; };
 		85456FEA19586DFA00D0E941 /* upgrade.plist in Resources */ = {isa = PBXBuildFile; fileRef = 85456F2019586DFA00D0E941 /* upgrade.plist */; };
 		85456FEB19586DFA00D0E941 /* upgrade.png in Resources */ = {isa = PBXBuildFile; fileRef = 85456F2119586DFA00D0E941 /* upgrade.png */; };
@@ -800,7 +796,6 @@
 		85456EF719586DFA00D0E941 /* medal_icons_0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = medal_icons_0.png; sourceTree = "<group>"; };
 		85456EF819586DFA00D0E941 /* medal_minibox_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = medal_minibox_1.png; sourceTree = "<group>"; };
 		85456EF919586DFA00D0E941 /* newMedalTip_box.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = newMedalTip_box.png; sourceTree = "<group>"; };
-		85456EFA19586DFA00D0E941 /* Thumbs.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = Thumbs.db; sourceTree = "<group>"; };
 		85456EFB19586DFA00D0E941 /* plain_life_pro.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plain_life_pro.png; sourceTree = "<group>"; };
 		85456EFC19586DFA00D0E941 /* plain_progress.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plain_progress.png; sourceTree = "<group>"; };
 		85456EFD19586DFA00D0E941 /* plains.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = plains.plist; sourceTree = "<group>"; };
@@ -835,7 +830,6 @@
 		85456F1C19586DFA00D0E941 /* mission.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mission.png; sourceTree = "<group>"; };
 		85456F1D19586DFA00D0E941 /* mission_icons.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = mission_icons.plist; sourceTree = "<group>"; };
 		85456F1E19586DFA00D0E941 /* mission_icons.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mission_icons.png; sourceTree = "<group>"; };
-		85456F1F19586DFA00D0E941 /* Thumbs.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = Thumbs.db; sourceTree = "<group>"; };
 		85456F2019586DFA00D0E941 /* upgrade.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = upgrade.plist; sourceTree = "<group>"; };
 		85456F2119586DFA00D0E941 /* upgrade.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = upgrade.png; sourceTree = "<group>"; };
 		85456F2219586DFA00D0E941 /* windowBox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = windowBox.png; sourceTree = "<group>"; };
@@ -1313,7 +1307,6 @@
 				85456EF719586DFA00D0E941 /* medal_icons_0.png */,
 				85456EF819586DFA00D0E941 /* medal_minibox_1.png */,
 				85456EF919586DFA00D0E941 /* newMedalTip_box.png */,
-				85456EFA19586DFA00D0E941 /* Thumbs.db */,
 			);
 			path = medal;
 			sourceTree = "<group>";
@@ -1356,7 +1349,6 @@
 				85456F1C19586DFA00D0E941 /* mission.png */,
 				85456F1D19586DFA00D0E941 /* mission_icons.plist */,
 				85456F1E19586DFA00D0E941 /* mission_icons.png */,
-				85456F1F19586DFA00D0E941 /* Thumbs.db */,
 			);
 			path = stage;
 			sourceTree = "<group>";
@@ -1668,7 +1660,6 @@
 				85456FC119586DFA00D0E941 /* effect_broken_1.plist in Resources */,
 				85A116FE19461FC200128549 /* upgrade_bt_effect.plist in Resources */,
 				85456F2D19586DFA00D0E941 /* battle.plist in Resources */,
-				85456FA119586DFA00D0E941 /* Thumbs.db in Resources */,
 				85456F2F19586DFA00D0E941 /* battle.png in Resources */,
 				5087E78317EB970100C73F5D /* Icon-152.png in Resources */,
 				85456FD319586DFA00D0E941 /* particleTexture.png in Resources */,
@@ -1683,7 +1674,6 @@
 				85456D5D195712AD00D0E941 /* getGem.wav in Resources */,
 				85456FE519586DFA00D0E941 /* mission_icons.png in Resources */,
 				859703C7194F333C00BE068D /* bomb_2_effect.plist in Resources */,
-				85456FE719586DFA00D0E941 /* Thumbs.db in Resources */,
 				8527812F1934FAA700A0DEA5 /* medalStringsCh.xml in Resources */,
 				85456FA919586DFA00D0E941 /* plains.png in Resources */,
 				85A116E419461FC200128549 /* effect_bomb_1.plist in Resources */,
@@ -1893,7 +1883,6 @@
 				85456F2819586DFA00D0E941 /* allBt.pvr.ccz in Resources */,
 				85456FC419586DFA00D0E941 /* effect_hit_1.plist in Resources */,
 				85456FC619586DFA00D0E941 /* fire.plist in Resources */,
-				85456FA219586DFA00D0E941 /* Thumbs.db in Resources */,
 				85456F6619586DFA00D0E941 /* home.png in Resources */,
 				85456F2619586DFA00D0E941 /* allBt.png in Resources */,
 				85456F7E19586DFA00D0E941 /* map_2.png in Resources */,
@@ -1942,7 +1931,6 @@
 				85456F5419586DFA00D0E941 /* battle_life_enemy.png in Resources */,
 				85456D5C195712AD00D0E941 /* doolOpen.wav in Resources */,
 				85456D62195712AD00D0E941 /* missionList.wav in Resources */,
-				85456FE819586DFA00D0E941 /* Thumbs.db in Resources */,
 				85456FCA19586DFA00D0E941 /* homeFire.plist in Resources */,
 				85456FA419586DFA00D0E941 /* plain_life_pro.png in Resources */,
 				8555022A193B964500DEAF12 /* battleStringsEn.xml in Resources */,
