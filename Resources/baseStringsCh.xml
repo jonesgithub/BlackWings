@@ -10,19 +10,19 @@
 	<key>upgrade</key>
 	<string>提升等级</string>
 	<key>upgradeLevel</key>
-	<string>等级：</string>
+	<string>等级:</string>
 	<key>upgradeAtt</key>
-	<string>攻击：</string>
+	<string>攻击:</string>
 	<key>upgradeDef</key>
-	<string>防御：</string>
+	<string>防御:</string>
 	<key>upgradeLife</key>
-	<string>生命：</string>
+	<string>生命:</string>
 	<key>upgradeSpd</key>
-	<string>速度：</string>
+	<string>速度:</string>
 	<key>upgradeRange</key>
-	<string>射程：</string>
+	<string>射程:</string>
     <key>upgradeDuration</key>
-	<string>持续时间：</string>
+	<string>持续时间:</string>
     <key>upgradeBuy</key>
 	<string>购买</string>
     

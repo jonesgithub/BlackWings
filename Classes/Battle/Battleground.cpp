@@ -1325,13 +1325,18 @@ void Battleground::showStoneAndGem(Point pos, int stoneCount, int gemCount, int 
         gem_sprite->runAction(Sequence::create(MoveBy::create(0.5f, offsetPos), RotateTo::create(0.5f,120), MoveTo::create(1.0f, GemPos-offset), RemoveSelf::create(), nullptr));
     }
     this->runAction(Sequence::create(DelayTime::create(2.1f), CallFunc::create([=](){
+        std::string fontFile = "DS-Digital.ttf";//"arial.ttf";
+        int fontSize = 25;
+        auto infoColor = DIY_COLOR_BLUE5;
+        
         auto stone_text_bk = Sprite::createWithSpriteFrameName("gemTip_box.png");
         stone_text_bk->setAnchorPoint(Point::ANCHOR_MIDDLE);
         stone_text_bk->setPosition(StonePos+Point(0,30));
         this->addChild(stone_text_bk);
         
         std::string strStonetext = "+ " + Value(stone).asString();
-        auto stone_text = TextSprite::create(strStonetext);
+        auto stone_text = Label::createWithTTF(strStonetext,fontFile, fontSize);
+        stone_text->setColor(infoColor);
         stone_text->setAnchorPoint(Point::ANCHOR_MIDDLE);
         stone_text->setPosition(Point(stone_text_bk->getContentSize().width/2,stone_text_bk->getContentSize().height/2));
         stone_text_bk->addChild(stone_text);
@@ -1345,7 +1350,8 @@ void Battleground::showStoneAndGem(Point pos, int stoneCount, int gemCount, int 
         this->addChild(gem_text_bk);
         
         std::string strGemtext = "+ " + Value(gem).asString();
-        auto gem_text = TextSprite::create(strGemtext);
+        auto gem_text = Label::createWithTTF(strGemtext, fontFile, fontSize);
+        gem_text->setColor(infoColor);
         gem_text->setAnchorPoint(Point::ANCHOR_MIDDLE);
         gem_text->setPosition(Point(gem_text_bk->getContentSize().width/2,gem_text_bk->getContentSize().height/2));
         gem_text_bk->addChild(gem_text);

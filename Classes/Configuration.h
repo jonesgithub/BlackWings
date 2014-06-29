@@ -63,18 +63,29 @@
 #define PLAY_WARNING_EFFECT CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("boos_warning.mp3",false);//boss警告声音
 
 //TextColor
+//帮助
 #define DIY_COLOR_BLUE1 Color3B(99, 218, 208)
 #define DIY_COLOR_YELLOW1  Color3B(189, 189, 142)
 #define DIY_COLOR_GRAY1 Color3B(168, 168, 168)
-
+#define DIY_COLOR_ORANGE1 Color3B(210, 161, 125)
+//勋章-顶部
 #define DIY_COLOR_GRAY2 Color3B(200, 200, 200)
 #define DIY_COLOR_BLUE2 Color3B(67, 207, 195)
-
+//勋章-item
 #define DIY_COLOR_YELLOW2 Color3B(210, 174, 78)
 #define DIY_COLOR_GRAY3 Color3B(173, 173, 173)
-
+//勋章-按钮
 #define DIY_COLOR_YELLOW3 Color3B(219, 227, 0)
+//base
+#define DIY_COLOR_YELLOW4 Color3B(217, 198, 149)
+#define DIY_COLOR_BLUE3 Color4B(100, 255, 255, 255)
+#define DIY_COLOR_BLUE5
+//升级
+#define DIY_COLOR_YELLOW5 Color3B(220, 200, 150)
+//button
+#define DIY_COLOR_BLUE4 Color3B(106, 200, 238)
 
+#define DIY_COLOR_BLUE5 Color3B(100, 255, 255)
 enum class Attacker
 {
     ENEMY,

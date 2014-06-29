@@ -99,7 +99,7 @@ private:
     cocos2d::Label* _weapon_duration_label;
     cocos2d::Label* _weapon_upgradeforgem_label;
     cocos2d::Label* _weapon_costgem_label;
-    TextSprite* _buy_gem;
+    cocos2d::Label* _buy_gem;
 
     TextSprite* fighter_levelText;
     TextSprite* fighter_attText;

@@ -63,9 +63,10 @@ bool PlayerMenuItem::init(Type playerType,int index)
             else
             {
                 sprintf(iconFileName,"plain_%d_lv_%d.png",index + 1,s_playerConfig.fighterslevel[index] + 1);
-                
-                stoneformake_text = TextSprite::create(Value(s_plainConfigs[index][s_playerConfig.fighterslevel[index]].sparForMake).asString().c_str(),GameConfig::defaultFontName,20);
-                stoneformake_text->setPosition(Point(44,25));
+                std::string fontFile = "DS-Digital.ttf";
+                int fontSize = 25;
+                stoneformake_text = Label::createWithTTF(Value(s_plainConfigs[index][s_playerConfig.fighterslevel[index]].sparForMake).asString(),fontFile,fontSize);
+                stoneformake_text->setPosition(Point(44,28));
                 Node::addChild(stoneformake_text,3);
                 _isLocked = false;
             }
@@ -102,23 +103,23 @@ bool PlayerMenuItem::init(Type playerType,int index)
             count_text->setPosition(Point(45,25));
             Node::addChild(count_text,1);
             
-            std::string fontFile = "arial.ttf";
-            int fontSize = 20;
+            std::string fontFile = "DS-Digital.ttf";
+            int fontSize = 25;
             
             auto slash = Label::createWithTTF("/",fontFile,fontSize);
             slash->setAnchorPoint(Point::ANCHOR_MIDDLE);
-            slash->setPosition(Point(size.width/2+15,25));
+            slash->setPosition(Point(size.width/2+18,26));
             Node::addChild(slash,1);
             
             int weapon_countNum = s_playerConfig.weaponCount[index];
             int weapon_maxNum = s_weaponConfigs[index][s_playerConfig.weaponslevel[index]].capacity;
             
-            countNum = Label::createWithTTF(Value(weapon_countNum).asString().c_str(),fontFile,fontSize);
+            countNum = Label::createWithTTF(Value(weapon_countNum).asString(),fontFile,fontSize);
             countNum->setAnchorPoint(Point::ANCHOR_MIDDLE_RIGHT);
             countNum->setPosition(Point(slash->getPositionX()-10,slash->getPositionY()));
             Node::addChild(countNum);
             
-            stoneTatalNum = Label::createWithTTF(Value(weapon_maxNum).asString().c_str(),fontFile,fontSize);
+            stoneTatalNum = Label::createWithTTF(Value(weapon_maxNum).asString(),fontFile,fontSize);
             stoneTatalNum->setColor(Color3B::GRAY);
             stoneTatalNum->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
             stoneTatalNum->setPosition(Point(slash->getPositionX()+10,slash->getPositionY()));
@@ -250,7 +251,7 @@ void PlayerMenuItem::updateFlightData(EventCustom* event)
     {
         if (_type == Type::Fighter)
         {
-            stoneformake_text->setText(Value(s_plainConfigs[index][s_playerConfig.fighterslevel[index]].sparForMake).asString().c_str());
+            stoneformake_text->setString(Value(s_plainConfigs[index][s_playerConfig.fighterslevel[index]].sparForMake).asString().c_str());
             
             char iconFileName[30];
             sprintf(iconFileName,"plain_%d_lv_%d.png",index + 1,s_playerConfig.fighterslevel[index] + 1);

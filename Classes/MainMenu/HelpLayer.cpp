@@ -128,7 +128,7 @@ extension::TableViewCell* HelpLayer::tableCellAtIndex(extension::TableView *tabl
         {
             sprintf(iconFileName,"bomb_%d_%d.png",idx - 7,s_playerConfig.weaponslevel[idx - 8] + 1);
             text = s_gameStrings.helpInfo->weapon[idx - 8];
-            textColor = Color3B::ORANGE;
+            textColor = DIY_COLOR_ORANGE1;
         }
         break;
     default:

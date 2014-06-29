@@ -20,7 +20,7 @@ public:
 
    bool initWithNormalFrameName(const std::string& normalImage, const std::string& selectedImage, const std::string& disabledImage, const ccMenuCallback& callback);
 
-   void setTextColor(const Color3B& norColor,const Color3B& selColor = DIY_COLOR_BLUE2);
+   void setTextColor(const Color3B& norColor,const Color3B& selColor = DIY_COLOR_BLUE4);
 
    void setText(const std::string& text, const std::string& fontName, int fontSize);
    void setText(const std::string& text);

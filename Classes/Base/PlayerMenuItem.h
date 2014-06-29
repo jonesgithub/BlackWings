@@ -41,7 +41,7 @@ private:
     Type _type;
     int _index;
     
-    TextSprite* stoneformake_text;
+    Label* stoneformake_text;
     Label* countNum;
     Label* stoneTatalNum;
     

@@ -34,7 +34,7 @@ MenuItemImageLabel* MenuItemImageLabel::createWithFrameName(const std::string& n
 }
 
 MenuItemImageLabel::MenuItemImageLabel()
-: _selTextColor(DIY_COLOR_BLUE2)
+: _selTextColor(DIY_COLOR_BLUE4)
 , _norTextColor(Color3B::WHITE)
 , _label(nullptr)
 {
