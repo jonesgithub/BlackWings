@@ -10,6 +10,7 @@
 #include "GameOverLayer.h"
 #include "MedalChecker.h"
 #include "ConfigManager.h"
+#include "EnemyDispatchConfig.h"
 
 USING_NS_CC;
 

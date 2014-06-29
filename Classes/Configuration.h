@@ -30,15 +30,6 @@
 
 #define STAGEOFCANBUYGEM -2
 
-#define STAGE_ENEMY_WAVES_00 1
-#define STAGE_ENEMY_WAVES_01 1
-#define STAGE_ENEMY_WAVES_02 3
-
-
-#define STAGE_TOWER_COUNTS_00 1
-#define STAGE_TOWER_COUNTS_01 1
-#define STAGE_TOWER_COUNTS_02 2
-
 //music
 #define STOP_ALL_MUSIC CocosDenshion::SimpleAudioEngine::getInstance()->stopBackgroundMusic();//停止所有背景音乐
 #define PLAY_MAIN_MUSIC CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("music_main.mp3",true);//菜单背景音乐
@@ -257,56 +248,5 @@ extern int s_enemyBaseBlood[STAGE_COUNT];
 extern int s_playerBaseBlood[STAGE_COUNT];
 extern cocos2d::Point s_EnemyBasePos;
 extern cocos2d::Point s_PlayerBasePos;
-
-//NormalEnemy
-typedef struct _battleNormalEnemyConfig
-{
-    int duration;
-    int type;
-    int level;
-    int count;
-}BattleNormalEnemyConfig;
-
-typedef struct _battleNormalEnemyInfo
-{
-    BattleNormalEnemyConfig* _bnec;
-    int waves;
-}BattleNormalEnemyInfo;
-
-extern BattleNormalEnemyInfo s_battleNormalEnemyInfo[3];
-
-extern BattleNormalEnemyConfig s_battleNormalEnemyConfig_0[STAGE_ENEMY_WAVES_00];
-extern BattleNormalEnemyConfig s_battleNormalEnemyConfig_1[STAGE_ENEMY_WAVES_01];
-extern BattleNormalEnemyConfig s_battleNormalEnemyConfig_2[STAGE_ENEMY_WAVES_02];
-
-
-//TowerEnemy
-typedef struct _battleTowerEnemyConfig
-{
-    int level;
-    int x;
-    int y;
-}BattleTowerEnemyConfig;
-
-typedef struct _battleTowerEnemyInfo
-{
-    BattleTowerEnemyConfig* _btec;
-    int counts;
-}BattleTowerEnemyInfo;
-
-extern BattleTowerEnemyInfo s_battleTowerEnemyInfo[3];
-
-extern BattleTowerEnemyConfig s_battleTowerEnemyConfig_0[STAGE_TOWER_COUNTS_00];
-extern BattleTowerEnemyConfig s_battleTowerEnemyConfig_1[STAGE_TOWER_COUNTS_01];
-extern BattleTowerEnemyConfig s_battleTowerEnemyConfig_2[STAGE_TOWER_COUNTS_02];
-
-//BossEnemy
-typedef struct _battleBossEnemyInfo
-{
-    int level;
-    int duration;
-}BattleBossEnemyInfo;
-
-extern BattleBossEnemyInfo s_battleBossEnemyInfo[STAGE_COUNT];
 
 
