@@ -43,7 +43,7 @@ bool UpgradeUILayer::init(BasePanel basePanel, int index)
         return false;
     
     std::string fontFile = "DS-Digital.ttf";//"arial.ttf";
-    int fontSize = 20;
+    int fontSize = 25;
     
     auto listener = EventListenerTouchOneByOne::create();
     listener->setSwallowTouches(true);
@@ -98,26 +98,26 @@ bool UpgradeUILayer::init(BasePanel basePanel, int index)
     
     auto tittle = TextSprite::create(title_text,GameConfig::defaultFontName,30,
                                    Size(500,30),TextHAlignment::CENTER,TextVAlignment::CENTER);
-    tittle->setColor(Color3B(255, 255, 0));
+    tittle->setColor(DIY_COLOR_YELLOW5);
     tittle->setAnchorPoint(Point::ANCHOR_MIDDLE);
     tittle->setPosition(Point(panelSize.width/2,panelSize.height-40));
     _panel->addChild(tittle);
 
     //upgrade button
     auto menuitem = MenuItemImageLabel::createWithFrameName("bt_main_0.png","bt_main_1.png",CC_CALLBACK_1(UpgradeUILayer::menuCallbackUpgrade,this));
-    menuitem->setScale(1.2f,0.5f);
+    menuitem->setScale(1.2f,0.7f);
     menuitem->setPosition(Point(panelSize.width / 2,40));
     auto menuupgrade = Menu::create(menuitem,nullptr);
     menuupgrade->setPosition(Point::ZERO);
     _panel->addChild(menuupgrade);
 
     auto spar = Sprite::createWithSpriteFrameName("icon_gem.png");
-    spar->setPosition(Point(panelSize.width/2-80,40));
+    spar->setPosition(Point(panelSize.width/2-110,40));
     _panel->addChild(spar);
 
     auto upgradeText = TextSprite::create(s_gameStrings.base->upgrade,GameConfig::defaultFontName,fontSize);
     upgradeText->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
-    upgradeText->setPosition(panelSize.width/2+60,40);
+    upgradeText->setPosition(panelSize.width/2+30,40);
     _panel->addChild(upgradeText);
     
     switch (_basePanel) {
@@ -140,7 +140,7 @@ bool UpgradeUILayer::init(BasePanel basePanel, int index)
     auto gemforUpgradeText = TextSprite::create(Value(_needgem).asString(),GameConfig::defaultFontName,fontSize);
     gemforUpgradeText->setColor(Color3B::YELLOW);
     gemforUpgradeText->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
-    gemforUpgradeText->setPosition(panelSize.width/2-60,40);
+    gemforUpgradeText->setPosition(panelSize.width/2-90,40);
     _panel->addChild(gemforUpgradeText);
     
     //content
@@ -169,6 +169,7 @@ void UpgradeUILayer::createStoneSpeedUI()
 {
     std::string fontFile = "DS-Digital.ttf";//"arial.ttf";
     int fontSize = 25;
+    auto infoColor = DIY_COLOR_BLUE5;
     
     auto bk = Scale9Sprite::create("helpCellBG.png");
     auto bkSize = panelSize - Size(30,150);
@@ -179,7 +180,7 @@ void UpgradeUILayer::createStoneSpeedUI()
     
     Point pos1(60,bkSize.height/2+40);
     Point pos2(260,bkSize.height/2+40);
-    Point pos3(340,bkSize.height/2+40);
+    Point pos3(350,bkSize.height/2+40);
     Point pos4(400,bkSize.height/2+40);
     Point offset(0,-70);
     
@@ -189,13 +190,17 @@ void UpgradeUILayer::createStoneSpeedUI()
     bk->addChild(level_text);
     
     auto level_before = TextSprite::create(Value(s_playerConfig.stonespeedlevel+1).asString(),GameConfig::defaultFontName,fontSize);
-    level_before->setColor(Color3B::BLUE);
+    level_before->setColor(infoColor);
     level_before->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
     level_before->setPosition(pos2);
     bk->addChild(level_before);
     
+    auto arrow_upgrade_0 = Sprite::create("upgrade_arrow.png");
+    arrow_upgrade_0->setPosition(pos3);
+    bk->addChild(arrow_upgrade_0);
+    
     auto level_after = TextSprite::create(Value(s_playerConfig.stonespeedlevel+2).asString(),GameConfig::defaultFontName,fontSize);
-    level_after->setColor(Color3B::BLUE);
+    level_after->setColor(infoColor);
     level_after->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
     level_after->setPosition(pos4);
     bk->addChild(level_after);
@@ -206,13 +211,17 @@ void UpgradeUILayer::createStoneSpeedUI()
     bk->addChild(speed_text);
     
     auto speed_before = TextSprite::create(Value(s_stoneSpeed[s_playerConfig.stonespeedlevel].speed).asString(),GameConfig::defaultFontName,fontSize);
-    speed_before->setColor(Color3B::BLUE);
+    speed_before->setColor(infoColor);
     speed_before->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
     speed_before->setPosition(pos2+offset);
     bk->addChild(speed_before);
     
+    auto arrow_upgrade_1 = Sprite::create("upgrade_arrow.png");
+    arrow_upgrade_1->setPosition(pos3+offset);
+    bk->addChild(arrow_upgrade_1);
+    
     auto speed_after = TextSprite::create(Value(s_stoneSpeed[s_playerConfig.stonespeedlevel+1].speed).asString(),GameConfig::defaultFontName,fontSize);
-    speed_after->setColor(Color3B::BLUE);
+    speed_after->setColor(infoColor);
     speed_after->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
     speed_after->setPosition(pos4+offset);
     bk->addChild(speed_after);
@@ -222,6 +231,7 @@ void UpgradeUILayer::createStoneMaxUI()
 {
     std::string fontFile = "DS-Digital.ttf";//"arial.ttf";
     int fontSize = 25;
+    auto infoColor = DIY_COLOR_BLUE5;
     
     auto bk = Scale9Sprite::create("helpCellBG.png");
     auto bkSize = panelSize - Size(30,150);
@@ -242,13 +252,17 @@ void UpgradeUILayer::createStoneMaxUI()
     bk->addChild(level_text);
     
     auto level_before = TextSprite::create(Value(s_playerConfig.stonecapacitylevel+1).asString(),GameConfig::defaultFontName,fontSize);
-    level_before->setColor(Color3B::BLUE);
+    level_before->setColor(infoColor);
     level_before->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
     level_before->setPosition(pos2);
     bk->addChild(level_before);
     
+    auto arrow_upgrade_0 = Sprite::create("upgrade_arrow.png");
+    arrow_upgrade_0->setPosition(pos3);
+    bk->addChild(arrow_upgrade_0);
+    
     auto level_after = TextSprite::create(Value(s_playerConfig.stonecapacitylevel+2).asString(),GameConfig::defaultFontName,fontSize);
-    level_after->setColor(Color3B::BLUE);
+    level_after->setColor(infoColor);
     level_after->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
     level_after->setPosition(pos4);
     bk->addChild(level_after);
@@ -259,13 +273,17 @@ void UpgradeUILayer::createStoneMaxUI()
     bk->addChild(init_text);
     
     auto init_before = TextSprite::create(Value(s_stoneCapacity[s_playerConfig.stonecapacitylevel].initstone).asString(),GameConfig::defaultFontName,fontSize);
-    init_before->setColor(Color3B::BLUE);
+    init_before->setColor(infoColor);
     init_before->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
     init_before->setPosition(pos2+offset);
     bk->addChild(init_before);
     
+    auto arrow_upgrade_1 = Sprite::create("upgrade_arrow.png");
+    arrow_upgrade_1->setPosition(pos3+offset);
+    bk->addChild(arrow_upgrade_1);
+    
     auto init_after = TextSprite::create(Value(s_stoneCapacity[s_playerConfig.stonecapacitylevel+1].initstone).asString(),GameConfig::defaultFontName,fontSize);
-    init_after->setColor(Color3B::BLUE);
+    init_after->setColor(infoColor);
     init_after->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
     init_after->setPosition(pos4+offset);
     bk->addChild(init_after);
@@ -276,13 +294,17 @@ void UpgradeUILayer::createStoneMaxUI()
     bk->addChild(max_text);
     
     auto max_before = TextSprite::create(Value(s_stoneCapacity[s_playerConfig.stonecapacitylevel].maxstone).asString(),GameConfig::defaultFontName,fontSize);
-    max_before->setColor(Color3B::BLUE);
+    max_before->setColor(infoColor);
     max_before->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
     max_before->setPosition(pos2+offset*2);
     bk->addChild(max_before);
     
+    auto arrow_upgrade_2 = Sprite::create("upgrade_arrow.png");
+    arrow_upgrade_2->setPosition(pos3+offset*2);
+    bk->addChild(arrow_upgrade_2);
+    
     auto max_after = TextSprite::create(Value(s_stoneCapacity[s_playerConfig.stonecapacitylevel+1].maxstone).asString(),GameConfig::defaultFontName,fontSize);
-    max_after->setColor(Color3B::BLUE);
+    max_after->setColor(infoColor);
     max_after->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
     max_after->setPosition(pos4+offset*2);
     bk->addChild(max_after);
@@ -293,6 +315,7 @@ void UpgradeUILayer::createFlightUI()
 {
     std::string fontFile = "DS-Digital.ttf";//"arial.ttf";
     int fontSize = 25;
+    auto infoColor = DIY_COLOR_BLUE5;
     
     auto bk = Scale9Sprite::create("helpCellBG.png");
     auto bkSize = panelSize - Size(30,150);
@@ -313,13 +336,17 @@ void UpgradeUILayer::createFlightUI()
     bk->addChild(level_text);
     
     auto level_before = TextSprite::create(Value(s_playerConfig.fighterslevel[_index]+1).asString(),GameConfig::defaultFontName,fontSize);
-    level_before->setColor(Color3B::BLUE);
+    level_before->setColor(infoColor);
     level_before->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
     level_before->setPosition(pos2);
     bk->addChild(level_before);
     
+    auto arrow_upgrade_0 = Sprite::create("upgrade_arrow.png");
+    arrow_upgrade_0->setPosition(pos3);
+    bk->addChild(arrow_upgrade_0);
+    
     auto level_after = TextSprite::create(Value(s_playerConfig.fighterslevel[_index]+2).asString(),GameConfig::defaultFontName,fontSize);
-    level_after->setColor(Color3B::BLUE);
+    level_after->setColor(infoColor);
     level_after->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
     level_after->setPosition(pos4);
     bk->addChild(level_after);
@@ -330,13 +357,17 @@ void UpgradeUILayer::createFlightUI()
     bk->addChild(life_text);
     
     auto life_before = TextSprite::create(Value(s_plainConfigs[_index][s_playerConfig.fighterslevel[_index]].life).asString(),GameConfig::defaultFontName,fontSize);
-    life_before->setColor(Color3B::BLUE);
+    life_before->setColor(infoColor);
     life_before->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
     life_before->setPosition(pos2+offset);
     bk->addChild(life_before);
     
+    auto arrow_upgrade_1 = Sprite::create("upgrade_arrow.png");
+    arrow_upgrade_1->setPosition(pos3+offset);
+    bk->addChild(arrow_upgrade_1);
+    
     auto life_after = TextSprite::create(Value(s_plainConfigs[_index][s_playerConfig.fighterslevel[_index]+1].life).asString(),GameConfig::defaultFontName,fontSize);
-    life_after->setColor(Color3B::BLUE);
+    life_after->setColor(infoColor);
     life_after->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
     life_after->setPosition(pos4+offset);
     bk->addChild(life_after);
@@ -347,13 +378,17 @@ void UpgradeUILayer::createFlightUI()
     bk->addChild(attack_text);
     
     auto attack_before = TextSprite::create(Value(s_plainConfigs[_index][s_playerConfig.fighterslevel[_index]].attack).asString(),GameConfig::defaultFontName,fontSize);
-    attack_before->setColor(Color3B::BLUE);
+    attack_before->setColor(infoColor);
     attack_before->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
     attack_before->setPosition(pos2+offset*2);
     bk->addChild(attack_before);
     
+    auto arrow_upgrade_2 = Sprite::create("upgrade_arrow.png");
+    arrow_upgrade_2->setPosition(pos3+offset*2);
+    bk->addChild(arrow_upgrade_2);
+    
     auto attack_after = TextSprite::create(Value(s_plainConfigs[_index][s_playerConfig.fighterslevel[_index]+1].attack).asString(),GameConfig::defaultFontName,fontSize);
-    attack_after->setColor(Color3B::BLUE);
+    attack_after->setColor(infoColor);
     attack_after->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
     attack_after->setPosition(pos4+offset*2);
     bk->addChild(attack_after);
@@ -364,13 +399,17 @@ void UpgradeUILayer::createFlightUI()
     bk->addChild(defense_text);
     
     auto defense_before = TextSprite::create(Value(s_plainConfigs[_index][s_playerConfig.fighterslevel[_index]].defense).asString(),GameConfig::defaultFontName,fontSize);
-    defense_before->setColor(Color3B::BLUE);
+    defense_before->setColor(infoColor);
     defense_before->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
     defense_before->setPosition(pos2+offset*3);
     bk->addChild(defense_before);
     
+    auto arrow_upgrade_3 = Sprite::create("upgrade_arrow.png");
+    arrow_upgrade_3->setPosition(pos3+offset*3);
+    bk->addChild(arrow_upgrade_3);
+    
     auto defense_after = TextSprite::create(Value(s_plainConfigs[_index][s_playerConfig.fighterslevel[_index]+1].defense).asString(),GameConfig::defaultFontName,fontSize);
-    defense_after->setColor(Color3B::BLUE);
+    defense_after->setColor(infoColor);
     defense_after->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
     defense_after->setPosition(pos4+offset*3);
     bk->addChild(defense_after);
@@ -381,13 +420,17 @@ void UpgradeUILayer::createFlightUI()
     bk->addChild(speed_text);
     
     auto speed_before = TextSprite::create(Value(s_plainConfigs[_index][s_playerConfig.fighterslevel[_index]].speed).asString(),GameConfig::defaultFontName,fontSize);
-    speed_before->setColor(Color3B::BLUE);
+    speed_before->setColor(infoColor);
     speed_before->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
     speed_before->setPosition(pos2+offset*4);
     bk->addChild(speed_before);
     
+    auto arrow_upgrade_4 = Sprite::create("upgrade_arrow.png");
+    arrow_upgrade_4->setPosition(pos3+offset*4);
+    bk->addChild(arrow_upgrade_4);
+    
     auto speed_after = TextSprite::create(Value(s_plainConfigs[_index][s_playerConfig.fighterslevel[_index]+1].speed).asString(),GameConfig::defaultFontName,fontSize);
-    speed_after->setColor(Color3B::BLUE);
+    speed_after->setColor(infoColor);
     speed_after->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
     speed_after->setPosition(pos4+offset*4);
     bk->addChild(speed_after);
@@ -398,13 +441,17 @@ void UpgradeUILayer::createFlightUI()
     bk->addChild(range_text);
     
     auto range_before = TextSprite::create(Value(s_plainConfigs[_index][s_playerConfig.fighterslevel[_index]].range).asString(),GameConfig::defaultFontName,fontSize);
-    range_before->setColor(Color3B::BLUE);
+    range_before->setColor(infoColor);
     range_before->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
     range_before->setPosition(pos2+offset*5);
     bk->addChild(range_before);
     
+    auto arrow_upgrade_5 = Sprite::create("upgrade_arrow.png");
+    arrow_upgrade_5->setPosition(pos3+offset*5);
+    bk->addChild(arrow_upgrade_5);
+    
     auto range_after = TextSprite::create(Value(s_plainConfigs[_index][s_playerConfig.fighterslevel[_index]+1].range).asString(),GameConfig::defaultFontName,fontSize);
-    range_after->setColor(Color3B::BLUE);
+    range_after->setColor(infoColor);
     range_after->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
     range_after->setPosition(pos4+offset*5);
     bk->addChild(range_after);
@@ -415,13 +462,17 @@ void UpgradeUILayer::createFlightUI()
     bk->addChild(usestone_text);
     
     auto usestone_before = TextSprite::create(Value(s_plainConfigs[_index][s_playerConfig.fighterslevel[_index]].sparForMake).asString(),GameConfig::defaultFontName,fontSize);
-    usestone_before->setColor(Color3B::BLUE);
+    usestone_before->setColor(infoColor);
     usestone_before->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
     usestone_before->setPosition(pos2+offset*6);
     bk->addChild(usestone_before);
     
+    auto arrow_upgrade_6 = Sprite::create("upgrade_arrow.png");
+    arrow_upgrade_6->setPosition(pos3+offset*6);
+    bk->addChild(arrow_upgrade_6);
+    
     auto usestone_after = TextSprite::create(Value(s_plainConfigs[_index][s_playerConfig.fighterslevel[_index]+1].sparForMake).asString(),GameConfig::defaultFontName,fontSize);
-    usestone_after->setColor(Color3B::BLUE);
+    usestone_after->setColor(infoColor);
     usestone_after->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
     usestone_after->setPosition(pos4+offset*6);
     bk->addChild(usestone_after);
@@ -431,6 +482,7 @@ void UpgradeUILayer::createWeaponUI()
 {
     std::string fontFile = "DS-Digital.ttf";//"arial.ttf";
     int fontSize = 25;
+    auto infoColor = DIY_COLOR_BLUE5;
     
     auto bk = Scale9Sprite::create("helpCellBG.png");
     auto bkSize = panelSize - Size(30,150);
@@ -441,7 +493,7 @@ void UpgradeUILayer::createWeaponUI()
     
     Point pos1(60,bkSize.height/2+95);
     Point pos2(220,bkSize.height/2+95);
-    Point pos3(360,bkSize.height/2+95);
+    Point pos3(350,bkSize.height/2+95);
     Point pos4(400,bkSize.height/2+95);
     Point offset(0,-50);
     
@@ -451,13 +503,17 @@ void UpgradeUILayer::createWeaponUI()
     bk->addChild(level_text);
     
     auto level_before = TextSprite::create(Value(s_playerConfig.weaponslevel[_index-FIGHTER_MAX]+1).asString(),GameConfig::defaultFontName,fontSize);
-    level_before->setColor(Color3B::BLUE);
+    level_before->setColor(infoColor);
     level_before->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
     level_before->setPosition(pos2);
     bk->addChild(level_before);
     
+    auto arrow_upgrade_0 = Sprite::create("upgrade_arrow.png");
+    arrow_upgrade_0->setPosition(pos3);
+    bk->addChild(arrow_upgrade_0);
+    
     auto level_after = TextSprite::create(Value(s_playerConfig.weaponslevel[_index-FIGHTER_MAX]+2).asString(),GameConfig::defaultFontName,fontSize);
-    level_after->setColor(Color3B::BLUE);
+    level_after->setColor(infoColor);
     level_after->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
     level_after->setPosition(pos4);
     bk->addChild(level_after);
@@ -468,13 +524,17 @@ void UpgradeUILayer::createWeaponUI()
     bk->addChild(attack_text);
     
     auto attack_before = TextSprite::create(Value(s_weaponConfigs[_index-FIGHTER_MAX][s_playerConfig.weaponslevel[_index-FIGHTER_MAX]].attack).asString(),GameConfig::defaultFontName,fontSize);
-    attack_before->setColor(Color3B::BLUE);
+    attack_before->setColor(infoColor);
     attack_before->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
     attack_before->setPosition(pos2+offset);
     bk->addChild(attack_before);
     
+    auto arrow_upgrade_1 = Sprite::create("upgrade_arrow.png");
+    arrow_upgrade_1->setPosition(pos3+offset*1);
+    bk->addChild(arrow_upgrade_1);
+    
     auto attack_after = TextSprite::create(Value(s_weaponConfigs[_index-FIGHTER_MAX][s_playerConfig.weaponslevel[_index-FIGHTER_MAX]+1].attack).asString(),GameConfig::defaultFontName,fontSize);
-    attack_after->setColor(Color3B::BLUE);
+    attack_after->setColor(infoColor);
     attack_after->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
     attack_after->setPosition(pos4+offset);
     bk->addChild(attack_after);
@@ -488,15 +548,19 @@ void UpgradeUILayer::createWeaponUI()
     float duration_before_data = s_weaponConfigs[_index-FIGHTER_MAX][s_playerConfig.weaponslevel[_index-FIGHTER_MAX]].duration;
     sprintf(p, "%.2f",duration_before_data);
     auto duration_before = TextSprite::create(p,GameConfig::defaultFontName,fontSize);
-    duration_before->setColor(Color3B::BLUE);
+    duration_before->setColor(infoColor);
     duration_before->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
     duration_before->setPosition(pos2+offset*2);
     bk->addChild(duration_before);
     
+    auto arrow_upgrade_2 = Sprite::create("upgrade_arrow.png");
+    arrow_upgrade_2->setPosition(pos3+offset*2);
+    bk->addChild(arrow_upgrade_2);
+    
     float duration_after_data = s_weaponConfigs[_index-FIGHTER_MAX][s_playerConfig.weaponslevel[_index-FIGHTER_MAX]+1].duration;
     sprintf(p, "%.2f",duration_after_data);
     auto duration_after = TextSprite::create(p,GameConfig::defaultFontName,fontSize);
-    duration_after->setColor(Color3B::BLUE);
+    duration_after->setColor(infoColor);
     duration_after->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
     duration_after->setPosition(pos4+offset*2);
     bk->addChild(duration_after);
@@ -507,13 +571,17 @@ void UpgradeUILayer::createWeaponUI()
     bk->addChild(buyusegem_text);
     
     auto buyusegem_before = TextSprite::create(Value(s_weaponConfigs[_index-FIGHTER_MAX][s_playerConfig.weaponslevel[_index-FIGHTER_MAX]].costGem).asString(),GameConfig::defaultFontName,fontSize);
-    buyusegem_before->setColor(Color3B::BLUE);
+    buyusegem_before->setColor(infoColor);
     buyusegem_before->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
     buyusegem_before->setPosition(pos2+offset*3);
     bk->addChild(buyusegem_before);
     
+    auto arrow_upgrade_3 = Sprite::create("upgrade_arrow.png");
+    arrow_upgrade_3->setPosition(pos3+offset*3);
+    bk->addChild(arrow_upgrade_3);
+    
     auto buyusegem_after = TextSprite::create(Value(s_weaponConfigs[_index-FIGHTER_MAX][s_playerConfig.weaponslevel[_index-FIGHTER_MAX]+1].costGem).asString(),GameConfig::defaultFontName,fontSize);
-    buyusegem_after->setColor(Color3B::BLUE);
+    buyusegem_after->setColor(infoColor);
     buyusegem_after->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
     buyusegem_after->setPosition(pos4+offset*3);
     bk->addChild(buyusegem_after);
@@ -524,13 +592,17 @@ void UpgradeUILayer::createWeaponUI()
     bk->addChild(buymax_text);
     
     auto buymax_before = TextSprite::create(Value(s_weaponConfigs[_index-FIGHTER_MAX][s_playerConfig.weaponslevel[_index-FIGHTER_MAX]].capacity).asString(),GameConfig::defaultFontName,fontSize);
-    buymax_before->setColor(Color3B::BLUE);
+    buymax_before->setColor(infoColor);
     buymax_before->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
     buymax_before->setPosition(pos2+offset*4);
     bk->addChild(buymax_before);
     
+    auto arrow_upgrade_4 = Sprite::create("upgrade_arrow.png");
+    arrow_upgrade_4->setPosition(pos3+offset*4);
+    bk->addChild(arrow_upgrade_4);
+    
     auto buymax_after = TextSprite::create(Value(s_weaponConfigs[_index-FIGHTER_MAX][s_playerConfig.weaponslevel[_index-FIGHTER_MAX]+1].capacity).asString(),GameConfig::defaultFontName,fontSize);
-    buymax_after->setColor(Color3B::BLUE);
+    buymax_after->setColor(infoColor);
     buymax_after->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
     buymax_after->setPosition(pos4+offset*4);
     bk->addChild(buymax_after);

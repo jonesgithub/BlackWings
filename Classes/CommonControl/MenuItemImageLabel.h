@@ -2,6 +2,7 @@
 
 #include "cocos2d.h"
 #include "TextSprite.h"
+#include "Configuration.h"
 
 USING_NS_CC;
 
@@ -19,7 +20,7 @@ public:
 
    bool initWithNormalFrameName(const std::string& normalImage, const std::string& selectedImage, const std::string& disabledImage, const ccMenuCallback& callback);
 
-   void setTextColor(const Color3B& norColor,const Color3B& selColor = Color3B::BLUE);
+   void setTextColor(const Color3B& norColor,const Color3B& selColor = DIY_COLOR_BLUE4);
 
    void setText(const std::string& text, const std::string& fontName, int fontSize);
    void setText(const std::string& text);

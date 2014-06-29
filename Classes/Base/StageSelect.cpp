@@ -154,6 +154,9 @@ cocos2d::extension::TableViewCell* StageSelect::tableCellAtIndex(cocos2d::extens
             stage_text->setColor(Color3B(80,80,80));
         
         if(_selectItem == idx)
+            cell->getChildByTag(10)->getChildByTag(40)->setColor(DIY_COLOR_BLUE5);
+        
+        if(_selectItem == idx)
             cell->getChildByTag(10)->getChildByTag(30)->setVisible(true);
         else
             cell->getChildByTag(10)->getChildByTag(30)->setVisible(false);
@@ -190,9 +193,11 @@ void StageSelect::tableCellTouched(extension::TableView* table, extension::Table
         if(selected_cell)
         {
             selected_cell->getChildByTag(10)->getChildByTag(30)->setVisible(false);
+            selected_cell->getChildByTag(10)->getChildByTag(40)->setColor(Color3B(230, 230, 230));
         }
         _selectItem = cell->getIdx();
         cell->getChildByTag(10)->getChildByTag(30)->setVisible(true);
+        cell->getChildByTag(10)->getChildByTag(40)->setColor(DIY_COLOR_BLUE5);
         selected_cell = cell;
         log("====>%d",_selectItem);
         rotateBall->resetIdx(_selectItem);
@@ -283,10 +288,14 @@ Node* StageSelect::getItemNode(int i)
     
     std::string stage_text_str = s_gameStrings.mainMenu->stagetext + " - " + Value(i+1).asString();
     auto stage_text = TextSprite::create(stage_text_str,GameConfig::defaultFontName,GameConfig::defaultFontSize);
-    if(i<=s_playerConfig.overstage+1)
+    if(i<s_playerConfig.overstage+1)
         stage_text->setColor(Color3B(230,230,230));
     else
         stage_text->setColor(Color3B(80,80,80));
+    
+    if (_noTouch && i == _selectItem) {
+        stage_text->setColor(DIY_COLOR_BLUE5);
+    }
     stage_text->setAnchorPoint(Point::ANCHOR_MIDDLE);
     stage_text->setPosition(Point(_cellSize.width/2,_cellSize.height/2));
     stage_text->setTag(40);

@@ -97,7 +97,7 @@ void Base::createBase(Ref *sender)
         _curSelectedFlight = flightNode;
         _curSeletedIndex = 0;
         
-        auto move = MoveTo::create(0.5f, Point(123,370));
+        auto move = MoveTo::create(0.5f, Point(128,360));
         flightNode->runAction(move);
     }
 
@@ -189,10 +189,10 @@ void Base::onEnter()
                                                     if (index<6) {
                                                             upgradeFighter->removeAllChildren();
                                                             int baseHeight = 50;
-                                                            auto boxPos = Point(s_visibleRect.center.x,s_visibleRect.center.y - baseHeight * 5);
+                                                            auto boxPos = Point(s_visibleRect.center.x,s_visibleRect.center.y - baseHeight * 5.5-10);
                                                             
                                                             upgradeFighter = Scale9Sprite::createWithSpriteFrameName("upgrade_box.png");
-                                                            upgradeFighter->setContentSize(Size(s_visibleRect.visibleWidth - 50,baseHeight * 4.5));
+                                                            upgradeFighter->setContentSize(Size(s_visibleRect.visibleWidth - 60,baseHeight * 5.4));
                                                             upgradeFighter->setAnchorPoint(Point::ANCHOR_MIDDLE_BOTTOM);
                                                             upgradeFighter->setPosition(boxPos);
                                                             _upgradePanel->addChild(upgradeFighter,10);
@@ -204,10 +204,10 @@ void Base::onEnter()
 
                                                             upgradeFighter->removeAllChildren();
                                                             int baseHeight = 50;
-                                                            auto boxPos = Point(s_visibleRect.center.x,s_visibleRect.center.y - baseHeight * 5);
+                                                            auto boxPos = Point(s_visibleRect.center.x,s_visibleRect.center.y - baseHeight * 5.5-10);
                                                             
                                                             upgradeFighter = Scale9Sprite::createWithSpriteFrameName("upgrade_box.png");
-                                                            upgradeFighter->setContentSize(Size(s_visibleRect.visibleWidth - 50,baseHeight * 4.5));
+                                                            upgradeFighter->setContentSize(Size(s_visibleRect.visibleWidth - 60,baseHeight * 5.4));
                                                             upgradeFighter->setAnchorPoint(Point::ANCHOR_MIDDLE_BOTTOM);
                                                             upgradeFighter->setPosition(boxPos);
                                                             _upgradePanel->addChild(upgradeFighter,10);
@@ -314,14 +314,14 @@ void Base::createUpgrade(bool isFightUI, int t_index)
     this->addChild(_upgradePanel,1);
 
     int baseHeight = 50;
-    int padding = 30;
+    int padding = 15;
 
-    auto boxPos = Point(s_visibleRect.center.x,s_visibleRect.center.y - baseHeight * 5);
+    auto boxPos = Point(s_visibleRect.center.x,s_visibleRect.center.y - baseHeight * 5.5-10);
 
     if (isFightUI) {
         
         upgradeFighter = Scale9Sprite::createWithSpriteFrameName("upgrade_box.png");
-        upgradeFighter->setContentSize(Size(s_visibleRect.visibleWidth - 50,baseHeight * 4.5));
+        upgradeFighter->setContentSize(Size(s_visibleRect.visibleWidth - 60,baseHeight * 5.4));
         upgradeFighter->setAnchorPoint(Point::ANCHOR_MIDDLE_BOTTOM);
         upgradeFighter->setPosition(boxPos);
         _upgradePanel->addChild(upgradeFighter);
@@ -330,15 +330,15 @@ void Base::createUpgrade(bool isFightUI, int t_index)
     else
     {
         upgradeFighter = Scale9Sprite::createWithSpriteFrameName("upgrade_box.png");
-        upgradeFighter->setContentSize(Size(s_visibleRect.visibleWidth - 50,baseHeight * 4.5));
+        upgradeFighter->setContentSize(Size(s_visibleRect.visibleWidth - 60,baseHeight * 5.4));
         upgradeFighter->setAnchorPoint(Point::ANCHOR_MIDDLE_BOTTOM);
         upgradeFighter->setPosition(boxPos);
         _upgradePanel->addChild(upgradeFighter);
         createWeaponBottomInfo(upgradeFighter, t_index);
     }
 
-    boxPos.y += baseHeight * 4.5 + padding;
-    auto sparCapacitySize = Size(s_visibleRect.visibleWidth - 60,baseHeight * 3);
+    boxPos.y += baseHeight * 4.5 + padding + 24;
+    auto sparCapacitySize = Size(s_visibleRect.visibleWidth - 80,baseHeight * 3.7);
     upgradeSparCapacity = Scale9Sprite::createWithSpriteFrameName("upgrade_box.png");
     upgradeSparCapacity->setAnchorPoint(Point::ANCHOR_MIDDLE_BOTTOM);
     upgradeSparCapacity->setContentSize(sparCapacitySize);
@@ -351,8 +351,8 @@ void Base::createUpgrade(bool isFightUI, int t_index)
     upgradeSparCapacity->addChild(bg1);
     createFighterMiddleInfo(upgradeSparCapacity);
     
-    boxPos.y += baseHeight * 3 + padding;
-    auto sparRecoverySize = Size(s_visibleRect.visibleWidth - 70,baseHeight * 3);
+    boxPos.y += baseHeight * 3 + padding +13;
+    auto sparRecoverySize = Size(s_visibleRect.visibleWidth - 100,baseHeight * 3.7);
     upgradeSparRecovery = Scale9Sprite::createWithSpriteFrameName("upgrade_box.png");
     upgradeSparRecovery->setContentSize(sparRecoverySize);
     upgradeSparRecovery->setAnchorPoint(Point::ANCHOR_MIDDLE_BOTTOM);
@@ -371,20 +371,21 @@ void Base::createFighterBottomInfo(Node* panel,int t_index)
     _isInFilghtUpgradeUI = true;
     auto panelSize = panel->getContentSize();
     std::string fontFile = "DS-Digital.ttf";//"arial.ttf";
-    int fontSize = 20;
-    auto infoColor = Color4B(153,217,234,255);
+    int fontSize_m = 23;
+    int fontSize_l = 25;
+    auto infoColor = DIY_COLOR_BLUE3;
     
     auto fighterBox = Sprite::createWithSpriteFrameName("upgrade_box_mini.png");
     //fighterBox->setContentSize(Size(panelSize.width / 6,panelSize.height * 0.5f));
-    fighterBox->setScale(0.7f);
+    //fighterBox->setScale(0.7f);
     fighterBox->setPosition(Point(panelSize.width / 6,panelSize.height * 0.625f));
     panel->addChild(fighterBox);
     fighterBox->setTag(0);
     
 
     auto menuitem = MenuItemImageLabel::createWithFrameName("bt_main_0.png","bt_main_1.png",CC_CALLBACK_1(Base::upgradeFlight,this));
-    menuitem->setScale(1.2f,0.5f);
-    menuitem->setPosition(Point(panelSize.width / 2,panelSize.height * 0.25f));
+    menuitem->setScale(1.2f,0.7f);
+    menuitem->setPosition(Point(panelSize.width / 2,panelSize.height * 0.20f));
     auto menu = Menu::create(menuitem,nullptr);
     menu->setPosition(Point::ZERO);
     panel->addChild(menu);
@@ -394,42 +395,42 @@ void Base::createFighterBottomInfo(Node* panel,int t_index)
     auto pos = Point(200,panelSize.height * 0.85f);
 
     {
-        fighter_levelText = TextSprite::create(s_gameStrings.base->upgradeLevel,GameConfig::defaultFontName,fontSize);
+        fighter_levelText = TextSprite::create(s_gameStrings.base->upgradeLevel,GameConfig::defaultFontName,fontSize_m);
         fighter_levelText->setAnchorPoint(Point::ANCHOR_TOP_LEFT);
         fighter_levelText->setPosition(pos);
         panel->addChild(fighter_levelText);
 
         pos.y = panelSize.height * 0.67f;
-        fighter_attText = TextSprite::create(s_gameStrings.base->upgradeAtt,GameConfig::defaultFontName,fontSize);
+        fighter_attText = TextSprite::create(s_gameStrings.base->upgradeAtt,GameConfig::defaultFontName,fontSize_m);
         fighter_attText->setAnchorPoint(Point::ANCHOR_TOP_LEFT);
         fighter_attText->setPosition(pos);
         panel->addChild(fighter_attText);
         fighter_attText->setTag(3);
 
         pos.y = panelSize.height * 0.5f;
-        fighter_defText = TextSprite::create(s_gameStrings.base->upgradeDef,GameConfig::defaultFontName,fontSize);
+        fighter_defText = TextSprite::create(s_gameStrings.base->upgradeDef,GameConfig::defaultFontName,fontSize_m);
         fighter_defText->setAnchorPoint(Point::ANCHOR_TOP_LEFT);
         fighter_defText->setPosition(pos);
         panel->addChild(fighter_defText);
         fighter_defText->setTag(4);
 
-        pos.x = 400;
+        pos.x = 380;
         pos.y = panelSize.height * 0.85f;
-        fighter_lifeText = TextSprite::create(s_gameStrings.base->upgradeLife,GameConfig::defaultFontName,fontSize);
+        fighter_lifeText = TextSprite::create(s_gameStrings.base->upgradeLife,GameConfig::defaultFontName,fontSize_m);
         fighter_lifeText->setAnchorPoint(Point::ANCHOR_TOP_LEFT);
         fighter_lifeText->setPosition(pos);
         panel->addChild(fighter_lifeText);
         fighter_lifeText->setTag(5);
 
         pos.y = panelSize.height * 0.67f;
-        fighter_spdText = TextSprite::create(s_gameStrings.base->upgradeSpd,GameConfig::defaultFontName,fontSize);
+        fighter_spdText = TextSprite::create(s_gameStrings.base->upgradeSpd,GameConfig::defaultFontName,fontSize_m);
         fighter_spdText->setAnchorPoint(Point::ANCHOR_TOP_LEFT);
         fighter_spdText->setPosition(pos);
         panel->addChild(fighter_spdText);
         fighter_spdText->setTag(6);
 
         pos.y = panelSize.height * 0.5f;
-        fighter_rangeText = TextSprite::create(s_gameStrings.base->upgradeRange,GameConfig::defaultFontName,fontSize);
+        fighter_rangeText = TextSprite::create(s_gameStrings.base->upgradeRange,GameConfig::defaultFontName,fontSize_m);
         fighter_rangeText->setAnchorPoint(Point::ANCHOR_TOP_LEFT);
         fighter_rangeText->setPosition(pos);
         panel->addChild(fighter_rangeText);
@@ -439,22 +440,22 @@ void Base::createFighterBottomInfo(Node* panel,int t_index)
         if (s_playerConfig.fighterslevel[t_index] < FIGHTER_LEVEL_MAX-1)
         {
             spar = Sprite::createWithSpriteFrameName("icon_gem.png");
-            spar->setPosition(Point(200,panelSize.height * 0.25f));
+            spar->setPosition(Point(180,panelSize.height * 0.20f));
             panel->addChild(spar);
             spar->setTag(2);
             
-            pos.y = panelSize.height * 0.25f;
-            fighter_leveUpText = TextSprite::create(s_gameStrings.base->upgrade,GameConfig::defaultFontName,fontSize);
+            pos.y = panelSize.height * 0.20f;
+            fighter_leveUpText = TextSprite::create(s_gameStrings.base->upgrade,GameConfig::defaultFontName,fontSize_l);
             fighter_leveUpText->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
-            fighter_leveUpText->setPosition(pos-Point(40,0));
+            fighter_leveUpText->setPosition(pos-Point(65,0));
             panel->addChild(fighter_leveUpText);
             fighter_leveUpText->setTag(8);
         }
         else
         {
             pos.x = panelSize.width/2;
-            pos.y = panelSize.height * 0.25f;
-            fighter_maxlevel_text = TextSprite::create(s_gameStrings.base->maxlevel,GameConfig::defaultFontName,fontSize);
+            pos.y = panelSize.height * 0.20f;
+            fighter_maxlevel_text = TextSprite::create(s_gameStrings.base->maxlevel,GameConfig::defaultFontName,fontSize_l);
             fighter_maxlevel_text->setColor(Color3B::YELLOW);
             fighter_maxlevel_text->setAnchorPoint(Point::ANCHOR_MIDDLE);
             fighter_maxlevel_text->setPosition(pos);
@@ -467,7 +468,7 @@ void Base::createFighterBottomInfo(Node* panel,int t_index)
     {
         pos.x = 290;
         pos.y = panelSize.height * 0.85f;
-        _flight_level_label = Label::createWithTTF(Value(s_playerConfig.fighterslevel[t_index]+1).asString(),fontFile,fontSize);
+        _flight_level_label = Label::createWithTTF(Value(s_playerConfig.fighterslevel[t_index]+1).asString(),fontFile,fontSize_m);
         _flight_level_label->setAnchorPoint(Point::ANCHOR_TOP_LEFT);
         _flight_level_label->setPosition(pos);
         _flight_level_label->setTextColor(infoColor);
@@ -475,7 +476,7 @@ void Base::createFighterBottomInfo(Node* panel,int t_index)
         _flight_level_label->setTag(9);
         
         pos.y = panelSize.height * 0.67f;
-        _flight_attack_label = Label::createWithTTF(Value(s_plainConfigs[t_index][s_playerConfig.fighterslevel[t_index]].attack).asString(),fontFile,fontSize);
+        _flight_attack_label = Label::createWithTTF(Value(s_plainConfigs[t_index][s_playerConfig.fighterslevel[t_index]].attack).asString(),fontFile,fontSize_m);
         _flight_attack_label->setAnchorPoint(Point::ANCHOR_TOP_LEFT);
         _flight_attack_label->setPosition(pos);
         _flight_attack_label->setTextColor(infoColor);
@@ -483,7 +484,7 @@ void Base::createFighterBottomInfo(Node* panel,int t_index)
         _flight_attack_label->setTag(10);
         
         pos.y = panelSize.height * 0.5f;
-        _flight_defend_label = Label::createWithTTF(Value(s_plainConfigs[t_index][s_playerConfig.fighterslevel[t_index]].defense).asString(),fontFile,fontSize);
+        _flight_defend_label = Label::createWithTTF(Value(s_plainConfigs[t_index][s_playerConfig.fighterslevel[t_index]].defense).asString(),fontFile,fontSize_m);
         _flight_defend_label->setAnchorPoint(Point::ANCHOR_TOP_LEFT);
         _flight_defend_label->setPosition(pos);
         _flight_defend_label->setTextColor(infoColor);
@@ -493,16 +494,16 @@ void Base::createFighterBottomInfo(Node* panel,int t_index)
         if (s_playerConfig.fighterslevel[t_index] < FIGHTER_LEVEL_MAX-1)
         {
             pos.y = panelSize.height * 0.25f;
-            _flight_upgradeforgem_label = Label::createWithTTF(Value(s_plainConfigs[t_index][s_playerConfig.fighterslevel[t_index]].gemForUpgrade).asString(),fontFile,fontSize);
+            _flight_upgradeforgem_label = Label::createWithTTF(Value(s_plainConfigs[t_index][s_playerConfig.fighterslevel[t_index]].gemForUpgrade).asString(),fontFile,fontSize_l);
             _flight_upgradeforgem_label->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
             _flight_upgradeforgem_label->setPosition(spar->getPosition()+Point(spar->getContentSize().width/2,0));
             _flight_upgradeforgem_label->setTextColor(Color4B(255,255,0,255));
             panel->addChild(_flight_upgradeforgem_label);
             _flight_upgradeforgem_label->setTag(12);
         }
-        pos.x = 490;
+        pos.x = 470;
         pos.y = panelSize.height * 0.85f;
-        _flight_life_label = Label::createWithTTF(Value(s_plainConfigs[t_index][s_playerConfig.fighterslevel[t_index]].life).asString(),fontFile,fontSize);
+        _flight_life_label = Label::createWithTTF(Value(s_plainConfigs[t_index][s_playerConfig.fighterslevel[t_index]].life).asString(),fontFile,fontSize_m);
         _flight_life_label->setAnchorPoint(Point::ANCHOR_TOP_LEFT);
         _flight_life_label->setPosition(pos);
         _flight_life_label->setTextColor(infoColor);
@@ -510,7 +511,7 @@ void Base::createFighterBottomInfo(Node* panel,int t_index)
         _flight_life_label->setTag(13);
         
         pos.y = panelSize.height * 0.67f;
-        _flight_speed_label = Label::createWithTTF(Value(s_plainConfigs[t_index][s_playerConfig.fighterslevel[t_index]].speed).asString(),fontFile,fontSize);
+        _flight_speed_label = Label::createWithTTF(Value(s_plainConfigs[t_index][s_playerConfig.fighterslevel[t_index]].speed).asString(),fontFile,fontSize_m);
         _flight_speed_label->setAnchorPoint(Point::ANCHOR_TOP_LEFT);
         _flight_speed_label->setPosition(pos);
         _flight_speed_label->setTextColor(infoColor);
@@ -518,7 +519,7 @@ void Base::createFighterBottomInfo(Node* panel,int t_index)
         _flight_speed_label->setTag(14);
         
         pos.y = panelSize.height * 0.5f;
-        _flight_range_label = Label::createWithTTF(Value(s_plainConfigs[t_index][s_playerConfig.fighterslevel[t_index]].range).asString(),fontFile,fontSize);
+        _flight_range_label = Label::createWithTTF(Value(s_plainConfigs[t_index][s_playerConfig.fighterslevel[t_index]].range).asString(),fontFile,fontSize_m);
         _flight_range_label->setAnchorPoint(Point::ANCHOR_TOP_LEFT);
         _flight_range_label->setPosition(pos);
         _flight_range_label->setTextColor(infoColor);
@@ -532,24 +533,25 @@ void Base::createWeaponBottomInfo(Node* panel, int t_index)
     _isInFilghtUpgradeUI = false;
     auto panelSize = panel->getContentSize();
     std::string fontFile = "DS-Digital.ttf";//"arial.ttf";
-    int fontSize = 20;
-    auto infoColor = Color4B(153,217,234,255);
+    int fontSize_m = 23;
+    int fontSize_l = 25;
+    auto infoColor = DIY_COLOR_BLUE3;
     
     auto fighterBox = Sprite::createWithSpriteFrameName("upgrade_box_mini.png");
     //fighterBox->setContentSize(Size(panelSize.width / 6,panelSize.height * 0.5f));
-    fighterBox->setScale(0.7f);
+    //fighterBox->setScale(0.7f);
     fighterBox->setPosition(Point(panelSize.width / 6,panelSize.height * 0.625f));
     panel->addChild(fighterBox);
 
     auto menuitem = MenuItemImageLabel::createWithFrameName("bt_main_0.png","bt_main_1.png",CC_CALLBACK_1(Base::upgradeWeapon,this));
-    menuitem->setScale(1.2f,0.5f);
-    menuitem->setPosition(Point(panelSize.width / 2,panelSize.height * 0.25f));
+    menuitem->setScale(1.2f,0.7f);
+    menuitem->setPosition(Point(panelSize.width / 2,panelSize.height * 0.20f));
     auto menu = Menu::create(menuitem,nullptr);
     menu->setPosition(Point::ZERO);
     panel->addChild(menu);
     
     auto menuitembuy = MenuItemImageLabel::createWithFrameName("btB_0.png","btB_1.png",CC_CALLBACK_1(Base::buyWeapon,this));
-    menuitembuy->setScale(0.8f);
+    //menuitembuy->setScale(0.8f);
     menuitembuy->setPosition(Point(panelSize.width / 2+180,panelSize.height/2+30));
     auto menubuy = Menu::create(menuitembuy,nullptr);
     menubuy->setPosition(Point::ZERO);
@@ -560,19 +562,19 @@ void Base::createWeaponBottomInfo(Node* panel, int t_index)
     auto pos = Point(200,panelSize.height * 0.85f);
     
     {
-        weapon_levelText = TextSprite::create(s_gameStrings.base->upgradeLevel,GameConfig::defaultFontName,fontSize);
+        weapon_levelText = TextSprite::create(s_gameStrings.base->upgradeLevel,GameConfig::defaultFontName,fontSize_m);
         weapon_levelText->setAnchorPoint(Point::ANCHOR_TOP_LEFT);
         weapon_levelText->setPosition(pos);
         panel->addChild(weapon_levelText);
         
         pos.y = panelSize.height * 0.67f;
-        weapon_attText = TextSprite::create(s_gameStrings.base->upgradeAtt,GameConfig::defaultFontName,fontSize);
+        weapon_attText = TextSprite::create(s_gameStrings.base->upgradeAtt,GameConfig::defaultFontName,fontSize_m);
         weapon_attText->setAnchorPoint(Point::ANCHOR_TOP_LEFT);
         weapon_attText->setPosition(pos);
         panel->addChild(weapon_attText);
         
         pos.y = panelSize.height * 0.5f;
-        weapon_durationText = TextSprite::create(s_gameStrings.base->upgradeDuration,GameConfig::defaultFontName,fontSize);
+        weapon_durationText = TextSprite::create(s_gameStrings.base->upgradeDuration,GameConfig::defaultFontName,fontSize_m);
         weapon_durationText->setAnchorPoint(Point::ANCHOR_TOP_LEFT);
         weapon_durationText->setPosition(pos);
         panel->addChild(weapon_durationText);
@@ -581,21 +583,21 @@ void Base::createWeaponBottomInfo(Node* panel, int t_index)
         if(s_playerConfig.weaponslevel[t_index] < WEAPON_LEVEL_MAX-1)
         {
             spar = Sprite::createWithSpriteFrameName("icon_gem.png");
-            spar->setPosition(Point(200,panelSize.height * 0.25f));
+            spar->setPosition(Point(180,panelSize.height * 0.20f));
             panel->addChild(spar);
             
             pos.x = 400;
-            pos.y = panelSize.height * 0.25f;
-            weapon_leveUpText = TextSprite::create(s_gameStrings.base->upgrade,GameConfig::defaultFontName,fontSize);
+            pos.y = panelSize.height * 0.20f;
+            weapon_leveUpText = TextSprite::create(s_gameStrings.base->upgrade,GameConfig::defaultFontName,fontSize_l);
             weapon_leveUpText->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
-            weapon_leveUpText->setPosition(pos-Point(40,0));
+            weapon_leveUpText->setPosition(pos-Point(85,0));
             panel->addChild(weapon_leveUpText);
         }
         else
         {
             pos.x = panelSize.width/2;
-            pos.y = panelSize.height * 0.25f;
-            weapon_maxlevel_text = TextSprite::create(s_gameStrings.base->maxlevel,GameConfig::defaultFontName,fontSize);
+            pos.y = panelSize.height * 0.20f;
+            weapon_maxlevel_text = TextSprite::create(s_gameStrings.base->maxlevel,GameConfig::defaultFontName,fontSize_l);
             weapon_maxlevel_text->setColor(Color3B::YELLOW);
             weapon_maxlevel_text->setAnchorPoint(Point::ANCHOR_MIDDLE);
             weapon_maxlevel_text->setPosition(pos);
@@ -608,8 +610,8 @@ void Base::createWeaponBottomInfo(Node* panel, int t_index)
         stone_icon->setPosition(Point(menuitembuy->getContentSize().width/2-35,menuitembuy->getContentSize().height/2+20));
         menuitembuy->addChild(stone_icon);
         
-        weapon_buy_text = TextSprite::create(s_gameStrings.base->upgradeBuy,GameConfig::defaultFontName,GameConfig::defaultFontSize);
-        weapon_buy_text->setColor(Color3B::BLUE);
+        weapon_buy_text = TextSprite::create(s_gameStrings.base->upgradeBuy,GameConfig::defaultFontName,fontSize_l);
+        weapon_buy_text->setColor(DIY_COLOR_BLUE5);
         weapon_buy_text->setPosition(Point(menuitembuy->getContentSize().width/2,menuitembuy->getContentSize().height/2-20));
         menuitembuy->addChild(weapon_buy_text);
     }
@@ -617,14 +619,14 @@ void Base::createWeaponBottomInfo(Node* panel, int t_index)
     {
         pos.x = 310;
         pos.y = panelSize.height * 0.85f;
-        _weapon_level_label = Label::createWithTTF(Value(s_playerConfig.weaponslevel[t_index]+1).asString(),fontFile,fontSize);
+        _weapon_level_label = Label::createWithTTF(Value(s_playerConfig.weaponslevel[t_index]+1).asString(),fontFile,fontSize_m);
         _weapon_level_label->setAnchorPoint(Point::ANCHOR_TOP_LEFT);
         _weapon_level_label->setPosition(pos);
         _weapon_level_label->setTextColor(infoColor);
         panel->addChild(_weapon_level_label);
         
         pos.y = panelSize.height * 0.67f;
-        _weapon_attack_label = Label::createWithTTF(Value(s_weaponConfigs[t_index][s_playerConfig.weaponslevel[t_index]].attack).asString(),fontFile,fontSize);
+        _weapon_attack_label = Label::createWithTTF(Value(s_weaponConfigs[t_index][s_playerConfig.weaponslevel[t_index]].attack).asString(),fontFile,fontSize_m);
         _weapon_attack_label->setAnchorPoint(Point::ANCHOR_TOP_LEFT);
         _weapon_attack_label->setPosition(pos);
         _weapon_attack_label->setTextColor(infoColor);
@@ -633,7 +635,7 @@ void Base::createWeaponBottomInfo(Node* panel, int t_index)
         pos.y = panelSize.height * 0.5f;
         char p[30];
         sprintf(p, "%.2f",s_weaponConfigs[t_index][s_playerConfig.weaponslevel[t_index]].duration);
-        _weapon_duration_label = Label::createWithTTF(p,fontFile,fontSize);
+        _weapon_duration_label = Label::createWithTTF(p,fontFile,fontSize_m);
         _weapon_duration_label->setAnchorPoint(Point::ANCHOR_TOP_LEFT);
         _weapon_duration_label->setPosition(pos);
         _weapon_duration_label->setTextColor(infoColor);
@@ -642,16 +644,16 @@ void Base::createWeaponBottomInfo(Node* panel, int t_index)
         if(s_playerConfig.weaponslevel[t_index] < WEAPON_LEVEL_MAX-1)
         {
             pos.y = panelSize.height * 0.25f;
-            _weapon_upgradeforgem_label = Label::createWithTTF(Value(s_weaponConfigs[t_index][s_playerConfig.weaponslevel[t_index]].gemForUpgrade).asString(),fontFile,fontSize);
+            _weapon_upgradeforgem_label = Label::createWithTTF(Value(s_weaponConfigs[t_index][s_playerConfig.weaponslevel[t_index]].gemForUpgrade).asString(),fontFile,fontSize_l);
             _weapon_upgradeforgem_label->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
             _weapon_upgradeforgem_label->setPosition(spar->getPosition()+Point(spar->getContentSize().width/2,0));
             _weapon_upgradeforgem_label->setTextColor(Color4B(255,255,0,255));
             panel->addChild(_weapon_upgradeforgem_label);
         }
-        _buy_gem = TextSprite::create(Value(s_weaponConfigs[t_index][s_playerConfig.weaponslevel[t_index]].gemForUpgrade).asString().c_str(),fontFile,25);
+        _buy_gem = Label::createWithTTF(Value(s_weaponConfigs[t_index][s_playerConfig.weaponslevel[t_index]].gemForUpgrade).asString(),fontFile,fontSize_m);
         _buy_gem->setColor(Color3B::YELLOW);
         _buy_gem->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
-        _buy_gem->setPosition(Point(menuitembuy->getContentSize().width/2-20,menuitembuy->getContentSize().height/2+20));
+        _buy_gem->setPosition(Point(menuitembuy->getContentSize().width/2-15,menuitembuy->getContentSize().height/2+18));
         menuitembuy->addChild(_buy_gem);
     }
 }
@@ -661,11 +663,12 @@ void Base::createFighterMiddleInfo(Node* panel)
 {
     auto panelSize = panel->getContentSize();
     std::string fontFile = "DS-Digital.ttf";//"arial.ttf";
-    int fontSize = 20;
-    auto infoColor = Color4B(153,217,234,255);
+    int fontSize_m = 23;
+    int fontSize_l = 25;
+    auto infoColor = DIY_COLOR_BLUE3;
     
     auto menuitem = MenuItemImageLabel::createWithFrameName("bt_main_0.png","bt_main_1.png",CC_CALLBACK_1(Base::upgradeStoneMax,this));
-    menuitem->setScale(1.2f,0.5f);
+    menuitem->setScale(1.2f,0.7f);
     menuitem->setPosition(Point(panelSize.width / 2,panelSize.height * 0.25f));
     auto menu = Menu::create(menuitem,nullptr);
     menu->setPosition(Point::ZERO);
@@ -673,8 +676,8 @@ void Base::createFighterMiddleInfo(Node* panel)
     
     Sprite* spar;
     
-    auto pos = Point(200,panelSize.height * 0.85f);
-    
+    auto pos = Point(180,panelSize.height * 0.85f);
+    TextSprite* levelText;
     {
         auto stoneicon = Sprite::createWithSpriteFrameName("icon_stone.png");
         stoneicon->setScale(0.8f);
@@ -682,16 +685,16 @@ void Base::createFighterMiddleInfo(Node* panel)
         stoneicon->setPosition(pos-Point(50,0));
         panel->addChild(stoneicon);
         
-        auto levelText = TextSprite::create(s_gameStrings.base->upgradeLevel,GameConfig::defaultFontName,fontSize);
+        levelText = TextSprite::create(s_gameStrings.base->upgradeLevel,GameConfig::defaultFontName,fontSize_m);
         levelText->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
-        levelText->setPosition(pos);
+        levelText->setPosition(stoneicon->getPositionX()+stoneicon->getContentSize().width,stoneicon->getPositionY());
         panel->addChild(levelText);
         
         pos.x = panelSize.width/2;
-        pos.y = panelSize.height * 0.53f;
-        auto sparCapacityText = TextSprite::create(s_gameStrings.base->sparCapacity,GameConfig::defaultFontName,fontSize);
+        pos.y = panelSize.height * 0.57f;
+        auto sparCapacityText = TextSprite::create(s_gameStrings.base->sparCapacity,GameConfig::defaultFontName,fontSize_m);
+        sparCapacityText->setColor(DIY_COLOR_YELLOW4);
         sparCapacityText->setPosition(pos);
-        sparCapacityText->setColor(Color3B(169,169,169));
         panel->addChild(sparCapacityText);
         
         
@@ -701,12 +704,12 @@ void Base::createFighterMiddleInfo(Node* panel)
         if(s_playerConfig.stonecapacitylevel < STONE_CAPACITY_LEVEL_MAX-1)
         {
             spar = Sprite::createWithSpriteFrameName("icon_gem.png");
-            spar->setPosition(Point(200,panelSize.height * 0.25f));
+            spar->setPosition(Point(170,panelSize.height * 0.25f));
             panel->addChild(spar);
             
-            pos.x = 400;
+            pos.x = 345;
             pos.y = panelSize.height * 0.25f;
-            leveUpText = TextSprite::create(s_gameStrings.base->upgrade,GameConfig::defaultFontName,fontSize);
+            leveUpText = TextSprite::create(s_gameStrings.base->upgrade,GameConfig::defaultFontName,fontSize_l);
             leveUpText->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
             leveUpText->setPosition(pos-Point(40,0));
             panel->addChild(leveUpText);
@@ -715,7 +718,7 @@ void Base::createFighterMiddleInfo(Node* panel)
         {
             pos.x = panelSize.width/2;
             pos.y = panelSize.height * 0.25f;
-            maxlevel_text = TextSprite::create(s_gameStrings.base->maxlevel,GameConfig::defaultFontName,fontSize);
+            maxlevel_text = TextSprite::create(s_gameStrings.base->maxlevel,GameConfig::defaultFontName,fontSize_l);
             maxlevel_text->setColor(Color3B::YELLOW);
             maxlevel_text->setAnchorPoint(Point::ANCHOR_MIDDLE);
             maxlevel_text->setPosition(pos);
@@ -730,6 +733,7 @@ void Base::createFighterMiddleInfo(Node* panel)
                                                         if (tempBool)
                                                         {
                                                             leveUpText->setText(s_gameStrings.base->upgrade);
+                                                            middle_level->setPosition(Point(levelText->getPositionX()+levelText->getContentSize().width,levelText->getPositionY()));
                                                         }
                                                         else
                                                         {
@@ -739,27 +743,27 @@ void Base::createFighterMiddleInfo(Node* panel)
         _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
     }
     {
-        pos.x = 290;
+        pos.x = 235;
         pos.y = panelSize.height * 0.85f;
-        middle_level = Label::createWithTTF(Value(s_playerConfig.stonecapacitylevel+1).asString(),fontFile,fontSize);
+        middle_level = Label::createWithSystemFont(Value(s_playerConfig.stonecapacitylevel+1).asString(),"Arial",fontSize_m);
         middle_level->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
-        middle_level->setPosition(pos);
+        middle_level->setPosition(Point(levelText->getPositionX()+levelText->getContentSize().width,levelText->getPositionY()));
         panel->addChild(middle_level);
         
-        pos.x = 350;
+        pos.x = 330;
         pos.y = panelSize.height * 0.85f;
-        middle_init = Label::createWithTTF(Value(s_stoneCapacity[s_playerConfig.stonecapacitylevel].initstone).asString(),fontFile,fontSize);
+        middle_init = Label::createWithTTF(Value(s_stoneCapacity[s_playerConfig.stonecapacitylevel].initstone).asString(),fontFile,fontSize_m);
         middle_init->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
         middle_init->setPosition(pos);
         middle_init->setTextColor(infoColor);
         panel->addChild(middle_init);
         
-        middle_slash = Label::createWithTTF("/",fontFile,fontSize);
+        middle_slash = Label::createWithTTF("/",fontFile,fontSize_m);
         middle_slash->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
         middle_slash->setPosition(middle_init->getPosition()+Point(middle_init->getContentSize().width,0));
         panel->addChild(middle_slash);
         
-        middle_total = Label::createWithTTF(Value(s_stoneCapacity[s_playerConfig.stonecapacitylevel].maxstone).asString(),fontFile,fontSize);
+        middle_total = Label::createWithTTF(Value(s_stoneCapacity[s_playerConfig.stonecapacitylevel].maxstone).asString(),fontFile,fontSize_m);
         middle_total->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
         middle_total->setPosition(middle_slash->getPosition()+Point(middle_slash->getContentSize().width,0));
         panel->addChild(middle_total);
@@ -767,7 +771,7 @@ void Base::createFighterMiddleInfo(Node* panel)
         if(s_playerConfig.stonecapacitylevel < STONE_CAPACITY_LEVEL_MAX-1)
         {
             pos.y = panelSize.height * 0.25f;
-            middle_leveUpCost = Label::createWithTTF(Value(s_stoneCapacity[s_playerConfig.stonecapacitylevel].gemForUpgrade).asString(),fontFile,fontSize);
+            middle_leveUpCost = Label::createWithTTF(Value(s_stoneCapacity[s_playerConfig.stonecapacitylevel].gemForUpgrade).asString(),fontFile,fontSize_l);
             middle_leveUpCost->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
             middle_leveUpCost->setPosition(spar->getPosition()+Point(spar->getContentSize().width/2,0));
             middle_leveUpCost->setTextColor(Color4B(255,255,0,255));
@@ -779,11 +783,12 @@ void Base::createFighterTopInfo(Node* panel)
 {
     auto panelSize = panel->getContentSize();
     std::string fontFile = "DS-Digital.ttf";//"arial.ttf";
-    int fontSize = 20;
-    auto infoColor = Color4B(153,217,234,255);
+    int fontSize_m = 23;
+    int fontSize_l = 25;
+    auto infoColor = DIY_COLOR_BLUE3;
     
     auto menuitem = MenuItemImageLabel::createWithFrameName("bt_main_0.png","bt_main_1.png",CC_CALLBACK_1(Base::upgradeStoneSpeed,this));
-    menuitem->setScale(1.2f,0.5f);
+    menuitem->setScale(1.2f,0.7f);
     menuitem->setPosition(Point(panelSize.width / 2,panelSize.height * 0.25f));
     auto menu = Menu::create(menuitem,nullptr);
     menu->setPosition(Point::ZERO);
@@ -791,25 +796,25 @@ void Base::createFighterTopInfo(Node* panel)
     
     Sprite* spar;
     
-    auto pos = Point(200,panelSize.height * 0.85f);
-    
+    auto pos = Point(180,panelSize.height * 0.85f);
+    TextSprite* levelText = nullptr;
     {
         auto stoneicon = Sprite::createWithSpriteFrameName("icon_stone.png");
         stoneicon->setScale(0.8f);
         stoneicon->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
-        stoneicon->setPosition(pos-Point(50,0));
+        stoneicon->setPosition(pos-Point(60,0));
         panel->addChild(stoneicon);
         
-        auto levelText = TextSprite::create(s_gameStrings.base->upgradeLevel,GameConfig::defaultFontName,fontSize);
+        levelText = TextSprite::create(s_gameStrings.base->upgradeLevel,GameConfig::defaultFontName,fontSize_m);
         levelText->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
-        levelText->setPosition(pos);
+        levelText->setPosition(Point(stoneicon->getPositionX()+stoneicon->getContentSize().width,stoneicon->getPositionY()));
         panel->addChild(levelText);
         
         pos.x = panelSize.width/2;
-        pos.y = panelSize.height * 0.53f;
-        auto sparRecoverRateText = TextSprite::create(s_gameStrings.base->sparRecoverRate,GameConfig::defaultFontName,fontSize);
+        pos.y = panelSize.height * 0.57f;
+        auto sparRecoverRateText = TextSprite::create(s_gameStrings.base->sparRecoverRate,GameConfig::defaultFontName,fontSize_m);
+        sparRecoverRateText->setColor(DIY_COLOR_YELLOW4);
         sparRecoverRateText->setPosition(pos);
-        sparRecoverRateText->setColor(Color3B(169,169,169));
         panel->addChild(sparRecoverRateText);
         
         TextSprite * leveUpText;
@@ -819,12 +824,12 @@ void Base::createFighterTopInfo(Node* panel)
         if(s_playerConfig.stonespeedlevel < STONE_SPEED_LEVEL_MAX-1)
         {
             spar = Sprite::createWithSpriteFrameName("icon_gem.png");
-            spar->setPosition(Point(200,panelSize.height * 0.25f));
+            spar->setPosition(Point(165,panelSize.height * 0.25f));
             panel->addChild(spar);
             
-            pos.x = 400;
+            pos.x = 340;
             pos.y = panelSize.height * 0.25f;
-            leveUpText = TextSprite::create(s_gameStrings.base->upgrade,GameConfig::defaultFontName,fontSize);
+            leveUpText = TextSprite::create(s_gameStrings.base->upgrade,GameConfig::defaultFontName,fontSize_l);
             leveUpText->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
             leveUpText->setPosition(pos-Point(40,0));
             panel->addChild(leveUpText);
@@ -833,7 +838,7 @@ void Base::createFighterTopInfo(Node* panel)
         {
             pos.x = panelSize.width/2;
             pos.y = panelSize.height * 0.25f;
-            maxlevel_text = TextSprite::create(s_gameStrings.base->maxlevel,GameConfig::defaultFontName,fontSize);
+            maxlevel_text = TextSprite::create(s_gameStrings.base->maxlevel,GameConfig::defaultFontName,fontSize_l);
             maxlevel_text->setColor(Color3B::YELLOW);
             maxlevel_text->setAnchorPoint(Point::ANCHOR_MIDDLE);
             maxlevel_text->setPosition(pos);
@@ -849,6 +854,7 @@ void Base::createFighterTopInfo(Node* panel)
                                                         if (tempBool)
                                                         {
                                                             leveUpText->setText(s_gameStrings.base->upgrade);
+                                                            top_level->setPosition(Point(levelText->getPositionX()+levelText->getContentSize().width,levelText->getPositionY()));
                                                         }
                                                         else
                                                         {
@@ -858,34 +864,34 @@ void Base::createFighterTopInfo(Node* panel)
         _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
     }
     {
-        pos.x = 290;
+        pos.x = 235;
         pos.y = panelSize.height * 0.85f;
-        top_level = Label::createWithTTF(Value(s_playerConfig.stonespeedlevel+1).asString(),fontFile,fontSize);
+        top_level = Label::createWithSystemFont(Value(s_playerConfig.stonespeedlevel+1).asString(),"Arial",fontSize_m);
         top_level->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
-        top_level->setPosition(pos);
+        top_level->setPosition(Point(levelText->getPositionX()+levelText->getContentSize().width,levelText->getPositionY()));
         panel->addChild(top_level);
         
-        pos.x = 350;
+        pos.x = 320;
         pos.y = panelSize.height * 0.85f;
-        top_plus = Label::createWithTTF("+",fontFile,fontSize);
+        top_plus = Label::createWithTTF("+",fontFile,fontSize_m);
         top_plus->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
         top_plus->setPosition(pos);
         top_plus->setTextColor(infoColor);
         panel->addChild(top_plus);
         
-        top_speed = Label::createWithTTF(Value(s_stoneSpeed[s_playerConfig.stonespeedlevel].speed).asString(),fontFile,fontSize);
+        top_speed = Label::createWithTTF(Value(s_stoneSpeed[s_playerConfig.stonespeedlevel].speed).asString(),fontFile,fontSize_m);
         top_speed->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
         top_speed->setPosition(top_plus->getPosition()+Point(top_plus->getContentSize().width,0));
         top_speed->setTextColor(infoColor);
         panel->addChild(top_speed);
         
-        top_slash = Label::createWithTTF("/",fontFile,fontSize);
+        top_slash = Label::createWithTTF("/",fontFile,fontSize_m);
         top_slash->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
-        top_slash->setPosition(top_speed->getPosition()+Point(top_speed->getContentSize().width,0));
+        top_slash->setPosition(top_speed->getPosition()+Point(top_speed->getContentSize().width,0)+Point(5,0));
         panel->addChild(top_slash);
         
         
-        top_second = TextSprite::create(s_gameStrings.base->second,GameConfig::defaultFontName,fontSize);
+        top_second = TextSprite::create(s_gameStrings.base->second,GameConfig::defaultFontName,fontSize_m);
         top_second->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
         top_second->setPosition(top_slash->getPosition()+Point(top_slash->getContentSize().width,0));
         panel->addChild(top_second);
@@ -893,7 +899,7 @@ void Base::createFighterTopInfo(Node* panel)
         if(s_playerConfig.stonespeedlevel < STONE_SPEED_LEVEL_MAX-1)
         {
             pos.y = panelSize.height * 0.25f;
-            top_leveUpCost = Label::createWithTTF(Value(s_stoneSpeed[s_playerConfig.stonespeedlevel].gemForUpgrade).asString(),fontFile,fontSize);
+            top_leveUpCost = Label::createWithTTF(Value(s_stoneSpeed[s_playerConfig.stonespeedlevel].gemForUpgrade).asString(),fontFile,fontSize_l);
             top_leveUpCost->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
             top_leveUpCost->setPosition(spar->getPosition()+Point(spar->getContentSize().width/2,0));
             top_leveUpCost->setTextColor(Color4B(255,255,0,255));

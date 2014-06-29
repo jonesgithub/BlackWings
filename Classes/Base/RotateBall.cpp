@@ -85,7 +85,6 @@ void RotateBall::setRotate(bool rotate)
 
 void RotateBall::update(float dt)
 {
-    log("_isRotate is %d",_isRotate);
     if(_isRotate)
     {
         ball1->setPositionX(int(ball1->getPositionX())+2);

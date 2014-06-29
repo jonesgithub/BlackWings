@@ -105,7 +105,7 @@ bool PlayerBar::init()
     this->addChild(gemIcon,2);
     
     std::string fontFile = "DS-Digital.ttf";//"arial.ttf";
-    int fontSize = 20;
+    int fontSize = 27;
     
     auto slash = Label::createWithTTF("/",fontFile,fontSize);
     slash->setAnchorPoint(Point::ANCHOR_MIDDLE_BOTTOM);
@@ -132,7 +132,7 @@ bool PlayerBar::init()
     
     if(s_playerConfig.overstage >= STAGEOFCANBUYGEM)
     {
-        menuitem_getmore = MenuItemImageLabel::createWithFrameName("bt_buy_gem_0.png", "bt_buy_gem_1.png", CC_CALLBACK_1(PlayerBar::getmoregem, this),s_gameStrings.base->getmoregem);
+        menuitem_getmore = MenuItemImageLabel::createWithFrameName("bt_buy_gem_0.png", "bt_buy_gem_1.png", CC_CALLBACK_1(PlayerBar::getmoregem, this),s_gameStrings.base->getmoregem, s_gameConfig.defaultFontName,23);
         menuitem_getmore->setColor(Color3B::YELLOW);
         menuitem_getmore->setAnchorPoint(Point::ANCHOR_MIDDLE_RIGHT);
         menuitem_getmore->setPosition(gemIcon->getPositionX()+gemIcon->getContentSize().width+280,gemIcon->getPositionY());

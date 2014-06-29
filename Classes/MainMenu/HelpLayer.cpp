@@ -52,6 +52,7 @@ bool HelpLayer::init()
 
         auto titleText = TextSprite::create(s_gameStrings.mainMenu->helpTitle);
         titleText->setPosition(_panelSize.width /2, _panelSize.height - 27);
+        titleText->setColor(DIY_COLOR_YELLOW1);
         panel->addChild(titleText);
 
         auto itemClosed = MenuItemImageLabel::createWithFrameName("back_0.png","back_1.png",
@@ -88,12 +89,12 @@ extension::TableViewCell* HelpLayer::tableCellAtIndex(extension::TableView *tabl
     case 0:
         text = s_gameStrings.helpInfo->sparInfo;
         sprintf(iconFileName,"icon_stone.png");
-        textColor = Color3B::BLUE;
+        textColor = DIY_COLOR_BLUE1;
         break;
     case 1:
         text = s_gameStrings.helpInfo->gemInfo;
         sprintf(iconFileName,"icon_gem.png");
-        textColor = Color3B::BLUE;
+        textColor = DIY_COLOR_BLUE1;
         break;
     case 2:
     case 3:
@@ -105,13 +106,13 @@ extension::TableViewCell* HelpLayer::tableCellAtIndex(extension::TableView *tabl
         {
             sprintf(iconFileName,"icon_unknown.png");
             text = s_gameStrings.helpInfo->fighterLocked;
-            textColor = Color3B::GRAY;
+            textColor = DIY_COLOR_GRAY1;
         } 
         else
         {
             sprintf(iconFileName,"plain_%d_lv_%d.png",idx - 1,s_playerConfig.fighterslevel[idx - 2] + 1);
             text = s_gameStrings.helpInfo->fighter[idx - 2];
-            textColor = Color3B::YELLOW;
+            textColor = DIY_COLOR_YELLOW1;
         }
         break;
     case 8: 
@@ -121,13 +122,13 @@ extension::TableViewCell* HelpLayer::tableCellAtIndex(extension::TableView *tabl
         {
             sprintf(iconFileName,"icon_unknown.png");
             text = s_gameStrings.helpInfo->weaponLocked;
-            textColor = Color3B::GRAY;
+            textColor = DIY_COLOR_GRAY1;
         } 
         else
         {
             sprintf(iconFileName,"bomb_%d_%d.png",idx - 7,s_playerConfig.weaponslevel[idx - 8] + 1);
             text = s_gameStrings.helpInfo->weapon[idx - 8];
-            textColor = Color3B::ORANGE;
+            textColor = DIY_COLOR_ORANGE1;
         }
         break;
     default:

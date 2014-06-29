@@ -30,15 +30,6 @@
 
 #define STAGEOFCANBUYGEM -2
 
-#define STAGE_ENEMY_WAVES_00 1
-#define STAGE_ENEMY_WAVES_01 1
-#define STAGE_ENEMY_WAVES_02 3
-
-
-#define STAGE_TOWER_COUNTS_00 1
-#define STAGE_TOWER_COUNTS_01 1
-#define STAGE_TOWER_COUNTS_02 2
-
 //music
 #define STOP_ALL_MUSIC CocosDenshion::SimpleAudioEngine::getInstance()->stopBackgroundMusic();//停止所有背景音乐
 #define PLAY_MAIN_MUSIC CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("music_main.mp3",true);//菜单背景音乐
@@ -62,8 +53,30 @@
 #define PLAY_BOMB_EFFECT CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("plain_bomb.wav",false);//爆炸声音
 #define PLAY_WARNING_EFFECT CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("boos_warning.mp3",false);//boss警告声音
 
+//TextColor
+//帮助
+#define DIY_COLOR_BLUE1 Color3B(99, 218, 208)
+#define DIY_COLOR_YELLOW1  Color3B(189, 189, 142)
+#define DIY_COLOR_GRAY1 Color3B(168, 168, 168)
+#define DIY_COLOR_ORANGE1 Color3B(210, 161, 125)
+//勋章-顶部
+#define DIY_COLOR_GRAY2 Color3B(200, 200, 200)
+#define DIY_COLOR_BLUE2 Color3B(67, 207, 195)
+//勋章-item
+#define DIY_COLOR_YELLOW2 Color3B(210, 174, 78)
+#define DIY_COLOR_GRAY3 Color3B(173, 173, 173)
+//勋章-按钮
+#define DIY_COLOR_YELLOW3 Color3B(219, 227, 0)
+//base
+#define DIY_COLOR_YELLOW4 Color3B(217, 198, 149)
+#define DIY_COLOR_BLUE3 Color4B(100, 255, 255, 255)
+#define DIY_COLOR_BLUE5
+//升级
+#define DIY_COLOR_YELLOW5 Color3B(220, 200, 150)
+//button
+#define DIY_COLOR_BLUE4 Color3B(106, 200, 238)
 
-
+#define DIY_COLOR_BLUE5 Color3B(100, 255, 255)
 enum class Attacker
 {
     ENEMY,
@@ -112,8 +125,6 @@ typedef struct _playerconfig
 }PlayerConfig;
 
 extern PlayerConfig s_playerConfig;
-
-
 
 class GameConfig
 {
@@ -237,56 +248,5 @@ extern int s_enemyBaseBlood[STAGE_COUNT];
 extern int s_playerBaseBlood[STAGE_COUNT];
 extern cocos2d::Point s_EnemyBasePos;
 extern cocos2d::Point s_PlayerBasePos;
-
-//NormalEnemy
-typedef struct _battleNormalEnemyConfig
-{
-    int duration;
-    int type;
-    int level;
-    int count;
-}BattleNormalEnemyConfig;
-
-typedef struct _battleNormalEnemyInfo
-{
-    BattleNormalEnemyConfig* _bnec;
-    int waves;
-}BattleNormalEnemyInfo;
-
-extern BattleNormalEnemyInfo s_battleNormalEnemyInfo[3];
-
-extern BattleNormalEnemyConfig s_battleNormalEnemyConfig_0[STAGE_ENEMY_WAVES_00];
-extern BattleNormalEnemyConfig s_battleNormalEnemyConfig_1[STAGE_ENEMY_WAVES_01];
-extern BattleNormalEnemyConfig s_battleNormalEnemyConfig_2[STAGE_ENEMY_WAVES_02];
-
-
-//TowerEnemy
-typedef struct _battleTowerEnemyConfig
-{
-    int level;
-    int x;
-    int y;
-}BattleTowerEnemyConfig;
-
-typedef struct _battleTowerEnemyInfo
-{
-    BattleTowerEnemyConfig* _btec;
-    int counts;
-}BattleTowerEnemyInfo;
-
-extern BattleTowerEnemyInfo s_battleTowerEnemyInfo[3];
-
-extern BattleTowerEnemyConfig s_battleTowerEnemyConfig_0[STAGE_TOWER_COUNTS_00];
-extern BattleTowerEnemyConfig s_battleTowerEnemyConfig_1[STAGE_TOWER_COUNTS_01];
-extern BattleTowerEnemyConfig s_battleTowerEnemyConfig_2[STAGE_TOWER_COUNTS_02];
-
-//BossEnemy
-typedef struct _battleBossEnemyInfo
-{
-    int level;
-    int duration;
-}BattleBossEnemyInfo;
-
-extern BattleBossEnemyInfo s_battleBossEnemyInfo[STAGE_COUNT];
 
 
