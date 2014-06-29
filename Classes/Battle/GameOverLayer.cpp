@@ -44,6 +44,10 @@ bool GameOverLayer::init(bool win, int stage, int time, int kill, int loss, int 
     //init
     _stage = stage;
     
+    std::string fontFile = "DS-Digital.ttf";//"arial.ttf";
+    int fontSize = 25;
+    auto infoColor = DIY_COLOR_BLUE5;
+    
     //swallow touches
     auto listener = EventListenerTouchOneByOne::create();
     listener->setSwallowTouches(true);
@@ -71,11 +75,11 @@ bool GameOverLayer::init(bool win, int stage, int time, int kill, int loss, int 
     TextSprite* title;
     if(win)
     {
-        title = TextSprite::create(s_gameStrings.battleInfo->gameovertitle_win.c_str());
+        title = TextSprite::create(s_gameStrings.battleInfo->gameovertitle_win.c_str(),s_gameConfig.defaultFontName,32);
         title->setColor(Color3B::YELLOW);
     }
     else
-    {   title = TextSprite::create(s_gameStrings.battleInfo->gameovertitle_loss.c_str());
+    {   title = TextSprite::create(s_gameStrings.battleInfo->gameovertitle_loss.c_str(),s_gameConfig.defaultFontName,32);
         title->setColor(Color3B::RED);
     }
     title->setAnchorPoint(Point::ANCHOR_MIDDLE);
@@ -83,7 +87,7 @@ bool GameOverLayer::init(bool win, int stage, int time, int kill, int loss, int 
     _panel->addChild(title,1);
     
     //info
-    auto time_label = TextSprite::create(s_gameStrings.battleInfo->gameovertime, "Arial", 20);
+    auto time_label = TextSprite::create(s_gameStrings.battleInfo->gameovertime, "Arial", fontSize);
     time_label->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
     time_label->setPosition(Point(150,panelSize.height-150));
     _panel->addChild(time_label);
@@ -92,32 +96,32 @@ bool GameOverLayer::init(bool win, int stage, int time, int kill, int loss, int 
     int min = time/60;
     int sec = time - min*60;
     char p[10];
-    sprintf(p,"%02d:%02d",min,sec);
+    sprintf(p,"%02d\'%02d\"",min,sec);
     
-    auto time_content = TextSprite::create(p,"Arial", 20);
-    time_content->setColor(Color3B::BLUE);
+    auto time_content = TextSprite::create(p,fontFile, fontSize);
+    time_content->setColor(infoColor);
     time_content->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
     time_content->setPosition(Point(320,panelSize.height-150));
     _panel->addChild(time_content);
     
-    auto kill_label = TextSprite::create(s_gameStrings.battleInfo->gameoverkill, "Arial", 20);
+    auto kill_label = TextSprite::create(s_gameStrings.battleInfo->gameoverkill, "Arial", fontSize);
     kill_label->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
     kill_label->setPosition(Point(150,panelSize.height-200));
     _panel->addChild(kill_label);
     
-    auto kill_content = TextSprite::create(Value(kill).asString(),"Arial", 20);
-    kill_content->setColor(Color3B::BLUE);
+    auto kill_content = TextSprite::create(Value(kill).asString(),fontFile, fontSize);
+    kill_content->setColor(infoColor);
     kill_content->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
     kill_content->setPosition(Point(320,panelSize.height-200));
     _panel->addChild(kill_content);
     
-    auto loss_label = TextSprite::create(s_gameStrings.battleInfo->gameoverloss, "Arial", 20);
+    auto loss_label = TextSprite::create(s_gameStrings.battleInfo->gameoverloss, "Arial", fontSize);
     loss_label->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
     loss_label->setPosition(Point(150,panelSize.height-250));
     _panel->addChild(loss_label);
     
-    auto loss_content = TextSprite::create(Value(loss).asString(), "Arial", 20);
-    loss_content->setColor(Color3B::BLUE);
+    auto loss_content = TextSprite::create(Value(loss).asString(), fontFile, fontSize);
+    loss_content->setColor(infoColor);
     loss_content->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
     loss_content->setPosition(Point(320,panelSize.height-250));
     _panel->addChild(loss_content);
@@ -131,7 +135,7 @@ bool GameOverLayer::init(bool win, int stage, int time, int kill, int loss, int 
         int _laser = s_stageRewards[_stage][2];
         int _blackhole = s_stageRewards[_stage][3];
         
-        auto rewards_label = TextSprite::create(s_gameStrings.battleInfo->gameoverreward, "Arial", 20);
+        auto rewards_label = TextSprite::create(s_gameStrings.battleInfo->gameoverreward, "Arial", fontSize);
         rewards_label->setColor(Color3B::GRAY);
         rewards_label->setAnchorPoint(Point::ANCHOR_MIDDLE);
         rewards_label->setPosition(Point(panelSize.width/2,panelSize.height-300));
@@ -140,72 +144,71 @@ bool GameOverLayer::init(bool win, int stage, int time, int kill, int loss, int 
         if(_starboom == 0 && _laser == 0 && _blackhole == 0)
         {
             auto icon = Sprite::createWithSpriteFrameName("icon_gem.png");
-            icon->setScale(0.7f);
-            icon->setPosition(panelSize.width/2-50, panelSize.height/2);
+            icon->setPosition(panelSize.width/2-50, panelSize.height/2-10);
             _panel->addChild(icon);
             
-            auto label = Label::createWithTTF(Value(_gem).asString().c_str(), s_gameConfig.defaultFontName, 20);
-            label->setPosition(panelSize.width/2+50,panelSize.height/2);
+            auto label = Label::createWithTTF(Value(_gem).asString().c_str(), s_gameConfig.defaultFontName, fontSize);
+            label->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
+            label->setPosition(Point(icon->getPositionX()+icon->getContentSize().width, icon->getPositionY()));
             label->setColor(Color3B::YELLOW);
             _panel->addChild(label);
         }
         else
         {
             auto icon1 = Sprite::createWithSpriteFrameName("icon_gem.png");
-            icon1->setScale(0.7f);
-            icon1->setPosition(panelSize.width/2-130, panelSize.height/2);
+            icon1->setPosition(panelSize.width/2-130, panelSize.height/2-10);
             _panel->addChild(icon1);
             
-            auto label1 = Label::createWithTTF(Value(_gem).asString().c_str(), s_gameConfig.defaultFontName, 20);
-            label1->setPosition(panelSize.width/2-80,panelSize.height/2);
+            auto label1 = Label::createWithTTF(Value(_gem).asString().c_str(), s_gameConfig.defaultFontName, fontSize);
+            label1->setPosition(icon1->getPositionX()+icon1->getContentSize().width+20, icon1->getPositionY());
             label1->setColor(Color3B::YELLOW);
             _panel->addChild(label1);
             if (_starboom > 0) {
                 auto icon2 = Sprite::createWithSpriteFrameName("bomb_1_1.png");
                 icon2->setScale(0.5f);icon2->setRotation(90);
-                icon2->setPosition(panelSize.width/2+70, panelSize.height/2);
+                icon2->setPosition(panelSize.width/2+50, panelSize.height/2-10);
                 _panel->addChild(icon2);
                 
                 std::string str = "x" + Value(_starboom).asString();
-                auto label2 = Label::createWithTTF(str.c_str(), s_gameConfig.defaultFontName, 20);
-                label2->setPosition(panelSize.width/2+130,panelSize.height/2);
-                label2->setColor(Color3B::BLUE);
+                auto label2 = Label::createWithTTF(str.c_str(), s_gameConfig.defaultFontName, fontSize);
+                label2->setPosition(icon2->getPositionX()+icon2->getContentSize().width, icon2->getPositionY());
+                label2->setColor(infoColor);
                 _panel->addChild(label2);
             }
             else if (_laser > 0) {
                 
                 auto icon2 = Sprite::createWithSpriteFrameName("bomb_2_1.png");
                 icon2->setScale(0.8f);icon2->setRotation(90);
-                icon2->setPosition(panelSize.width/2-50, panelSize.height/2);
+                icon2->setPosition(panelSize.width/2+50, panelSize.height/2-10);
                 _panel->addChild(icon2);
                 
                 std::string str = "x" + Value(_laser).asString();
-                auto label2 = Label::createWithTTF(str.c_str(), s_gameConfig.defaultFontName, 20);
-                label2->setPosition(panelSize.width/2+50,panelSize.height/2);
-                label2->setColor(Color3B::BLUE);
+                auto label2 = Label::createWithTTF(str.c_str(), s_gameConfig.defaultFontName, fontSize);
+                label2->setPosition(icon2->getPositionX()+icon2->getContentSize().width, icon2->getPositionY());
+                label2->setColor(infoColor);
                 _panel->addChild(label2);
             }
             else if (_blackhole > 0) {
                 
                 auto icon2 = Sprite::createWithSpriteFrameName("bomb_3_1.png");
                 icon2->setScale(0.6f);
-                icon2->setPosition(panelSize.width/2-50, panelSize.height/2);
+                icon2->setPosition(panelSize.width/2+50, panelSize.height/2);
                 _panel->addChild(icon2);
                 
                 std::string str = "x" + Value(_blackhole).asString();
-                auto label2 = Label::createWithTTF(str.c_str(), s_gameConfig.defaultFontName, 20);
-                label2->setPosition(panelSize.width/2+50,panelSize.height/2);
-                label2->setColor(Color3B::BLUE);
+                auto label2 = Label::createWithTTF(str.c_str(), s_gameConfig.defaultFontName, fontSize);
+                label2->setPosition(icon2->getPositionX()+icon2->getContentSize().width, icon2->getPositionY());
+                label2->setColor(infoColor);
                 _panel->addChild(label2);
             }
         }
         
         if(newFlight)
         {
-            auto newflight_label = TextSprite::create(s_gameStrings.battleInfo->gameovernewflight, "Arial", 20);
+            auto newflight_label = TextSprite::create(s_gameStrings.battleInfo->gameovernewflight, "Arial", fontSize);
             newflight_label->setColor(Color3B::GRAY);
             newflight_label->setAnchorPoint(Point::ANCHOR_MIDDLE);
-            newflight_label->setPosition(Point(panelSize.width/2,panelSize.height-380));
+            newflight_label->setPosition(Point(panelSize.width/2,panelSize.height-400));
             _panel->addChild(newflight_label);
             
             char name[30];
@@ -213,7 +216,7 @@ bool GameOverLayer::init(bool win, int stage, int time, int kill, int loss, int 
             auto newflight = Sprite::createWithSpriteFrameName(name);
             newflight->setScale(1.3f);
             newflight->setAnchorPoint(Point::ANCHOR_MIDDLE);
-            newflight->setPosition(Point(panelSize.width/2,panelSize.height-450));
+            newflight->setPosition(Point(panelSize.width/2,panelSize.height-480));
             _panel->addChild(newflight);
             
             auto newicon = Sprite::createWithSpriteFrameName("icon_new.png");
@@ -227,9 +230,8 @@ bool GameOverLayer::init(bool win, int stage, int time, int kill, int loss, int 
     if(newFlight)
     {
         auto gotosee_menu = MenuItemImageLabel::createWithFrameName("bt_main_0.png", "bt_main_1.png", CC_CALLBACK_1(GameOverLayer::returnBase_callback, this), s_gameStrings.battleInfo->gotosee);
-        gotosee_menu->setScale(0.7f);
         gotosee_menu->setAnchorPoint(Point::ANCHOR_MIDDLE);
-        gotosee_menu->setPosition(Point(panelSize.width/2, 110));
+        gotosee_menu->setPosition(Point(panelSize.width/2, 60));
         
         auto menu = Menu::create(gotosee_menu, nullptr);
         menu->setPosition(Point::ZERO);
@@ -239,15 +241,14 @@ bool GameOverLayer::init(bool win, int stage, int time, int kill, int loss, int 
     
     //menu
     auto returnBase_menu = MenuItemImageLabel::createWithFrameName("bt_main_0.png", "bt_main_1.png", CC_CALLBACK_1(GameOverLayer::returnBase_callback, this), s_gameStrings.battleInfo->returnbase);
-    returnBase_menu->setScale(0.7f);
     returnBase_menu->setAnchorPoint(Point::ANCHOR_MIDDLE);
     returnBase_menu->setPosition(Point(panelSize.width/2, 150));
     
     if (win) {
         auto nextStage_menu = MenuItemImageLabel::createWithFrameName("bt_main_0.png", "bt_main_1.png", CC_CALLBACK_1(GameOverLayer::nextStage_callback, this), s_gameStrings.battleInfo->nextstage);
-        nextStage_menu->setScale(0.7f);
         nextStage_menu->setAnchorPoint(Point::ANCHOR_MIDDLE);
         nextStage_menu->setPosition(Point(panelSize.width/2, 70));
+        nextStage_menu->setColor(DIY_COLOR_BLUE5);
         
         auto menu = Menu::create(returnBase_menu, nextStage_menu, nullptr);
         menu->setPosition(Point::ZERO);
@@ -255,7 +256,6 @@ bool GameOverLayer::init(bool win, int stage, int time, int kill, int loss, int 
     }
     else{
         auto restartStage_menu = MenuItemImageLabel::createWithFrameName("bt_main_0.png", "bt_main_1.png", CC_CALLBACK_1(GameOverLayer::restartStage_callback, this), s_gameStrings.battleInfo->restartstage);
-        restartStage_menu->setScale(0.7f);
         restartStage_menu->setAnchorPoint(Point::ANCHOR_MIDDLE);
         restartStage_menu->setPosition(Point(panelSize.width/2, 70));
         

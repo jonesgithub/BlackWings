@@ -16,7 +16,7 @@ bool StageSelect::init()
     {
         selected_cell = nullptr;
         
-        s_playerConfig.overstage =46;
+        s_playerConfig.overstage = 20;
         
         _selectItem = s_playerConfig.overstage+1;
         _noTouch = true ;

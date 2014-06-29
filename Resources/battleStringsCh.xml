@@ -12,9 +12,9 @@
     <key>gameoverloss</key>
     <string>损失数量：</string>
     <key>gameoverreward</key>
-    <string>- - - - - - - - - - - - - - - - - 奖励 - - - - - - - - - - - - - - - - -</string>
+    <string>- - - - - - - - - - - - - - 奖励 - - - - - - - - - - - - - -</string>
     <key>gameovernewflight</key>
-    <string>- - - - - - - - - - - - - - - - 新的飞机 - - - - - - - - - - - - - - - -</string>
+    <string>- - - - - - - - - - - - - 新的飞机 - - - - - - - - - - - - -</string>
     <key>returnbase</key>
     <string>返回空间站</string>
     <key>nextstage</key>
