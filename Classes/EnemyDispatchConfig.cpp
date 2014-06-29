@@ -139,9 +139,11 @@ BattleNormalEnemyConfig s_battleNormalEnemyConfig_10[STAGE_ENEMY_WAVES_10] =
 
 BattleNormalEnemyConfig s_battleNormalEnemyConfig_11[STAGE_ENEMY_WAVES_11] =
 {
-    {8,1,2,2},
-    {18,2,2,3},
-    {30,2,1,1}
+    {8,3,3,5},
+    {18,2,7,4},
+    {30,3,3,2},
+    {40,2,9,5},
+    {50,4,4,3}
 };
 
 BattleNormalEnemyConfig s_battleNormalEnemyConfig_12[STAGE_ENEMY_WAVES_12] =
