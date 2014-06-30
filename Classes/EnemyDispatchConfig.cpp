@@ -66,19 +66,19 @@ BattleNormalEnemyInfo s_battleNormalEnemyInfo[STAGE_COUNT]=
 //时间间隔，类型，等级，数量
 BattleNormalEnemyConfig s_battleNormalEnemyConfig_0[STAGE_ENEMY_WAVES_00] =
 {
-    {8,1,2,1}
+    {8,0,2,1}
 };
 
 BattleNormalEnemyConfig s_battleNormalEnemyConfig_1[STAGE_ENEMY_WAVES_01] =
 {
-    {8,1,2,1}
+    {8,0,2,3},
+    {18,1,2,2}
 };
 
 BattleNormalEnemyConfig s_battleNormalEnemyConfig_2[STAGE_ENEMY_WAVES_02] =
 {
     {8,1,2,2},
-    {18,2,2,3},
-    {30,2,1,1}
+    {18,2,2,1},
 };
 
 BattleNormalEnemyConfig s_battleNormalEnemyConfig_3[STAGE_ENEMY_WAVES_03] =
@@ -475,115 +475,191 @@ BattleTowerEnemyConfig s_battleTowerEnemyConfig_0[STAGE_TOWER_COUNTS_00] =
 
 BattleTowerEnemyConfig s_battleTowerEnemyConfig_1[STAGE_TOWER_COUNTS_01] =
 {
-    {0,400,900}
+    {0,300,700}
 };
 
 BattleTowerEnemyConfig s_battleTowerEnemyConfig_2[STAGE_TOWER_COUNTS_02] =
 {
-    {2,300,1300},
-    {0,400,1800}
+    {0,500,1100},
+    {0,200,2100}
 };
 
 BattleTowerEnemyConfig s_battleTowerEnemyConfig_3[STAGE_TOWER_COUNTS_03] =
 {
-    {2,300,1300},
-    {0,400,1800}
+    {1,300,1400},
+    {0,300,2100}
 };
 
 BattleTowerEnemyConfig s_battleTowerEnemyConfig_4[STAGE_TOWER_COUNTS_04] =
 {
-    {2,300,1300},
-    {0,400,1800}
+    {1,350,900},
+    {0,200,2100},
+    {1,400,2000},
 };
 
 BattleTowerEnemyConfig s_battleTowerEnemyConfig_5[STAGE_TOWER_COUNTS_05] =
 {
-    {2,300,1300},
-    {0,400,1800}
+    {1,300,1000},
+    {1,300,1250},
+    {0,300,1500},
+    {1,300,1750},
+    {1,300,2000}
 };
 
 BattleTowerEnemyConfig s_battleTowerEnemyConfig_6[STAGE_TOWER_COUNTS_06] =
 {
-    {2,300,1300},
-    {0,400,1800}
+    {1,50,980},
+    {0,550,980},
+    {1,300,1400},
+    {1,300,1550},
+    {1,300,2000}
 };
 
 BattleTowerEnemyConfig s_battleTowerEnemyConfig_7[STAGE_TOWER_COUNTS_07] =
 {
-    {2,300,1300},
-    {0,400,1800}
+    {1,300,1350},
+    {1,80,1900},
+    {1,230,1900},
+    {1,380,1900},
+    {1,530,1900}
 };
 
 BattleTowerEnemyConfig s_battleTowerEnemyConfig_8[STAGE_TOWER_COUNTS_08] =
 {
-    {2,300,1300},
-    {0,400,1800}
+    {1,300,1100},
+    {2,300,1700},
+    {0,300,1850},
+    {2,200,2100},
+    {1,400,2100}
 };
 
 BattleTowerEnemyConfig s_battleTowerEnemyConfig_9[STAGE_TOWER_COUNTS_09] =
 {
-    {2,300,1300},
-    {0,400,1800}
+    {1,150,1000},
+    {1,450,1000},
+    {2,300,1350},
+    {1,300,1600},
+    {2,150,2100},
+    {2,450,2100}
 };
 
 BattleTowerEnemyConfig s_battleTowerEnemyConfig_10[STAGE_TOWER_COUNTS_10] =
 {
-    {2,300,1300},
-    {0,400,1800}
+    {2,300,800},
+    {1,300,1200},
+    {1,300,1350},
+    {2,150,2000},
+    {2,450,2000},
+    {2,300,2300}
 };
 
 BattleTowerEnemyConfig s_battleTowerEnemyConfig_11[STAGE_TOWER_COUNTS_11] =
 {
-    {2,300,1300},
-    {0,400,1800}
+    {2,150,1000},
+    {1,450,1000},
+    {1,150,1250},
+    {2,450,1250},
+    {2,150,1500},
+    {2,450,1500},
+    {2,150,1750},
+    {2,450,1750}
 };
 
 BattleTowerEnemyConfig s_battleTowerEnemyConfig_12[STAGE_TOWER_COUNTS_12] =
 {
-    {2,300,1300},
-    {0,400,1800}
+    {2,300,900},
+    {1,300,1150},
+    {1,150,1400},
+    {2,300,1400},
+    {2,450,1400},
+    {2,300,1700},
+    {2,300,1850}
 };
 
 BattleTowerEnemyConfig s_battleTowerEnemyConfig_13[STAGE_TOWER_COUNTS_13] =
 {
-    {2,300,1300},
-    {0,400,1800}
+    {2,150,1600},
+    {2,450,1600},
+    {2,150,1900},
+    {3,300,1900},
+    {2,450,1900},
+    {2,300,2100},
+    {3,300,2300}
 };
 
 BattleTowerEnemyConfig s_battleTowerEnemyConfig_14[STAGE_TOWER_COUNTS_14] =
 {
-    {2,300,1300},
-    {0,400,1800}
+    {2,300,1050},
+    {3,300,1400},
+    {3,300,2100},
+    {3,100,2300},
+    {3,250,2300},
+    {3,350,2300},
+    {2,450,2300},
+    {3,550,2300}
 };
 
 BattleTowerEnemyConfig s_battleTowerEnemyConfig_15[STAGE_TOWER_COUNTS_15] =
 {
-    {2,300,1300},
-    {0,400,1800}
+    {3,300,1000},
+    {2,150,1200},
+    {3,450,1200},
+    {2,300,1400},
+    {3,300,1750},
+    {3,150,1900},
+    {2,450,1900},
+    {3,300,2100}
 };
 
 BattleTowerEnemyConfig s_battleTowerEnemyConfig_16[STAGE_TOWER_COUNTS_16] =
 {
-    {2,300,1300},
-    {0,400,1800}
+    {3,300,900},
+    {3,100,1200},
+    {3,550,1350},
+    {3,100,1500},
+    {3,550,1650},
+    {3,100,1800},
+    {3,550,1950},
+    {3,100,2100},
+    {3,550,2250}
 };
 
 BattleTowerEnemyConfig s_battleTowerEnemyConfig_17[STAGE_TOWER_COUNTS_17] =
 {
-    {2,300,1300},
-    {0,400,1800}
+    {3,300,1000},
+    {3,150,1400},
+    {3,300,1400},
+    {3,450,1400},
+    {3,550,1550},
+    {3,150,2000},
+    {3,300,2000},
+    {3,550,2000}
 };
 
 BattleTowerEnemyConfig s_battleTowerEnemyConfig_18[STAGE_TOWER_COUNTS_18] =
 {
-    {2,300,1300},
-    {0,400,1800}
+    {3,300,1200},
+    {3,300,1400},
+    {4,100,1600},
+    {3,200,1600},
+    {4,300,1600},
+    {3,400,1600},
+    {4,500,1600},
+    {3,300,1800},
+    {3,300,2000},
+    {3,300,2400}
 };
 
 BattleTowerEnemyConfig s_battleTowerEnemyConfig_19[STAGE_TOWER_COUNTS_19] =
 {
-    {2,300,1300},
-    {0,400,1800}
+    {3,300,1200},
+    {4,300,1400},
+    {4,200,1700},
+    {4,450,1700},
+    {4,200,1900},
+    {3,450,1900},
+    {4,200,2200},
+    {4,450,2200}
 };
 
 BattleTowerEnemyConfig s_battleTowerEnemyConfig_20[STAGE_TOWER_COUNTS_20] =
@@ -771,7 +847,7 @@ BattleTowerEnemyConfig s_battleTowerEnemyConfig_49[STAGE_TOWER_COUNTS_49] =
 BattleBossEnemyInfo s_battleBossEnemyInfo[STAGE_COUNT] =
 {
     //等级，出现时间间隔
-    {0,10},{2,10},{3,10},{4,10},{5,10},//1～5
+    {1,NO_BOSS},{1,NO_BOSS},{3,NO_BOSS},{4,NO_BOSS},{5,NO_BOSS},//1～5
     {1,10},{2,10},{3,10},{4,10},{5,10},//6～10
     {1,10},{2,10},{3,10},{4,10},{5,10},//11～15
     {1,10},{2,10},{3,10},{4,10},{5,10},//16～20
