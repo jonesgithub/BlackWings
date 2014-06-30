@@ -155,7 +155,7 @@ void Base::onEnter()
                                                             _curSelectedFlight = flightNode;
                                                             _curSeletedIndex = i;
                                                             
-                                                            auto move = MoveTo::create(0.5f, Point(123,370));
+                                                            auto move = MoveTo::create(0.5f, Point(128,370));
                                                             flightNode->runAction(move);
                                                         }
                                                         
@@ -180,7 +180,7 @@ void Base::onEnter()
                                                             _curSelectedFlight = flightNode;
                                                             _curSeletedIndex = i;
                                                             
-                                                            auto move = MoveTo::create(0.5f, Point(123,370));
+                                                            auto move = MoveTo::create(0.5f, Point(128,370));
                                                             flightNode->runAction(move);
                                                         }
                                                         
@@ -1086,7 +1086,7 @@ void Base::showGemTip(int num, bool isCost)
             
             std::string strGemtext = "+ " + Value(num).asString();
             auto gem_text = TextSprite::create(strGemtext);
-            gem_text->setColor(Color3B::BLUE);
+            gem_text->setColor(DIY_COLOR_BLUE5);
             gem_text->setAnchorPoint(Point::ANCHOR_MIDDLE);
             gem_text->setPosition(Point(gem_text_bk->getContentSize().width/2,gem_text_bk->getContentSize().height/2));
             gem_text_bk->addChild(gem_text);

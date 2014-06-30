@@ -58,6 +58,12 @@ bool ResetGameLayer::init()
         tipContent->setPosition(panelSize.width * 0.1f,panelSize.height * 0.85f);
         tipContent->setColor(Color3B::YELLOW);
         panel->addChild(tipContent);
+        
+        panel->setScale(0.1f);
+        panel->runAction(Sequence::create(ScaleTo::create(0.1f, 1.1f),
+                                          ScaleTo::create(0.05f, 0.9f),
+                                          ScaleTo::create(0.05f, 1.0f),
+                                          nullptr));
 
         return true;
     }

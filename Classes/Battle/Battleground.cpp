@@ -1092,7 +1092,7 @@ void Battleground::initBossEnemy()
 {
     if(s_battleBossEnemyInfo[_battledata.stage].duration!=0)
     {
-        this->schedule(schedule_selector(Battleground::dispatchBoss), s_battleBossEnemyInfo[_battledata.stage].duration);
+        this->scheduleOnce(schedule_selector(Battleground::dispatchBoss), s_battleBossEnemyInfo[_battledata.stage].duration);
     }
 }
 
@@ -1337,7 +1337,7 @@ void Battleground::showStoneAndGem(Point pos, int stoneCount, int gemCount, int 
         
         std::string strStonetext = "+ " + Value(stone).asString();
         auto stone_text = Label::createWithTTF(strStonetext,fontFile, fontSize);
-        stone_text->setColor(infoColor);
+        stone_text->setColor(Color3B::WHITE);
         stone_text->setAnchorPoint(Point::ANCHOR_MIDDLE);
         stone_text->setPosition(Point(stone_text_bk->getContentSize().width/2,stone_text_bk->getContentSize().height/2));
         stone_text_bk->addChild(stone_text);
@@ -1352,7 +1352,7 @@ void Battleground::showStoneAndGem(Point pos, int stoneCount, int gemCount, int 
         
         std::string strGemtext = "+ " + Value(gem).asString();
         auto gem_text = Label::createWithTTF(strGemtext, fontFile, fontSize);
-        gem_text->setColor(infoColor);
+        gem_text->setColor(Color3B::YELLOW);
         gem_text->setAnchorPoint(Point::ANCHOR_MIDDLE);
         gem_text->setPosition(Point(gem_text_bk->getContentSize().width/2,gem_text_bk->getContentSize().height/2));
         gem_text_bk->addChild(gem_text);
