@@ -55,8 +55,15 @@
 // Override to allow orientations other than the default portrait orientation.
 // This method is deprecated on ios6
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    //return (interfaceOrientation == UIInterfaceOrientationPortrait);//UIInterfaceOrientationIsLandscape( interfaceOrientation );
-    return ( UIInterfaceOrientationIsLandscape( interfaceOrientation ) );
+    // iPhone only
+    if( [[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone )
+        return UIInterfaceOrientationIsPortrait(interfaceOrientation);  //竖屏设置
+    //return UIInterfaceOrientationIsLandscape(interfaceOrientation);   //横屏设置
+    
+    // iPad only
+    // iPhone only
+    //return UIInterfaceOrientationIsLandscape(interfaceOrientation);   //横屏设置
+    return UIInterfaceOrientationIsPortrait(interfaceOrientation);  //竖屏设置
 }
 
 // For ios6, use supportedInterfaceOrientations & shouldAutorotate instead
@@ -64,12 +71,46 @@
 #ifdef __IPHONE_6_0
     return UIInterfaceOrientationIsPortrait(UIInterfaceOrientationPortrait);//OrientationMaskAllButUpsideDown;
 #endif
+    // iPhone only
+    if( [[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone )
+        return UIInterfaceOrientationMaskPortrait;  //竖屏设置
+    //return UIInterfaceOrientationMaskLandscape;    //横屏设置
+    
+    // iPad only
+    return UIInterfaceOrientationMaskPortrait;  //竖屏设置
+    //return UIInterfaceOrientationMaskLandscape;    //横屏设置
 }
 
 - (BOOL) shouldAutorotate {
     return NO;
 }
+/*
+// Only valid on iOS 4 / 5. NOT VALID for iOS 6.
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    // iPhone only
+    if( [[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone )
+        return UIInterfaceOrientationIsPortrait(interfaceOrientation);  //竖屏设置
+    //return UIInterfaceOrientationIsLandscape(interfaceOrientation);   //横屏设置
+    
+    // iPad only
+    // iPhone only
+    //return UIInterfaceOrientationIsLandscape(interfaceOrientation);   //横屏设置
+    return UIInterfaceOrientationIsPortrait(interfaceOrientation);  //竖屏设置
+}
 
+-(NSUInteger)supportedInterfaceOrientations {
+    
+    // iPhone only
+    if( [[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone )
+        return UIInterfaceOrientationMaskPortrait;  //竖屏设置
+    //return UIInterfaceOrientationMaskLandscape;    //横屏设置
+    
+    // iPad only
+    return UIInterfaceOrientationMaskPortrait;  //竖屏设置
+    //return UIInterfaceOrientationMaskLandscape;    //横屏设置
+}
+*/
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
     [super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
 
