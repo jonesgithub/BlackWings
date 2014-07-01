@@ -1029,6 +1029,7 @@ void Base::buyWeapon(Ref *sender)
         else
         {
             //提示超出携带
+            Director::getInstance()->getRunningScene()->addChild(NotificationLayer::create(s_gameStrings.base->overbuy),100);
         }
     }
     else
@@ -1060,19 +1061,21 @@ void Base::showGemTip(int num, bool isCost)
         {
             if (num) {
                 auto gem_text_bk = Sprite::createWithSpriteFrameName("gemTip_box.png");
+                gem_text_bk->setScaleX(0.7f);
                 gem_text_bk->setAnchorPoint(Point::ANCHOR_MIDDLE);
                 gem_text_bk->setPosition(GemPos+Point(0,30));
-                this->addChild(gem_text_bk);
+                this->addChild(gem_text_bk,100);
                 
                 std::string strGemtext = "- " + Value(num).asString();
-                auto gem_text = TextSprite::create(strGemtext);
+                auto gem_text = Label::createWithTTF(strGemtext,GameConfig::defaultFontName,20);
                 gem_text->setColor(Color3B::RED);
                 gem_text->setAnchorPoint(Point::ANCHOR_MIDDLE);
-                gem_text->setPosition(Point(gem_text_bk->getContentSize().width/2,gem_text_bk->getContentSize().height/2));
-                gem_text_bk->addChild(gem_text);
+                gem_text->setPosition(gem_text_bk->getPosition());
+                this->addChild(gem_text,101);
                 
                 gem_text_bk->setOpacity(0);
                 gem_text_bk->runAction(Sequence::create(FadeIn::create(0.1f), DelayTime::create(0.3f), FadeOut::create(0.1f), RemoveSelf::create(), nullptr));
+                gem_text->runAction(Sequence::create(FadeIn::create(0.1f), DelayTime::create(0.3f), FadeOut::create(0.1f), RemoveSelf::create(), nullptr));
             }
         }
     }
@@ -1080,19 +1083,21 @@ void Base::showGemTip(int num, bool isCost)
     {
         if (num) {
             auto gem_text_bk = Sprite::createWithSpriteFrameName("gemTip_box.png");
+            gem_text_bk->setScaleX(0.7f);
             gem_text_bk->setAnchorPoint(Point::ANCHOR_MIDDLE);
             gem_text_bk->setPosition(GemPos+Point(0,30));
-            this->addChild(gem_text_bk);
+            this->addChild(gem_text_bk,100);
             
             std::string strGemtext = "+ " + Value(num).asString();
-            auto gem_text = TextSprite::create(strGemtext);
+            auto gem_text = Label::createWithTTF(strGemtext,GameConfig::defaultFontName,20);
             gem_text->setColor(DIY_COLOR_BLUE5);
             gem_text->setAnchorPoint(Point::ANCHOR_MIDDLE);
-            gem_text->setPosition(Point(gem_text_bk->getContentSize().width/2,gem_text_bk->getContentSize().height/2));
-            gem_text_bk->addChild(gem_text);
+            gem_text->setPosition(gem_text_bk->getPosition());
+            this->addChild(gem_text,101);
             
             gem_text_bk->setOpacity(0);
             gem_text_bk->runAction(Sequence::create(FadeIn::create(0.1f), DelayTime::create(0.3f), FadeOut::create(0.1f), RemoveSelf::create(), nullptr));
+            gem_text->runAction(Sequence::create(FadeIn::create(0.1f), DelayTime::create(0.3f), FadeOut::create(0.1f), RemoveSelf::create(), nullptr));
         }
     }
 }

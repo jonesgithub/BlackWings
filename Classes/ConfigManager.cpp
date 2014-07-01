@@ -109,9 +109,9 @@ void ConfigManager::initConfig()
     s_playerConfig.weaponslevel[0] = 0;
     s_playerConfig.weaponslevel[1] = 8;
     s_playerConfig.weaponslevel[2] = 0;
-    s_playerConfig.weaponCount[0] = 20;
-    s_playerConfig.weaponCount[1] = 20;
-    s_playerConfig.weaponCount[2] = 20;
+    s_playerConfig.weaponCount[0] = 5;
+    s_playerConfig.weaponCount[1] = 5;
+    s_playerConfig.weaponCount[2] = 5;
     
     for (int i=0; i<MEDAL_MAX; ++i)
     {
