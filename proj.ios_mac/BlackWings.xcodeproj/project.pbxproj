@@ -104,6 +104,8 @@
 		851538B3196022FF005DACEE /* upgrade_arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 851538B1196022FF005DACEE /* upgrade_arrow.png */; };
 		851538B919604A85005DACEE /* EnemyDispatchConfig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 851538B719604A85005DACEE /* EnemyDispatchConfig.cpp */; };
 		851538BA19604A85005DACEE /* EnemyDispatchConfig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 851538B719604A85005DACEE /* EnemyDispatchConfig.cpp */; };
+		851538CC19631F97005DACEE /* EncryptUserDefault.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 851538CA19631F97005DACEE /* EncryptUserDefault.cpp */; };
+		851538CD19631F97005DACEE /* EncryptUserDefault.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 851538CA19631F97005DACEE /* EncryptUserDefault.cpp */; };
 		8527812F1934FAA700A0DEA5 /* medalStringsCh.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8527812D1934FAA700A0DEA5 /* medalStringsCh.xml */; };
 		852781301934FAA700A0DEA5 /* medalStringsCh.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8527812D1934FAA700A0DEA5 /* medalStringsCh.xml */; };
 		852781311934FAA700A0DEA5 /* medalStringsEn.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8527812E1934FAA700A0DEA5 /* medalStringsEn.xml */; };
@@ -699,6 +701,8 @@
 		851538B1196022FF005DACEE /* upgrade_arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = upgrade_arrow.png; sourceTree = "<group>"; };
 		851538B719604A85005DACEE /* EnemyDispatchConfig.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = EnemyDispatchConfig.cpp; path = ../Classes/EnemyDispatchConfig.cpp; sourceTree = "<group>"; };
 		851538B819604A85005DACEE /* EnemyDispatchConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EnemyDispatchConfig.h; path = ../Classes/EnemyDispatchConfig.h; sourceTree = "<group>"; };
+		851538CA19631F97005DACEE /* EncryptUserDefault.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EncryptUserDefault.cpp; sourceTree = "<group>"; };
+		851538CB19631F97005DACEE /* EncryptUserDefault.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EncryptUserDefault.h; sourceTree = "<group>"; };
 		8527812D1934FAA700A0DEA5 /* medalStringsCh.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = medalStringsCh.xml; sourceTree = "<group>"; };
 		8527812E1934FAA700A0DEA5 /* medalStringsEn.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = medalStringsEn.xml; sourceTree = "<group>"; };
 		8528F14E19362B8C00EF967E /* MedalChecker.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MedalChecker.cpp; sourceTree = "<group>"; };
@@ -1250,6 +1254,8 @@
 				85F441F0195322D000E41176 /* ConfigManager.h */,
 				851538B719604A85005DACEE /* EnemyDispatchConfig.cpp */,
 				851538B819604A85005DACEE /* EnemyDispatchConfig.h */,
+				851538CA19631F97005DACEE /* EncryptUserDefault.cpp */,
+				851538CB19631F97005DACEE /* EncryptUserDefault.h */,
 			);
 			name = Global;
 			sourceTree = "<group>";
@@ -2014,6 +2020,7 @@
 				266ACB1B19323E2A004DF401 /* RedeemLayer.cpp in Sources */,
 				266ACB0319323E2A004DF401 /* Fighter.cpp in Sources */,
 				266ACB0D19323E2A004DF401 /* TextSprite.cpp in Sources */,
+				851538CC19631F97005DACEE /* EncryptUserDefault.cpp in Sources */,
 				855E13451934D8D000683F21 /* Medal.cpp in Sources */,
 				8528F15419363F5200EF967E /* MedalRewardsLayer.cpp in Sources */,
 				266ACB0519323E2A004DF401 /* Player.cpp in Sources */,
@@ -2065,6 +2072,7 @@
 				266ACBAB19336AD5004DF401 /* xxtea.cpp in Sources */,
 				266ACB1E19323E2A004DF401 /* ResetGameLayer.cpp in Sources */,
 				857F13FF19438A9F000DE4E7 /* NoGemLayer.cpp in Sources */,
+				851538CD19631F97005DACEE /* EncryptUserDefault.cpp in Sources */,
 				503AE10517EB98FF00D1A890 /* main.cpp in Sources */,
 				856EFA4B19434E95004AEE2B /* UpgradeUILayer.cpp in Sources */,
 				855E13461934D8D000683F21 /* Medal.cpp in Sources */,
