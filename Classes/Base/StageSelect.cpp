@@ -16,9 +16,16 @@ bool StageSelect::init()
     {
         selected_cell = nullptr;
         
-        s_playerConfig.overstage = 20;
+        s_playerConfig.overstage = 50;
         
-        _selectItem = s_playerConfig.overstage+1;
+        if(s_playerConfig.overstage >=50 )
+        {
+            s_playerConfig.overstage = 50;
+            fake_overstage = 49;
+        }
+        else fake_overstage = s_playerConfig.overstage;
+        
+        _selectItem = fake_overstage;
         _noTouch = true ;
         isCloseClick = true;
         
@@ -72,8 +79,10 @@ bool StageSelect::init()
                                                                                                     {
                                                                                                         PLAY_STAGELIST_EFFECT;
                                                                                                         isCloseClick = false;
-                                                                                                        if(s_playerConfig.overstage>0 && s_playerConfig.overstage<47)
-                                                                                                        tableView->setContentOffsetInDuration(tableView->getContentOffset() + Point(0,_cellSize.height*(s_playerConfig.overstage-1)),s_playerConfig.overstage*0.02f);
+                                                                                                        if(fake_overstage>2 && fake_overstage<47)
+                                                                                                        tableView->setContentOffsetInDuration(tableView->getContentOffset() + Point(0,_cellSize.height*(fake_overstage-2)),fake_overstage*0.02f);
+                                                                                                        else if(fake_overstage>=47)
+                                                                                                            tableView->setContentOffsetInDuration(tableView->getContentOffset() + Point(0,_cellSize.height*45),46*0.02f);
                                                                                                     }),
                                                                                    nullptr));
                                         });
@@ -136,7 +145,7 @@ cocos2d::extension::TableViewCell* StageSelect::tableCellAtIndex(cocos2d::extens
     {
         log("cell.....%d",idx);
         auto item_bk = (Sprite*)cell->getChildByTag(10)->getChildByTag(20);
-        if(idx <= s_playerConfig.overstage+1)
+        if(idx <= fake_overstage)
             item_bk->setSpriteFrame("bt_mission_0.png");
         else
             item_bk->setSpriteFrame("bt_mission_1.png");
@@ -148,7 +157,7 @@ cocos2d::extension::TableViewCell* StageSelect::tableCellAtIndex(cocos2d::extens
         std::string stage_text_str = s_gameStrings.mainMenu->stagetext + " - " + Value((int)idx+1).asString();
         auto stage_text = (TextSprite*)cell->getChildByTag(10)->getChildByTag(40);
         stage_text->setText(stage_text_str);
-        if(idx<=s_playerConfig.overstage+1)
+        if(idx<=fake_overstage)
             stage_text->setColor(Color3B(230,230,230));
         else
             stage_text->setColor(Color3B(80,80,80));
@@ -167,7 +176,7 @@ cocos2d::extension::TableViewCell* StageSelect::tableCellAtIndex(cocos2d::extens
             cell->getChildByTag(10)->getChildByTag(30)->setVisible(true);
         }
         
-        if (s_playerConfig.overstage +1 == idx) {
+        if (fake_overstage == idx && s_playerConfig.overstage<50) {
             cell->getChildByTag(10)->getChildByTag(50)->setVisible(true);
         }
         else{
@@ -176,7 +185,7 @@ cocos2d::extension::TableViewCell* StageSelect::tableCellAtIndex(cocos2d::extens
         
         ((RotateBall*)cell->getChildByTag(10)->getChildByTag(60))->resetIdx(idx);
         
-        if(idx<=s_playerConfig.overstage+1)
+        if(idx<=fake_overstage)
             cell->getChildByTag(10)->getChildByTag(70)->setVisible(false);
         else
             cell->getChildByTag(10)->getChildByTag(70)->setVisible(true);
@@ -188,7 +197,7 @@ cocos2d::extension::TableViewCell* StageSelect::tableCellAtIndex(cocos2d::extens
 void StageSelect::tableCellTouched(extension::TableView* table, extension::TableViewCell* cell)
 {
     _noTouch = false;
-    if(cell->getIdx()<=s_playerConfig.overstage+1)
+    if(cell->getIdx()<=fake_overstage)
     {
         if(selected_cell)
         {
@@ -262,7 +271,7 @@ Node* StageSelect::getItemNode(int i)
 {
     auto item = Node::create();
     Sprite* item_bk = nullptr;
-    if(i<=s_playerConfig.overstage+1)
+    if(i<=fake_overstage)
         item_bk = Sprite::createWithSpriteFrameName("bt_mission_0.png");
     else
         item_bk = Sprite::createWithSpriteFrameName("bt_mission_1.png");
@@ -288,7 +297,7 @@ Node* StageSelect::getItemNode(int i)
     
     std::string stage_text_str = s_gameStrings.mainMenu->stagetext + " - " + Value(i+1).asString();
     auto stage_text = TextSprite::create(stage_text_str,GameConfig::defaultFontName,GameConfig::defaultFontSize);
-    if(i<s_playerConfig.overstage+1)
+    if(i<fake_overstage)
         stage_text->setColor(Color3B(230,230,230));
     else
         stage_text->setColor(Color3B(80,80,80));
@@ -308,7 +317,7 @@ Node* StageSelect::getItemNode(int i)
     sp_new->setVisible(false);
     item->addChild(sp_new);
     
-    if (s_playerConfig.overstage +1 == i) {
+    if (fake_overstage == i && s_playerConfig.overstage<50) {
         sp_new->setVisible(true);
     }
     
@@ -327,7 +336,7 @@ Node* StageSelect::getItemNode(int i)
     ball_mask->setPosition(100, 50);
     ball_mask->setTag(70);
     item->addChild(ball_mask);
-    if(i<=s_playerConfig.overstage+1)
+    if(i<=fake_overstage)
         ball_mask->setVisible(false);
     else
         ball_mask->setVisible(true);

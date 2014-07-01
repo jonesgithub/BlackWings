@@ -1197,7 +1197,7 @@ void Battleground::win()
         }
         
         //设置通过关数
-        s_playerConfig.overstage = s_playerConfig.overstage <= _battledata.stage ? _battledata.stage : s_playerConfig.overstage;
+        s_playerConfig.overstage = s_playerConfig.overstage <= _battledata.stage ? (_battledata.stage+1) : s_playerConfig.overstage;
         //checkmedal
         
         //设置首杀
