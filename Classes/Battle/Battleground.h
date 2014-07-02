@@ -67,8 +67,10 @@ public:
     virtual void onExit();
 
     void battleLoop(float dt);
-    void dispatchEnemys_1(float dt);
-    void dispatchEnemys_2(float dt);
+    void dispatchEnemys_spc_1(float dt);
+    void dispatchEnemys_spc_2(float dt);
+    void dispatchEnemys_loop_1(float dt);
+    void dispatchEnemys_loop_2(float dt);
     void dispatchBoss(float dt);
     void showPotInRadar();
     void updateMenuItemStatus(float dt);
@@ -172,8 +174,10 @@ private:
     cocos2d::ui::LoadingBar* _enemyBloodBar;
     
     //normal敌机出兵配置
-    int _maxWaves;
-    int _curWaves;
+    int _max_spc_Waves;
+    int _cur_spc_Waves;
+    int _max_loop_Waves;
+    int _cur_loop_Waves;
     
     //当前选择的飞机
     int _indexOfChooseFlight;
