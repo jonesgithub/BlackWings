@@ -244,7 +244,7 @@ bool GameOverLayer::init(bool win, int stage, int time, int kill, int loss, int 
     returnBase_menu->setAnchorPoint(Point::ANCHOR_MIDDLE);
     returnBase_menu->setPosition(Point(panelSize.width/2, 150));
     
-    if (win) {
+    if (win && s_playerConfig.overstage<50) {
         auto nextStage_menu = MenuItemImageLabel::createWithFrameName("bt_main_0.png", "bt_main_1.png", CC_CALLBACK_1(GameOverLayer::nextStage_callback, this), s_gameStrings.battleInfo->nextstage);
         nextStage_menu->setAnchorPoint(Point::ANCHOR_MIDDLE);
         nextStage_menu->setPosition(Point(panelSize.width/2, 70));
@@ -285,7 +285,7 @@ void GameOverLayer::nextStage_callback(cocos2d::Ref* pSender)
 //    Director::getInstance()->resume();
 //    }
     PLAY_BUTTON_EFFECT;
-    if(_stage < STAGE_COUNT)
+    if(_stage < STAGE_COUNT-1)
     {
         auto battle = Battleground::create(_stage+1);
         Director::getInstance()->replaceScene(battle);

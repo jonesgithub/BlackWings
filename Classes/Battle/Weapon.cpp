@@ -88,6 +88,19 @@ void Weapon::createWeapon()
             starbomb->setAnchorPoint(Point::ANCHOR_MIDDLE);
             starbomb->setPosition(Point(_pos.x, -100));
             this->addChild(starbomb);
+            
+                auto plainfire = Sprite::createWithSpriteFrameName("plainFire_0.png");
+                plainfire->setScale(1.5f);
+                plainfire->setAnchorPoint(Point::ANCHOR_MIDDLE);
+                plainfire->setPosition(starbomb->getContentSize().width/2,0);
+                starbomb->addChild(plainfire);
+                
+                auto plainfireanimation = Animation::create();
+                plainfireanimation->addSpriteFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName("plainFire_0.png"));
+                plainfireanimation->addSpriteFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName("plainFire_1.png"));
+                plainfireanimation->setDelayPerUnit(0.3f);
+                plainfire->runAction(RepeatForever::create(Animate::create(plainfireanimation)));
+            
             starbomb->runAction(Sequence::create(MoveTo::create(1.0f, _pos),
                                                  RemoveSelf::create(),
                                                  CallFunc::create([=]()
@@ -176,6 +189,7 @@ void Weapon::createWeapon()
             blackhole->setAnchorPoint(Point::ANCHOR_MIDDLE);
             blackhole->setPosition(Point(_pos.x, -100));
             this->addChild(blackhole);
+            blackhole->runAction(RotateBy::create(1.0f, 720));
             blackhole->runAction(Sequence::create(MoveTo::create(1.0f, _pos),
                                                  RemoveSelf::create(),
                                                  CallFunc::create([this]()

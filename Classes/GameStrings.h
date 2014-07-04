@@ -91,6 +91,7 @@ typedef struct _baseStrings{
     
     std::string getmoregem;
     std::string maxlevel;
+    std::string overbuy;
 }BaseStrings;
 
 typedef struct _medalStrings{

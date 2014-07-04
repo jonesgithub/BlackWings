@@ -178,7 +178,7 @@ void PlayerMenuItem::activate()
                 auto cd_sprite = Sprite::createWithSpriteFrameName("item_4.png");
                 auto offset = Point(44,65);
                 auto cdtime = s_plainConfigs[_index][s_playerConfig.fighterslevel[_index]].cd;
-                cd_sprite->setOpacity(200);
+                //cd_sprite->setOpacity(230);
                 auto cd_progress = ProgressTimer::create(cd_sprite);
                 cd_progress->setType(ProgressTimer::Type::RADIAL);
                 cd_progress->setReverseProgress(true);
@@ -217,7 +217,7 @@ void PlayerMenuItem::activeCD_callback(EventCustom* event)
                 auto cd_sprite = Sprite::createWithSpriteFrameName("itemB_4.png");
                 auto offset = Point(80,65);
                 auto cdtime = s_weaponConfigs[_index][s_playerConfig.weaponslevel[_index]].cd;
-                cd_sprite->setOpacity(200);
+                //cd_sprite->setOpacity(230);
                 auto cd_progress = ProgressTimer::create(cd_sprite);
                 cd_progress->setType(ProgressTimer::Type::RADIAL);
                 cd_progress->setReverseProgress(true);

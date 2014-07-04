@@ -64,7 +64,7 @@ bool AboutLayer::init()
             Size(panelSize.width * 0.7f,panelSize.height * 0.2f),TextHAlignment::CENTER);
         rateAppreciation->setAnchorPoint(Point::ANCHOR_MIDDLE_TOP);
         rateAppreciation->setPosition(panelCenterX,panelSize.height * 0.12f);
-        rateAppreciation->setColor(Color3B::BLUE);
+        rateAppreciation->setColor(DIY_COLOR_BLUE5);
         _panel->addChild(rateAppreciation);
 
         return true;

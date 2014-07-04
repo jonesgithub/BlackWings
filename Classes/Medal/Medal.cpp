@@ -50,7 +50,7 @@ bool Medal::init()
     _panel->setPosition(Point(s_visibleRect.center.x,s_visibleRect.top.y + panelSize.height));
     _panel->setContentSize(panelSize);
     this->addChild(_panel);
-    _panel->runAction(MoveTo::create(0.15f,s_visibleRect.top));
+    _panel->runAction(MoveTo::create(0.4f,s_visibleRect.top));
     
     //medal_top_panel
     auto medal_data_bk = Sprite::createWithSpriteFrameName("bt_mission_3.png");
@@ -135,9 +135,9 @@ bool Medal::init()
                               });
     
     auto call2 = CallFunc::create([=](){
-        listView->scrollToTop(0.6f, true);
+        listView->scrollToTop(0.4f, true);
     });
-    runAction(Sequence::create(call1, DelayTime::create(0.2f), call2, NULL));
+    runAction(Sequence::create(call1, call2, NULL));
     
     
     //closebtn

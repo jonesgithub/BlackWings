@@ -84,4 +84,7 @@
     <!-- buygem -->
     <key>getmoregem</key>
     <string>获得更多</string>
+    
+    <key>overbuy</key>
+    <string>亲，购买数量已经超出携带了。升级武器等级可以提高携带数量!</string>
 </dict>

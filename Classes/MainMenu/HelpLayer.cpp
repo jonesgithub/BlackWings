@@ -64,6 +64,8 @@ bool HelpLayer::init()
         menu->setPosition(Point::ZERO);
         this->addChild(menu);
 
+        tableView->setContentOffset(Point(tableView->getContentOffset().x,0));
+        tableView->setContentOffsetInDuration(tableView->getContentOffset() - Point(0,_cellSize.height*7+30),0.4f);
         return true;
     }
 

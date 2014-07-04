@@ -18,8 +18,10 @@ Battleground* s_battleground = nullptr;
 
 Battleground::Battleground()
 {
-    _maxWaves = 0;
-    _curWaves = 0;
+    _max_spc_Waves = 0;
+    _cur_spc_Waves = 0;
+    _max_loop_Waves = 0;
+    _cur_loop_Waves = 0;
     _isGameOver = false;
     _readytouseWeapon = false;
     _touchbegin = Point::ZERO;
@@ -422,8 +424,18 @@ void Battleground::plainFindTarget()
             {
                 player->moveTo(plainTargetPos,attTarget);
             }
-            else if(nearestDistance < player->plainConfig.range * 2)//move
+            
+            if (player->state == FighterState::MOVE) {
+                if(player->getAttTarget() != attTarget)
+                {
+                    player->stop();
+                    player->moveTo(plainTargetPos,attTarget);
+                }
+            }
+            
+            if(nearestDistance < player->plainConfig.range * 2)//move
             {
+                player->stop();
                 player->attackLocations(plainTargetPos,attTarget);
             }
             
@@ -1063,9 +1075,14 @@ void Battleground::showPotInRadar()
 
 void Battleground::initNormalEnemy()
 {
-    _maxWaves = s_battleNormalEnemyInfo[_battledata.stage].waves;
-    _curWaves = 0;
-    this->scheduleOnce(schedule_selector(Battleground::dispatchEnemys_1),(*(s_battleNormalEnemyInfo[_battledata.stage]._bnec+_curWaves)).duration);
+    _max_spc_Waves = s_battleNormalEnemyInfo[_battledata.stage].waves_spc;
+    _max_loop_Waves = s_battleNormalEnemyInfo[_battledata.stage].waves_loop;
+    _cur_spc_Waves = _cur_loop_Waves = 0;
+    if (_max_spc_Waves) {
+        this->scheduleOnce(schedule_selector(Battleground::dispatchEnemys_spc_1),(*(s_battleNormalEnemyInfo[_battledata.stage].bnec_spc +_cur_spc_Waves)).duration);
+    }
+    else
+        this->scheduleOnce(schedule_selector(Battleground::dispatchEnemys_loop_1),(*(s_battleNormalEnemyInfo[_battledata.stage].bnec_loop+_cur_loop_Waves)).duration);
 }
 
 void Battleground::initTowerEnemy()
@@ -1092,7 +1109,7 @@ void Battleground::initBossEnemy()
 {
     if(s_battleBossEnemyInfo[_battledata.stage].duration!=0)
     {
-        this->schedule(schedule_selector(Battleground::dispatchBoss), s_battleBossEnemyInfo[_battledata.stage].duration);
+        this->scheduleOnce(schedule_selector(Battleground::dispatchBoss), s_battleBossEnemyInfo[_battledata.stage].duration);
     }
 }
 
@@ -1118,12 +1135,21 @@ void Battleground::dispatchBoss(float dt)
     s_boss.push_back(boss);
 }
 
-void Battleground::dispatchEnemys_1(float dt)
+void Battleground::dispatchEnemys_spc_1(float dt)
 {
-    for(int i=0; i<(*(s_battleNormalEnemyInfo[_battledata.stage]._bnec+_curWaves)).count; ++i)
+    int random_delta = (*(s_battleNormalEnemyInfo[_battledata.stage].bnec_spc+_cur_spc_Waves)).count_upper - (*(s_battleNormalEnemyInfo[_battledata.stage].bnec_spc+_cur_spc_Waves)).count_lower;
+    random_delta = random_delta >= 0 ? random_delta : 0;
+    srand((unsigned)time(NULL));
+    srand(rand());
+    int thiswaveenemycount = 0;
+    if(random_delta)
+        thiswaveenemycount = (*(s_battleNormalEnemyInfo[_battledata.stage].bnec_spc+_cur_spc_Waves)).count_lower + rand()%random_delta;
+    else
+        thiswaveenemycount = (*(s_battleNormalEnemyInfo[_battledata.stage].bnec_spc+_cur_spc_Waves)).count_lower;
+    for(int i=0; i<thiswaveenemycount; ++i)
     {
-        int type = (*(s_battleNormalEnemyInfo[_battledata.stage]._bnec+_curWaves)).type;
-        int level = (*(s_battleNormalEnemyInfo[_battledata.stage]._bnec+_curWaves)).level;
+        int type = (*(s_battleNormalEnemyInfo[_battledata.stage].bnec_spc+_cur_spc_Waves)).type;
+        int level = (*(s_battleNormalEnemyInfo[_battledata.stage].bnec_spc+_cur_spc_Waves)).level;
         
         auto enemy = Fighter::createEnemy(type,level);
         enemy->setPosition(Point(s_visibleRect.visibleOriginX + 100 + rand()%440,
@@ -1136,18 +1162,31 @@ void Battleground::dispatchEnemys_1(float dt)
         s_enemys.push_back(enemy);
     }
 
-    _curWaves = ++_curWaves%_maxWaves;
-    this->unschedule(schedule_selector(Battleground::dispatchEnemys_1));
-    this->schedule(schedule_selector(Battleground::dispatchEnemys_2),(*(s_battleNormalEnemyInfo[_battledata.stage]._bnec+_curWaves)).duration);
+    _cur_spc_Waves++;
+    this->unschedule(schedule_selector(Battleground::dispatchEnemys_spc_1));
+    if (_cur_spc_Waves>= _max_spc_Waves) {
+        this->scheduleOnce(schedule_selector(Battleground::dispatchEnemys_loop_1),(*(s_battleNormalEnemyInfo[_battledata.stage].bnec_loop+_cur_loop_Waves)).duration);
+    }
+    else
+        this->schedule(schedule_selector(Battleground::dispatchEnemys_spc_2),(*(s_battleNormalEnemyInfo[_battledata.stage].bnec_spc+_cur_spc_Waves)).duration);
 
 }
 
-void Battleground::dispatchEnemys_2(float dt)
+void Battleground::dispatchEnemys_spc_2(float dt)
 {
-    for(int i=0; i<(*(s_battleNormalEnemyInfo[_battledata.stage]._bnec+_curWaves)).count; ++i)
+    int random_delta = (*(s_battleNormalEnemyInfo[_battledata.stage].bnec_spc+_cur_spc_Waves)).count_upper - (*(s_battleNormalEnemyInfo[_battledata.stage].bnec_spc+_cur_spc_Waves)).count_lower;
+    random_delta = random_delta >= 0 ? random_delta : 0;
+    srand((unsigned)time(NULL));
+    srand(rand());
+    int thiswaveenemycount = 0;
+    if(random_delta)
+        thiswaveenemycount = (*(s_battleNormalEnemyInfo[_battledata.stage].bnec_spc+_cur_spc_Waves)).count_lower + rand()%random_delta;
+    else
+        thiswaveenemycount = (*(s_battleNormalEnemyInfo[_battledata.stage].bnec_spc+_cur_spc_Waves)).count_lower;
+    for(int i=0; i<thiswaveenemycount; ++i)
     {
-        int type = (*(s_battleNormalEnemyInfo[_battledata.stage]._bnec+_curWaves)).type;
-        int level = (*(s_battleNormalEnemyInfo[_battledata.stage]._bnec+_curWaves)).level;
+        int type = (*(s_battleNormalEnemyInfo[_battledata.stage].bnec_spc+_cur_spc_Waves)).type;
+        int level = (*(s_battleNormalEnemyInfo[_battledata.stage].bnec_spc+_cur_spc_Waves)).level;
         
         auto enemy = Fighter::createEnemy(type,level);
         enemy->setPosition(Point(s_visibleRect.visibleOriginX + 100 + rand()%440,
@@ -1160,10 +1199,76 @@ void Battleground::dispatchEnemys_2(float dt)
         s_enemys.push_back(enemy);
     }
     
-    _curWaves = ++_curWaves%_maxWaves;
-    this->unschedule(schedule_selector(Battleground::dispatchEnemys_2));
-    this->schedule(schedule_selector(Battleground::dispatchEnemys_1),(*(s_battleNormalEnemyInfo[_battledata.stage]._bnec+_curWaves)).duration);
+    _cur_spc_Waves++;
+    this->unschedule(schedule_selector(Battleground::dispatchEnemys_spc_2));
+    if (_cur_spc_Waves>= _max_spc_Waves) {
+        this->scheduleOnce(schedule_selector(Battleground::dispatchEnemys_loop_1),(*(s_battleNormalEnemyInfo[_battledata.stage].bnec_loop+_cur_loop_Waves)).duration);
+    }
+    else
+        this->schedule(schedule_selector(Battleground::dispatchEnemys_spc_1),(*(s_battleNormalEnemyInfo[_battledata.stage].bnec_spc+_cur_spc_Waves)).duration);
+}
+
+void Battleground::dispatchEnemys_loop_1(float dt)
+{
+    int random_delta = (*(s_battleNormalEnemyInfo[_battledata.stage].bnec_loop+_cur_loop_Waves)).count_upper - (*(s_battleNormalEnemyInfo[_battledata.stage].bnec_loop+_cur_loop_Waves)).count_lower;
+    random_delta = random_delta >= 0 ? random_delta : 0;
+    srand((unsigned)time(NULL));
+    srand(rand());
+    int thiswaveenemycount = 0;
+    if(random_delta)
+        thiswaveenemycount = (*(s_battleNormalEnemyInfo[_battledata.stage].bnec_loop+_cur_loop_Waves)).count_lower + rand()%random_delta;
+    else
+        thiswaveenemycount = (*(s_battleNormalEnemyInfo[_battledata.stage].bnec_loop+_cur_loop_Waves)).count_lower;
+    for(int i=0; i<thiswaveenemycount; ++i)
+    {
+        int type = (*(s_battleNormalEnemyInfo[_battledata.stage].bnec_loop+_cur_loop_Waves)).type;
+        int level = (*(s_battleNormalEnemyInfo[_battledata.stage].bnec_loop+_cur_loop_Waves)).level;
+        
+        auto enemy = Fighter::createEnemy(type,level);
+        enemy->setPosition(Point(s_visibleRect.visibleOriginX + 100 + rand()%440,
+                                 s_visibleRect.visibleOriginY + _battlegroundHeight));
+        _battleParallaxNode->addChild(enemy);
+        
+        enemy->potInRadar->setPosition(Point(-100,-100));
+        this->addChild(enemy->potInRadar,88);
+        
+        s_enemys.push_back(enemy);
+    }
     
+    _cur_loop_Waves = ++_cur_loop_Waves%_max_loop_Waves;
+    this->unschedule(schedule_selector(Battleground::dispatchEnemys_loop_1));
+    this->schedule(schedule_selector(Battleground::dispatchEnemys_loop_2),(*(s_battleNormalEnemyInfo[_battledata.stage].bnec_loop+_cur_loop_Waves)).duration);
+}
+
+void Battleground::dispatchEnemys_loop_2(float dt)
+{
+    int random_delta = (*(s_battleNormalEnemyInfo[_battledata.stage].bnec_loop+_cur_loop_Waves)).count_upper - (*(s_battleNormalEnemyInfo[_battledata.stage].bnec_loop+_cur_loop_Waves)).count_lower;
+    random_delta = random_delta >= 0 ? random_delta : 0;
+    srand((unsigned)time(NULL));
+    srand(rand());
+    int thiswaveenemycount = 0;
+    if(random_delta)
+        thiswaveenemycount = (*(s_battleNormalEnemyInfo[_battledata.stage].bnec_loop+_cur_loop_Waves)).count_lower + rand()%random_delta;
+    else
+        thiswaveenemycount = (*(s_battleNormalEnemyInfo[_battledata.stage].bnec_loop+_cur_loop_Waves)).count_lower;    for(int i=0; i<thiswaveenemycount; ++i)
+    {
+        int type = (*(s_battleNormalEnemyInfo[_battledata.stage].bnec_loop+_cur_loop_Waves)).type;
+        int level = (*(s_battleNormalEnemyInfo[_battledata.stage].bnec_loop+_cur_loop_Waves)).level;
+        
+        auto enemy = Fighter::createEnemy(type,level);
+        enemy->setPosition(Point(s_visibleRect.visibleOriginX + 100 + rand()%440,
+                                 s_visibleRect.visibleOriginY + _battlegroundHeight));
+        _battleParallaxNode->addChild(enemy);
+        
+        enemy->potInRadar->setPosition(Point(-100,-100));
+        this->addChild(enemy->potInRadar,88);
+        
+        s_enemys.push_back(enemy);
+    }
+    
+    _cur_loop_Waves = ++_cur_loop_Waves%_max_loop_Waves;
+    this->unschedule(schedule_selector(Battleground::dispatchEnemys_loop_2));
+    this->schedule(schedule_selector(Battleground::dispatchEnemys_loop_1),(*(s_battleNormalEnemyInfo[_battledata.stage].bnec_loop+_cur_loop_Waves)).duration);
 }
 
 void Battleground::win()
@@ -1197,7 +1302,7 @@ void Battleground::win()
         }
         
         //设置通过关数
-        s_playerConfig.overstage = s_playerConfig.overstage <= _battledata.stage ? _battledata.stage : s_playerConfig.overstage;
+        s_playerConfig.overstage = s_playerConfig.overstage <= _battledata.stage ? (_battledata.stage+1) : s_playerConfig.overstage;
         //checkmedal
         
         //设置首杀
@@ -1337,7 +1442,7 @@ void Battleground::showStoneAndGem(Point pos, int stoneCount, int gemCount, int 
         
         std::string strStonetext = "+ " + Value(stone).asString();
         auto stone_text = Label::createWithTTF(strStonetext,fontFile, fontSize);
-        stone_text->setColor(infoColor);
+        stone_text->setColor(Color3B::WHITE);
         stone_text->setAnchorPoint(Point::ANCHOR_MIDDLE);
         stone_text->setPosition(Point(stone_text_bk->getContentSize().width/2,stone_text_bk->getContentSize().height/2));
         stone_text_bk->addChild(stone_text);
@@ -1352,7 +1457,7 @@ void Battleground::showStoneAndGem(Point pos, int stoneCount, int gemCount, int 
         
         std::string strGemtext = "+ " + Value(gem).asString();
         auto gem_text = Label::createWithTTF(strGemtext, fontFile, fontSize);
-        gem_text->setColor(infoColor);
+        gem_text->setColor(Color3B::YELLOW);
         gem_text->setAnchorPoint(Point::ANCHOR_MIDDLE);
         gem_text->setPosition(Point(gem_text_bk->getContentSize().width/2,gem_text_bk->getContentSize().height/2));
         gem_text_bk->addChild(gem_text);

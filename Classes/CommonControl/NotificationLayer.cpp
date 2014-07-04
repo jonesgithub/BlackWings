@@ -60,7 +60,13 @@ bool NotificationLayer::init(const std::string& notificationMsg,const Size& size
             Size(panelSize.width * 0.8f,panelSize.height * 0.3f));
         notificationText->setPosition(panelSize.width * 0.5f,panelSize.height * 0.75f);
         panel->addChild(notificationText);
-
+        
+        panel->setScale(0.1f);
+        panel->runAction(Sequence::create(ScaleTo::create(0.1f, 1.1f),
+                                          ScaleTo::create(0.05f, 0.9f),
+                                          ScaleTo::create(0.05f, 1.0f),
+                                          nullptr));
+        
         return true;
     }
 

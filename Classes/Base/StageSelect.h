@@ -48,4 +48,5 @@ private:
     TableView* tableView;
     
     RotateBall* rotateBall;
+    int fake_overstage;//为了防止关卡超50溢出
 };

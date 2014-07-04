@@ -29,6 +29,10 @@ public:
     void moveTo(Point& pos,Player* target);
 
     void attackLocations(Point& pos,Player* target);
+    
+    void stop();
+    
+    Player* getAttTarget(){return _attTarget;};
 
     void hurt(int ATK);
 
