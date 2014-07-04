@@ -424,8 +424,18 @@ void Battleground::plainFindTarget()
             {
                 player->moveTo(plainTargetPos,attTarget);
             }
-            else if(nearestDistance < player->plainConfig.range * 2)//move
+            
+            if (player->state == FighterState::MOVE) {
+                if(player->getAttTarget() != attTarget)
+                {
+                    player->stop();
+                    player->moveTo(plainTargetPos,attTarget);
+                }
+            }
+            
+            if(nearestDistance < player->plainConfig.range * 2)//move
             {
+                player->stop();
                 player->attackLocations(plainTargetPos,attTarget);
             }
             

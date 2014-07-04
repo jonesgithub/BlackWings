@@ -70,7 +70,6 @@
 //base
 #define DIY_COLOR_YELLOW4 Color3B(217, 198, 149)
 #define DIY_COLOR_BLUE3 Color4B(100, 255, 255, 255)
-#define DIY_COLOR_BLUE5
 //升级
 #define DIY_COLOR_YELLOW5 Color3B(220, 200, 150)
 //button

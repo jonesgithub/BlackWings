@@ -214,27 +214,34 @@ void Fighter::moveTo(Point& pos,Player* target)
     auto dis = sqrtf(dx*dx + dy*dy);
     
     auto targetdelta = atanf((_position.x-_attTargetPos.x)/(_position.y-_attTargetPos.y))*180/PI;
+    auto delta_angle = targetdelta - getChildByTag(1)->getRotation();
+    
     if(_attacker != Attacker::PLAIN)
+    {
         targetdelta += 180;
+        delta_angle += 180;
+    }
+    delta_angle = delta_angle >0 ? delta_angle: -delta_angle;
+    float rotate_time = delta_angle * 0.03f;
     _isRotating = true;
     
     switch (_attacker) {
         case Attacker::ENEMY:
-            this->runAction(Sequence::create(CallFunc::create([=](){this->getChildByTag(1)->runAction(RotateTo::create(0.6f, targetdelta));}), DelayTime::create(0.6f),MoveTo::create(dis / enemyConfig.speed,pos), CallFunc::create(
+            this->runAction(Sequence::create(CallFunc::create([=](){this->getChildByTag(1)->runAction(RotateTo::create(rotate_time, targetdelta));}), DelayTime::create(rotate_time),MoveTo::create(dis / enemyConfig.speed,pos), CallFunc::create(
                                                                                                            [&](){
                                                                                                                state = FighterState::IDLE;
                                                                                                                _isRotating = false;
                                                                                                            }  ),nullptr));
             break;
         case Attacker::BOSS:
-            this->runAction(Sequence::create(CallFunc::create([=](){this->getChildByTag(1)->runAction(RotateTo::create(0.6f, targetdelta));}), DelayTime::create(0.6f), MoveTo::create(dis / bossConfig.speed,pos), CallFunc::create(
+            this->runAction(Sequence::create(CallFunc::create([=](){this->getChildByTag(1)->runAction(RotateTo::create(rotate_time, targetdelta));}), DelayTime::create(rotate_time), MoveTo::create(dis / bossConfig.speed,pos), CallFunc::create(
                                                                                                            [&](){
                                                                                                                state = FighterState::IDLE;
                                                                                                                _isRotating = false;
                                                                                                            }  ),nullptr));
             break;
         case Attacker::PLAIN:
-            this->runAction(Sequence::create(CallFunc::create([=](){this->getChildByTag(1)->runAction(RotateTo::create(0.6f, targetdelta));}), DelayTime::create(0.6f), MoveTo::create(dis / plainConfig.speed,pos), CallFunc::create(
+            this->runAction(Sequence::create(CallFunc::create([=](){this->getChildByTag(1)->runAction(RotateTo::create(rotate_time, targetdelta));}), DelayTime::create(rotate_time), MoveTo::create(dis / plainConfig.speed,pos), CallFunc::create(
                                                                                                            [&](){
                                                                                                                state = FighterState::IDLE;
                                                                                                                _isRotating = false;
@@ -258,10 +265,17 @@ void Fighter::attackLocations(Point& pos,Player* target)
     if(_attacker != Attacker::TOWER)
     {
         auto targetdelta = atanf((_position.x-_attTargetPos.x)/(_position.y-_attTargetPos.y))*180/PI;
+        auto delta_angle = targetdelta - getChildByTag(1)->getRotation();
+
         if(_attacker != Attacker::PLAIN)
+        {
             targetdelta += 180;
+            delta_angle += 180;
+        }
+        delta_angle = delta_angle >0 ? delta_angle: -delta_angle;
+        float rotate_time = delta_angle * 0.03f;
         _isRotating = true;
-        this->getChildByTag(1)->runAction(Sequence::create(RotateTo::create(0.6f, targetdelta),
+        this->getChildByTag(1)->runAction(Sequence::create(RotateTo::create(rotate_time, targetdelta),
                                                            CallFunc::create([=]()
                                                                             {
                                                                                 _isRotating = false;
@@ -273,7 +287,9 @@ void Fighter::attackLocations(Point& pos,Player* target)
     }
     else //守卫塔需要先将炮头转过来再射击，时间要重新算
     {
-        auto targetdelta = atanf((_position.x-_attTargetPos.x)/(_position.y-_attTargetPos.y))*180/PI+180;
+        auto targetdelta = atanf((_position.x-_attTargetPos.x)/(_position.y-_attTargetPos.y))*180/PI;
+        log("gun's rotation is %f",gun->getRotation());
+        log("gun's target is %f",targetdelta);
         gun->runAction(Sequence::create(RotateTo::create(0.3f, targetdelta),
                                         CallFunc::create([=]()
                                                          {
@@ -284,6 +300,13 @@ void Fighter::attackLocations(Point& pos,Player* target)
                                         nullptr));
     }
     
+}
+
+void Fighter::stop()
+{
+    this->unscheduleAllSelectors();
+    this->stopAllActions();
+    state = FighterState::IDLE;
 }
 
 //开火允许_attTarget为nullptr
