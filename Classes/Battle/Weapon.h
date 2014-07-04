@@ -35,5 +35,8 @@ public:
     cocos2d::Point _pos;
     WeaponConfig _weaponConfig;
     
+    cocos2d::ParticleSystemQuad* bomb_2_effect;
+    cocos2d::ParticleSystemQuad* bomb_2_effectB;
+    
 };
 #endif /* defined(__BlackWings__Weapon__) */
