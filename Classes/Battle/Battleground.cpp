@@ -640,6 +640,8 @@ void Battleground::laserFindTarget()
     for (int i = 0; i < s_Lasers.size(); ++i) {
         if (s_Lasers[i]->_weaponConfig.duration <= 0) {
             const auto& it = std::find(s_Lasers.begin(),s_Lasers.end(),s_Lasers[i]);
+            s_Lasers[i]->bomb_2_effect->removeFromParent();
+            s_Lasers[i]->bomb_2_effectB->removeFromParent();
             s_Lasers[i]->removeFromParent();
             s_Lasers.erase(it);
         }
@@ -647,7 +649,6 @@ void Battleground::laserFindTarget()
     
     for (auto & laser : s_Lasers) {
         laser->_weaponConfig.duration--;
-        log(".....%d",laser->_weaponConfig.duration);
         
         for (auto enemy : s_enemys)
         {
@@ -1018,7 +1019,8 @@ void Battleground::callbackPlayerDestroy(EventCustom* event)
                 this->showStoneAndGem(pos, 2, 2, get_stone, get_gem);
             }
             //sender->removeFromParentAndCleanup(true);
-        }),nullptr);
+        }),RemoveSelf::create(),
+        nullptr);
         explode->runAction(action);
         explode->setPosition(player->getPosition());
         _battleParallaxNode->addChild(explode); 
@@ -1283,12 +1285,13 @@ void Battleground::win()
         for (auto enemy : s_enemys)
         {
             enemy->stopAllActions();
-            //enemy->unscheduleAllSelectors();
+            enemy->unscheduleAllSelectors();
         }
         
         for (auto boss : s_boss)
         {
             boss->stopAllActions();
+            boss->unscheduleAllSelectors();
         }
         
         for (auto tower : s_towers)
@@ -1299,6 +1302,7 @@ void Battleground::win()
         for (auto player : s_players)
         {
             player->stopAllActions();
+            player->unscheduleAllSelectors();
         }
         
         //设置通过关数
@@ -1358,7 +1362,6 @@ void Battleground::lost()
         for (auto tower : s_towers)
         {
             tower->stopAllActions();
-            tower->unscheduleAllSelectors();
         }
         
         for (auto player : s_players)

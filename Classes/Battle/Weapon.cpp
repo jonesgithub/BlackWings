@@ -146,18 +146,15 @@ void Weapon::createWeapon()
                                                                                                           CallFunc::create([&]()
                                                                       {
                                                                           PLAY_LASER_EFFECT;
-                                                                          auto bomb_2_effect = ParticleSystemQuad::create("bomb_2_effect.plist");
+                                                                          bomb_2_effect = ParticleSystemQuad::create("bomb_2_effect.plist");
                                                                           bomb_2_effect->setPositionType(ParticleSystem::PositionType::GROUPED);
                                                                           bomb_2_effect->setPosition(Point(s_visibleRect.visibleWidth/2,_pos.y));
                                                                           getParent()->addChild(bomb_2_effect);
                                                                           
-                                                                          auto bomb_2_effectB = ParticleSystemQuad::create("bomb_2_effectB.plist");
+                                                                          bomb_2_effectB = ParticleSystemQuad::create("bomb_2_effectB.plist");
                                                                           bomb_2_effectB->setPositionType(ParticleSystem::PositionType::GROUPED);
                                                                           bomb_2_effectB->setPosition(Point(s_visibleRect.visibleWidth/2,_pos.y));
                                                                           getParent()->addChild(bomb_2_effectB);
-                                                                          log("weapon config ....duration is %f",_weaponConfig.duration/10);
-                                                                          bomb_2_effect->runAction(Sequence::create(DelayTime::create(_weaponConfig.duration/60), RemoveSelf::create(), nullptr));
-                                                                          bomb_2_effectB->runAction(Sequence::create(DelayTime::create(_weaponConfig.duration/60), RemoveSelf::create(), nullptr));
                                                                           _eventDispatcher->dispatchCustomEvent(GameConfig::eventLaserHurt,this);
                                                                       }),
                                                                                                           nullptr));
